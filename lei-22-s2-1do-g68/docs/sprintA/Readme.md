@@ -7,4 +7,4 @@ In this folder the team shoud collect and keep up-to-date all the artifacts deve
 
 The artifacts should be developed in accordance with the [template files](../template).
 
-**It is highly recommend to organize the content of each User Story on a dedicated sub-folder (e.g.: content related with US002 is located on a folder named "US001").**
+**It is highly recommend to orgjnujnuanize the content of each User Story on a dedicated sub-folder (e.g.: content related with US002 is located on a folder named "US001").**
