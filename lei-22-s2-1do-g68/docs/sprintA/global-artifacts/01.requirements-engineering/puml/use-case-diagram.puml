@@ -5,29 +5,24 @@
 
 left to right direction
 actor "Unregistered User"
-actor "Registered User"
 actor "Agent"
-actor "Administrator"
+actor "System Administrator"
 actor "Owner"
-actor "Store Manager"
-actor "Employee"
+
 
 top to bottom direction
-rectangle "Use Cases" as usecases{
+rectangle "RealStateUSA" as usecases{
     usecase "Display listed properties"
     usecase "Publish any sale announcement"
     usecase "Register a new employee"
-    usecase "Register a store"
-    usecase "Specify districts, \nmunicipalities, and parishes"
-    usecase  "Submit a request for listing a property"
-
+    usecase "Submit a request for listing a property Sale or Rent"
+    usecase "Select an agent"
 }
     left to right direction
-    "Employee" --> "Publish any sale announcement"
+    "Agent" --> "Publish any sale announcement"
     "Unregistered User" --> "Display listed properties"
-    "Administrator" --> "Register a new employee"
-    "Administrator" --> "Register a store"
-    "Administrator" --> "Specify districts, \nmunicipalities, and parishes"
-    "Owner" --> "Submit a request for listing a property"
-
-@enduml
+    "System Administrator" --> "Register a new employee"
+    "Owner" --> "Submit a request for listing a property Sale or Rent"
+    "Submit a request for listing a property Sale or Rent" --> "Select an agent"
+    "Agent" --> "Select an agent"
+@enduml"
