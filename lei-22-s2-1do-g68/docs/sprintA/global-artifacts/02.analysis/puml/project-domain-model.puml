@@ -7,6 +7,8 @@ skinparam shadowing false
 skinparam classAttributeIconSize 0
 hide circle
 hide methods
+left to right direction
+
 
 'title Domain Model
 
@@ -24,8 +26,6 @@ class RealEstate {
     vatNumber
     logo
 }
-
-
 class RealEstateAgent {
 
 }
@@ -101,6 +101,29 @@ class Order{
 enum TipoOrder{
 tipo
 }
+class StoreNetWork{
+
+}
+class Store{
+}
+class StoreManager{
+}
+class NetWorkManager{
+}
+class Administrator{
+}
+
+
+RealEstate "1"--"1" StoreNetWork
+StoreNetWork "1"--"*" Store
+Store "1"--"1" StoreManager
+StoreNetWork "1"--"1" NetWorkManager
+
+Administrator "1"--"*" User : Create
+
+Administrator --|> User
+StoreManager --|> User
+NetWorkManager --|> User
 RealEstateAgent  --|>  User
 Owner  --|>  User
 Client  --|>  User
