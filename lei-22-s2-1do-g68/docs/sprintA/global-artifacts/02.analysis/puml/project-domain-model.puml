@@ -14,71 +14,107 @@ hide methods
 '  -description
 '}
 
-class Organization {
+class RealEstate {
     name
-    vatNumber
+    address
+    descriptions
     website
     phoneNumber
     email
+    vatNumber
+    logo
 }
 
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
-}
 
-class Category {
-    description
-}
+class RealEstateAgent {
 
-class Employee {
+}
+class Client {
+
+}
+class Owner {
+
+}
+abstract class User {
     name
     email
+    password
     position
-    phone
+}
+abstract class Proprietary {
+    name
+    Tipo
+    address
+    descriptions
+    vender:boolean
+    render:boolean
+}
+class Land{
 }
 
-class TechnicalSkill{
-    shortDescription
-    fullDescription
+class Apartment{
+numberOfRooms
+numberOfBathrooms
+numberOfFloors
+numberOfGarages
+Equipaments
+
+}
+class House{
+numberOfRooms
+    numberOfBathrooms
+    numberOfFloors
+    numberOfGarages
+    Equipaments
+    Basement: boolean
+    inhabited  loft: boolean
+    Sun exposure: boolean
+
+}
+class Advertisement{
+    owner
+    descriptions
+    RealEstateAgent
+    cost
+}
+class Schedule{
+    date
+    time
+    descriptions
+}
+class visit{
+    Client
+    date
+    time
+    descriptions
+    RealEstateAgent
+    ResultOfTheVisit : boolean
+}
+class Order{
+    descriptions
+    client
+    owner
+    Proprietary
+
 }
 
-class ActivityArea{
-    shortDescription
-    fullDescription
+enum TipoOrder{
+tipo
 }
+RealEstateAgent  --|>  User
+Owner  --|>  User
+Client  --|>  User
+RealEstate "1"--" 0..*" User : has
+House  --|>  Proprietary
+Apartment  --|>  Proprietary
+RealEstate "1"--"0..*" Proprietary : has
+Land  --|>  Proprietary
+Owner "1"--"0..*"Advertisement : has or Request
+RealEstateAgent "1"--"0..*"Advertisement : Publishes
+Client "1"--"1"visit : request
+RealEstateAgent "1"--"1"visit : attends
+RealEstateAgent "1"--"0..*"Schedule : has
+Order "0..*"--"1" TipoOrder : has
 
-class FeatureTS{
-    mandatory
-}
-
-'class User {
-'    name
-'    email
-'    password
-'}
-class PostalAddress{
-    street
-    zipCode
-    city
-}
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
-TechnicalSkill "*" - "1" ActivityArea: regarding an >
-
-Category "*" - "*" TechnicalSkill :  : requires >
-(Category, TechnicalSkill) . FeatureTS
-
-Organization "1" -left "1" PostalAddress : located At >
 
 @enduml
