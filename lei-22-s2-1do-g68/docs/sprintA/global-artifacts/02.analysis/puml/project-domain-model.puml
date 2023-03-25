@@ -108,7 +108,10 @@ address
 }
 class Store{
 name
-address
+vatNumber
+website
+phoneNumber
+email
 NumberOfBranche
 }
 class StoreManager{

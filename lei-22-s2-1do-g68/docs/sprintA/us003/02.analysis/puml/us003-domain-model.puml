@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+class Store {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+'is a RealStateAgent
+class Employee {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    Store
+}
+
+class Category {
+    description
+}
+
+class SystemAdministrator {
+    name
+    email
+    position
+    phone
+}
+
+'class User {
+'    name
+'    email
+'    password
+'}
+
+'Platform "1" -- "*" Store : has registered >
+'Platform "1" -- "*" Category : defines >
+Store "1" - "0..*" SystemAdministrator : has >
+Store "1" - "0..*" Employee: owns >
+'Employee "*" -- "1" SystemAdministrator: created by >
+SystemAdministrator "1" -- "*" Employee : creates >
+'SystemAdministrator "0..1" -- "1" User: acts as >
+Employee "*" - "1" Category: cataloged as >
+@enduml
