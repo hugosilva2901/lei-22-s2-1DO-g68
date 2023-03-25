@@ -29,11 +29,12 @@ class RealEstate {
 class RealEstateAgent {
 
 }
+
 class Client {
 
 }
 class Owner {
-
+ Proprietary
 }
 abstract class User {
     name
@@ -95,49 +96,72 @@ class Order{
     client
     owner
     Proprietary
-
+    RealEstateAgent
 }
 
 enum TipoOrder{
 tipo
 }
 class StoreNetWork{
-
+name
+address
 }
 class Store{
+name
+address
+NumberOfBranche
 }
 class StoreManager{
+
 }
 class NetWorkManager{
 }
+class StorePerformance{
+descriptions
+date
+NetWorkManager
+Store
+}
 class Administrator{
 }
-
+class EmployeesPerformance{
+descriptions
+date
+RealEstateAgent
+StoreManager
+}
 
 RealEstate "1"--"1" StoreNetWork
-StoreNetWork "1"--"*" Store
-Store "1"--"1" StoreManager
+StoreNetWork "1"--"*" Store : has
+Store "1"--"1" StoreManager :has
 StoreNetWork "1"--"1" NetWorkManager
 
 Administrator "1"--"*" User : Create
 
-Administrator --|> User
-StoreManager --|> User
-NetWorkManager --|> User
-RealEstateAgent  --|>  User
-Owner  --|>  User
-Client  --|>  User
+Administrator --|> User : is
+StoreManager --|> User : is
+NetWorkManager --|> User : is
+RealEstateAgent  --|>  User : is
+Owner  --|>  User : is
+Client  --|>  User : is
 RealEstate "1"--" 0..*" User : has
-House  --|>  Proprietary
-Apartment  --|>  Proprietary
+House  --|>  Proprietary : is
+Apartment  --|>  Proprietary : is
 RealEstate "1"--"0..*" Proprietary : has
-Land  --|>  Proprietary
+Land  --|>  Proprietary : is
 Owner "1"--"0..*"Advertisement : has or Request
 RealEstateAgent "1"--"0..*"Advertisement : Publishes
 Client "1"--"1"visit : request
 RealEstateAgent "1"--"1"visit : attends
 RealEstateAgent "1"--"0..*"Schedule : has
 Order "0..*"--"1" TipoOrder : has
-
-
+Store "1"--"0..*" RealEstateAgent : has
+Client "1"--"0..*" Order : Request
+Order "0..*"--"1" RealEstateAgent : Accepts or rejects
+StoreManager "1"--"0..*" EmployeesPerformance : Makes
+EmployeesPerformance "0..*"--"1" RealEstateAgent : has
+RealEstate "1"--"1" Administrator : has
+Owner "1"--"1..*" Proprietary : has
+NetWorkManager "1"--"0..*" StorePerformance : Makes
+StorePerformance "0..*"--"1" Store : has
 @enduml
