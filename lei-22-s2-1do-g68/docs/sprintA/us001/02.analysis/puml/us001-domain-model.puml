@@ -1,0 +1,20 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+top to bottom direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class UnregisteredUser {}
+'is a user that has not yet registered
+class RealState{}
+class Property{}
+
+RealState "1" - "1..*" Property: has
+UnregisteredUser "1" - "*" Property: views
+@enduml
