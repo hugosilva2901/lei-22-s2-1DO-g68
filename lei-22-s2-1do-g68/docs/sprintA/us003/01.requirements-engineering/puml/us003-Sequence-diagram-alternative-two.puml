@@ -28,7 +28,7 @@ activate Employee
 
         System --> Employee : requests data
     deactivate System
-    
+
         Employee -> System : types requested data (name, descriptions, tax number,address, email address, phone number)
     activate System
 

@@ -15,48 +15,40 @@ hide methods
 'class Platform {
 '  -description
 '}
-
-class Store {
-    name
-    vatNumber
-    website
-    phoneNumber
-    email
+class Store{
+name
+vatNumber
+website
+phoneNumber
+email
+NumberOfBranches
+LocalManager
 }
 'is a RealStateAgent
 class Employee {
+
+}
+class Role {
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
+}
+
+abstract class user{
     name
     descriptions
     tax number
     address
     email address
     phone number
-    Store
+    password
 }
 
-class Category {
-    description
+class Administrator {
 }
-
-class SystemAdministrator {
-    name
-    email
-    position
-    phone
-}
-
-'class User {
-'    name
-'    email
-'    password
-'}
-
-'Platform "1" -- "*" Store : has registered >
-'Platform "1" -- "*" Category : defines >
-Store "1" - "0..*" SystemAdministrator : has >
-Store "1" - "0..*" Employee: owns >
-'Employee "*" -- "1" SystemAdministrator: created by >
-SystemAdministrator "1" -- "*" Employee : creates >
-'SystemAdministrator "0..1" -- "1" User: acts as >
-Employee "*" - "1" Category: cataloged as >
+Administrator --|> user : is
+Employee --|> user : is
+Store "1" - "0..*" Administrator : has >
+Store "1" - "0..*" Employee: has >
+Administrator "1" -- "*" Employee : creates >
+Employee "1" - "1" Role: as >
 @enduml

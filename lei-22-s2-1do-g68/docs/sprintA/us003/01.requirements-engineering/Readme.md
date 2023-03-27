@@ -74,7 +74,7 @@ The company's systems administrator will be responsible for registering all empl
 
 #### Alternative One
 
-![System Sequence Diagram (svg/us003-system-sequence-diagram.svg)
+![Sequence Diagram- Alternative One](puml/us003-Sequence-diagram-alternative-one.puml)
 
 
 ### 1.7 Other Relevant Remarks
