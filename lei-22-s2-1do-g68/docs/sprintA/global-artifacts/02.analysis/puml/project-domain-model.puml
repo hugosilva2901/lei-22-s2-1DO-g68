@@ -26,9 +26,6 @@ class RealEstate {
     vatNumber
     logo
 }
-class RealEstateAgent {
-
-}
 
 class Client {
 
@@ -38,9 +35,12 @@ class Owner {
 }
 abstract class User {
     name
-    email
+    descriptions
+    tax number
+    address
+    email address
+    phone number
     password
-    position
 }
 abstract class Proprietary {
     name
@@ -114,9 +114,7 @@ phoneNumber
 email
 NumberOfBranches
 LocalManager}
-class StoreManager{
 
-}
 class NetWorkManager{
 }
 class StorePerformance{
@@ -134,6 +132,7 @@ RealEstateAgent
 StoreManager
 }
 class Employee{
+
 }
 enum Roles{
     ROLE_STORE_MANAGER

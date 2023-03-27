@@ -11,25 +11,31 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to register a new employee
+        Employee -> System : asks to register a new employee
     activate System
 
         System --> Employee : requests data
     deactivate System
 
-    Employee -> System : types requested data (name, descriptions, tax number,address, email address, phone number)
+        Employee -> System : types requested data (name, descriptions, tax number,address, email address, phone number)
     activate System
 
         System --> Employee : shows list of stores and asks to select one
     deactivate System
 
-    Employee -> System : selects a store
+        Employee -> System : selects a store
     activate System
+
+    System --> Employee : shows list of roles and asks to select one
+        deactivate System
+
+            Employee -> System : selects a roles
+        activate System
 
         System --> Employee : shows new employee data
     deactivate System
 
-    Employee -> System : submits employee registration
+        Employee -> System : submits employee registration
     activate System
 
         System --> Employee : displays operation success

@@ -31,11 +31,10 @@ The company's systems administrator will be responsible for registering all empl
 
 ### 1.3. Acceptance Criteria
 
-
-* **AC1:** All required fiels must be filled in.
-* **AC2:** Task reference must have at least 5 alphanumeric chars.
+* **AC1:** All required fields must be filled in.
+* **AC2:** If the store already has a Store Manager, the only role that can be assigned to a new employee is "ROLE_REAL_ESTATE_AGENT".
 * **AC3:** When creating a task with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
-
+* **AC4:** The personal Information must correspond.
 
 ### 1.4. Found out Dependencies
 
@@ -49,20 +48,24 @@ The company's systems administrator will be responsible for registering all empl
 **Input Data:**
 
 * Typed data:
-	* a reference, 
-	* a designation, 
-	* an informal description
-	* a technical description
-	* an estimated duration
-	* an estimated cost
+    * name
+    * descriptions
+    * tax number
+    * address
+    * email address
+    * phone number
+    * password
 	
 * Selected data:
-	* Classifying task category 
+	* Role of the employee
+    * Branch of the network
 
 
 **Output Data:**
 +
-* List of existing task categories
+* List of existing employees
+* List of existing branches
+* List of existing roles
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
