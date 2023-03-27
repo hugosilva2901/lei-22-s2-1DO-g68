@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+actor "RealStateAgent" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : Access system and initiate property registration
+    activate System
+
+        System --> User : Displays a form for the agent to fill in the relevant information about the property
+    deactivate System
+
+    User -> System : Fills out the form with the relevant information about the property and submit
+        activate System
+
+    System -> System: Verify property information
+    alt Information is complete and correct
+        System -> System: Save new property
+        System -> User: Display confirmation message
+    else Information is missing or incorrect
+        System -> User: Display error message
+    end
+
+
+@enduml
