@@ -1,13 +1,10 @@
-# US 006 - To create a Task 
+# US 005 - To register a Store 
 
 ## 1. Requirements Engineering
 
-
 ### 1.1. User Story Description
 
-
-As an organization employee, I want to create a new task in order to be further published.
-
+As a system administrator, I want to register a store.
 
 
 ### 1.2. Customer Specifications and Clarifications 
@@ -15,38 +12,36 @@ As an organization employee, I want to create a new task in order to be further 
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost as well as the its classifying task category. 
-
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
-
+>	Each store in the network has a store manager and the set of stores is managed by a store network
+manager.
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Does a store designation have to be detailed?
 >  
-> **Answer:** Duration is estimated in days.
+> **Answer:** The ID is an integer number. An example of the store location is: 71 ST. NICHOLAS DRIVE, NORTH POLE, FAIRBANKS NORTH STAR, AK, 99705. An example phone number is (907) 488-6419.
 
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** When a System Administrator (admin) makes a request to register a new employee or a new network branch (or any other alteration), does the System ask for the admin credentials (login, password)?
 >  
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
+> **Answer:** The System Administrator should be logged in the application.
+
+> **Question:** To register an employee I need to allocate him with a branch. To register a branch I need an employee (to be local manger) but I can't create the employee because I have no branch and I can’t create the branch because I have no employee.
+>
+> **Answer:**  Thank you for identifying this issue. We already updated the project description. When a store is created in the system, the System Administrator should not set the Store Manager.
+When registering a store, the System Administrator should introduce the following information: an ID, a designation/name, a location, a phone number and an e-mail address.
+
 
 
 ### 1.3. Acceptance Criteria
 
 
 * **AC1:** All required fiels must be filled in.
-* **AC2:** Task reference must have at least 5 alphanumeric chars.
-* **AC3:** When creating a task with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
-
-
+* **AC2:** Id is an integer number.
+* 
 ### 1.4. Found out Dependencies
 
-
-* There is a dependency to "US003 Create a task category" since at least a task category must exist to classify the task being created.
-
+* No Dependency Found
 
 ### 1.5 Input and Output Data
 
@@ -54,34 +49,20 @@ As an organization employee, I want to create a new task in order to be further 
 **Input Data:**
 
 * Typed data:
-	* a reference, 
-	* a designation, 
-	* an informal description
-	* a technical description
-	* an estimated duration
-	* an estimated cost
-	
-* Selected data:
-	* Classifying task category 
-
+	* an ID, 
+	* a designation/name
+	* a location
+	* a phone number
+	* an e-mail address
 
 **Output Data:**
 
-* List of existing task categories
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Other alternatives might exist.**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram](docs/sprintA/us005/01.requirements-engineering/svg/us005-SystemSequenceDiagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* The created Store can be assigned to a employee(Store manager).

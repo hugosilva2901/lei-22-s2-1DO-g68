@@ -18,11 +18,19 @@ activate Employee
         System --> Employee : requests data
     deactivate System
 
-    Employee -> System : types requested data (Name,Address,Description)
+    Employee -> System : types requested data (ID, designation/name, \n location,  phone number, e-mail address.)
 
     activate System
 
-    System --> Employee : displays operation success
-    deactivate System
+
+
+         System --> Employee : shows typed information and ask for confirmation
+        deactivate System
+
+        Employee -> System : confirms and submits data
+        activate System
+
+            System --> Employee : displays operation success
+        deactivate System
 
 @enduml
