@@ -31,14 +31,21 @@ manager.
 > **Answer:**  Thank you for identifying this issue. We already updated the project description. When a store is created in the system, the System Administrator should not set the Store Manager.
 When registering a store, the System Administrator should introduce the following information: an ID, a designation/name, a location, a phone number and an e-mail address.
 
+> **Question:** Could you please share how will the designation of new stores be made, is there a pattern perhaps?
+> 
+> **Answer:**  There is no pattern. The System Administrator can introduce any designation/name. The designation/name should have at most forty characters.
 
+> **Question:** Will the System Administrator be able to choose a location from a list of available locations (defined elsewhere in the application) or will he be able to submit any location he wants?
+>
+> **Answer:**  The System Administrator can submit any location.
 
 ### 1.3. Acceptance Criteria
 
 
 * **AC1:** All required fiels must be filled in.
 * **AC2:** Id is an integer number.
-* 
+* **AC3:** The designation/name should have at most forty characters.
+
 ### 1.4. Found out Dependencies
 
 * No Dependency Found
@@ -61,7 +68,7 @@ When registering a store, the System Administrator should introduce the followin
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](docs/sprintA/us005/01.requirements-engineering/svg/us005-SystemSequenceDiagram.svg)
+![System Sequence Diagram - Alternative One](svg/us005-SystemSequenceDiagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

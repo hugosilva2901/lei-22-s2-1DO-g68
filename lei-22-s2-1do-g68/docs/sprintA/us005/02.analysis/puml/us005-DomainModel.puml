@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+
+hide circle
+hide methods
+
+class RealEstate{
+
+}
+abstract class User{
+   - name
+   - descriptions
+  -  tax number
+  -  address
+  -  email address
+  -  phone number
+  -  password
+}
+class StoreNetwork{
+}
+
+class Store {
+    - id : int
+    - designation
+    - location
+    - phone
+    - email
+}
+class Administrator{
+}
+
+class Employee {
+}
+enum Role{
+    + ROLE_STORE_MANAGER
+}
+StoreNetwork "1"--"*" Store : has
+Store "1"--"0..1" Employee : has  >
+Employee "1"--"1" Role : is >
+Employee --|> User : is >
+
+RealEstate "1"--"1" Administrator:has >
+RealEstate "1"--"1" StoreNetwork :has >
+Administrator "1"--"*" Store : create >
+@enduml
