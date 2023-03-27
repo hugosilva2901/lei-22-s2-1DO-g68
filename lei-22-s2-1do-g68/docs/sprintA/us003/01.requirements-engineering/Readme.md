@@ -6,21 +6,16 @@
 ### 1.1. User Story Description
 
 
-As an organization employee, I want to create a new task in order to be further published.
-
+As a system administrator, I want to register a new employee.
 
 
 ### 1.2. Customer Specifications and Clarifications 
 
 
 **From the specifications document:**
-
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost as well as the its classifying task category. 
-
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
-
+The company's systems administrator will be responsible for registering all employees
+(specifying the name, descriptions, tax number,address, email address, phone number and the role of the employee) and branches of the network
+(specifying the designation, location) as well as preparing the system in order to facilitate the insertion of advertisements and facilitate the use of applications by employees.
 
 **From the client clarifications:**
 
@@ -76,11 +71,8 @@ As an organization employee, I want to create a new task in order to be further 
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram (svg/us003-system-sequence-diagram.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

@@ -112,8 +112,8 @@ vatNumber
 website
 phoneNumber
 email
-NumberOfBranche
-}
+NumberOfBranches
+LocalManager}
 class StoreManager{
 
 }
@@ -133,18 +133,24 @@ date
 RealEstateAgent
 StoreManager
 }
-
+class Employee{
+}
+enum Roles{
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
+}
+Employee "1"--"1" Roles : has
 RealEstate "1"--"1" StoreNetWork
 StoreNetWork "1"--"*" Store : has
-Store "1"--"1" StoreManager :has
+Store "1"--"1" Employee :has
 StoreNetWork "1"--"1" NetWorkManager
 
 Administrator "1"--"*" User : Create
 
 Administrator --|> User : is
-StoreManager --|> User : is
+Employee --|> User : is
 NetWorkManager --|> User : is
-RealEstateAgent  --|>  User : is
+Employee  --|>  User : is
 Owner  --|>  User : is
 Client  --|>  User : is
 RealEstate "1"--" 0..*" User : has
@@ -153,16 +159,16 @@ Apartment  --|>  Proprietary : is
 RealEstate "1"--"0..*" Proprietary : has
 Land  --|>  Proprietary : is
 Owner "1"--"0..*"Advertisement : has or Request
-RealEstateAgent "1"--"0..*"Advertisement : Publishes
+Employee "1"--"0..*"Advertisement : Publishes
 Client "1"--"1"visit : request
-RealEstateAgent "1"--"1"visit : attends
-RealEstateAgent "1"--"0..*"Schedule : has
+Employee "1"--"1"visit : attends
+Employee "1"--"0..*"Schedule : has
 Order "0..*"--"1" TipoOrder : has
-Store "1"--"0..*" RealEstateAgent : has
+Store "1"--"0..*" Employee : has
 Client "1"--"0..*" Order : Request
-Order "0..*"--"1" RealEstateAgent : Accepts or rejects
-StoreManager "1"--"0..*" EmployeesPerformance : Makes
-EmployeesPerformance "0..*"--"1" RealEstateAgent : has
+Order "0..*"--"1" Employee : Accepts or rejects
+Employee "1"--"0..*" EmployeesPerformance : Makes
+EmployeesPerformance "0..*"--"1" Employee : has
 RealEstate "1"--"1" Administrator : has
 Owner "1"--"1..*" Proprietary : has
 NetWorkManager "1"--"0..*" StorePerformance : Makes
