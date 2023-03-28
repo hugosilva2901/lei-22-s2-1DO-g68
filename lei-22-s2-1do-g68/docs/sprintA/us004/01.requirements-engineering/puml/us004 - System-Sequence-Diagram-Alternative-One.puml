@@ -1,0 +1,15 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Owner" as Owner
+participant ":System" as System
+
+
+
+@enduml
