@@ -10,7 +10,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-class PropertyOwner{
+class Owner{
  name
  citizenCardNumber
  taxNumber
@@ -19,18 +19,34 @@ class PropertyOwner{
  phoneNumber
 }
 
-class RealStateAgent{
+class Employee {
+
+}
+class Role {
+    ROLE_REAL_ESTATE_AGENT
+}
+
+abstract class user{
     name
-    email
+    descriptions
+    tax number
+    address
+    email address
+    phone number
     password
-    position
 }
 
 class SaleAnnouncement{
-
+    Owner
+    Property
+    descriptions
+    RealStateAgent
+    cost
 }
 
-RealStateAgent "1" - "1..*" SaleAnnouncement : publish >
-PropertyOwner"1" - "1" RealStateAgent : contacts >
-
+Owner"1" - "1" Employee : contacts >
+Employee "1" - "0..*" SaleAnnouncement : publish >
+Owner --|> user : is
+Employee --|> user : is
+Employee "1" - "1" Role: as >
 @enduml
