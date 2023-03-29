@@ -33,7 +33,7 @@ deactivate System
 Owner -> System : "Requests the data of the property"
 activate System
 
-System --> Owner : "Requsted data type, name, address, type, description, cost"
+System --> Owner : "Requested data type, name, address, type, description, cost"
 deactivate System
 
 alt [Apartment/House]
