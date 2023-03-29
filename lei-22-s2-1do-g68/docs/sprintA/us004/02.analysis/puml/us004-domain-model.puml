@@ -1,22 +1,81 @@
 @startuml
 'https://plantuml.com/use-case-diagram
 
-:Main Admin: as Admin
-(Use the application) as (Use)
 
-User -> (Start)
-User --> (Use)
+abstract class Proprietary {
+    name
+    Tipo
+    address
+    descriptions
+    cost
+    vender:boolean
+    render:boolean
+}
+class Land{
+}
 
-Admin ---> (Use)
+class Apartment{
+numberOfRooms
+numberOfBathrooms
+numberOfFloors
+numberOfGarages
+Equipaments
 
-note right of Admin : This is an example.
+}
+class House{
+    numberOfRooms
+    numberOfBathrooms
+    numberOfFloors
+    numberOfGarages
+    Equipaments
+    Basement: boolean
+    inhabited  loft: boolean
+    Sun exposure: boolean
 
-note right of (Use)
-A note can also
-be on several lines
-end note
+}
 
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
+class Owner {
+ Proprietary
+}
+
+abstract class User {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+class RealEstate {
+    name
+    address
+    descriptions
+    website
+    phoneNumber
+    email
+    vatNumber
+    logo
+}
+
+class Employee{
+
+}
+
+enum Roles{
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
+}
+
+Employee "1"--"1" Roles : has
+Employee --|> User : is
+Owner  --|>  User : is
+RealEstate "1"--" 0.*" User : has
+House  --|>  Proprietary : is
+Apartment  --|>  Proprietary : is
+RealEstate "1"--"0.*" Proprietary : has
+Land  --|>  Proprietary : is
+Owner "1"--"1.*" Proprietary : has
+
 @enduml
