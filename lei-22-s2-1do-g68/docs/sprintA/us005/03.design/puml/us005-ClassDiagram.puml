@@ -52,6 +52,7 @@ class Store{
     - String location
     - String phoneNumber
     - String e-mail
+    - Employee manager
 
 }
 

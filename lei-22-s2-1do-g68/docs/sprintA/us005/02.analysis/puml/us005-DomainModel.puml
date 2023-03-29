@@ -40,6 +40,7 @@ class Store {
     - location
     - phone
     - email
+    - manager
 }
 class Administrator{
 }
