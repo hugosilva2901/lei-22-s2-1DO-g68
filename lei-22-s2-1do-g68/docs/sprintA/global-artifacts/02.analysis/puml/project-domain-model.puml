@@ -47,6 +47,7 @@ abstract class Proprietary {
     Tipo
     address
     descriptions
+    cost
     vender:boolean
     render:boolean
 }
@@ -114,7 +115,8 @@ website
 phoneNumber
 email
 NumberOfBranches
-LocalManager}
+LocalManager
+}
 
 class NetWorkManager{
 }
@@ -150,7 +152,6 @@ Advertisement "1"--"1" Proprietary : has
 Administrator --|> User : is
 Employee --|> User : is
 NetWorkManager --|> User : is
-Employee  --|>  User : is
 Owner  --|>  User : is
 Client  --|>  User : is
 RealEstate "1"--" 0..*" User : has
@@ -173,4 +174,5 @@ RealEstate "1"--"1" Administrator : has
 Owner "1"--"1..*" Proprietary : has
 NetWorkManager "1"--"0..*" StorePerformance : Makes
 StorePerformance "0..*"--"1" Store : has
+
 @enduml
