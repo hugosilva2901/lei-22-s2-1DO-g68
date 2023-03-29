@@ -1,10 +1,10 @@
-# US 006 - To create a Task 
+# US 005 - To create a Store 
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
-**SSD - Alternative 1 is adopted.**
+
 
 | Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                 |
 |:-------------  |:--------------------- |:---------------------|:--------------------------------------------------------------------------------------------------------------|

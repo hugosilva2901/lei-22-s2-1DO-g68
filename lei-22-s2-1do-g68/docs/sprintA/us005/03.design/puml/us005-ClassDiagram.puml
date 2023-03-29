@@ -5,26 +5,71 @@ skinparam shadowing false
 skinparam linetype polyline
 'skinparam linetype orto
 
-skinparam classAttributeIconSize 0
+
+
+
+
 class CreateStoreUI{
 }
 class CreateStoreController{
+    + CreateStoreController()
+    + getStoreNetWork()
+    + createStore(ID, designation/name, \n location, phone number, e-mail)
+
 }
 'left to right direction
 
-abstract class User{
+
+
+
+class RealEstate{
+    + getStoreNetWork()
+    - String name
+    - String address
+    - String descriptions
+    - String website
+    - String phoneNumber
+    - String e-mail
+    - String vatNumber
+    - String logo
+
 }
 class StoreNetWork{
+    + createStore(ID, designation/name, \n location, phone number, e-mail)
+    + validate(store)
+    + addStore(store)
+    - String name
+    - String address
+    - int branchNumber
 }
-class SystemAdministrator{
+class Administrator{
 }
 class Store{
+    + Store(ID, designation/name, \n location, phone number, e-mail)
+    + validate()
+    - Int ID
+    - String designation
+    - String location
+    - String phoneNumber
+    - String e-mail
+
 }
 
-class Employee{
-}
-enum Role{
-}
+
+
+CreateStoreController ..> RealEstate
+
+RealEstate "1"--"1" Administrator : has >
+RealEstate "1"--"1" StoreNetWork : has >
+
+
+
+
+StoreNetWork "1"--"*" Store : has >
+Administrator "1"--"*" Store : Created By <
+Administrator "1"--"1" StoreNetWork : Manage >
+CreateStoreUI ..> CreateStoreController
+
 
 
 
