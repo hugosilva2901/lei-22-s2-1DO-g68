@@ -21,10 +21,18 @@ activate Employee
     activate System
 
     System --> Employee : shows list of roles and asks to select one
+            deactivate System
+
+            Employee -> System : selects a roles
+        activate System
+
+ alt [Select second role]
+    System --> Employee : shows list of roles and asks to select one
         deactivate System
 
         Employee -> System : selects a roles
     activate System
+    end alt
 
         System --> Employee : requests data
     deactivate System
