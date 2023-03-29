@@ -174,5 +174,7 @@ RealEstate "1"--"1" Administrator : has
 Owner "1"--"1..*" Proprietary : has
 NetWorkManager "1"--"0..*" StorePerformance : Makes
 StorePerformance "0..*"--"1" Store : has
+Owenr "1"--"0..*" Employee : Request listing Proprietary
+Employee "1"--"0..*" Proprietary : creates Proprietary
 
 @enduml
