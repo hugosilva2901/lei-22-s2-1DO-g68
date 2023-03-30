@@ -11,27 +11,54 @@ participant ":System" as System
 
 activate User
 
-    User -> System : Initiate property registration
-    activate System
+User -> System : Initiate property registration
+activate System
 
-    System --> User : Asks for Owner and Property
+System --> User : Asks for Owner attributes (name, citizenCardNumber, taxNumber, Address, EmailAddress, phoneNumber)
+deactivate System
+
+User -> System : submits Owner attributes (name, citizenCardNumber, taxNumber, Address, EmailAddress, phoneNumber)
+activate System
+
+System --> User : Asks for property type (House or Apartment or Land))
+deactivate System
+
+User -> System : selects Property Type (House/Apartment or Land)
+activate System
+
+System --> User : Displays a form for the agent to fill with the property description and cost
+deactivate System
+
+User -> System : Fills out the form with the description of the property and the cost
+activate System
+
+alt Property type is Apartment or House
+
+    System --> User : Asks for number of rooms, number of bathrooms, number of kitchens...
     deactivate System
 
-    User -> System : selects Owner and Property
+    User -> System : fills out number of rooms, number of bathrooms, number of kitchens...
     activate System
 
-    System --> User : Displays a form for the agent to fill with the cost and description of the property
-    deactivate System
+    else Property type is House
 
-    User -> System : Fills out the form with the cost and description of the property
-    activate System
+        System --> User : Asks for number of rooms, number of bathrooms, number of kitchens
+        deactivate System
 
-    User -> System : submits data
-    activate System
+        User -> System : fills out number of rooms, number of bathrooms, number of kitchens
+        activate System
 
-    System --> System: Save new property
-    deactivate System
+        System --> User : Displays form for additional property details (e.g., garage, backyard, etc.)
+        deactivate System
 
-    System --> User: Display confirmation message
-    deactivate System
+        User -> System : Fills out additional property details
+        activate System
+
+end
+
+System --> System: Save new property
+deactivate System
+
+System --> User: Display confirmation message
+deactivate System
 @enduml
