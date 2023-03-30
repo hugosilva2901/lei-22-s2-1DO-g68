@@ -26,7 +26,7 @@ deactivate System
 User -> System : selects Property Type (House/Apartment or Land)
 activate System
 
-alt Property type is Apartment or House
+alt Property type is Apartment
 
     System --> User : Asks for number of rooms, number of bathrooms, number of kitchens...
     deactivate System
