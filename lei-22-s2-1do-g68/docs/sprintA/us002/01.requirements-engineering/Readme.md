@@ -132,8 +132,8 @@ telephone number. The Agent is an employee of the company.
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US003 Create a task category" since at least a task category must exist to classify the task being created.
-
+* The agent have to be logged in the system to register a new sale announcement.
+* The Property Owner have to be registered in the system.
 
 ### 1.5 Input and Output Data
 
@@ -141,13 +141,12 @@ telephone number. The Agent is an employee of the company.
 **Input Data:**
 
 * Typed data:
-	* Owner's name, 
-	* Property, 
 	* cost
 	* description
 	
 * Selected data:
-	* Classifying task category 
+	* Select Owner
+    * Select Property
 
 
 **Output Data:**
