@@ -20,7 +20,7 @@ NumberOfBranches
 LocalManager
 }
 class Employee {
-
+Branche
 }
 class Role {
     ROLE_STORE_MANAGER

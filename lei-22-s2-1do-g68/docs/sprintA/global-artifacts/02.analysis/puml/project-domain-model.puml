@@ -135,7 +135,7 @@ RealEstateAgent
 StoreManager
 }
 class Employee{
-
+Branche
 }
 enum Roles{
     ROLE_STORE_MANAGER
