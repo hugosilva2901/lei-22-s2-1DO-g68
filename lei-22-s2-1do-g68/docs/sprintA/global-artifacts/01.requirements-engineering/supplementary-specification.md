@@ -38,16 +38,16 @@ _Refers to the integrity, compliance and interoperability of the software. The r
 
 - The application should use object serialization to ensure data persistence between two runs of the
 application;
-- The system must be highly available, enabling users to utilize the program whenever they want;
+- The system must be highly available, enabling users to utilize the program at any time;
 - The program must resist failures and stop data loss;
-- The system must be able to handle numerous concurrent users without experiencing speed decline;
+- The system must be able to handle numerous concurrent users without experiencing performance losses;
 
 ## Performance
 _Evaluates the performance requirements of the software, namely: response time, start-up time, recovery time, memory consumption, CPU usage, load capacity and application availability._
 
 
-- The system must offer quick turnaround periods for property info retrieval and inquiry;
-- The program needs to be able to manage lots of people and data;
+
+- The program needs to be able to manage lots of users and data;
 - Reports must be produced by the system quickly and effectively;
 
 
@@ -59,10 +59,10 @@ configurability, installability, scalability and more._
 - All the images/figures produced during the software development process should be recorded in SVG format
 use Javadoc to generate useful documentation for Java code;
 - The program needs to be simple to update and manage;
-- Useful error notifications and records must be provided by the system for debugging reasons;
+- The application should provide useful error notifications and records must be provided by the system for debugging reasons;
 - The application must support the English language;
 - The software research and design staff must follow best practices when determining requirements;
-- All functions must be subjected to unit testing, with the exception of those that perform input/output tasks;
+- All functions must be subjected to unit testing, except for those that perform input/output tasks;
 - Javadoc should be used by the program to create helpful instructions for Java code;
 
 
@@ -97,8 +97,7 @@ system being developed with other external systems._
 
 
 - A password with seven alphanumeric characters three uppercase letters and two digits must be used to identify users of the program;
-- The application must have a user friendly interface that enables both clients and workers to navigate and use it with ease;
-- The application must have a responsive design that adapts to various screen sizes and be usable on both PC and mobile platforms;
+- The application must have a user-friendly interface that enables both clients and workers to navigate and use it with ease;
 - When a user completes an action, such as sending a property ad or arranging a visit, the application must give them clear feedback;
 
 
