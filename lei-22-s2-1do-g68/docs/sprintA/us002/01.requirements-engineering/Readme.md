@@ -143,10 +143,12 @@ telephone number. The Agent is an employee of the company.
 * Typed data:
 	* cost
 	* description
+    * Owner - name, citizenCardNumber, taxNumber, Address, EmailAddress, phoneNumber  
+    * Property number of rooms, bathrooms, kitchens ...
 	
 * Selected data:
-	* Select Owner
-    * Select Property
+    * Select Property type
+    * select whether or not the property has garage 
 
 
 **Output Data:**
