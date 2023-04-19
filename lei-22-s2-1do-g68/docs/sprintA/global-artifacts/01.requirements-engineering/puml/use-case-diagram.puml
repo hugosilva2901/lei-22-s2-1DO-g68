@@ -15,6 +15,7 @@ rectangle "RealStateUSA" as usecases{
     usecase "Display listed properties"
     usecase "Publish any sale announcement"
     usecase "Register a new employee"
+    usecase "Register a new store"
     usecase "Submit a request for listing a property Sale or Rent"
     usecase "Select an agent"
 }
