@@ -1,0 +1,44 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+actor "Unregistered" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : Asks to get a list of properties
+    activate System
+
+        System --> User : Display list of properties
+    deactivate System
+
+    alt User filters properties
+        User -> System : Asks to filter properties
+        activate System
+
+            System --> User : Display search filters (type of business, type of property, number of rooms)
+        deactivate System
+        User -> System : Selects wanted filter
+            activate System
+    end
+                System --> User : Display list of properties by selected filter
+            deactivate System
+
+    alt User sorts properties
+        User -> System : Asks to sort properties
+        activate System
+
+            System --> User : Display sort criteria (price, parish)
+        deactivate System
+        User -> System : Selects wanted criteria
+          activate System
+    end
+    System --> User : Display list of properties by selected criteria
+                deactivate System
+
+@enduml

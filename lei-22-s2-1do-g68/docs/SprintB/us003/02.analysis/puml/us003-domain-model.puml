@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class Store{
+name
+vatNumber
+website
+phoneNumber
+email
+NumberOfBranches
+LocalManager
+}
+class Employee {
+Branche
+}
+class Role {
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
+}
+
+abstract class user{
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+class Administrator {
+}
+Administrator --|> user : is
+Employee --|> user : is
+Store "1" - "0..*" Administrator : has >
+Store "1" - "0..*" Employee: has >
+Administrator "1" -- "*" Employee : creates >
+Employee "1" - "1" Role: as >
+@enduml
