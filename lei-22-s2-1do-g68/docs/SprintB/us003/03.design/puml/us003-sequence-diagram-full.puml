@@ -9,7 +9,11 @@ autonumber
 actor "Organization Employee" as ADM
 participant ":CreateEmployeeUI" as UI
 participant ":CreateEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "StoreRepository:\StoreRepository" as StoreRepository
 participant "RealState\n:Organization" as ORG
+participant "Employee\n:Employee" as TAREFA
 
 activate ADM
 
@@ -59,17 +63,28 @@ activate ADM
       CTRL -> ORG: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
                  activate ORG
 
-                     ref over ORG
-                         Create Employee
+                       group Create Employee
 
-                     end
+                             ORG -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+                             ORG -> ORG: addEmployee (Employee)
+
+                             activate ORG
+                                 ORG -> ORG: validateEmployee(Employee)
+                                 activate ORG
+                                     ORG --> ORG
+                                 deactivate ORG
+
+                                 ORG --> ORG
+                             deactivate ORG
+                         end
 
                      ORG --> CTRL : Employee
                  deactivate ORG
-            CTRL --> UI: Employee
+                CTRL --> UI: Employee
               deactivate CTRL
               UI --> ADM: displays operation success
       deactivate UI
+
 deactivate ADM
 
 @enduml

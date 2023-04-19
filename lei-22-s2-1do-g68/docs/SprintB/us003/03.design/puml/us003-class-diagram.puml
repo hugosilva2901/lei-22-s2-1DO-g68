@@ -1,0 +1,81 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize "1"
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getStoreRepository()
+}
+
+'left to right direction
+class CreateEmployeeUI{
+}
+
+class CreateEmployeeController{
+    + CreateEmployeeController(StoreRepository)
+    + createEmployee(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+}
+
+class user{
+    - name
+    - descriptions
+    - tax number
+    - address
+    - email address
+    - phone number
+    - password
+
+}
+enum roles{
+
+}
+class RealEstate {
+    - name
+    - address
+    - descriptions
+    - website
+    - phoneNumber
+    - email
+    - vatNumber
+
+}
+
+class Employee extends user{
+    -salary
+}
+
+class Administrator extends user{
+
+}
+class Store {
+    - name
+    - vatNumber
+    - website
+    - phoneNumber
+    - email
+    - LocalManager
+
+}
+class StoreNetWork{
+    + createStore(ID, designation/name, \n location, phone number, e-mail)
+    + validate(store)
+    + addStore(store)
+    - String name
+    - String address
+    - int branchNumber
+}
+Store "1" -- "0..*" Employee : has >
+StoreNetWork "1" -- "0..*" Store : has >
+RealEstate "1" -- "1" StoreNetWork : has >
+user "1"--"1..*" roles : has >
+CreateEmployeeController .> Repositories : repositories
+CreateEmployeeUI .> CreateEmployeeController
+Administrator --> Employee : createdBy
+CreateEmployeeController ..> "1" Store : Store
+@enduml

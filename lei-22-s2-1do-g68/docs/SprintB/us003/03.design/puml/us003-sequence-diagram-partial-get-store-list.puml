@@ -7,14 +7,14 @@ autonumber
 
 'hide footbox
 
-participant ":CreateTaskController" as CTRL
+participant ":CreateEmployeeController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
+participant "StoreRepository:\nStoreRepository" as StoreRepository
 
 autonumber 3
 
- -> CTRL : getTaskCategories()
+ -> CTRL : getStores()
 autonumber 3.1
 activate CTRL
     group Get Task Category List
@@ -26,22 +26,22 @@ activate CTRL
                 RepositorySingleton --> CTRL: repositories
             deactivate RepositorySingleton
 
-            CTRL -> PLAT : getTaskCategoryRepository()
+            CTRL -> PLAT : getStoreRepository()
             activate PLAT
 
-                PLAT --> CTRL: taskCategoryRepository
+                PLAT --> CTRL: StoreRepository
             deactivate PLAT
 
-            CTRL -> TaskCategoryRepository : getTaskCategories()
-            activate TaskCategoryRepository
+            CTRL -> StoreRepository : getStoreList()
+            activate StoreRepository
 
-                TaskCategoryRepository --> CTRL : taskCategoryList
-            deactivate TaskCategoryRepository
+                StoreRepository --> CTRL : StoreList
+            deactivate StoreRepository
 
 
     end
     autonumber 4
-    <-- CTRL  : taskCategoryList
+    <-- CTRL  : StoreList
 deactivate CTRL
 
 
