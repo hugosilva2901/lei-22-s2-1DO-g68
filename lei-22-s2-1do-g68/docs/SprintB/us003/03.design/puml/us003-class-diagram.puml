@@ -5,15 +5,18 @@ skinparam shadowing false
 skinparam linetype polyline
 'skinparam linetype orto
 
-skinparam classAttributeIconSize "1"
-
+skinparam classAttributeIconSize "2"
+'left to right direction
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
     + getStoreRepository()
 }
+class StoreRepository{
 
-'left to right direction
+}
+
+
 class CreateEmployeeUI{
 }
 
@@ -30,6 +33,7 @@ class user{
     - email address
     - phone number
     - password
+    - roles
 
 }
 enum roles{
@@ -56,11 +60,10 @@ class Administrator extends user{
 class Store {
     - name
     - vatNumber
-    - website
+    - address
     - phoneNumber
     - email
-    - LocalManager
-
+    - branchNumber
 }
 class StoreNetWork{
     + createStore(ID, designation/name, \n location, phone number, e-mail)
@@ -68,7 +71,6 @@ class StoreNetWork{
     + addStore(store)
     - String name
     - String address
-    - int branchNumber
 }
 Store "1" -- "0..*" Employee : has >
 StoreNetWork "1" -- "0..*" Store : has >
@@ -78,4 +80,6 @@ CreateEmployeeController .> Repositories : repositories
 CreateEmployeeUI .> CreateEmployeeController
 Administrator --> Employee : createdBy
 CreateEmployeeController ..> "1" Store : Store
+Repositories "1" --> "*" StoreRepository : has >
+StoreRepository "1" --> "*" Store : has >
 @enduml

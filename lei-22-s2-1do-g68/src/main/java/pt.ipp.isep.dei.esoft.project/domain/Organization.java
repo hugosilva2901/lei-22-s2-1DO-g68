@@ -112,6 +112,7 @@ public class Organization {
     public boolean anyEmployeeHasEmail(String email) {
         boolean result = false;
         for (Employee employee : employees) {
+
             if (employee.hasEmail(email)) {
                 result = true;
             }

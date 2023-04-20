@@ -19,9 +19,6 @@ class CreateStoreController{
 }
 'left to right direction
 
-
-
-
 class RealEstate{
     + getStoreNetWork()
     - String name
