@@ -6,36 +6,36 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
+actor "Unregister User" as ADM
 participant ":CreateTaskUI" as UI
 participant ":CreateTaskController" as CTRL
-participant "organization\n:Organization" as ORG
+
 
 activate ADM
 
-    ADM -> UI : asks to create a new task
+    ADM -> UI : Asks to list properties
 
     activate UI
 
-        UI -> CTRL** : create
-        UI -> CTRL : getTaskCategories()
+        UI -> CTRL** : Create
+        UI -> CTRL : getListProperties
         ref over CTRL
-            Get Task Category List
+            Get List Properties
 
         end ref
 
         activate CTRL
 
-            CTRL --> UI : taskCategoryList
+            CTRL --> UI : taskListProperties
         deactivate CTRL
 
-        UI --> ADM : shows task category list and asks to sleect one
+        UI --> ADM : Shows List of Properties
     deactivate UI
 
-    ADM -> UI : selects a task category
+    ADM -> UI : Selects wanted filters for properties
     activate UI
 
-        UI --> ADM : requests data
+        UI --> ADM : Display list of properties by selected filter
     deactivate UI
 
     ADM -> UI : types requested data (reference, description,\ninformal description, technical description,\nduration, cost)

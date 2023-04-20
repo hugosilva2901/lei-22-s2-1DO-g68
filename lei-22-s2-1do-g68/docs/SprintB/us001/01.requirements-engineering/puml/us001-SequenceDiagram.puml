@@ -18,25 +18,17 @@ activate User
     deactivate System
 
     alt User filters properties
-        User -> System : Asks to filter properties
+        User -> System : Selects wanted filter properties
         activate System
 
-            System --> User : Display search filters (type of business, type of property, number of rooms)
-        deactivate System
-        User -> System : Selects wanted filter
-            activate System
     end
                 System --> User : Display list of properties by selected filter
             deactivate System
 
     alt User sorts properties
-        User -> System : Asks to sort properties
+        User -> System : Selects wanted sort filter of properties (price, parish)
         activate System
 
-            System --> User : Display sort criteria (price, parish)
-        deactivate System
-        User -> System : Selects wanted criteria
-          activate System
     end
     System --> User : Display list of properties by selected criteria
                 deactivate System
