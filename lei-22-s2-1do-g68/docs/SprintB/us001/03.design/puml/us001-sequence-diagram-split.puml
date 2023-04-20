@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Unregister User" as ADM
+participant ":CreateTaskUI" as UI
+participant ":CreateTaskController" as CTRL
+
+
+activate ADM
+
+    ADM -> UI : Asks to list properties
+
+    activate UI
+
+        UI -> CTRL** : Create
+        UI -> CTRL : getListProperties
+        ref over CTRL
+            Get List Properties
+
+        end ref
+
+        activate CTRL
+
+            CTRL --> UI : taskListProperties
+        deactivate CTRL
+
+        UI --> ADM : Shows List of Properties
+    deactivate UI
+    alt User filters properties
+    ADM -> UI : Selects wanted filters for properties
+    activate UI
+        UI -> CTRL : getFilteredProperties
+        ref over CTRL
+            Get Filtered Properties
+
+        end ref
+    CTRL --> UI : taskFilteredProperties
+    end alt
+        UI --> ADM : Display list of properties by selected filter
+
+    deactivate UI
+    alt User sorts properties
+    ADM -> UI : Selects wanted sort criteria for properties
+    activate UI
+    UI -> CTRL : getSortProperties
+            ref over CTRL
+                Get Sorted Properties
+
+            end ref
+        CTRL --> UI : taskSortedProperties
+    end alt
+        UI --> ADM : Display list of properties by selected sort criteria
+    deactivate UI
+
+
+deactivate ADM
+
+@enduml

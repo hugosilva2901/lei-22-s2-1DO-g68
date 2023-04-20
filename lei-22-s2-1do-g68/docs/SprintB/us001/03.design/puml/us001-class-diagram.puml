@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+top to bottom direction
+
+skinparam classAttributeIconSize "1"
+
+
+class RealEstate {
+    - name
+    - address
+    - descriptions
+    - website
+    - phoneNumber
+    - email
+    - vatNumber
+    - logo
+}
+class House{
+    - umberOfRooms
+    - numberOfBathrooms
+    -numberOfFloors
+    - numberOfGarages
+    - Equipaments
+    - Basement: boolean
+    - inhabited  loft: boolean
+    - Sun exposure: boolean
+}
+class Apartment{
+    numberOfRooms
+    numberOfBathrooms
+    numberOfFloors
+    numberOfGarages
+    Equipaments
+
+}
+class Land{
+}
+abstract class Property {
+    name
+    Tipo
+    address
+    descriptions
+    vender:boolean
+    render:boolean
+}
+
+class UnregisteredUser {}
+'is a user that has not yet registered
+class Property{}
+
+House  --|>  Property  : is
+Apartment  --|>  Property : is
+Land  --|>  Property : is
+RealEstate "1"--"0..*" Property: owns :
+UnregisteredUser "1" - "*" RealEstate: requests list of properties
+@enduml
