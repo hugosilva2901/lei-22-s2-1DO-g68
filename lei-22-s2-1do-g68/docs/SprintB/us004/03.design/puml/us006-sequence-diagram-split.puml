@@ -3,9 +3,50 @@
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor "Organization Property" as ADM
+participant ":CreatePropertyUI" as UI
+participant ":CreatePropertyController" as CTRL
+participant "Real Estate \n:Organization" as ORG
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+activate ADM
+
+    ADM -> UI: Asks to create a new property
+
+    activate UI
+        UI -> CTRL**: createProperty
+        UI -> CTRL: getOwnerOfProperty()
+
+        ref over CTRL
+            Get list of owners
+        end ref
+
+        activate CTRL
+
+            CTRL --> UI: list of owners
+        deactivate CTRL
+
+        UI --> ADM: Shows list of owners to select from
+
+        deactivate UI
+
+    ADM -> UI: Selects owner
+
+    activate UI
+
+    UI --> ADM: Shows list of property and asks to select one
+    deactivate UI
+
+    ADM -> UI: Selects type of property
+
+    activate UI
+
+    UI --> ADM: Requests data for new property
+    deactivate UI
+    ADM -> UI: Provides data for new property(Owner, type, address, description, cost, vender, render)
+    activate UI
+    UI --> ADM: Shows selected data and asks to confirm
+    deactivate UI
+
+    ADM -> UI: Confirms data
+
 @enduml

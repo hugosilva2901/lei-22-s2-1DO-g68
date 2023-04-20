@@ -24,4 +24,17 @@ HOURS
 MINUTES
 }
 
+class CreateStoreUI{
+}
+
+class CreateStoreController{
+   + getEmployee()
+   + getOwner()
+   + createProperty()
+}
+
+
+
+
+
 @enduml
