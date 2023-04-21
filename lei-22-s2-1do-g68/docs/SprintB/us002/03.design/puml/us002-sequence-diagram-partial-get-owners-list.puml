@@ -7,17 +7,17 @@ autonumber
 
 'hide footbox
 
-participant ":CreateTaskController" as CTRL
+participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
+participant "OwnerRepository:\nOwnerRepository" as TaskCategoryRepository
 
 autonumber 3
 
- -> CTRL : getTaskCategories()
+ -> CTRL : getOwners()
 autonumber 3.1
 activate CTRL
-    group Get Task Category List
+    group Get Owners List
 
 
             CTRL -> RepositorySingleton : getInstance()
@@ -26,22 +26,22 @@ activate CTRL
                 RepositorySingleton --> CTRL: repositories
             deactivate RepositorySingleton
 
-            CTRL -> PLAT : getTaskCategoryRepository()
+            CTRL -> PLAT : getOwnersRepository()
             activate PLAT
 
-                PLAT --> CTRL: taskCategoryRepository
+                PLAT --> CTRL: OwnersRepository
             deactivate PLAT
 
-            CTRL -> TaskCategoryRepository : getTaskCategories()
+            CTRL -> TaskCategoryRepository : getOwnersList()
             activate TaskCategoryRepository
 
-                TaskCategoryRepository --> CTRL : taskCategoryList
+                TaskCategoryRepository --> CTRL : OwnersList
             deactivate TaskCategoryRepository
 
 
     end
     autonumber 4
-    <-- CTRL  : taskCategoryList
+    <-- CTRL  : OwnersList
 deactivate CTRL
 
 

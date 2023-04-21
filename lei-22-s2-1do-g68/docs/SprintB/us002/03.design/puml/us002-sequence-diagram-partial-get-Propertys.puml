@@ -9,7 +9,7 @@ participant "repositories\n:Repositories" as PLAT
 participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 
 autonumber 12
--> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
+-> CTRL : getProperty
 
 autonumber 12.1
 
@@ -21,22 +21,22 @@ activate CTRL
             RepositorySingleton --> CTRL: repositories
         deactivate RepositorySingleton
 
-        CTRL -> PLAT : getTaskCategoryRepository()
+        CTRL -> PLAT : getPropertyRepository()
         activate PLAT
 
-            PLAT -> CTRL : taskCategoryRepository
+            PLAT -> CTRL : PropertyRepository
         deactivate PLAT
 
-        CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
+        CTRL -> TaskCategoryRepository : getPropertyList
         activate TaskCategoryRepository
 
-            TaskCategoryRepository --> CTRL : taskCategory
+            TaskCategoryRepository --> CTRL : PropertyList
         deactivate TaskCategoryRepository
 
     end group
 
     autonumber 13
-    <-- CTRL : taskCategory
+    <-- CTRL : PropertyList
 
 deactivate CTRL
 
