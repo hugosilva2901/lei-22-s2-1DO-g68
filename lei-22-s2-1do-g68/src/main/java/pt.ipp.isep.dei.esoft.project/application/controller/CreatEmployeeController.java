@@ -1,7 +1,17 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.domain.Admin;
+
+import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
+import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.Store;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
+import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
+
+
 
 import java.util.Optional;
 
@@ -71,7 +81,7 @@ public class CreatEmployeeController {
     }
 
 
-    public Optional<Task> createEmployee(String name, String descptions, int taxNumber, String email, String password,
+    public Optional<EmployeeProject> createEmployee(String name, String descptions, int taxNumber, String email, String password,
                                          String address, String phone, Roles roles, int salary, Store store) {
 
         if(roles != Roles.AGENT && roles != Roles.STOREMANAGER ) {
@@ -89,20 +99,12 @@ public class CreatEmployeeController {
         if (store.getEmployees().contains(employee)) {
             throw new IllegalArgumentException("There is already this employee ");
         }
+        Admin admin = Admin.getInstance();
 
-        TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+      Optional<EmployeeProject> newtask = admin.createEmployee( name,  descptions,  taxNumber,  email,  password,
+                 address,  phone,  roles,  salary,  store);
 
-        Employee employee = getEmployeeFromSession();
-        Optional<Organization> organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-        Optional<Task> newTask = Optional.empty();
-
-        if (organization.isPresent()) {
-            newTask = organization.get()
-                    .createTask(reference, description, informalDescription, technicalDescription, duration, cost,
-                            taskCategory, employee);
-        }
-        return newTask;
+        return newtask;
     }
     
 }
