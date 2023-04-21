@@ -13,8 +13,8 @@ activate ADM
     ADM -> UI: Asks to create a new property
 
     activate UI
-        UI -> CTRL**: createProperty
-        UI -> CTRL: getOwnerOfProperty()
+        UI -> CTRL**: Create
+        UI -> CTRL: getOwner()
 
         ref over CTRL
             Get list of owners
@@ -33,7 +33,7 @@ activate ADM
 
     activate UI
 
-    UI --> ADM: Shows list of property and asks to select one
+    UI --> ADM: Shows types of properties and asks to select one
     deactivate UI
 
     ADM -> UI: Selects type of property
@@ -47,7 +47,7 @@ activate ADM
     UI --> ADM: Shows selected data and asks to confirm
     deactivate UI
 
-    ADM -> UI: Confirms data
+    ADM -> UI: Submit data
 
     activate UI
         UI -> CTRL: createProperty(Owner, type, address, description, cost, vender, render, PropertyData)
