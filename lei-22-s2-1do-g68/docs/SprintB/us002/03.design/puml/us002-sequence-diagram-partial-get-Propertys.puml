@@ -8,10 +8,10 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 
-autonumber 12
+autonumber 7
 -> CTRL : getProperty
 
-autonumber 12.1
+autonumber 7.1
 
 activate CTRL
     group Get Task Category
@@ -24,7 +24,7 @@ activate CTRL
         CTRL -> PLAT : getPropertyRepository()
         activate PLAT
 
-            PLAT -> CTRL : PropertyRepository
+            PLAT --> CTRL : PropertyRepository
         deactivate PLAT
 
         CTRL -> TaskCategoryRepository : getPropertyList
@@ -35,10 +35,11 @@ activate CTRL
 
     end group
 
-    autonumber 13
+    autonumber 8
     <-- CTRL : PropertyList
 
 deactivate CTRL
+
 
 
 @enduml
