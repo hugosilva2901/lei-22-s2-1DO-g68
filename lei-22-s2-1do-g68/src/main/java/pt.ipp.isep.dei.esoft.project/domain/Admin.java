@@ -6,4 +6,5 @@ public class Admin extends User{
         super(name, descptions, taxNumber, email, password, address, phone, Roles.ADIMIN);
     }
 
+
 }

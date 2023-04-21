@@ -24,10 +24,29 @@ activate ADM
         UI -> CTRL** : create
         UI -> CTRL : getStores
 
-        ref over CTRL
-            Get list of stores
+group Get Task Category List
 
-        end ref
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getStoreRepository()
+            activate PLAT
+
+                PLAT --> CTRL: StoreRepository
+            deactivate PLAT
+
+            CTRL -> StoreRepository : getStoreList()
+            activate StoreRepository
+
+                StoreRepository --> CTRL : StoreList
+            deactivate StoreRepository
+
+
+    end
 
         activate CTRL
 

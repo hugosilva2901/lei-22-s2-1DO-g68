@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Store {
     private String name;
     private String phone;
@@ -8,6 +11,9 @@ public class Store {
     private String address;
     private int branchNumber;
 
+    private List<EmployeeProject> employees;
+
+    private Employee localManager;
     public Store(String name, String phone, String email, String vatNumber, String address, int branchNumber) {
         this.name = name;
         this.phone = phone;
@@ -15,6 +21,24 @@ public class Store {
         this.vatNumber = vatNumber;
         this.address = address;
         this.branchNumber = branchNumber;
+        this.employees = new ArrayList<>();
+        this.localManager = null;
+    }
+
+    public Employee getLocalManager() {
+        return localManager;
+    }
+
+    public void setLocalManager(Employee localManager) {
+        this.localManager = localManager;
+    }
+
+    public List<EmployeeProject> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployeeProject> employees) {
+        this.employees = employees;
     }
 
     public String getName() {

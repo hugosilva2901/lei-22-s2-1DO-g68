@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.Optional;
 
 public class CreatEmployeeController {
 
@@ -65,6 +68,41 @@ public class CreatEmployeeController {
             storeRepository = repositories.getStoreRepository();
         }
         return storeRepository;
+    }
+
+
+    public Optional<Task> createEmployee(String name, String descptions, int taxNumber, String email, String password,
+                                         String address, String phone, Roles roles, int salary, Store store) {
+
+        if(roles != Roles.AGENT && roles != Roles.STOREMANAGER ) {
+            throw new IllegalArgumentException("The role is not valid");
+
+        } else if (roles == Roles.STOREMANAGER) {
+            if(store.getLocalManager()!=null){
+                 throw new IllegalArgumentException("There is already a local manager for this store");
+            }
+
+        }
+
+        EmployeeProject employee = new EmployeeProject(name, descptions, taxNumber,
+                email, password, address, phone, roles, salary, store);
+        if (store.getEmployees().contains(employee)) {
+            throw new IllegalArgumentException("There is already this employee ");
+        }
+
+        TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+
+        Employee employee = getEmployeeFromSession();
+        Optional<Organization> organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+
+        Optional<Task> newTask = Optional.empty();
+
+        if (organization.isPresent()) {
+            newTask = organization.get()
+                    .createTask(reference, description, informalDescription, technicalDescription, duration, cost,
+                            taskCategory, employee);
+        }
+        return newTask;
     }
     
 }
