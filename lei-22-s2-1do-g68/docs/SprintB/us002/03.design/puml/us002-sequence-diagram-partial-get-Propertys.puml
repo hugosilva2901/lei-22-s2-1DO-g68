@@ -3,10 +3,10 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant ":CreateTaskController" as CTRL
+participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
+participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
 
 autonumber 7
 -> CTRL : getProperty
@@ -14,7 +14,7 @@ autonumber 7
 autonumber 7.1
 
 activate CTRL
-    group Get Task Category
+    group Get Property
         CTRL -> RepositorySingleton : getInstance()
         activate RepositorySingleton
 
@@ -27,11 +27,11 @@ activate CTRL
             PLAT --> CTRL : PropertyRepository
         deactivate PLAT
 
-        CTRL -> TaskCategoryRepository : getPropertyList
-        activate TaskCategoryRepository
+        CTRL -> PropertyRepository : getPropertyList
+        activate PropertyRepository
 
-            TaskCategoryRepository --> CTRL : PropertyList
-        deactivate TaskCategoryRepository
+            PropertyRepository --> CTRL : PropertyList
+        deactivate PropertyRepository
 
     end group
 

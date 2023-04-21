@@ -10,7 +10,7 @@ autonumber
 participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "OwnerRepository:\nOwnerRepository" as TaskCategoryRepository
+participant "OwnerRepository:\nOwnerRepository" as OwnerRepository
 
 autonumber 3
 
@@ -32,11 +32,11 @@ activate CTRL
                 PLAT --> CTRL: OwnersRepository
             deactivate PLAT
 
-            CTRL -> TaskCategoryRepository : getOwnersList()
-            activate TaskCategoryRepository
+            CTRL -> OwnerRepository : getOwnersList()
+            activate OwnerRepository
 
-                TaskCategoryRepository --> CTRL : OwnersList
-            deactivate TaskCategoryRepository
+                OwnerRepository --> CTRL : OwnersList
+            deactivate OwnerRepository
 
 
     end
