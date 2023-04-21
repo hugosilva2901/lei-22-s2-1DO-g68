@@ -7,17 +7,17 @@ participant "organization\n:Organization" as ORG
 participant "task\n:Task" as TAREFA
 
 autonumber 16
--> ORG: createTask(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee )
+-> ORG: createAnnouncement(Property, commission, Employee)
 
 autonumber 16.1
 activate ORG
     group Create Task
 
-        ORG -> TAREFA**: create(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-        ORG -> ORG: addTask (task)
+        ORG -> TAREFA**: createAnnouncement(Property, commission, Employee)
+        ORG -> ORG: addAnnouncement (Announcement)
 
         activate ORG
-            ORG -> ORG: validateTask(task)
+            ORG -> ORG: validateAnnouncement(Announcement)
             activate ORG
                 ORG --> ORG
             deactivate ORG
@@ -27,7 +27,7 @@ activate ORG
     end
 
     autonumber 17
-    <-- ORG : task
+    <-- ORG : Announcement
 deactivate ORG
 
 
