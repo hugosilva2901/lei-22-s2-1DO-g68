@@ -7,8 +7,8 @@ autonumber
 
 'hide footbox
 actor "Unregister User" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
+participant ":CreateGuestUI" as UI
+participant ":CreateGuestController" as CTRL
 
 
 activate ADM
@@ -26,7 +26,7 @@ activate ADM
 
         activate CTRL
 
-            CTRL --> UI : taskListProperties
+            CTRL --> UI : ListProperties
         deactivate CTRL
 
         UI --> ADM : Shows List of Properties
@@ -39,7 +39,7 @@ activate ADM
             Get Filtered Properties
 
         end ref
-    CTRL --> UI : taskFilteredProperties
+    CTRL --> UI : FilteredProperties
     end alt
         UI --> ADM : Display list of properties by selected filter
 
@@ -52,7 +52,7 @@ activate ADM
                 Get Sorted Properties
 
             end ref
-        CTRL --> UI : taskSortedProperties
+        CTRL --> UI : SortedProperties
     end alt
         UI --> ADM : Display list of properties by selected sort criteria
     deactivate UI

@@ -6,15 +6,14 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
+actor "Unregistered User" as ADM
+participant ":CreateGuestUI" as UI
+participant ":CreateGuestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
+participant "PropertyRepository:\PropertyRepository" as PropertyRepository
 participant ":ApplicationSession" as _APP
 participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
 participant "task\n:Task" as TAREFA
@@ -25,32 +24,34 @@ activate ADM
 
         activate UI
 
-'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-            'create CTRL
+
             UI -> CTRL** : create
 
-            UI -> CTRL : getTaskCategories()
+            UI -> CTRL : getListProperties
             activate CTRL
 
+
+group Get Property List
                 CTRL -> RepositorySingleton : getInstance()
                 activate RepositorySingleton
 
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getTaskCategoryRepository()
+                CTRL -> PLAT : getPropertyRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: taskCategoryRepository
+                    PLAT --> CTRL: PropertyRepository
                 deactivate PLAT
 
-                CTRL -> TaskCategoryRepository : getTaskCategories()
-                activate TaskCategoryRepository
+    CTRL -> PropertyRepository : getPropertyList()
+             activate PropertyRepository
 
-                    TaskCategoryRepository --> CTRL : taskCategoryList
-                deactivate TaskCategoryRepository
+                 PropertyRepository --> CTRL : PropertyList
+             deactivate PropertyRepository
 
-                CTRL --> UI : taskCategoryList
+end
+                CTRL --> UI : ListProperty
             deactivate CTRL
 
             UI --> ADM : shows task category list\n and asks to sleect one

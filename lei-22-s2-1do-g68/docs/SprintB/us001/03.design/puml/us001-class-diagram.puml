@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 skinparam shadowing true
 top to bottom direction
 
-skinparam classAttributeIconSize "1"
+skinparam classAttributeIconSize "2"
 
 
 class RealEstate {
@@ -18,9 +18,9 @@ class RealEstate {
     - logo
 }
 class House{
-    - umberOfRooms
+    - numberOfRooms
     - numberOfBathrooms
-    -numberOfFloors
+    - numberOfFloors
     - numberOfGarages
     - Equipaments
     - Basement: boolean
@@ -28,31 +28,48 @@ class House{
     - Sun exposure: boolean
 }
 class Apartment{
-    numberOfRooms
-    numberOfBathrooms
-    numberOfFloors
-    numberOfGarages
-    Equipaments
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
 
 }
 class Land{
 }
 abstract class Property {
-    name
-    Tipo
-    address
-    descriptions
-    vender:boolean
-    render:boolean
+    - name
+    - Tipo
+    - address
+    - descriptions
+    - vender:boolean
+    - render:boolean
 }
 
-class UnregisteredUser {}
-'is a user that has not yet registered
-class Property{}
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getPropertyRepository()
 
+}
+class CreateGuestUI{
+}
+
+class CreateGuestController{
+
+}
+class PropertyRepository{
+
+}
+
+CreateGuestUI .> CreateGuestController
+CreateGuestController .> Repositories : repositories
+Repositories "1" --> "*" PropertyRepository : has >
+PropertyRepository "1" --> "*" Property : has >
 House  --|>  Property  : is
 Apartment  --|>  Property : is
 Land  --|>  Property : is
-RealEstate "1"--"0..*" Property: owns :
-UnregisteredUser "1" - "*" RealEstate: requests list of properties
+RealEstate "1"--"0.*" Property: owns :
+
+
 @enduml
