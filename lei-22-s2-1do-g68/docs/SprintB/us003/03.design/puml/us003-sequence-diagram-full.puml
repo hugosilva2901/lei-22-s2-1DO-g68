@@ -12,7 +12,6 @@ participant ":CreateEmployeeController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "StoreRepository:\StoreRepository" as StoreRepository
-participant "RealState\n:Organization" as ORG
 participant "Employee\n:Employee" as TAREFA
 
 activate ADM
@@ -79,26 +78,26 @@ group Get Task Category List
      UI -> CTRL : createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
     activate CTRL
 
-      CTRL -> ORG: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
-                 activate ORG
+      CTRL -> StoreRepository: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
+                 activate StoreRepository
 
                        group Create Employee
 
-                             ORG -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
-                             ORG -> ORG: addEmployee (Employee)
+                             StoreRepository -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+                             StoreRepository -> StoreRepository: addEmployee (Employee)
 
-                             activate ORG
-                                 ORG -> ORG: validateEmployee(Employee)
-                                 activate ORG
-                                     ORG --> ORG
-                                 deactivate ORG
+                             activate StoreRepository
+                                 StoreRepository -> StoreRepository: validateEmployee(Employee)
+                                 activate StoreRepository
+                                     StoreRepository --> StoreRepository
+                                 deactivate StoreRepository
 
-                                 ORG --> ORG
-                             deactivate ORG
+                                 StoreRepository --> StoreRepository
+                             deactivate StoreRepository
                          end
 
-                     ORG --> CTRL : Employee
-                 deactivate ORG
+                     StoreRepository --> CTRL : Employee
+                 deactivate StoreRepository
                 CTRL --> UI: Employee
               deactivate CTRL
               UI --> ADM: displays operation success

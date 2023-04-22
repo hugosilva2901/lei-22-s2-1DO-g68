@@ -9,7 +9,7 @@ autonumber
 actor "Organization Employee" as ADM
 participant ":CreateEmployeeUI" as UI
 participant ":CreateEmployeeController" as CTRL
-participant "RealState\n:Organization" as ORG
+participant "storeRepository\n:StoreRepository" as ORG
 
 activate ADM
 

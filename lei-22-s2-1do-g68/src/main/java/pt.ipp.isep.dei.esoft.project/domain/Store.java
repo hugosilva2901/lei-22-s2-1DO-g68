@@ -1,7 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Store {
     private String name;
@@ -12,7 +16,7 @@ public class Store {
     private int branchNumber;
 
     private List<EmployeeProject> employees;
-
+    private Repositories repositories = Repositories.getInstance();
     private EmployeeProject localManager;
     public Store(String name, String phone, String email, String vatNumber, String address, int branchNumber) {
         this.name = name;
@@ -88,6 +92,8 @@ public class Store {
     public void setBranchNumber(int branchNumber) {
         this.branchNumber = branchNumber;
     }
+
+
 
     @Override
     public String toString() {

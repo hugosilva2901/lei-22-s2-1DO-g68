@@ -21,11 +21,21 @@ public class StoreRepository {
             throw new IllegalArgumentException("Store already exists");
         }
     }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
     private void addEmployeeToStore(Store store, EmployeeProject employee) {
         if (store == null){
             throw new IllegalArgumentException("Store is null");
-    }
-
+        }
+        if (employee == null){
+            throw new IllegalArgumentException("Employee is null");
+        }
         for (int i = 0; i < stores.size(); i++) {
             for (int j = 0; j < stores.get(i).getEmployees().size(); j++) {
                 if (stores.get(i).getEmployees().get(j).getTaxNumber()==employee.getTaxNumber())
@@ -47,4 +57,5 @@ public class StoreRepository {
 
         return optionalValue;
     }
+
 }

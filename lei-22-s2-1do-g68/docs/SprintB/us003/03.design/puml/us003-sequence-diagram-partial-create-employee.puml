@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "RealState\n:Organization" as ORG
+participant "storeRepository\n:StoreRepository" as ORG
 participant "Employee\n:Employee" as TAREFA
 
 autonumber 14
