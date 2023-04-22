@@ -20,9 +20,10 @@ public class CreatEmployeeTest {
         Store store = new Store("Store","9155555", "Rua do Teste", "vatnumber", "Portugal",5);
         storeRepository.addStore(store);
         CreatEmployeeController controller = new CreatEmployeeController();
-        Optional<EmployeeProject> newTask = controller.createEmployee("name", "ajent", 910634405,"email.com"
+        Optional<EmployeeProject> newTask = controller.createEmployee("name", "ajent", 265903075,"email.com"
                 ,"hugo","rua dp calvario","910634405", Roles.AGENT,500, store);
-
+        Optional<EmployeeProject> newTask1 = controller.createEmployee("name", "ajent", 265903076,"email.com"
+                ,"hugo","rua dp calvario","910634405", Roles.STOREMANAGER,500, store);
         assertFalse(newTask.isEmpty());
 
 

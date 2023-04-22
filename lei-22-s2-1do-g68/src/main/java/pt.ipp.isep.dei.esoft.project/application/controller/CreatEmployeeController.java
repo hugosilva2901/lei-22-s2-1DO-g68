@@ -101,8 +101,12 @@ public class CreatEmployeeController {
         }
         Admin admin = Admin.getInstance();
 
-      Optional<EmployeeProject> newtask = admin.createEmployee( name,  descptions,  taxNumber,  email,  password,
+      Optional<EmployeeProject> newtask = storeRepository.createEmployee( name,  descptions,  taxNumber,  email,  password,
                  address,  phone,  roles,  salary,  store);
+            if(roles == Roles.STOREMANAGER){
+                store.setLocalManager(employee);
+            }
+
 
         return newtask;
     }

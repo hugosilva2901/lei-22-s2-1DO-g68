@@ -13,7 +13,7 @@ public class Store {
 
     private List<EmployeeProject> employees;
 
-    private Employee localManager;
+    private EmployeeProject localManager;
     public Store(String name, String phone, String email, String vatNumber, String address, int branchNumber) {
         this.name = name;
         this.phone = phone;
@@ -25,11 +25,11 @@ public class Store {
         this.localManager = null;
     }
 
-    public Employee getLocalManager() {
+    public EmployeeProject getLocalManager() {
         return localManager;
     }
 
-    public void setLocalManager(Employee localManager) {
+    public void setLocalManager(EmployeeProject localManager) {
         this.localManager = localManager;
     }
 
