@@ -24,8 +24,8 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Organization
- * Task
+ * StoreRepository
+ * employee
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
