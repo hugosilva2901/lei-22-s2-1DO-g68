@@ -3,32 +3,40 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant ":CreateGuestUI" as UI
+participant ":CreateGuestController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "PropertyRepository:\PropertyRepository" as PropertyRepository
 
-autonumber 16
--> ORG: createTask(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee )
 
-autonumber 16.1
-activate ORG
-    group Create Task
+ activate UI
+ UI -> CTRL : getListProperties
+            activate CTRL
 
-        ORG -> TAREFA**: create(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-        ORG -> ORG: addTask (task)
 
-        activate ORG
-            ORG -> ORG: validateTask(task)
-            activate ORG
-                ORG --> ORG
-            deactivate ORG
+group Get Property List
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
 
-            ORG --> ORG
-        deactivate ORG
-    end
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
 
-    autonumber 17
-    <-- ORG : task
-deactivate ORG
+                CTRL -> PLAT : getPropertyRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: PropertyRepository
+                deactivate PLAT
+
+    CTRL -> PropertyRepository : getPropertyList()
+             activate PropertyRepository
+
+                 PropertyRepository --> CTRL : PropertyList
+             deactivate PropertyRepository
+
+end
+                CTRL --> UI : ListProperty
+            deactivate CTRL
 
 
 @enduml
