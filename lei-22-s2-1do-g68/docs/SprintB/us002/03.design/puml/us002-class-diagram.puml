@@ -1,0 +1,75 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+top to bottom direction
+
+skinparam classAttributeIconSize "2"
+
+
+class RealEstate {
+    - name
+    - address
+    - descriptions
+    - website
+    - phoneNumber
+    - email
+    - vatNumber
+    - logo
+}
+class House{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+    - Basement: boolean
+    - inhabited  loft: boolean
+    - Sun exposure: boolean
+}
+class Apartment{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+
+}
+class Land{
+}
+abstract class Property {
+    - name
+    - Tipo
+    - address
+    - descriptions
+    - vender:boolean
+    - render:boolean
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getPropertyRepository()
+
+}
+class CreateAgentUI{
+}
+
+class CreateAgentController{
+    + createAnnouncement(Property, commission, Employee)
+}
+class PropertyRepository{
+
+}
+
+CreateAgentUI .> CreateAgentController
+CreateAgentController .> Repositories : repositories
+Repositories "1" --> "*" PropertyRepository : has >
+PropertyRepository "1" --> "*" Property : has >
+House  --|>  Property  : is
+Apartment  --|>  Property : is
+Land  --|>  Property : is
+RealEstate "1"--"0.*" Property: owns :
+
+
+@enduml
