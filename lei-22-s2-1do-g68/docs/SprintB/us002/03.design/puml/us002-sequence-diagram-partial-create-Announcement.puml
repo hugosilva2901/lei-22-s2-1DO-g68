@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant "Announcement\n:Announcement" as TAREFA
 
 autonumber 16
 -> ORG: createAnnouncement(Property, commission, Employee)
