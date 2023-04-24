@@ -36,6 +36,7 @@ class Apartment{
 
 }
 class Land{
+    - area
 }
 abstract class Property {
     - name
@@ -52,18 +53,18 @@ class Repositories {
     + getPropertyRepository()
 
 }
-class CreateAgentUI{
+class CreateAnnouncementUI{
 }
 
-class CreateAgentController{
+class CreateAnnouncementController{
     + createAnnouncement(Property, commission, Employee)
 }
 class PropertyRepository{
 
 }
 
-CreateAgentUI .> CreateAgentController
-CreateAgentController .> Repositories : repositories
+CreateAnnouncementUI .> CreateAnnouncementController
+CreateAnnouncementController .> Repositories : repositories
 Repositories "1" --> "*" PropertyRepository : has >
 PropertyRepository "1" --> "*" Property : has >
 House  --|>  Property  : is

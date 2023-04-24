@@ -36,6 +36,7 @@ class Apartment{
 
 }
 class Land{
+    - area
 }
 abstract class Property {
     - name
