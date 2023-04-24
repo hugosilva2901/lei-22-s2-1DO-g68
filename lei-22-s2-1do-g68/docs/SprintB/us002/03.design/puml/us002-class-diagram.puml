@@ -6,17 +6,6 @@ top to bottom direction
 
 skinparam classAttributeIconSize "2"
 
-
-class RealEstate {
-    - name
-    - address
-    - descriptions
-    - website
-    - phoneNumber
-    - email
-    - vatNumber
-    - logo
-}
 class House{
     - numberOfRooms
     - numberOfBathrooms
@@ -63,6 +52,39 @@ class PropertyRepository{
 
 }
 
+class Owner extends user{
+}
+
+class Employee extends user{
+    -salary
+}
+
+class user{
+    - name
+    - descriptions
+    - tax number
+    - address
+    - email address
+    - phone number
+    - password
+    - roles
+
+}
+
+enum roles{
+
+}
+
+class Announcement{
+    -Property
+    -commission
+    -Employee
+}
+
+class OwnerRepository{
+
+}
+
 CreateAnnouncementUI .> CreateAnnouncementController
 CreateAnnouncementController .> Repositories : repositories
 Repositories "1" --> "*" PropertyRepository : has >
@@ -70,7 +92,10 @@ PropertyRepository "1" --> "*" Property : has >
 House  --|>  Property  : is
 Apartment  --|>  Property : is
 Land  --|>  Property : is
-RealEstate "1"--"0.*" Property: owns :
-
+Owner "1"--"0.*" Property: owns
+user "1"--"1..*" roles : has >
+Employee "1"--"1..*" Announcement : publish >
+CreateAnnouncementController ..> "1" Announcement : Announcement
+OwnerRepository "1" --> "*" Owner : has >
 
 @enduml
