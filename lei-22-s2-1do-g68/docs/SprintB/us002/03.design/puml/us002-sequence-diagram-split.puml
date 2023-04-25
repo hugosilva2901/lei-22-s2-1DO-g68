@@ -9,7 +9,7 @@ autonumber
 actor "Real State agent" as ADM
 participant ":CreateAnnouncementUI" as UI
 participant ":CreateAnnouncementController" as CTRL
-participant "Real State\n:Organization" as ORG
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 
 activate ADM
 

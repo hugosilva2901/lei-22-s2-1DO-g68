@@ -1,13 +1,19 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class Owner extends User{
-
-    private static Owner instance= new Owner();
-
-    private Owner() {
-        super("owner", "dono da propriedade", 254054706, "tiago@email.com", "owner", "rua de santa ana", "925092102", Roles.OWNER);
+public class Owner extends User {
+    public Owner(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+        super(name, descptions, taxNumber, email, password, address, phone, roles);
     }
-    public static Owner getInstance() {
-        return instance;
+
+    private void validateTaxNumber(int taxNumber){
+        if(taxNumber < 100000000 || taxNumber > 999999999){
+            throw new IllegalArgumentException("The tax number is not valid");
+        }
     }
+
+    private void validateOwner(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+        validateTaxNumber(taxNumber);
+
+    }
+
 }

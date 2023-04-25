@@ -97,5 +97,6 @@ user "1"--"1..*" roles : has >
 Employee "1"--"1..*" Announcement : publish >
 CreateAnnouncementController ..> "1" Announcement : Announcement
 OwnerRepository "1" --> "*" Owner : has >
+Owner "1" --> "0.*" Announcement : request >
 
 @enduml
