@@ -1,37 +1,110 @@
 @startuml
 'https://plantuml.com/class-diagram
-
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
-}
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+top to bottom direction
 
 class CreateStoreUI{
 }
 
 class CreateStoreController{
    + getEmployee()
-   + getOwner()
-   + createProperty()
+   + getOwnerOfProperty()
+   + createProperty(Owner, type, address, description, cost, vender, render, PropertyData)
 }
+
+class user{
+    - name
+    - descriptions
+    - tax number
+    - address
+    - email address
+    - phone number
+    - password
+    - roles
+
+}
+
+enum roles{
+
+}
+
+class Owner extends user{
+}
+
+class Employee extends user{
+    -salary
+}
+
+abstract class Property {
+    - name
+    - Tipo
+    - address
+    - descriptions
+    - vender:boolean
+    - render:boolean
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getPropertyRepository()
+    + getOwnerRepository()
+    + getEmployeeRepository()
+
+}
+
+class PropertyRepository {
+    - PropertyRepository()
+    + getInstance() : PropertyRepository
+    + addProperty(Property property)
+    + getProperty(String name)
+    + getProperties()
+    + removeProperty(String name)
+    + updateProperty(String name, Property property)
+}
+
+class OwnerRepository {
+    - OwnerRepository()
+    + getInstance() : OwnerRepository
+    + addOwner(Owner owner)
+    + getOwner(String name)
+    + getOwners()
+    + removeOwner(String name)
+    + updateOwner(String name, Owner owner)
+}
+
+class EmployeeRepository {
+    - EmployeeRepository()
+    + getInstance() : EmployeeRepository
+    + addEmployee(Employee employee)
+    + getEmployee(String name)
+    + getEmployees()
+    + removeEmployee(String name)
+    + updateEmployee(String name, Employee employee)
+}
+
+
+CreateStoreUI .> CreateStoreController
+CreateStoreController .> Repositories : repositories >
+Repositories "1" --> "*" PropertyRepository : has >
+Repositories "1" --> "*" OwnerRepository : has >
+Repositories "1" --> "*" EmployeeRepository : has >
+PropertyRepository "1" --> "*" Property : has >
+OwnerRepository "1" --> "*" Owner : has >
+EmployeeRepository "1" --> "*" Employee : has >
+user "1"--"1..*" roles : has >
+Owner "1"--"1..*" Property : has >
+
+
+
+
+
+
+
+
+
 
 
 
