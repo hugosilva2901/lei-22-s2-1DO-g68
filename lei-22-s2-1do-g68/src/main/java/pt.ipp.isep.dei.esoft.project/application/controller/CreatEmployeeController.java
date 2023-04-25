@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Admin;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
-import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
-import pt.ipp.isep.dei.esoft.project.domain.Roles;
-import pt.ipp.isep.dei.esoft.project.domain.Store;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -12,7 +9,7 @@ import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
 
 
-
+import java.util.List;
 import java.util.Optional;
 
 public class CreatEmployeeController {
@@ -82,17 +79,9 @@ public class CreatEmployeeController {
 
 
     public Optional<EmployeeProject> createEmployee(String name, String descptions, int taxNumber, String email, String password,
-                                         String address, String phone, Roles roles, int salary, Store store) {
+                                                    String address, String phone, Roles[] roles, int salary, Store store) {
 
-        if(roles != Roles.AGENT && roles != Roles.STOREMANAGER ) {
-            throw new IllegalArgumentException("The role is not valid");
 
-        } else if (roles == Roles.STOREMANAGER) {
-            if(store.getLocalManager()!=null){
-                 throw new IllegalArgumentException("There is already a local manager for this store");
-            }
-
-        }
 
         EmployeeProject employee = new EmployeeProject(name, descptions, taxNumber,
                 email, password, address, phone, roles, salary, store);
@@ -103,12 +92,16 @@ public class CreatEmployeeController {
 
       Optional<EmployeeProject> newtask = storeRepository.createEmployee( name,  descptions,  taxNumber,  email,  password,
                  address,  phone,  roles,  salary,  store);
-            if(roles == Roles.STOREMANAGER){
+
+        for (int i = 0; i < roles.length; i++) {
+            if((roles[i] != Roles.STOREMANAGER) ) {
                 store.setLocalManager(employee);
             }
-
-
+        }
         return newtask;
     }
-    
+    public List<Store> getStores() {
+        StoreRepository storeRepository = getStoreRepository();
+        return storeRepository.getStores();
+    }
 }

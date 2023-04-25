@@ -15,9 +15,11 @@ link as suggested below.**
 
 # Use Cases / User Stories
 
-| UC/US  | Description                                   |                   
-|:-------|:----------------------------------------------|
-| US 001 | [Short Name for US001](../../us001/Readme.md) |
-| ...    | ...                                           |
-| US 006 | [Create Task](../../us006/Readme.md)          |
-| ...    | ...                                           |
+| UC/US | Description                                                                                                                           |                   
+|:------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| US1   | [As an unregistered user, I want to display listed properties ](../../us001/Readme.md)                                                |
+| US2   | [As an agent, I can publish any sale announcement on the system, for example received through a phone call](../../us002/Readme.md)    |
+| US3   | [As a system administrator, I want to register a new employee.](../../us003/Readme.md)                                                |
+| US4   | [As an owner, I intend to submit a request for listing a property sale or rent,choosing the responsible agent](../../us004/Readme.md) |
+| US5   | [As a system administrator, I want to register a store. ](../../us005/Readme.md)                                                      |
+

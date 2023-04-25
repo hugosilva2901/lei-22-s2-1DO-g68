@@ -21,7 +21,7 @@ public class AdminUI implements Runnable {
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Create Task", new CreateTaskUI()));
-        options.add(new MenuItem("Create Employee", (Runnable) new CreatEmployeeUi()));
+        options.add(new MenuItem("Create Employee", new CreatEmployeeUi()));
         options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
         options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
 

@@ -5,8 +5,8 @@ public class EmployeeProject extends User{
 
     private Store store;
     public EmployeeProject(String name, String descptions, int taxNumber, String email, String password,
-                           String address, String phone, Roles roles, int salary, Store store) {
-        super(name, descptions, taxNumber, email, password, address, phone, roles);
+                           String address, String phone, Roles[] roles, int salary, Store store) {
+        super(name, descptions, taxNumber, email, password, address, phone, roles[0]);
         this.salary = salary;
         this.store = store;
         validateEmployee(name, descptions, taxNumber, email, password, address, phone, roles, salary, store);
@@ -36,11 +36,10 @@ public class EmployeeProject extends User{
         }
     }
     private void validateEmployee(String name, String descptions, int taxNumber, String email, String password,
-                                  String address, String phone, Roles roles, int salary, Store store) {
+                                  String address, String phone, Roles[] roles, int salary, Store store) {
         validateSalary(salary);
         validateStore(store);
         validateTaxNumber(taxNumber);
-
     }
 
 }

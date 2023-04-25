@@ -46,10 +46,12 @@ public class StoreRepository {
     }
 
     public Optional<EmployeeProject> createEmployee(String name, String descptions, int taxNumber, String email, String password,
-                                                    String address, String phone, Roles roles, int salary, Store store) {
+                                                    String address, String phone, Roles[] roles, int salary, Store store) {
         Optional<EmployeeProject> optionalValue = Optional.empty();
-        if(roles != Roles.AGENT && roles != Roles.STOREMANAGER ) {
-            return Optional.empty();
+        for (int i = 0; i < roles.length; i++) {
+            if((roles[i] != Roles.AGENT && roles[i] != Roles.STOREMANAGER) ) {
+                return Optional.empty();
+            }
         }
         EmployeeProject employee = new EmployeeProject(name, descptions, taxNumber, email, password, address, phone, roles, salary, store);
         addEmployeeToStore(store,employee);
