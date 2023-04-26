@@ -7,6 +7,9 @@ import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
@@ -43,11 +46,11 @@ public class Bootstrap implements Runnable {
         taskCategoryRepository.add(new TaskCategory("Maintenance"));
     }
 
-
     private void addStore() {
         Store store = new Store("Store","9155555", "Rua do Teste", "vatnumber", "Portugal",5);
         Repositories.getInstance().getStoreRepository().addStore(store);
     }
+
     private void addEmployee() {
         Roles[] roles= new Roles[1] ;
         roles[0] = Roles.AGENT;
@@ -59,7 +62,8 @@ public class Bootstrap implements Runnable {
         Repositories.getInstance().getStoreRepository().addEmployeeToStorePublic(store,employeeProject);
     }
     private void addProperty() {
-        House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, 5, true, true, true);
+        List<String> list= new ArrayList<>();
+        House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
     }
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
