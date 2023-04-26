@@ -6,71 +6,77 @@
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
-
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
+		Store store = new Task(null, null, null, null, null, null, null);
 	}
 
+	@Test
+    void createStore() {
+        Store store = new Store(name,phone,email,vatNumber,address,branchNumber);
+        Store testStore = storeNetWork.createStore(name,phone,email,vatNumber,address,branchNumber);
+        assertEquals(store.getAddress(),testStore.getAddress());
+        assertEquals(store.getBranchNumber(),testStore.getBranchNumber());
+        assertEquals(store.getEmail(),testStore.getEmail());
+        assertEquals(store.getPhone(),testStore.getPhone());
+        assertEquals(store.getName(),testStore.getName());
+        assertEquals(store.getVatNumber(),testStore.getVatNumber());
+        assertTrue(testStore.getEmployees().isEmpty());
 
-*It is also recommended to organize this content by subsections.* 
+        assertTrue(storeNetWork.getRepository().getStores().contains(testStore));
+    }
+
+
 
 # 5. Construction (Implementation)
-
-
-## Class CreateTaskController 
+```java
+ public Store(String name, String phone, String email, String vatNumber, String address, int branchNumber) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.vatNumber = vatNumber;
+        this.address = address;
+        this.branchNumber = branchNumber;
+        this.employees = new ArrayList<>();
+        validate(name,phone,email,vatNumber,address,branchNumber);
+        this.localManager = null;
+        }
+```
+## Class StoreNetwork
 
 ```java
-public Task createTask(String reference, String description, String informalDescription,
-								 String technicalDescription, Integer duration, Double cost,
-								 String taskCategoryDescription) {
-
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, 
-			duration, cost,taskCategory, employee);
-    
-	return newTask;
-}
+public Store createStore(String name, String phone, String email, String vatNumber, String address, int branchNumber){
+        Store store = new Store(name,phone,email,vatNumber,address,branchNumber);
+        saveStore(store);
+        return store;
+        }
 ```
 
 
-## Class Organization
+## Class CreateStoreController 
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                     String technicalDescription, Integer duration, Double cost,
-                                     TaskCategory taskCategory, Employee employee) {
-    
-        Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                taskCategory, employee);
+public Store createStore(String name, String phone, String email, String vatNumber, String address, int branchNumber){
+        return this.storeNetWork.createStore(name,phone,email,vatNumber,address,branchNumber);
+        }
+```
 
-        addTask(task);
-        
-        return task;
-    }
+
+## Class StoreRepository
+
+```java
+ public void addStore(Store store) {
+        validateStore(store);
+        this.stores.add(store);
+        }
 ```
 
 # 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
-
-* Some demo purposes some tasks are bootstrapped while system starts.
+* Some demo purposes some Stores are bootstrapped while system starts.
 
 
 # 7. Observations
 
-Platform and Organization classes are getting too many responsibilities due to IE pattern and, therefore, they are becoming huge and harder to maintain. 
+StoreNetWork and RealEstate classes are getting too many responsibilities due to IE pattern and, therefore, they are becoming huge and harder to maintain. 
 
 Is there any way to avoid this to happen?
 

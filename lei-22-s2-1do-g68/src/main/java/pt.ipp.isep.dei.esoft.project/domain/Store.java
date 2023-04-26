@@ -26,6 +26,7 @@ public class Store {
         this.address = address;
         this.branchNumber = branchNumber;
         this.employees = new ArrayList<>();
+        validate(name,phone,email,vatNumber,address,branchNumber);
         this.localManager = null;
     }
 
@@ -93,6 +94,9 @@ public class Store {
         this.branchNumber = branchNumber;
     }
 
+    public boolean validate(String name, String phone, String email, String vatNumber, String address, int branchNumber){
+        return true;
+    }
 
 
     @Override

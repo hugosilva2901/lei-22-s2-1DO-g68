@@ -45,6 +45,11 @@ public class StoreNetWork {
     public String getName() {
         return name;
     }
+
+    public StoreRepository getRepository() {
+        return repository;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
