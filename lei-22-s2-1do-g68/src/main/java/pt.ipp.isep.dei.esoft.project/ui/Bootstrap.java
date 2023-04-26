@@ -58,6 +58,9 @@ public class Bootstrap implements Runnable {
                 ,"hugo","rua dp calvario","910634405", roles,500, store);
         Repositories.getInstance().getStoreRepository().addEmployeeToStorePublic(store,employeeProject);
     }
+    private void addProperty() {
+        House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, 5, true, true, true);
+    }
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();

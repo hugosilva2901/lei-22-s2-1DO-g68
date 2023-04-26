@@ -53,5 +53,7 @@ public abstract class Property {
     public void setForRent(boolean isForRent) {
         this.isForRent = isForRent;
     }
+
+
 }
 
