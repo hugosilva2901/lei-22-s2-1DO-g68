@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+
 public class RealEstate {
     private String name;
     private String description;
@@ -8,6 +10,7 @@ public class RealEstate {
     private String phone;
     private int vatNumber;
     private String address;
+
 
     public RealEstate(String name, String description, String website, String email, String phone, int vatNumber, String address) {
         this.name = name;

@@ -34,7 +34,7 @@ class CreateStoreUI{
 class CreateStoreController{
     + CreateStoreController()
     + getStoreNetWork()
-    + createStore(ID, designation/name, \n location, phone number, e-mail)
+    + createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
     + getStoreRepository()
 }
 'left to right direction
@@ -49,7 +49,7 @@ class RealEstate{
     - String vatNumber
 }
 class StoreNetWork{
-    + createStore(ID, designation/name, \n location, phone number, e-mail)
+    + createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
     + addStore(store)
     - String name
     - String address
@@ -58,14 +58,17 @@ class StoreNetWork{
 }
 class Administrator{
 }
+
+
 class Store{
-    + Store(ID, designation/name, \n location, phone number, e-mail)
+    + Store(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
     + validate()
-    - Int ID
+    - Int branchNumber
     - String designation
-    - String location
+    - String address
     - String phoneNumber
     - String e-mail
+    - String vatNumber
     - Employee manager
 
 }

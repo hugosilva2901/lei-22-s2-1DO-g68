@@ -35,11 +35,12 @@ class StoreNetwork{
 }
 
 class Store {
-    - id : int
+    - branchNumber : int
     - designation
-    - location
+    - address
     - phone
     - email
+    - vatNumber
     - manager
 }
 class Administrator{

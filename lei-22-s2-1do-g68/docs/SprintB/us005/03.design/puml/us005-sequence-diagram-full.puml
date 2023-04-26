@@ -36,19 +36,19 @@ activate ADM
         UI --> ADM : requests data
         deactivate UI
 
-        ADM ->UI : types requested data (ID, designation/name, \n location, phone number, e-mail)
+        ADM ->UI : types requested data (designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
         activate UI
-        UI --> UI :  keepData(ID,designation/name, location,\n phone number, e-mail)
+        UI --> UI :  keepData(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
         UI--> ADM :show typed data and requests confirmation
         deactivate UI
 
         ADM -> UI: submit Data
         activate UI
-        UI -> CTRL : createStore(ID,designation/name, location,\nphone number, e-mail)
+        UI -> CTRL : createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
         activate CTRL
-            CTRL -> SN : createStore(ID,designation/name, location,\nphone number, e-mail)
+            CTRL -> SN : createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
             activate SN
-            SN -> S** :createStore(ID,designation/name, location,\nphone number, e-mail)
+            SN -> S** :createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
                 activate S
                     S->S : validate()
                     activate S
