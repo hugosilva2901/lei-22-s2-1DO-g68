@@ -52,7 +52,7 @@ enum Role{
     + ROLE_REAL_ESTATE_AGENT
 }
 StoreNetwork "1"--"*" Store : has
-Store "1"--"0..1" Employee : has  >
+Store "1"--"0..*" Employee : has  >
 Employee "1"--"1" Role : is >
 Employee --|> User : is >
 
@@ -61,4 +61,5 @@ RealEstate "1"--"1" StoreNetwork :has >
 Administrator "1"--"*" Store : create >
 Administrator "1"--"1" StoreNetwork : manage >
 Administrator "1"-|>"1" User : is
+Administrator "1"--"*" Employee : create >
 @enduml
