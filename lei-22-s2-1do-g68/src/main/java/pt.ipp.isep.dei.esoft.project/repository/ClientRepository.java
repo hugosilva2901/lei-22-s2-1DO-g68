@@ -9,15 +9,15 @@ import java.util.Optional;
 public class ClientRepository {
     List<Client> clients = new ArrayList<>();
 
-    public void addOwner(Client client) {
+    public void addClient(Client client) {
         clients.add(client);
     }
 
-    public List<Client> getOwners() {
+    public List<Client> getClients() {
         return clients;
     }
 
-    public Client getOwnerByTaxNumber(int taxNumber) {
+    public Client getClientByTaxNumber(int taxNumber) {
         for (Client client : clients) {
             if (client.getTaxNumber() == taxNumber) {
                 return client;
@@ -26,7 +26,7 @@ public class ClientRepository {
         return null;
     }
 
-    public boolean removeOwner(Client client) {
+    public boolean removeClient(Client client) {
         return clients.remove(client);
     }
 
@@ -36,13 +36,13 @@ public class ClientRepository {
 
         Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
         optionalValue = Optional.of(client);
-        addOwner(client);
+        addClient(client);
         return optionalValue;
     }
 
 
     public void addPropertyToOwner(Client client, Property property) {
-        Client clientToUpdate = getOwnerByTaxNumber(client.getTaxNumber());
+        Client clientToUpdate = getClientByTaxNumber(client.getTaxNumber());
         if (clientToUpdate != null) {
             clientToUpdate.addProperty(property);
         }
