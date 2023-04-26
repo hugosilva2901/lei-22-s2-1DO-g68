@@ -7,6 +7,10 @@ public class Repositories {
     OrganizationRepository organizationRepository = new OrganizationRepository();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     StoreRepository storeRepository = new StoreRepository();
+
+    ClientRepository clientRepository = new ClientRepository();
+
+    PropertyRepository propertyRepository = new PropertyRepository();
     private Repositories() {
     }
 
@@ -29,5 +33,11 @@ public class Repositories {
         return authenticationRepository;
     }
 
+    public ClientRepository getClientRepository() {
+        return clientRepository;
+    }
 
+    public PropertyRepository getPropertyRepository() {
+        return propertyRepository;
+    }
 }

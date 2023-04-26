@@ -1,11 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientRepository {
     List<Client> clients = new ArrayList<>();
@@ -31,22 +30,16 @@ public class ClientRepository {
         return clients.remove(client);
     }
 
-    private void validateTaxNumber(int taxNumber){
-        if(taxNumber < 100000000 || taxNumber > 999999999){
-            throw new IllegalArgumentException("The tax number is not valid");
-        }
-    }
 
-    private void validateOwner(Client client) {
-        validateTaxNumber(client.getTaxNumber());
-    }
+    public  Optional<Client>  createClient(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+        Optional<Client> optionalValue = Optional.empty();
 
-    public Client createOwner(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
         Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
-        validateOwner(client);
+        optionalValue = Optional.of(client);
         addOwner(client);
-        return client;
+        return optionalValue;
     }
+
 
     public void addPropertyToOwner(Client client, Property property) {
         Client clientToUpdate = getOwnerByTaxNumber(client.getTaxNumber());
