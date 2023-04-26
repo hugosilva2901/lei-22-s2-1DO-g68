@@ -6,10 +6,10 @@ skinparam shadowing false
 participant "organization\n:Organization" as ORG
 participant "property\n:property" as TAREFA
 
-autonumber 16
+autonumber 13
 -> ORG: createProperty(Owner, type, address, description, cost, vender, render, PropertyData)
 
-autonumber 16.1
+autonumber 13.1
 activate ORG
     group Create Task
 
@@ -26,7 +26,7 @@ activate ORG
         deactivate ORG
     end
 
-    autonumber 17
+    autonumber 14
     <-- ORG : Property
 deactivate ORG
 

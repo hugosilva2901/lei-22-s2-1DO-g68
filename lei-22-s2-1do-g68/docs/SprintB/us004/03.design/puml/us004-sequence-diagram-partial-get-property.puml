@@ -8,10 +8,10 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
 
-autonumber 12
+autonumber 14
 -> CTRL : getPropertyByDescription(propertyDescription)
 
-autonumber 12.1
+autonumber 14.1
 
 activate CTRL
     group Get Property
@@ -35,7 +35,7 @@ activate CTRL
 
     end group
 
-    autonumber 13
+    autonumber 15
     <-- CTRL : Property
 
 deactivate CTRL
