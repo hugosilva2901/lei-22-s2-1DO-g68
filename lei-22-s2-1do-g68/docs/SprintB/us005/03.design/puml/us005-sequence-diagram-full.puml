@@ -9,9 +9,10 @@ autonumber
 actor "Administrator" as ADM
 participant ":CreateStoreUI" as UI
 participant ":CreateStoreController" as CTRL
-participant ":RealEstate" as RE
 participant ":StoreNetWork" as SN
 participant "store\n:Store" as S
+participant ":Repository" as repository
+participant ":StoreRepository" as storeRepo
 
 activate ADM
 
@@ -19,18 +20,18 @@ activate ADM
 
         activate UI
             UI -> CTRL** : create
-            UI -> CTRL : getStoreNetWork()
             activate CTRL
-            CTRL -> RE : getStoreNetWork()
-                activate RE
-                RE -> SN : getStoreNetWork()
-                    activate SN
-                    SN --> RE : StoreNetWork
-                    deactivate SN
-                RE--> CTRL : StoreNetWork
-                deactivate RE
-
-            CTRL --> UI : StoreNetWork
+            CTRL -> SN : instantiate
+                activate SN
+                SN -> repository : getInstance()
+                    activate repository
+                    repository -> storeRepo : getStoreRepository()
+                        activate storeRepo
+                        storeRepo --> repository : storeRepository
+                        deactivate storeRepo
+                        repository -->SN : storeRepository
+                        deactivate repository
+                deactivate SN
             deactivate CTRL
         UI --> ADM : requests data
         deactivate UI
@@ -51,18 +52,18 @@ activate ADM
                 activate S
                     S->S : validate()
                     activate S
+                    S-->SN : store
                     deactivate S
                 deactivate S
+        SN -> storeRepo : addStore(store)
+       activate storeRepo
+       storeRepo -> storeRepo : addStore(store)
+       storeRepo -> storeRepo : validateStore(store)
+       storeRepo --> storeRepo
+       storeRepo --> SN : store
+       deactivate storeRepo
 
 
-        SN -> SN : addStore(store)
-        activate SN
-        SN -> SN :validateStore(store)
-            activate SN
-            deactivate SN
-        SN --> SN
-        SN --> SN
-        deactivate SN
 
         SN --> CTRL : store
         deactivate SN
