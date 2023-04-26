@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":CreateStoreController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
+
+autonumber 3
+
+ -> CTRL : getProperty()
+autonumber 3.1
+activate CTRL
+    group Get Property List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getPropertyRepository()
+            activate PLAT
+
+                PLAT --> CTRL: PropertyRepository
+            deactivate PLAT
+
+            CTRL -> PropertyRepository : getProperty()
+            activate PropertyRepository
+
+                PropertyRepository --> CTRL : PropertyList
+            deactivate PropertyRepository
+
+
+    end
+    autonumber 4
+    <-- CTRL  : PropertyList
+deactivate CTRL
+
+
+@enduml

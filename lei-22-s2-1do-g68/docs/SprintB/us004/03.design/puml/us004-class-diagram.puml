@@ -85,6 +85,28 @@ class EmployeeRepository {
     + updateEmployee(String name, Employee employee)
 }
 
+class House{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+    - Basement: boolean
+    - inhabited  loft: boolean
+    - Sun exposure: boolean
+}
+class Apartment{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+
+}
+class Land{
+    - area
+}
+
 
 CreateStoreUI .> CreateStoreController
 CreateStoreController .> Repositories : repositories >
@@ -96,6 +118,9 @@ OwnerRepository "1" --> "*" Owner : has >
 EmployeeRepository "1" --> "*" Employee : has >
 user "1"--"1..*" roles : has >
 Owner "1"--"1..*" Property : has >
+House  --|>  Property  : is
+Apartment  --|>  Property : is
+Land  --|>  Property : is
 
 
 
