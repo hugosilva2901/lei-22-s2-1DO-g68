@@ -1,11 +1,164 @@
 @startuml
-'https://plantuml.com/sequence-diagram
-
+skinparam packageStyle rectangle
+skinparam shadowing false
 autonumber
+Title Sequence Diagram(US004)
+actor "Owner" as Owner
+participant ":CreateAnnouncementRequestUI" as UI
+participant ":CreateAnnouncementRequestController" as CTRL
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "propertyTypeRepository:\nPropertyTypeRepository" as PropertyTypeRepository
+participant "storeRepository:\nStoreRepository" as StoreRepository
+participant "store:\nStore" as Store
+participant "employee:\nEmployee" as Employee
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+activate Owner
+Owner -> UI : asks to create an announcement request
+
+activate UI
+UI -> CTRL : create
+
+activate CTRL
+
+CTRL -> _APP : getInstance()
+activate _APP
+
+_APP --> CTRL : applicationSession
+deactivate _APP
+
+CTRL -> APP : getCurrentSession()
+activate APP
+APP --> CTRL : currentSession
+deactivate APP
+CTRL -> SESSAO : isLoggedInWithRole(USER_ROLE)
+activate SESSAO
+SESSAO --> CTRL : answer
+deactivate SESSAO
+CTRL --> UI  : user is Authorized
+deactivate CTRL
+
+
+UI-->Owner : requests sell type
+opt the sell type is a sale
+UI-->Owner: requests (price, address, description)
+Owner->UI: provides (price, address, description)
+end
+
+opt the sell type is a rental
+UI-->Owner:requests (price, address, description)
+Owner->UI:provides (price, address, description)
+end
+
+UI-->Owner: Requests property type
+Owner->UI: Selects the property type
+UI->CTRL :createPropertyType(propertyType)
+activate CTRL
+CTRL -> CTRL : getPropertyByType(propertyDescription)
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+CTRL -> PLAT : getPropertyRepository()
+activate PLAT
+PLAT --> CTRL : propertyRepository
+deactivate PLAT
+CTRL -> PropertyRepository : getPropertyByType(propertyDescription)
+activate PropertyRepository
+PropertyRepository --> CTRL : propertyType
+deactivate PropertyRepository
+CTRL-->UI : propertyType
+
+opt the property is a apartment
+UI-->Owner:requests residency details(numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, Equipaments)
+Owner->UI:provides residency details(numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, Equipaments)
+opt the property is a house
+UI-->Owner: requests house details(numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, Equipaments, Basement, inhabited loft, sun exposure)
+Owner->UI: provides house details(numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, Equipaments, Basement, inhabited loft, sun exposure)
+end
+end
+
+
+
+UI -> CTRL: createAgentList
+CTRL -> CTRL : getEmployeeByRole(Agent)
+
+CTRL -> RepositorySingleton: getInstance()
+activate RepositorySingleton
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+CTRL -> PLAT: getStoreRepository()
+activate PLAT
+PLAT --> CTRL: storeRepository
+deactivate PLAT
+CTRL -> StoreRepository: getEmployeeByRole()
+activate StoreRepository
+
+deactivate Employee
+loop [for each Store
+StoreRepository -> Store : anyEmployeeHasRole(Agent)
+activate Store
+Store --> StoreRepository : true/false
+alt true
+StoreRepository->Store : getAgentList()
+deactivate StoreRepository
+Store->Employee:getAgentList()
+
+activate Employee
+Employee-->Store:agentList
+deactivate Employee
+end
+end
+Store-->CTRL: agentList
+
+deactivate Store
+
+CTRL-->UI: agentList
+
+
+UI-->Owner: shows list of agents
+opt
+Owner->UI: chooses an Agent
+else
+Owner->UI: doesn't choose an Agent
+UI->CTRL: getRandomAgent()
+CTRL -> CTRL : getEmployeeByRole(Agent)
+
+CTRL -> RepositorySingleton: getInstance()
+activate RepositorySingleton
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+CTRL -> PLAT: getStoreRepository()
+activate PLAT
+PLAT --> CTRL: storeRepository
+deactivate PLAT
+
+CTRL -> StoreRepository: getEmployeeByRole(Agent)
+activate StoreRepository
+loop [for each Store
+StoreRepository -> Store : anyEmployeeHasRole(Agent)
+activate Store
+Store --> StoreRepository : true/false
+alt true
+StoreRepository->Store : getRandomAgent()
+deactivate StoreRepository
+Store->Employee:getRandomAgent()
+activate Employee
+Employee->Store:randomAgent
+deactivate Employee
+end
+end
+
+Store-->CTRL:randomAgent
+deactivate Store
+CTRL-->UI: randomAgent
+
+end
+UI-->Owner: Displays sucess message
+
+
 @enduml

@@ -30,7 +30,7 @@ enum roles{
 
 }
 
-class Owner extends user{
+class Client extends user{
 }
 
 class Employee extends user{
@@ -65,7 +65,7 @@ class PropertyRepository {
     + updateProperty(String name, Property property)
 }
 
-class OwnerRepository {
+class ClientRepository {
     - OwnerRepository()
     + getInstance() : OwnerRepository
     + addOwner(Owner owner)
