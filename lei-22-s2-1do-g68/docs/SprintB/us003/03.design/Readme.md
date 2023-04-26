@@ -11,8 +11,9 @@
 | Step 1  		     | 	... interacting with the actor?              | CreateEmployeeUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | 			  		        | 	... coordinating the US?                     | CreateEmployeeController | Controller                                                                                                    |
 | 			  		        | 	... instantiating a new employee?            | admin                    | Creator (Rule 1): in the DM Store has employee.                                                               |
-| Step 3  		     | 	...saving the inputted data?                 | store                    | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		     | 	...knowing the task categories to show?      | System                   | IE: employee roles are defined in the class enum roles.                                                       |
+| Step 2  		     | 	...knowing the ListOfStores to show?         | StoreRepository          | IE: knows all its stores                                                                                      |
+| Step 3  		     | 	... saving the selected store?               | employee                 | IE: object created in step 1 is classified in one or more roles.                                              |
+| Step 4  		     | 	...knowing the List roles to show?           | Roles                    | IE: knows all roles                                                                                           |
 | Step 5  		     | 	... saving the selected role?                | employee                 | IE: object created in step 1 is classified in one or more roles.                                              |
 | Step 6  		     | 							                                       |                          |                                                                                                               |              
 | Step 7  		     | 	... validating all data (local validation)?  | employee                 | IE: owns its data.                                                                                            | 
