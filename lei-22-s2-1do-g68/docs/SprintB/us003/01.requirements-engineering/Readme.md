@@ -45,26 +45,32 @@ The company's systems administrator will be responsible for registering all empl
 > leaving out those two characteristics from the answer was intentional or not. Futhermore, 
 > the role of the employee seems like too much of an important piece of information to be left out. 
 > My request is, then, for you to state whether or not that was a conscious decision in your answer.
+> 
 > **Answer:** The role is required
 
 > **Question:** When registering a new employee, all the required data (name, citizen's card number, etc...)
 > have to be filled or exists not mandatory data?
+> 
 > **Answer:**  Required/Mandatory data that should be filled when registering an employee: name, 
 > the citizen's card number, the tax number, the email address, the contact telephone number and
 > the agency to which it is assigned.
 
 > **Question:** Does the system administrator select the agency to which the employee is assigned and his role from a list
 > ? Or does he just type that data
+>
 > **Answer:** The System Administrator should select
 
 > **Question:** The system administrator cannot add an agent that already exists, the agent has two unique numbers that
 > identify him (Tax number and Citizen's card number) which one should be used to identify the agent?
+> 
 > **Answer:**  The tax number
 
 > **Question:** Must the Tax number and Citizen's card number follow any convention? If so, which?
+> 
 > **Answer:**  You should use the tax identification number used for tax purposes in the US
 
 > **Question:** Does the System Administrator have permission to create, edit, delete, or just create new employee registrations?
+> 
 > **Answer:**  For now, the System Administrator can only do what is specified in the Project Requirements.
 
 ### 1.3. Acceptance Criteria

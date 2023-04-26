@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
@@ -87,7 +88,7 @@ public class CreatClienteController {
                                            String address, String phone, Roles roles ){
         Optional<Client> newtask = getClientRepository().createClient(name, descptions, taxNumber, email, password,
                 address, phone, roles);
-
+        authenticationRepository.addUserWithRole(name,email, password, AuthenticationController.ROLE_CLIENTE);
         return newtask;
     }
 }

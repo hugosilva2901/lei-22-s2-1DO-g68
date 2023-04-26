@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
@@ -98,6 +99,7 @@ public class CreatEmployeeController {
                 store.setLocalManager(employee);
             }
         }
+        authenticationRepository.addUserWithRole(name,email, password, AuthenticationController.ROLE_EMPLOYEE);
         return newtask;
     }
     public List<Store> getStores() {

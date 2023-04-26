@@ -19,7 +19,7 @@ public class EmployeeUi implements Runnable {
 
         int option = 0;
         do {
-            option = Utils.showAndSelectIndex(options, "\n\nAdmin Menu:");
+            option = Utils.showAndSelectIndex(options, "\n\nEmployee Menu:");
 
             if ((option >= 0) && (option < options.size())) {
                 options.get(option).run();

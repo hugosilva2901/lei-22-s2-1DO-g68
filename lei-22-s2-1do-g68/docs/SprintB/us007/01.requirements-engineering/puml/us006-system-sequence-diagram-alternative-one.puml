@@ -7,33 +7,28 @@ title System Sequence Diagram (SSD)
 
 autonumber
 
-actor "System Administartor" as Employee
+actor "Unregistered user" as Client
 participant ":System" as System
 
-activate Employee
 
-    Employee -> System : asks to register a store
+activate Client
+
+    Client -> System : asks to register
     activate System
 
-        System --> Employee : requests data
+        System --> Client : requests data
     deactivate System
 
-    Employee -> System : types requested data ()
+    Client -> System : types requested data ()
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Client : shows selected category
     deactivate System
 
-    Employee -> System : selects a task category
+    Client -> System : submits data
     activate System
 
-        System --> Employee : shows selected category
-    deactivate System
-
-    Employee -> System : submits data
-    activate System
-
-        System --> Employee : displays operation success
+        System --> Client : displays operation success
     deactivate System
 
 @enduml
