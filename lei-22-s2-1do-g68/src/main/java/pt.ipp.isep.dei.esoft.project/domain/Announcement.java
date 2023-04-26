@@ -16,4 +16,15 @@ public class Announcement {
     public void setCommission(int commission) {
         this.commission = commission;
     }
+
+    public void validateAnnouncement(Announcement announcement){
+        if(announcement.commission <= 0){
+            throw new IllegalArgumentException("The commission is not valid");
+        }
+
+        if(announcement.property == null){
+            throw new IllegalArgumentException("The Property is not valid");
+        }
+
+    }
 }

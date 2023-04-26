@@ -13,9 +13,6 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "OwnersRepository:\nOwnersRepository" as TaskCategoryRepository
 participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
 participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 participant "Announcement\n:Announcement" as TAREFA
 
@@ -108,18 +105,19 @@ activate ADM
                 activate ORG
 
                     group Create Announcement
+                        ORG -> TAREFA**: createAnnouncement(Property, commission)
+                        ORG -> ORG: addAnnouncement (Announcement)
 
-                                                 ORG -> TAREFA**: createAnnouncement(Property, commission)
-                                                 ORG -> ORG: addAnnouncement (Announcement)
 
-                                                 activate ORG
-                                                    TAREFA -> TAREFA: validateAnnouncement(Announcement)
-                                                    ORG --> ORG
-                                                 deactivate ORG
+                        activate ORG
+                            TAREFA -> TAREFA: validateAnnouncement(Announcement)
+                        deactivate ORG
 
-                                                 activate TAREFA
-                                                    TAREFA --> TAREFA
-                                                 deactivate TAREFA
+                        activate TAREFA
+                            TAREFA --> TAREFA
+                        deactivate TAREFA
+
+
                     end
 
                     ORG --> CTRL : Announcement

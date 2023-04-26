@@ -11,6 +11,7 @@ public class Repositories {
     ClientRepository clientRepository = new ClientRepository();
 
     PropertyRepository propertyRepository = new PropertyRepository();
+    AnnouncementRepository announcementRepository = new AnnouncementRepository();
     private Repositories() {
     }
 
@@ -39,5 +40,9 @@ public class Repositories {
 
     public PropertyRepository getPropertyRepository() {
         return propertyRepository;
+    }
+
+    public AnnouncementRepository getAnnouncementRepository(){
+        return announcementRepository;
     }
 }
