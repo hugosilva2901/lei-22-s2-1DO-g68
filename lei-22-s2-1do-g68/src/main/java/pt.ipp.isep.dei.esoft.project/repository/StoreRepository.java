@@ -26,8 +26,21 @@ public class StoreRepository {
         return stores;
     }
 
+     public List<EmployeeProject> listEmployees (){
+        List<EmployeeProject> employees = new ArrayList<>();
+        for (int i = 0; i < stores.size(); i++) {
+            for (int j = 0; j < stores.get(i).getEmployees().size(); j++) {
+                employees.add(stores.get(i).getEmployees().get(j));
+            }
+        }
+        return employees;
+     }
+
     public void setStores(List<Store> stores) {
         this.stores = stores;
+    }
+    public void addEmployeeToStorePublic(Store store, EmployeeProject employee) {
+        addEmployeeToStore(store,employee);
     }
     private void addEmployeeToStore(Store store, EmployeeProject employee) {
         if (store == null){

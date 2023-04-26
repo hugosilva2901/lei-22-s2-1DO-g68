@@ -28,7 +28,7 @@ The company's systems administrator will be responsible for registering all empl
 
 > **Question:** The statement specifies 3 different types of employees. The admnistrator, the agent 
 > and the store manager. Do we consider that there are only that functions for employees or are there more?
->  
+>
 > **Answer:** On this subject everything has already been clarified. Please check the project 
 > description and the posts I wrote in this forum.
 
@@ -36,6 +36,7 @@ The company's systems administrator will be responsible for registering all empl
 > is registering a new employee are we free to display what we feel is important or should 
 > a specific message be shown? I was thinking of displaying whether the operation was successful
 > or not, is that fine or should something else be displayed as well?
+> 
 > **Answer:** A good pratice is to show the information and ask for confirmation.
 
 > **Question:** ou have stated before that name, cc number, tax number, email address, phone number 
