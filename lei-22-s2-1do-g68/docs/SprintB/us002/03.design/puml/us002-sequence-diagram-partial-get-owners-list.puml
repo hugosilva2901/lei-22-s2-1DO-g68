@@ -10,14 +10,14 @@ autonumber
 participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "OwnerRepository:\nOwnerRepository" as OwnerRepository
+participant "ClientRepository:\nClientRepository" as ClientRepository
 
 autonumber 3
 
- -> CTRL : getOwners()
+ -> CTRL : getClients()
 autonumber 3.1
 activate CTRL
-    group Get Owners List
+    group Get Client List
 
 
             CTRL -> RepositorySingleton : getInstance()
@@ -26,22 +26,22 @@ activate CTRL
                 RepositorySingleton --> CTRL: repositories
             deactivate RepositorySingleton
 
-            CTRL -> PLAT : getOwnersRepository()
+            CTRL -> PLAT : getClientRepository()
             activate PLAT
 
-                PLAT --> CTRL: OwnersRepository
+                PLAT --> CTRL: ClientRepository
             deactivate PLAT
 
-            CTRL -> OwnerRepository : getOwnersList()
-            activate OwnerRepository
+            CTRL -> ClientRepository : getClientList()
+            activate ClientRepository
 
-                OwnerRepository --> CTRL : OwnersList
-            deactivate OwnerRepository
+                ClientRepository --> CTRL : ClientList
+            deactivate ClientRepository
 
 
     end
     autonumber 4
-    <-- CTRL  : OwnersList
+    <-- CTRL  : ClientList
 deactivate CTRL
 
 

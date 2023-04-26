@@ -16,8 +16,7 @@ participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
 participant ":ApplicationSession" as _APP
 participant "appSession\n:ApplicationSession" as APP
 participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 participant "Announcement\n:Announcement" as TAREFA
 
 activate ADM
@@ -75,11 +74,11 @@ activate ADM
                         PLAT --> CTRL: PropertyRepository
                     deactivate PLAT
 
-                    CTRL -> TaskCategoryRepository : getPropertyList()
-                    activate TaskCategoryRepository
+                    CTRL -> PropertyRepository : getPropertyList()
+                    activate PropertyRepository
 
-                        TaskCategoryRepository --> CTRL : PropertyList
-                    deactivate TaskCategoryRepository
+                        PropertyRepository --> CTRL : PropertyList
+                    deactivate PropertyRepository
 
                     CTRL --> UI : PropertyList
                 deactivate CTRL
@@ -105,22 +104,22 @@ activate ADM
             UI -> CTRL : createAnnouncement(Property, commission)
             activate CTRL
 
-                CTRL -> CTRL : getEmployeeFromSession()
-                activate CTRL
-
-                    ref over CTRL
-                        Get Employee
-
-                    end ref
-                    CTRL -> CTRL : employee
-                deactivate CTRL
-
-                CTRL -> ORG: createAnnouncement(Property, commission, Employee)
+                CTRL -> ORG: createAnnouncement(Property, commission)
                 activate ORG
 
-                    ref over ORG
-                        Create Announcement
+                    group Create Announcement
 
+                                                 ORG -> TAREFA**: createAnnouncement(Property, commission)
+                                                 ORG -> ORG: addAnnouncement (Announcement)
+
+                                                 activate ORG
+                                                    TAREFA -> TAREFA: validateAnnouncement(Announcement)
+                                                    ORG --> ORG
+                                                 deactivate ORG
+
+                                                 activate TAREFA
+                                                    TAREFA --> TAREFA
+                                                 deactivate TAREFA
                     end
 
                     ORG --> CTRL : Announcement

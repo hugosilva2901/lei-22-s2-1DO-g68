@@ -3,12 +3,10 @@ package pt.ipp.isep.dei.esoft.project.domain;
 public class Announcement {
     private int commission;
     private Property property;
-    private EmployeeProject employee;
 
-    public Announcement(Property property, int commission, EmployeeProject employee){
+    public Announcement(Property property, int commission){
         this.property = property;
         this.commission = commission;
-        this.employee = employee;
     }
 
     public int getCommission() {

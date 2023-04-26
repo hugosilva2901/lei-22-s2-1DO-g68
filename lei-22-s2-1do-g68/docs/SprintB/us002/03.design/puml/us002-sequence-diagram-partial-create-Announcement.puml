@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "organization\n:Organization" as ORG
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 participant "Announcement\n:Announcement" as TAREFA
 
 autonumber 16

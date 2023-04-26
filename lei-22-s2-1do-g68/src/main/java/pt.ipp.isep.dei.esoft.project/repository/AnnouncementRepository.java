@@ -23,8 +23,8 @@ public class AnnouncementRepository {
         return announcements.remove(announcement);
     }
 
-    public void createAnnouncement(Property property, int commission, EmployeeProject employee) {
-        Announcement announcement = new Announcement(property, commission, employee);
+    public void createAnnouncement(Property property, int commission) {
+        Announcement announcement = new Announcement(property, commission);
         addAnnouncement(announcement);
     }
 

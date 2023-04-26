@@ -18,21 +18,21 @@ activate ADM
     activate UI
 
         UI -> CTRL** : create
-        UI -> CTRL : getOwner()
+        UI -> CTRL : getClient()
         ref over CTRL
-            Get List of Owners
+            Get List of Clients
 
         end ref
 
         activate CTRL
 
-            CTRL --> UI : ListOwners
+            CTRL --> UI : ClientList
         deactivate CTRL
 
-        UI --> ADM : shows task Owners list and asks to select one
+        UI --> ADM : shows Clients list and asks to select one
     deactivate UI
 
-    ADM -> UI : selects Owner
+    ADM -> UI : selects Client
 
     activate UI
 
