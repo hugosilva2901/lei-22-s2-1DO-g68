@@ -1,7 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class Owner extends User {
-    public Owner(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Client extends User {
+    private List<Property> properties = new ArrayList<>();
+
+    public Client(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
         super(name, descptions, taxNumber, email, password, address, phone, roles);
     }
 
@@ -15,5 +20,14 @@ public class Owner extends User {
         validateTaxNumber(taxNumber);
 
     }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void addProperty(Property property) {
+        properties.add(property);
+    }
+
 
 }

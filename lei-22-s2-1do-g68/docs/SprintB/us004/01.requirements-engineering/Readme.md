@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an owner, I intend to submit a request for listing a property sale or rent,
+As an client, I intend to submit a request for listing a property sale or rent,
 choosing the responsible agent.
 
 
@@ -20,9 +20,9 @@ then the system the shows the sucess messagem.
 
 **From the client clarifications:**
 
-> **Question:** Does the owner have to be registered in the system?
+> **Question:** Does the client have to be registered in the system?
 >  
-> **Answer:** Yes, the owner must be registered in the system.
+> **Answer:** Yes, the client must be registered in the system.
 
 
 > **Question:** What is the difference between a task and a request?
@@ -73,4 +73,4 @@ then the system the shows the sucess messagem.
 
 ### 1.7 Other Relevant Remarks
 
-* The system should not allow the creation of a request if the owner of the request is not logged in the system.
+* The system should not allow the creation of a request if the client of the request is not logged in the system.

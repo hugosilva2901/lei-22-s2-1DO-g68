@@ -13,9 +13,9 @@ properties available for lease or sale;
 - The application must allow employees to publishing rental and sale advertisements;
 - The application must allow employees to registering a business;
 - The application must allow employees to scheduling and registering visits to the property;
-- The application must allow owner to provide property characteristics;
-- The application must allow owner to provide property price;
-- The application must allow owner to send the request with the characteristics to an agent;
+- The application must allow client to provide property characteristics;
+- The application must allow client to provide property price;
+- The application must allow client to send the request with the characteristics to an agent;
 - The application must allow agents to set comission and publish the offer after receving the request;
 - The application must allow owners to provide different tipe of information depending on the type of the property;
 

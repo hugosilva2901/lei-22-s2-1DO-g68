@@ -41,7 +41,7 @@ As an agent, I can publish any sale announcement on the system, for example rece
 >
 > **Answer:** In the beginning of Sprint C we will introduce new requirements that will clarify your questions.
 
-> **Question:** Is it necessary to publish the owner atributes on the sale announcement?
+> **Question:** Is it necessary to publish the client atributes on the sale announcement?
 >
 > **Answer:** No.
 
@@ -57,9 +57,9 @@ As an agent, I can publish any sale announcement on the system, for example rece
 >
 > **Answer:** The commission is one value/percentage paid when the transaction is made.
 
-> **Question:** Does the owner who contacts the company provide the information during the call or is it just for setting up a meeting, "scheduling"?
+> **Question:** Does the client who contacts the company provide the information during the call or is it just for setting up a meeting, "scheduling"?
 >
-> **Answer:** The owner provides the information. Where did you saw that the goal is "setting up a meeting"?????
+> **Answer:** The client provides the information. Where did you saw that the goal is "setting up a meeting"?????
 
 > **Question:** Is the commission applied by the agent defined by criteria that already exist in the company?
 >
@@ -86,22 +86,22 @@ As an agent, I can publish any sale announcement on the system, for example rece
 > **Answer:** In Sprint C we will introduce new USs that will clarify this question.
 
 > **Question:** Trying to interpret both the US002 and what is listed in the request document I ran into a few question that I wanted to pose so I could better proceed with what is asked.
-The document states "Owners go to one of the company's branches and meet with a real estate agent to sell or rent one or more properties, or they can use the company's application for the same purposes". Interpreting this paragraph I got the sense that the owner has two ways of putting his property up for sale or renting, either by just telling the agent all the pertinent info and letting him  handle inputting all the data into the system (going to a company branch), or  sending the data into the system himself by interacting with the application, which the agent then, after a confirmation phone call, publishes as a sale announcement.
-So, my question is that, if this interpretation is correct, does the agent actually have two ways of publishing the sales announcement, one where he inputs everything directly with the owners assistance (owner goes to a company branch), and another where he just takes information already in the system, adds the commission data, and then publishes it as a sales announcement instead of a property listing.
+The document states "Owners go to one of the company's branches and meet with a real estate agent to sell or rent one or more properties, or they can use the company's application for the same purposes". Interpreting this paragraph I got the sense that the client has two ways of putting his property up for sale or renting, either by just telling the agent all the pertinent info and letting him  handle inputting all the data into the system (going to a company branch), or  sending the data into the system himself by interacting with the application, which the agent then, after a confirmation phone call, publishes as a sale announcement.
+So, my question is that, if this interpretation is correct, does the agent actually have two ways of publishing the sales announcement, one where he inputs everything directly with the owners assistance (client goes to a company branch), and another where he just takes information already in the system, adds the commission data, and then publishes it as a sales announcement instead of a property listing.
 >
 > **Answer:** In US2 we get "As an agent, I can publish any sale announcement on the system, for example received through a phone call". This will be a feature/functionality of the system. The agent may receive the information by any means.
 
-> **Question:** how exactly does the owner insert information into the application to reach the agent through a phone call?
+> **Question:** how exactly does the client insert information into the application to reach the agent through a phone call?
 >
 > **Answer:** I do not understand your question. We have:
 US2- As an agent, I can publish any sale announcement on the system, for example received through a phone call;
-US4 - As an owner, I intend to submit a request for listing a property sale or rent, choosing the responsible agent.
+US4 - As an client, I intend to submit a request for listing a property sale or rent, choosing the responsible agent.
 
-> **Question:** The information about the property can be provided through an online request or a phone call, and in both cases, it comes from the property owner. The agent reviews advertisement requests, records the information in the system, and publishes the offer. However, if the request is made directly with the agent (through an agency) or by phone, shouldn't the owner be asked to provide information about themselves in order to identify the owner of the property being sold/rented.
+> **Question:** The information about the property can be provided through an online request or a phone call, and in both cases, it comes from the property client. The agent reviews advertisement requests, records the information in the system, and publishes the offer. However, if the request is made directly with the agent (through an agency) or by phone, shouldn't the client be asked to provide information about themselves in order to identify the client of the property being sold/rented.
 >
 > **Answer:** I already answered this question.
 
-> **Question:** When a sale order arrives at the agent, what are the acceptance criteria that he (the agent) uses to accept or reject the order? Is there a possibility for an agent to refuse due to a lack of data on the property's characteristics of a property given by the owner? Or when the request arrives at the agent, are all the essential characteristics of the property in question already present?
+> **Question:** When a sale order arrives at the agent, what are the acceptance criteria that he (the agent) uses to accept or reject the order? Is there a possibility for an agent to refuse due to a lack of data on the property's characteristics of a property given by the client? Or when the request arrives at the agent, are all the essential characteristics of the property in question already present?
 >
 > **Answer:** Yes.
 
