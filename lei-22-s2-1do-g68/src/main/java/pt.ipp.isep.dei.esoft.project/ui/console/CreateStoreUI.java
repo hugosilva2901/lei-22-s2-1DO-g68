@@ -4,15 +4,17 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateStoreControlle
 
 import java.util.Scanner;
 
-public class CreateStoreUI {
+public class CreateStoreUI implements Runnable{
     private static CreateStoreController controller = new CreateStoreController();
     //  private String name;
     //    private String phone;
     //    private String email;
     //    private String vatNumber;
     //    private String address;
-    //    private int branchNumber;
-    public  static void runUI() {
+    //    private int branchNumber
+
+    @Override
+    public void run() {
         Scanner input = new Scanner(System.in);
 
 
@@ -59,8 +61,6 @@ public class CreateStoreUI {
                 success = true;
             }
         }
+
     }
-
-
-
 }
