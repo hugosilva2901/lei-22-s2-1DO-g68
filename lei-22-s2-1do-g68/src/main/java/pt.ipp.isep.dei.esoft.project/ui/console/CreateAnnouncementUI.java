@@ -34,71 +34,70 @@ public class CreateAnnouncementUI implements Runnable {
     private Client displayAndSelectClients() {
         //Display the list of task categories
 
-        List<Client> Stores = controller.getClientRepository().getClients();
+        List<Client> Clients = controller.getClientRepository().getClients();
 
-        int listSize = Stores.size();
+        int listSize = Clients.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
 
         while (answer < 1 || answer > listSize) {
-            displayStoresOptionsClients(Stores);
+            displayStoresOptionsClients(Clients);
             System.out.println("Select a store:");
             answer = input.nextInt();
         }
 
-        Client description = Stores.get(answer - 1);
+        Client description = Clients.get(answer - 1);
         return description;
 
     }
-    private void displayStoresOptionsClients(List<Client> Stores) {
+    private void displayStoresOptionsClients(List<Client> Clients) {
         //display the task categories as a menu with number options to select
         int i = 1;
-        for (Client Store : Stores) {
-            System.out.println(i + " - " + Stores.toString());
+        for (Client Client : Clients) {
+            System.out.println(i + " - " + Clients.toString());
             i++;
         }
     }
 
-    private Property displayAndSelectProperty(Client Store) {
+    private Property displayAndSelectProperty(Client Client) {
         //Display the list of task categories
-        List<Property> Stores = Store.getProperties();
-        int listSize = Stores.size();
+        List<Property> Property = Client.getProperties();
+        int listSize = Property.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
 
         while (answer < 1 || answer > listSize) {
-            displayStoresProperty(Stores);
+            displayClientProperty(Property);
             System.out.println("Select a store:");
             answer = input.nextInt();
         }
 
-        Property description = Stores.get(answer - 1);
+        Property description = Property.get(answer - 1);
         return description;
 
     }
-    private void displayStoresProperty(List<Property> Stores) {
+    private void displayClientProperty(List<Property> property) {
         //display the task categories as a menu with number options to select
         int i = 1;
-        for (Property Store : Stores) {
-            System.out.println(i + " - " + Stores.toString());
+        for (Property p : property) {
+            System.out.println(i + " - " + property.toString());
             i++;
         }
     }
 
 
     private void submitData() {
-        Optional<Announcement> task = getController().createAnnouncement(property,comission);
-        if (task.isPresent()) {
-            System.out.println("Employee successfully created!");
+        Optional<Announcement> announcement = getController().createAnnouncement(property,comission);
+        if (announcement.isPresent()) {
+            System.out.println("Announcement created!");
         } else {
-            System.out.println("Employee not created!");
+            System.out.println("Announcement not created!");
         }
     }
     private void requestData() {
         comission=requestComission();
-
     }
 
 
