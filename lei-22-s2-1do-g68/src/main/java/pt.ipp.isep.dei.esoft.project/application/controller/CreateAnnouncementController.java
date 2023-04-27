@@ -35,7 +35,7 @@ public class CreateAnnouncementController {
         this.authenticationRepository = authenticationRepository;
     }
 
-    private PropertyRepository getPropertyRepository() {
+    public PropertyRepository getPropertyRepository() {
         if (propertyRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
@@ -45,7 +45,7 @@ public class CreateAnnouncementController {
         return propertyRepository;
     }
 
-    private ClientRepository getClientRepository() {
+    public ClientRepository getClientRepository() {
         if (clientRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
@@ -55,7 +55,7 @@ public class CreateAnnouncementController {
         return clientRepository;
     }
 
-    private AnnouncementRepository getAnnouncementRepository() {
+    public AnnouncementRepository getAnnouncementRepository() {
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
 

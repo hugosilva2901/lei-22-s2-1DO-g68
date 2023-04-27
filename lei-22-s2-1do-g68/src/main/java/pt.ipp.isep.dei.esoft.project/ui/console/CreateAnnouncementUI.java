@@ -12,9 +12,6 @@ import java.util.Scanner;
 
 public class CreateAnnouncementUI implements Runnable {
     private static CreateAnnouncementController controller = new CreateAnnouncementController();
-    private static PropertyRepository propertyRepository = new PropertyRepository();
-    private static ClientRepository clientRepository = new ClientRepository();
-    private static AnnouncementRepository announcementRepository = new AnnouncementRepository();
 
 
     @Override
@@ -23,7 +20,7 @@ public class CreateAnnouncementUI implements Runnable {
 
         System.out.println("Please choose a client:");
         int i = 1;
-        List<Client> clients = clientRepository.getClients();
+        List<Client> clients = controller.getClientRepository().getClients();
         for (Client client : clients) {
             System.out.println(i + " - " + client.getName());
             i++;
@@ -53,7 +50,7 @@ public class CreateAnnouncementUI implements Runnable {
                 int commission = scanner.nextInt();
 
                 Announcement announcement = new Announcement(chosenProperty, commission);
-                announcementRepository.addAnnouncement(announcement);
+                controller.getAnnouncementRepository().addAnnouncement(announcement);
             } else {
                 System.out.println("Invalid input.");
             }
