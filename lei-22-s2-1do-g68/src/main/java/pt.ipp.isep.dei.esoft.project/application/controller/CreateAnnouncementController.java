@@ -1,12 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CreateAnnouncementController {
@@ -75,7 +73,8 @@ public class CreateAnnouncementController {
         return authenticationRepository;
     }
 
-    public Announcement createAnnouncement(Property property, int commission){
-        return this.getAnnouncementRepository().createAnnouncement(property, commission);
+    public Optional<Announcement> createAnnouncement(Property property, int commission){
+        return getAnnouncementRepository().createAnnouncement(property, commission);
     }
+
 }

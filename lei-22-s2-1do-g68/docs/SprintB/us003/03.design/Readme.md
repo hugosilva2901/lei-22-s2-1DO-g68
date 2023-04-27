@@ -19,7 +19,8 @@
 | Step 7  		     | 	... validating all data (local validation)?  | employee                 | IE: owns its data.                                                                                            | 
 | 			  		        | 	... validating all data (global validation)? | StoreRepository          | IE: knows all its employee.                                                                                   | 
 | 			  		        | 	... saving the created task?                 | StoreRepository          | IE: owns all its employee.                                                                                    | 
-| Step 8  		     | 	... informing operation success?             | CreateEmployeeUI         | IE: is responsible for user interactions.                                                                     | 
+| Step 9  		     | 	... informing operation success?             | CreateEmployeeUI         | IE: is responsible for user interactions.                                                                     |
+| Step 10  		    | 	... informing operation success?             | CreateEmployeeUI         | IE: is responsible for user interactions.                                                                     | 
 
 ### Systematization ##
 

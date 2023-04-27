@@ -1,62 +1,112 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CreateAnnouncementUI implements Runnable {
     private static CreateAnnouncementController controller = new CreateAnnouncementController();
 
+    private Client client;
+    private Property property;
+    private int comission;
+
+    public static CreateAnnouncementController getController() {
+        return controller;
+    }
 
     @Override
     public void run() {
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("Create Announcement\n");
 
-        System.out.println("Please choose a client:");
+        client=displayAndSelectClients();
+        property=displayAndSelectProperty(client);
+        requestData();
+        submitData();
+    }
+
+
+    private Client displayAndSelectClients() {
+        //Display the list of task categories
+
+        List<Client> Stores = controller.getClientRepository().getClients();
+
+        int listSize = Stores.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        while (answer < 1 || answer > listSize) {
+            displayStoresOptionsClients(Stores);
+            System.out.println("Select a store:");
+            answer = input.nextInt();
+        }
+
+        Client description = Stores.get(answer - 1);
+        return description;
+
+    }
+    private void displayStoresOptionsClients(List<Client> Stores) {
+        //display the task categories as a menu with number options to select
         int i = 1;
-        List<Client> clients = controller.getClientRepository().getClients();
-        for (Client client : clients) {
-            System.out.println(i + " - " + client.getName());
+        for (Client Store : Stores) {
+            System.out.println(i + " - " + Stores.toString());
             i++;
         }
+    }
 
-        System.out.println("Enter the number of the client you want to select:");
-        int clientIndex = scanner.nextInt();
+    private Property displayAndSelectProperty(Client Store) {
+        //Display the list of task categories
+        List<Property> Stores = Store.getProperties();
+        int listSize = Stores.size();
+        int answer = -1;
 
-        if (clientIndex > 0 && clientIndex <= clients.size()) {
-            Client chosenClient = clients.get(clientIndex - 1);
-            System.out.println("Properties for " + chosenClient.getName() + ":");
-            int j = 1;
-            for (Property property : chosenClient.getProperties()) {
-                System.out.println(j + " - " + property.getType());
-                j++;
-            }
+        Scanner input = new Scanner(System.in);
 
-            System.out.println("Enter the number of the property you want to select:");
-            int propertyIndex = scanner.nextInt();
-
-            if (propertyIndex > 0 && propertyIndex <= chosenClient.getProperties().size()) {
-                Property chosenProperty = chosenClient.getProperties().get(propertyIndex - 1);
-                System.out.println("Details for " + chosenProperty.getType() + ":");
-                System.out.println("Address: " + chosenProperty.getAddress());
-
-                System.out.println("Enter the commission for this property:");
-                int commission = scanner.nextInt();
-
-                Announcement announcement = new Announcement(chosenProperty, commission);
-                controller.getAnnouncementRepository().addAnnouncement(announcement);
-            } else {
-                System.out.println("Invalid input.");
-            }
-        } else {
-            System.out.println("Invalid input.");
+        while (answer < 1 || answer > listSize) {
+            displayStoresProperty(Stores);
+            System.out.println("Select a store:");
+            answer = input.nextInt();
         }
+
+        Property description = Stores.get(answer - 1);
+        return description;
+
+    }
+    private void displayStoresProperty(List<Property> Stores) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Property Store : Stores) {
+            System.out.println(i + " - " + Stores.toString());
+            i++;
+        }
+    }
+
+
+    private void submitData() {
+        Optional<Announcement> task = getController().createAnnouncement(property,comission);
+        if (task.isPresent()) {
+            System.out.println("Employee successfully created!");
+        } else {
+            System.out.println("Employee not created!");
+        }
+    }
+    private void requestData() {
+        comission=requestComission();
+
+    }
+
+
+    private int requestComission() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert the comission");
+        int comission = input.nextInt();
+        return comission;
     }
 
 }

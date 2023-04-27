@@ -1,12 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AnnouncementRepository {
@@ -25,9 +23,12 @@ public class AnnouncementRepository {
         return announcements.remove(announcement);
     }
 
-    public Announcement createAnnouncement(Property property, int commission) {
+    public Optional<Announcement>  createAnnouncement(Property property, int commission) {
+        Optional<Announcement> optionalValue = Optional.empty();
         Announcement announcement = new Announcement(property, commission);
+        optionalValue = Optional.of(announcement);
         addAnnouncement(announcement);
-        return announcement;
+        return optionalValue;
     }
+
 }

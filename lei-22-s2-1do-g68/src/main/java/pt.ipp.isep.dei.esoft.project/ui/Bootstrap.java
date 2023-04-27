@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
@@ -64,6 +65,9 @@ public class Bootstrap implements Runnable {
     private void addProperty() {
         List<String> list= new ArrayList<>();
         House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
+
+        CreatClienteController creatClienteController = new CreatClienteController();
+        creatClienteController.createClient("Joao","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
     }
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
