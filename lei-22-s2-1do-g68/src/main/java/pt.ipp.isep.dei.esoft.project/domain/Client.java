@@ -16,7 +16,7 @@ public class Client extends User {
         }
     }
 
-    private void validateOwner(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+    private void validateClient(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
         validateTaxNumber(taxNumber);
 
     }

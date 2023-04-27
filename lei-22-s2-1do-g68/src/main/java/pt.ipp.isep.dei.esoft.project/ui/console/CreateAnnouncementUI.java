@@ -47,8 +47,8 @@ public class CreateAnnouncementUI implements Runnable {
             answer = input.nextInt();
         }
 
-        Client description = Clients.get(answer - 1);
-        return description;
+        Client client = Clients.get(answer - 1);
+        return client;
 
     }
     private void displayClients(List<Client> clients) {
@@ -60,8 +60,7 @@ public class CreateAnnouncementUI implements Runnable {
     }
 
 
-    private Property displayAndSelectProperty(Client Client) {
-        //Display the list of task categories
+    private Property displayAndSelectProperty(Client client) {
         List<Property> Property = client.getProperties();
         int listSize = Property.size();
         int answer = -1;
