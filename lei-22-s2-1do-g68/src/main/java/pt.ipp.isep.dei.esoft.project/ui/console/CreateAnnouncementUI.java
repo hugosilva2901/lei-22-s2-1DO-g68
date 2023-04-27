@@ -42,8 +42,8 @@ public class CreateAnnouncementUI implements Runnable {
         Scanner input = new Scanner(System.in);
 
         while (answer < 1 || answer > listSize) {
-            displayStoresOptionsClients(Clients);
-            System.out.println("Select a store:");
+            displayClients(Clients);
+            System.out.println("Select a Client:");
             answer = input.nextInt();
         }
 
@@ -51,18 +51,18 @@ public class CreateAnnouncementUI implements Runnable {
         return description;
 
     }
-    private void displayStoresOptionsClients(List<Client> Clients) {
-        //display the task categories as a menu with number options to select
+    private void displayClients(List<Client> clients) {
         int i = 1;
-        for (Client Client : Clients) {
-            System.out.println(i + " - " + Clients.toString());
+        for (Client client : clients) {
+            System.out.println(i + " - " + client.getName().toString());
             i++;
         }
     }
 
+
     private Property displayAndSelectProperty(Client Client) {
         //Display the list of task categories
-        List<Property> Property = Client.getProperties();
+        List<Property> Property = client.getProperties();
         int listSize = Property.size();
         int answer = -1;
 
@@ -70,7 +70,7 @@ public class CreateAnnouncementUI implements Runnable {
 
         while (answer < 1 || answer > listSize) {
             displayClientProperty(Property);
-            System.out.println("Select a store:");
+            System.out.println("Select a Property:");
             answer = input.nextInt();
         }
 
@@ -79,10 +79,9 @@ public class CreateAnnouncementUI implements Runnable {
 
     }
     private void displayClientProperty(List<Property> property) {
-        //display the task categories as a menu with number options to select
         int i = 1;
         for (Property p : property) {
-            System.out.println(i + " - " + property.toString());
+            System.out.println(i + " - " + p.getType().toString() + " - " + p.getName().toString());
             i++;
         }
     }
@@ -92,6 +91,7 @@ public class CreateAnnouncementUI implements Runnable {
         Optional<Announcement> announcement = getController().createAnnouncement(property,comission);
         if (announcement.isPresent()) {
             System.out.println("Announcement created!");
+
         } else {
             System.out.println("Announcement not created!");
         }

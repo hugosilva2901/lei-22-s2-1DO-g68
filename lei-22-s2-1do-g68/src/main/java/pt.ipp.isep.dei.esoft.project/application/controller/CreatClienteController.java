@@ -84,11 +84,12 @@ public class CreatClienteController {
         return clientRepository;
     }
 
-    public Optional<Client> createClient(String name, String descptions, int taxNumber, String email, String password,
-                                           String address, String phone, Roles roles ){
-        Optional<Client> newtask = getClientRepository().createClient(name, descptions, taxNumber, email, password,
-                address, phone, roles);
-        authenticationRepository.addUserWithRole(name,email, password, AuthenticationController.ROLE_CLIENTE);
-        return newtask;
+    public  Optional<Client>  createClient(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+        Optional<Client> optionalValue = Optional.empty();
+
+        Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
+        optionalValue = Optional.of(client);
+        getClientRepository().addClient(client);
+        return optionalValue;
     }
 }

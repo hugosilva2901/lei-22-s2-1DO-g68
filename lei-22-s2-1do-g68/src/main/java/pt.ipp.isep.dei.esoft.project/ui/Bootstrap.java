@@ -1,15 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Bootstrap implements Runnable {
 
@@ -20,6 +19,7 @@ public class Bootstrap implements Runnable {
         addStore();
         addEmployee();
         addUsers();
+        addProperty();
 
     }
 
@@ -65,9 +65,21 @@ public class Bootstrap implements Runnable {
     private void addProperty() {
         List<String> list= new ArrayList<>();
         House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
+        Land land = new Land("Land Torneirinhas", "land", "Rua das torneiras", "Muito bem equipada", true, true, 5);
+        Apartment apartment = new Apartment("Apartment Torneirinhas", "apartment", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list);
 
+        Client joao = new Client("Joao","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        Client tiago = new Client("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        Client luis = new Client("Luis","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         CreatClienteController creatClienteController = new CreatClienteController();
         creatClienteController.createClient("Joao","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        creatClienteController.createClient("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        creatClienteController.createClient("Luis","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        CreateAnnouncementController announcementController = new CreateAnnouncementController();
+        announcementController.getClientRepository().addPropertyToClient(joao, house);
+        announcementController.getClientRepository().addPropertyToClient(tiago, land);
+        announcementController.getClientRepository().addPropertyToClient(tiago, apartment);
+
     }
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization

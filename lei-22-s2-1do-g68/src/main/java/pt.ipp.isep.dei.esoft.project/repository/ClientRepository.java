@@ -31,17 +31,7 @@ public class ClientRepository {
     }
 
 
-    public  Optional<Client>  createClient(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
-        Optional<Client> optionalValue = Optional.empty();
-
-        Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
-        optionalValue = Optional.of(client);
-        addClient(client);
-        return optionalValue;
-    }
-
-
-    public void addPropertyToOwner(Client client, Property property) {
+    public void addPropertyToClient(Client client, Property property) {
         Client clientToUpdate = getClientByTaxNumber(client.getTaxNumber());
         if (clientToUpdate != null) {
             clientToUpdate.addProperty(property);

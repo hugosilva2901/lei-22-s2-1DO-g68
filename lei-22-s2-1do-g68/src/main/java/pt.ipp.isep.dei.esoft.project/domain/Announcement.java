@@ -13,6 +13,10 @@ public class Announcement {
         return commission;
     }
 
+    public Property getProperty(){
+        return this.property;
+    }
+
     public void setCommission(int commission) {
         this.commission = commission;
     }
