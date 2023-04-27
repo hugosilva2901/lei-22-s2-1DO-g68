@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
@@ -9,8 +10,16 @@ import java.util.Optional;
 public class ClientRepository {
     List<Client> clients = new ArrayList<>();
 
-    public void addClient(Client client) {
+    public Optional<Client> addClient(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
+        Optional<Client> optionalValue = Optional.empty();
+        if (getClientByTaxNumber(taxNumber) != null) {
+
+        }
+        Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
+        optionalValue = Optional.of(client);
+        validateClient(client);
         clients.add(client);
+        return optionalValue;
     }
 
     public List<Client> getClients() {
@@ -26,6 +35,18 @@ public class ClientRepository {
         return null;
     }
 
+    private void validateClient(Client client) {
+        for (int i = 0; i < this.clients.size(); i++) {
+            if(this.clients.get(i).getTaxNumber() == client.getTaxNumber()) {
+                throw new IllegalArgumentException("Client already exists");
+            }if (this.clients.get(i).getEmail().equals(client.getEmail())) {
+                throw new IllegalArgumentException("Client already exists");
+            }
+        }
+        if (this.clients.contains(client)) {
+            throw new IllegalArgumentException("Client already exists");
+        }
+    }
     public boolean removeClient(Client client) {
         return clients.remove(client);
     }

@@ -72,9 +72,7 @@ public class Bootstrap implements Runnable {
         Client tiago = new Client("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         Client luis = new Client("Luis","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         CreatClienteController creatClienteController = new CreatClienteController();
-        creatClienteController.createClient("Joao","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        creatClienteController.createClient("Luis","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         CreateAnnouncementController announcementController = new CreateAnnouncementController();
         announcementController.getClientRepository().addPropertyToClient(joao, house);
         announcementController.getClientRepository().addPropertyToClient(tiago, land);
@@ -87,6 +85,8 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE,
                 AuthenticationController.ROLE_EMPLOYEE);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_CLIENTE,
+                AuthenticationController.ROLE_CLIENTE);
 
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
@@ -97,5 +97,6 @@ public class Bootstrap implements Runnable {
                 , Repositories.getInstance().getStoreRepository().getStores().get(0).getEmployees().get(0).getEmail(),
                 Repositories.getInstance().getStoreRepository().getStores().get(0).getEmployees().get(0).getPassword(),
                 AuthenticationController.ROLE_EMPLOYEE);
+
     }
 }

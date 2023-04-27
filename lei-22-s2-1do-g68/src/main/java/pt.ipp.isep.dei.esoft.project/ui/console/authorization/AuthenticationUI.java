@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.ClienteUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.EmployeeUi;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -48,6 +49,7 @@ public class AuthenticationUI implements Runnable {
         List<MenuItem> rolesUI = new ArrayList<>();
         rolesUI.add(new MenuItem(AuthenticationController.ROLE_ADMIN, new AdminUI()));
         rolesUI.add(new MenuItem(AuthenticationController.ROLE_EMPLOYEE, new EmployeeUi()));
+        rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENTE, new ClienteUI()));
         //TODO: Complete with other user roles and related RoleUI
         return rolesUI;
     }

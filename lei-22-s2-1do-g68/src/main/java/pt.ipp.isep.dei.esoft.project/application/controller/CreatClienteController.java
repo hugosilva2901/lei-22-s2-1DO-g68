@@ -85,11 +85,8 @@ public class CreatClienteController {
     }
 
     public  Optional<Client>  createClient(String name, String description, int taxNumber, String email, String password, String address, String phone, Roles roles) {
-        Optional<Client> optionalValue = Optional.empty();
-
-        Client client = new Client(name, description, taxNumber, email, password, address, phone, roles);
-        optionalValue = Optional.of(client);
-        getClientRepository().addClient(client);
-        return optionalValue;
+        Optional<Client> client =  getClientRepository().addClient( name,  description,  taxNumber,  email,  password,  address,  phone,  roles);
+        authenticationRepository.addUserWithRole(name,email, password, AuthenticationController.ROLE_CLIENTE);
+        return client;
     }
 }
