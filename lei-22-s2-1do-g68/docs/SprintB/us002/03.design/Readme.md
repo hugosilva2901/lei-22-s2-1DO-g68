@@ -10,17 +10,17 @@
 |:---------------|:-------------------------------------------------|:-----------------------------|:--------------------------------------------------------------------------------------------------------------|
 | Step 1         | 	... interacting with the actor?                 | CreateAnnouncementUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | Step 2	  		    | 	... coordinating the US?                        | CreateAnnouncementController | Controller                                                                                                    |
-| Step 3	  		    | 	... instantiating a new Announcement?           | Employee                     | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| Step 4			  		  | ... knowing the ListOfClients to show?           | ClientRepository             | IE: knows all its Clients                                                                                     |
-| Step 5	  		    | 	... saving the selected Client 						           | employee                     | IE: object created in step 1 is classified in one or more r                                                   |
-| Step 6		       | 	... knowing the ListOfProperties to show? 					 | PropertyRepository           | IE: knows its own data (e.g. email)                                                                           |
-| Step 7  		     | 		... saving the selected Property		             | employee                     |                                                                                                               |
-| Step 8  		     | 	... knowing the commission?                     | AnnouncementRepository       | IE: object created in step 1 has its own data.                                                                |
-| Step 9  		     | 	... saving the inputted commission              | employee                     | IE: Task Categories are defined by the Administrators.                                                        |
+| Step 3	  		    | 	... instantiating a new Announcement?           | Employee                     | Creator (Rule 1): The announcement has a property that belongs to an employee.                                |
+| Step 4			  		  | ... knowing the ListOfClients to show?           | ClientRepository             | IE: knows all its Clients.                                                                                    |
+| Step 5	  		    | 	... saving the selected Client 						           | employee                     | IE:  object created in step 1 is classified in one or more roles.                                             |
+| Step 6		       | 	... knowing the ListOfProperties to show? 					 | PropertyRepository           | IE: knows all its Property.                                                                                   |
+| Step 7  		     | 		... saving the selected Property		             | employee                     | IE: object created in step 1 is classified in one or more roles.                                              |
+| Step 8  		     | 	... knowing the commission?                     | AnnouncementRepository       | IE: knows all its Announcements.                                                                              |
+| Step 9  		     | 	... saving the inputted commission              | employee                     | IE: object created in step 1 is classified in one or more roles.                                              |
 | Step 10  		    | 	... validating all data (local validation)?     | employee                     | IE: owns its data.                                                                                            |
-| Step 11 		     | 		... validating all data (global validation)?   | AnnouncementRepository       | IE: knows all its announcements                                                                               |              
-| Step 12  		    | 	... saving the created Announcement?            | AnnouncementRepository       | IE: owns its data.                                                                                            | 
-| 			  		        | 	... informing operation success?                | CreateAnnouncementUI         | IE: knows all its tasks.                                                                                      |
+| Step 11 		     | 		... validating all data (global validation)?   | AnnouncementRepository       | IE: knows all its announcements.                                                                              |              
+| Step 12  		    | 	... saving the created Announcement?            | AnnouncementRepository       | IE: owns all its data.                                                                                        | 
+| 			  		        | 	... informing operation success?                | CreateAnnouncementUI         | IE: is responsible for user interactions.                                                                     |
 
 ### Systematization ##
 
