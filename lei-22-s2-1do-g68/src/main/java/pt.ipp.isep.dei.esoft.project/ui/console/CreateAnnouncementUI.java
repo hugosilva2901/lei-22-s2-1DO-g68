@@ -32,8 +32,6 @@ public class CreateAnnouncementUI implements Runnable {
 
 
     private Client displayAndSelectClients() {
-        //Display the list of task categories
-
         List<Client> Clients = controller.getClientRepository().getClients();
 
         int listSize = Clients.size();
