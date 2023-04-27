@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatEmployeeController;
 import pt.ipp.isep.dei.esoft.project.application.controller.createPropertyController;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
+import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
 import pt.ipp.isep.dei.esoft.project.domain.Store;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -90,7 +92,8 @@ public class CreatePropertyUI implements Runnable {
     }
 
     private void submitDataHouse() {
-        Optional<EmployeeProject> task = getController().createHouse(name, "house", address, description, isForSale, isForRent, numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, equipments, hasBasement, hasLoft, hasSunExposure, employeeProject);
+        // Alterar property para conseguir ter um cliente associado
+        Optional<House> task = getController().createHouse(name, "house", address, description, isForSale, isForRent, numberOfRooms, numberOfBathrooms, numberOfFloors, numberOfGarages, equipments, hasBasement, hasLoft, hasSunExposure);
         if (task.isPresent()) {
             System.out.println("Employee successfully created!");
         } else {
@@ -171,7 +174,7 @@ public class CreatePropertyUI implements Runnable {
     private List<String> requestEquipments() {
         Scanner input = new Scanner(System.in);
         System.out.println("Employee Equipments:");
-        return input.nextLine();
+        return Collections.singletonList(input.nextLine());
     }
 
     private boolean requestHasBasement() {
@@ -191,6 +194,8 @@ public class CreatePropertyUI implements Runnable {
         System.out.println("Employee Has Sun Exposure:");
         return input.nextBoolean();
     }
+
+
 
 
 
