@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Unregistered User" as ADM
+participant ":CreateClientUI" as UI
+participant ":CreateClientController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "ClientRepository:\nClientRepository" as ClientRepository
+
+
+activate ADM
+
+        ADM -> UI : Asks to register has a new User
+        activate UI
+
+            UI --> ADM : Request data (name, discription, tax number, email, password, adress, phone, roles )
+        deactivate UI
+
+        ADM -> UI : Confirms and Submits Data
+        activate UI
+            UI -> CTRL** : create
+
+            UI -> CTRL : RegisterUser(name, discription, tax number, email, password, adress, phone, roles)
+            activate CTRL
+
+
+
+group Create Client
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getClientRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: taskCategoryRepository
+                deactivate PLAT
+
+                CTRL -> ClientRepository : getTaskCategories()
+                activate ClientRepository
+
+                    ClientRepository --> CTRL : taskCategoryList
+                deactivate ClientRepository
+end
+                CTRL --> UI : New User
+            deactivate CTRL
+
+            UI --> ADM : Displays Operation Sucess
+        deactivate UI
+
+
+@enduml
