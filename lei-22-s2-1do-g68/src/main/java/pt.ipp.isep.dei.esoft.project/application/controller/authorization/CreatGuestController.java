@@ -31,9 +31,13 @@ public class CreatGuestController {
         if (propertyRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
-            //Get the StoreRepository
+            //Get the PropertyRepository
             propertyRepository = repositories.getPropertyRepository();
         }
         return propertyRepository;
+    }
+
+    public void getProperties(){
+
     }
 }
