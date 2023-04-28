@@ -1,6 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.Store;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.List;
 
 public class CreatGuestController {
     private AuthenticationRepository authenticationRepository = null;
@@ -37,7 +41,9 @@ public class CreatGuestController {
         return propertyRepository;
     }
 
-    public void getProperties(){
-
+    public List<Property> getProperties() {
+        PropertyRepository propertyRepository = getPropertyRepository();
+        return propertyRepository.getAll();
     }
 }
+

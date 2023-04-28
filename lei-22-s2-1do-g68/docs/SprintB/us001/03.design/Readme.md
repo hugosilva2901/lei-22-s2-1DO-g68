@@ -11,21 +11,16 @@
 | Step 1  		     | 	... interacting with the actor?              | CreateGuestUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | 			  		        | 	... coordinating the US?                     | CreateGuestController | Controller                                                                                                    |
 | 			  		        | 	... instantiating a new Task?                | CreatTaskController   | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		        | ... knowing the user using the system?        | Authenticantion       | IE: cf. A&A component documentation.                                                                          |
-| Step 2  		     | 	...saving the inputted data?                 | Task                  | IE: object created in step 1 has its own data.                                                                |
-| Step 3  		     | 	...knowing the task categories to show?      | System                | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 4  		     | 	... saving the selected category?            | Tas                   | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 5  		     | 							                                       |                       |                                                                                                               |              
-| Step 6  		     | 	... validating all data (local validation)?  | Task                  | IE: owns its data.                                                                                            | 
-| 			  		        | 	... validating all data (global validation)? | Organization          | IE: knows all its tasks.                                                                                      | 
-| 			  		        | 	... saving the created task?                 | Organization          | IE: owns all its tasks.                                                                                       | 
-| Step 7  		     | 	... informing operation success?             | CreateTaskUI          | IE: is responsible for user interactions.                                                                     | 
+| 			  		        | ... knowing the user using the system?        | Authenticantion ?     | IE: cf. A&A component documentation.                                                                          |
+| Step 2  		     | 	...saving the properties?                    | PropertyRepository    | IE: object created in step 1 has its own data.                                                                |
+| Step 3  		     | 	...knowing properties to show?               | CreatGuestUI          | IE: Task Categories are defined by the Administrators.                                                        |
+| Step 4  		     | 	... saving the selected filters?             | CreatGuestController  | IE: object created in step 1 is classified in one Category.                                                   |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Organization
+ * PropertyRepository
  * Task
 
 Other software classes (i.e. Pure Fabrication) identified: 
