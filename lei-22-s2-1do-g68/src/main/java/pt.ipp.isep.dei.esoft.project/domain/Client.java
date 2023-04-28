@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends User {
-    private List<Property> properties = new ArrayList<>();
+    private List<Property> properties;
 
     public Client(String name, String descptions, int taxNumber, String email, String password, String address, String phone, Roles roles) {
         super(name, descptions, taxNumber, email, password, address, phone, roles);
+        this.properties = new ArrayList<Property>();
     }
 
     private void validateTaxNumber(int taxNumber){

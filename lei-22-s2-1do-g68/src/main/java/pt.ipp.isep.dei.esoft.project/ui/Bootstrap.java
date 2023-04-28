@@ -3,8 +3,20 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.domain.Apartment;
+import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
+import pt.ipp.isep.dei.esoft.project.domain.House;
+import pt.ipp.isep.dei.esoft.project.domain.Land;
+import pt.ipp.isep.dei.esoft.project.domain.Organization;
+import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.Store;
+import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +82,14 @@ public class Bootstrap implements Runnable {
         Land land = new Land("Land Torneirinhas", "land", "Rua das torneiras", "Muito bem equipada", true, true, 5);
         Apartment apartment = new Apartment("Apartment Torneirinhas", "apartment", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list);
 
-        Client joao = new Client("Joao","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        Client joao = new Client("Joao","f",510447465,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         Client tiago = new Client("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        Client luis = new Client("Luis","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        Client luis = new Client("Luis","f",510185380,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        announcementController.getClientRepository().addPropertyToClient(joao, house);
-        announcementController.getClientRepository().addPropertyToClient(tiago, land);
+        creatClienteController.createClient("Joao","f",510447465,"joao@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        creatClienteController.createClient("Luis","f",510185380,"luis@this.app","tiago","aggaga","910634405",Roles.CLIENT);
+        announcementController.getClientRepository().addPropertyToClient(luis, house);
+        announcementController.getClientRepository().addPropertyToClient(luis, land);
         announcementController.getClientRepository().addPropertyToClient(tiago, apartment);
 
     }
