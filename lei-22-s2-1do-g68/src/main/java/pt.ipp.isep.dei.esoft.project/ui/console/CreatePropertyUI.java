@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.createPropertyController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreatePropertyController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class CreatePropertyUI implements Runnable {
-    private final createPropertyController controller = new createPropertyController();
+    private final CreatePropertyController controller = new CreatePropertyController();
     private String name;
     private String type;
     private String address;
@@ -28,7 +28,7 @@ public class CreatePropertyUI implements Runnable {
     private boolean hasSunExposure;
     private EmployeeProject propertyProject;
 
-    private createPropertyController getController() {
+    private CreatePropertyController getController() {
         return controller;
     }
 
@@ -58,7 +58,6 @@ public class CreatePropertyUI implements Runnable {
         }
 
 
-
     }
 
     private EmployeeProject displayAndSelectProperties() {
@@ -81,6 +80,7 @@ public class CreatePropertyUI implements Runnable {
         return description;
 
     }
+
     private void displayPropertyOptions(List<EmployeeProject> Stores) {
         //display the task categories as a menu with number options to select
         int i = 1;
@@ -137,7 +137,7 @@ public class CreatePropertyUI implements Runnable {
 
     }
 
-    private void requestDataApartament(){
+    private void requestDataApartament() {
         this.name = requestName();
         this.address = requestAddress();
         this.description = requestDescription();
@@ -150,7 +150,7 @@ public class CreatePropertyUI implements Runnable {
         this.equipments = requestEquipments();
     }
 
-    private void requestDataLand(){
+    private void requestDataLand() {
         this.name = requestName();
         this.address = requestAddress();
         this.description = requestDescription();

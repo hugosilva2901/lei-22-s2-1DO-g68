@@ -7,12 +7,12 @@ import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class createPropertyController {
+public class CreatePropertyController {
 
     private PropertyRepository propertyRepository = null;
 
     private StoreRepository storeRepository = null;
-    public createPropertyController() {
+    public CreatePropertyController() {
         getPropertyRepository();
         getStoreRepository();
     }

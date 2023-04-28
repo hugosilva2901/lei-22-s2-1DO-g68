@@ -4,6 +4,7 @@ skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing true
 top to bottom direction
+left to right direction
 
 class CreateStoreUI{
 }
@@ -75,14 +76,8 @@ class ClientRepository {
     + updateOwner(String name, Owner owner)
 }
 
-class EmployeeRepository {
-    - EmployeeRepository()
-    + getInstance() : EmployeeRepository
-    + addEmployee(Employee employee)
-    + getEmployee(String name)
-    + getEmployees()
-    + removeEmployee(String name)
-    + updateEmployee(String name, Employee employee)
+class StoreRepository{
+
 }
 
 class House{
@@ -112,27 +107,19 @@ CreateStoreUI .> CreateStoreController
 CreateStoreController .> Repositories : repositories >
 Repositories "1" --> "*" PropertyRepository : has >
 Repositories "1" --> "*" OwnerRepository : has >
-Repositories "1" --> "*" EmployeeRepository : has >
+Repositories "1" --> "*" ClientRepository : has >
+Repositories "1" --> "*" StoreRepository : has >
 PropertyRepository "1" --> "*" Property : has >
 OwnerRepository "1" --> "*" Owner : has >
-EmployeeRepository "1" --> "*" Employee : has >
+ClientRepository "1" --> "*" Employee : has >
+ClientRepository "1" --> "*" Client : has >
+StoreRepository "1" --> "*" Store : has >
+Store "1"--"1..*" Employee : has >
 user "1"--"1..*" roles : has >
 Owner "1"--"1..*" Property : has >
 House  --|>  Property  : is
 Apartment  --|>  Property : is
 Land  --|>  Property : is
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @enduml
