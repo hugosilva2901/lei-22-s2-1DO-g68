@@ -1,8 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
+import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
 import java.util.Optional;

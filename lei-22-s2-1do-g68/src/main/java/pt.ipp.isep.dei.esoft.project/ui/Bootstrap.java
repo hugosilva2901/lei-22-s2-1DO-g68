@@ -82,15 +82,12 @@ public class Bootstrap implements Runnable {
         Land land = new Land("Land Torneirinhas", "land", "Rua das torneiras", "Muito bem equipada", true, true, 5);
         Apartment apartment = new Apartment("Apartment Torneirinhas", "apartment", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list);
 
-        Client joao = new Client("Joao","f",510447465,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        Client tiago = new Client("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        Client luis = new Client("Luis","f",510185380,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Joao","f",510447465,"joao@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Luis","f",510185380,"luis@this.app","tiago","aggaga","910634405",Roles.CLIENT);
-        announcementController.getClientRepository().addPropertyToClient(luis, house);
-        announcementController.getClientRepository().addPropertyToClient(luis, land);
-        announcementController.getClientRepository().addPropertyToClient(tiago, apartment);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(2), house);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(2), land);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), apartment);
 
     }
     private void addUsers() {

@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
-import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
@@ -26,6 +28,9 @@ public class CreateAnnouncementUI implements Runnable {
 
         client=displayAndSelectClients();
         property=displayAndSelectProperty(client);
+        if (property==null){
+            System.out.println("No properties to announce");
+        }
         requestData();
         submitData();
     }
@@ -61,6 +66,10 @@ public class CreateAnnouncementUI implements Runnable {
     private Property displayAndSelectProperty(Client client) {
         List<Property> Property = client.getProperties();
         int listSize = Property.size();
+        if(listSize==0){
+
+            return null;
+        }
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
