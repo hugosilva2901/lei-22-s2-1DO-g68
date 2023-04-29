@@ -90,6 +90,7 @@ class House{
     - inhabited  loft: boolean
     - Sun exposure: boolean
 }
+
 class Apartment{
     - numberOfRooms
     - numberOfBathrooms
@@ -106,20 +107,17 @@ class Land{
 CreateStoreUI .> CreateStoreController
 CreateStoreController .> Repositories : repositories >
 Repositories "1" --> "*" PropertyRepository : has >
-Repositories "1" --> "*" OwnerRepository : has >
 Repositories "1" --> "*" ClientRepository : has >
 Repositories "1" --> "*" StoreRepository : has >
 PropertyRepository "1" --> "*" Property : has >
-OwnerRepository "1" --> "*" Owner : has >
-ClientRepository "1" --> "*" Employee : has >
 ClientRepository "1" --> "*" Client : has >
 StoreRepository "1" --> "*" Store : has >
 Store "1"--"1..*" Employee : has >
 user "1"--"1..*" roles : has >
-Owner "1"--"1..*" Property : has >
 House  --|>  Property  : is
 Apartment  --|>  Property : is
 Land  --|>  Property : is
+Client --|> Property : has
 
 
 @enduml
