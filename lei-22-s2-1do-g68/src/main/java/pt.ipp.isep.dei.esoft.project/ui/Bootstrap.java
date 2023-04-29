@@ -4,30 +4,21 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteControll
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Apartment;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.domain.Land;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
 import pt.ipp.isep.dei.esoft.project.domain.Store;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
     public void run() {
-        addTaskCategories();
-        addOrganization();
         addStore();
         addEmployee();
         addUsers();
@@ -35,29 +26,8 @@ public class Bootstrap implements Runnable {
         addAnnoucements();
     }
 
-    private void addOrganization() {
-        //TODO: add organizations bootstrap here
-        //get organization repository
-        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-        Organization organization = new Organization("This Company");
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
-        organizationRepository.add(organization);
-    }
 
-    private void addTaskCategories() {
-        //TODO: add bootstrap Task Categories here
 
-        //get task category repository
-        TaskCategoryRepository taskCategoryRepository = Repositories.getInstance().getTaskCategoryRepository();
-        taskCategoryRepository.add(new TaskCategory("Analysis"));
-        taskCategoryRepository.add(new TaskCategory("Design"));
-        taskCategoryRepository.add(new TaskCategory("Implementation"));
-        taskCategoryRepository.add(new TaskCategory("Development"));
-        taskCategoryRepository.add(new TaskCategory("Testing"));
-        taskCategoryRepository.add(new TaskCategory("Deployment"));
-        taskCategoryRepository.add(new TaskCategory("Maintenance"));
-    }
 
     private void addStore() {
         Store store = new Store("Store","9155555", "Rua do Teste", "vatnumber", "Portugal",5);

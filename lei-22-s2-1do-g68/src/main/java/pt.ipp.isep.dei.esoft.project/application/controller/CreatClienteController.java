@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public class CreatClienteController {
 
-    private OrganizationRepository organizationRepository = null;
-    private TaskCategoryRepository taskCategoryRepository = null;
 
     private AuthenticationRepository authenticationRepository = null;
 
@@ -19,41 +17,21 @@ public class CreatClienteController {
 
     //Repository instances are obtained from the Repositories class
     public CreatClienteController() {
-        getOrganizationRepository();
-        getTaskCategoryRepository();
+
         getAuthenticationRepository();
         getStoreRepository();
         getClientRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public CreatClienteController(OrganizationRepository organizationRepository,
-                                  TaskCategoryRepository taskCategoryRepository,
+    public CreatClienteController(
                                   AuthenticationRepository authenticationRepository) {
-        this.organizationRepository = organizationRepository;
-        this.taskCategoryRepository = taskCategoryRepository;
+
         this.authenticationRepository = this.authenticationRepository;
     }
 
-    private TaskCategoryRepository getTaskCategoryRepository() {
-        if (taskCategoryRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            //Get the TaskCategoryRepository
-            taskCategoryRepository = repositories.getTaskCategoryRepository();
-        }
-        return taskCategoryRepository;
-    }
 
 
-    private OrganizationRepository getOrganizationRepository() {
-        if (organizationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            organizationRepository = repositories.getOrganizationRepository();
-        }
-        return organizationRepository;
-
-    }
 
     private AuthenticationRepository getAuthenticationRepository() {
         if (authenticationRepository == null) {
