@@ -1,0 +1,494 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize "2"
+
+class Admin {
+  - Admin():
+  - instance: Admin
+   instance: Admin
+}
+class AdminUI {
+  + AdminUI():
+  + run(): void
+}
+class Announcement {
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
+}
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
+}
+class Apartment {
+  + Apartment(String, String, String, String, boolean, boolean, int, int, int, int, List<String>):
+  - numberOfBathrooms: int
+  - numberOfGarages: int
+  - numberOfRooms: int
+  - numberOfFloors: int
+  - equipments: List<String>
+   numberOfFloors: int
+   numberOfGarages: int
+   equipments: List<String>
+   numberOfRooms: int
+   numberOfBathrooms: int
+}
+class AuthenticationController {
+  + AuthenticationController():
+  + doLogout(): void
+  + doLogin(String, String): boolean
+   userRoles: List<UserRoleDTO>
+}
+class AuthenticationRepository {
+  + AuthenticationRepository():
+  + addUserRole(String, String): boolean
+  + doLogin(String, String): boolean
+  + doLogout(): void
+  + addUserWithRole(String, String, String, String): boolean
+   currentUserSession: UserSession
+}
+class AuthenticationUI {
+  + AuthenticationUI():
+  - redirectToRoleUI(List<MenuItem>, UserRoleDTO): void
+  + run(): void
+  - logout(): void
+  - doLogin(): boolean
+  - selectsRole(List<UserRoleDTO>): UserRoleDTO
+   menuItemForRoles: List<MenuItem>
+}
+
+class Client {
+  + Client(String, String, int, String, String, String, String, Roles):
+  - properties: List<Property>
+  - validateTaxNumber(int): void
+  + addProperty(Property): void
+  - validateOwner(String, String, int, String, String, String, String, Roles): void
+   properties: List<Property>
+}
+class ClientRepository {
+  + ClientRepository():
+  ~ clients: List<Client>
+  - validateClient(Client): void
+  + addClient(String, String, int, String, String, String, String, Roles): Optional<Client>
+  + removeClient(Client): boolean
+  + getClientByTaxNumber(int): Client
+  + addPropertyToClient(Client, Property): void
+   clients: List<Client>
+}
+class ClienteUI {
+  + ClienteUI():
+  + run(): void
+}
+class CreatCLientUI {
+  + CreatCLientUI():
+  - controller: CreatClienteController
+  + run(): void
+  - requestTaxNumber(): int
+  - requestAddress(): String
+  - requestData(): void
+  - requestPhone(): String
+  - submitData(): void
+  - requestPassword(): String
+  - requestDescptions(): String
+  - requestEmail(): String
+  - requestName(): String
+   controller: CreatClienteController
+}
+class CreatClienteController {
+  + CreatClienteController():
+  - authenticationRepository: AuthenticationRepository
+  - clientRepository: ClientRepository
+  - storeRepository: StoreRepository
+  + createClient(String, String, int, String, String, String, String, Roles): Optional<Client>
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+class CreatEmployeeController {
+  + CreatEmployeeController():
+  - storeRepository: StoreRepository
+  - authenticationRepository: AuthenticationRepository
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+   stores: List<Store>
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class CreatEmployeeUi {
+  + CreatEmployeeUi():
+  - controller: CreatEmployeeController
+  - requestName(): String
+  - displayStoresOptions(List<Store>): void
+  - requestData(): void
+  - requestEmail(): String
+  - requestPassword(): String
+  - requestDescptions(): String
+  + run(): void
+  - requestSalary(): int
+  - requestPhone(): String
+  - requestTaxNumber(): int
+  - submitData(): void
+  - requestAddress(): String
+  - displayAndSelectStores(): Store
+   controller: CreatEmployeeController
+}
+class CreatGuestController {
+  + CreatGuestController(AuthenticationRepository):
+  + CreatGuestController():
+  - propertyRepository: PropertyRepository
+  - authenticationRepository: AuthenticationRepository
+  + getProperties(): void
+   propertyRepository: PropertyRepository
+   authenticationRepository: AuthenticationRepository
+}
+class CreatGuestUI {
+  + CreatGuestUI():
+  - showProperties(): void
+  + run(): void
+}
+class CreateAnnouncementController {
+  + CreateAnnouncementController():
+  + CreateAnnouncementController(ClientRepository, PropertyRepository, AnnouncementRepository, AuthenticationRepository):
+  - announcementRepository: AnnouncementRepository
+  - propertyRepository: PropertyRepository
+  - clientRepository: ClientRepository
+  - authenticationRepository: AuthenticationRepository
+  + createAnnouncement(Property, int): Optional<Announcement>
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+}
+class CreateAnnouncementUI {
+  + CreateAnnouncementUI():
+  - controller: CreateAnnouncementController
+  - displayAndSelectClients(): Client
+  - displayClients(List<Client>): void
+  - submitData(): void
+  - requestData(): void
+  - requestComission(): int
+  + run(): void
+  - displayAndSelectProperty(Client): Property
+  - displayClientProperty(List<Property>): void
+   controller: CreateAnnouncementController
+}
+class CreatePropertyUI {
+  + CreatePropertyUI():
+  - controller: createPropertyController
+  - requestNumberOfBathrooms(): int
+  - submitDataLand(): void
+  - requestDataHouse(): void
+  + run(): void
+  - requestNumberOfGarages(): int
+  - displayPropertyOptions(List<EmployeeProject>): void
+  - submitDataHouse(): void
+  - displayAndSelectProperties(): EmployeeProject
+  - requestHasLoft(): boolean
+  - requestHasSunExposure(): boolean
+  - requestArea(): int
+  - requestName(): String
+  - requestEquipments(): List<String>
+  - requestIsForRent(): boolean
+  - requestHasBasement(): boolean
+  - requestAddress(): String
+  - requestIsForSale(): boolean
+  - requestDescription(): String
+  - requestNumberOfRooms(): int
+  - submitDataApartament(): void
+  - requestNumberOfFloors(): int
+  - requestDataLand(): void
+  - requestDataApartament(): void
+   controller: createPropertyController
+}
+class CreateStoreController {
+  + CreateStoreController():
+  + createStore(String, String, String, String, String, int): Store
+}
+class CreateStoreUI {
+  + CreateStoreUI():
+  + run(): void
+}
+
+class DevTeamUI {
+  + DevTeamUI():
+  + run(): void
+}
+
+class EmployeeProject {
+  + EmployeeProject(String, String, int, String, String, String, String, Roles[], int, Store):
+  - salary: int
+  - validateTaxNumber(int): void
+  - validateStore(Store): void
+  - validateEmployee(String, String, int, String, String, String, String, Roles[], int, Store): void
+  - validateSalary(int): void
+   salary: int
+}
+
+class EmployeeUi {
+  + EmployeeUi():
+  + run(): void
+}
+class House {
+  + House(String, String, String, String, boolean, boolean, int, int, int, int, List<String>, boolean, boolean, boolean):
+  - hasBasement: boolean
+  - numberOfBathrooms: int
+  - numberOfRooms: int
+  - numberOfGarages: int
+  - hasLoft: boolean
+  - numberOfFloors: int
+  - equipments: List<String>
+  - hasSunExposure: boolean
+  + hasBasement(): boolean
+  + hasLoft(): boolean
+  + hasSunExposure(): boolean
+   numberOfGarages: int
+   hasLoft: boolean
+   equipments: List<String>
+   numberOfRooms: int
+   hasSunExposure: boolean
+   numberOfFloors: int
+   hasBasement: boolean
+   numberOfBathrooms: int
+}
+class Land {
+  + Land(String, String, String, String, boolean, boolean, double):
+  - area: double
+   area: double
+}
+class Main {
+  + Main():
+  + main(String[]): void
+}
+class Main {
+  + Main():
+  + main(String[]): void
+}
+class MainMenuUI {
+  + MainMenuUI():
+  + run(): void
+}
+class MenuItem {
+  + MenuItem(String, Runnable):
+  + toString(): String
+  + run(): void
+  + hasDescription(String): boolean
+}
+class Property {
+  + Property(String, String, String, String, boolean, boolean):
+  - description: String
+  - type: String
+  - isForSale: boolean
+  - address: String
+  - isForRent: boolean
+  - name: String
+   name: String
+   description: String
+   isForSale: boolean
+   type: String
+   isForRent: boolean
+   address: String
+}
+class PropertyRepository {
+  + PropertyRepository():
+  + remove(Property): boolean
+  + getByName(String): Optional<Property>
+  + createApartment(String, String, String, boolean, boolean, int, int, int, int, List<String>): void
+  + createLand(String, String, String, boolean, boolean, double): void
+  + createHouse(String, String, String, String, boolean, boolean, int, int, int, int, List<String>, boolean, boolean, boolean): void
+  + creatLand(String, String, String, String, boolean, boolean, double): Optional<Land>
+  + add(Property): void
+  + creatApartment(String, String, String, String, boolean, boolean, int, int, int, int, List<String>): Optional<Apartment>
+  + creatHouse(String, String, String, String, boolean, boolean, int, int, int, int, List<String>, boolean, boolean, boolean): Optional<House>
+   all: List<Property>
+}
+class RealEstate {
+  + RealEstate(String, String, String, String, String, int, String):
+  - name: String
+  - description: String
+  - website: String
+  - address: String
+  - phone: String
+  - vatNumber: int
+  - email: String
+  + toString(): String
+   name: String
+   description: String
+   email: String
+   phone: String
+   website: String
+   address: String
+   vatNumber: int
+}
+class Repositories {
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+enum Roles << enumeration >> {
+  + Roles():
+  + values(): Roles[]
+  + valueOf(String): Roles
+}
+class ShowTextUI {
+  + ShowTextUI(String):
+  + run(): void
+}
+class Store {
+  + Store(String, String, String, String, String, int):
+  - name: String
+  - phone: String
+  - vatNumber: String
+  - branchNumber: int
+  - localManager: EmployeeProject
+  - address: String
+  - email: String
+  - employees: List<EmployeeProject>
+  + validate(String, String, String, String, String, int): boolean
+  + toString(): String
+   name: String
+   employees: List<EmployeeProject>
+   localManager: EmployeeProject
+   branchNumber: int
+   email: String
+   phone: String
+   vatNumber: String
+   address: String
+}
+
+class StoreRepository {
+  + StoreRepository():
+  ~ stores: List<Store>
+  + addStore(Store): void
+  - validateStore(Store): void
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+  - addEmployeeToStore(Store, EmployeeProject): void
+  + addEmployeeToStorePublic(Store, EmployeeProject): void
+  + listEmployees(): List<EmployeeProject>
+   stores: List<Store>
+}
+
+class User {
+  + User(String, String, int, String, String, String, String, Roles):
+  - phone: String
+  - name: String
+  - email: String
+  - address: String
+  - taxNumber: int
+  - descptions: String
+  - roles: Roles
+  - password: String
+  + toString(): String
+   name: String
+   password: String
+   descptions: String
+   email: String
+   phone: String
+   address: String
+   roles: Roles
+   taxNumber: int
+}
+class UserSession {
+  + UserSession():
+}
+
+class createPropertyController {
+  + createPropertyController():
+  - propertyRepository: PropertyRepository
+  - storeRepository: StoreRepository
+  + createHouse(String, String, String, String, boolean, boolean, int, int, int, int, List<String>, boolean, boolean, boolean): Optional<House>
+  + createLand(String, String, String, String, boolean, boolean, double): Optional<Land>
+  + createApartament(String, String, String, String, boolean, boolean, int, int, int, int, List<String>, boolean, boolean, boolean): Optional<Apartment>
+   storeRepository: StoreRepository
+   propertyRepository: PropertyRepository
+}
+
+Admin                         --^  User
+AdminUI                       -->  CreatEmployeeUi              : "«create»"
+AdminUI                       -->  CreateStoreUI                : "«create»"
+AdminUI                       -->  MenuItem                     : "«create»"
+AdminUI                       -->  ShowTextUI                   : "«create»"
+AnnouncementRepository       "1" *--> "announcements\n*" Announcement
+Apartment                     --^  Property
+AuthenticationController     "1" *--> "authenticationRepository\n1" AuthenticationRepository
+AuthenticationUI              -->  AdminUI                      : "«create»"
+AuthenticationUI              -->  AuthenticationController     : "«create»"
+AuthenticationUI              -->  ClienteUI                    : "«create»"
+AuthenticationUI              -->  EmployeeUi                   : "«create»"
+AuthenticationUI              -->  MenuItem                     : "«create»"
+Client                       "1" *--> "properties\n*" Property
+Client                        --^  User
+ClientRepository             "1" *--> "clients\n*" Client
+ClienteUI                     -->  MenuItem                     : "«create»"
+ClienteUI                     -->  ShowTextUI                   : "«create»"
+CreatCLientUI                 -->  CreatClienteController       : "«create»"
+CreatCLientUI                "1" *--> "controller\n1" CreatClienteController
+CreatClienteController       "1" *-->  AuthenticationRepository
+CreatClienteController       "1" *--> "clientRepository\n1" ClientRepository
+CreatClienteController       "1" *--> "storeRepository\n1" StoreRepository
+CreatEmployeeController      "1" *--> AuthenticationRepository
+CreatEmployeeController       -->  EmployeeProject              : "«create»"
+CreatEmployeeController      "1" *--> "storeRepository\n1" StoreRepository
+CreatEmployeeUi               -->  CreatEmployeeController      : "«create»"
+CreatGuestController         "1" *-->  AuthenticationRepository
+CreatGuestController         "1" *--> "propertyRepository\n1" PropertyRepository
+CreatGuestUI                 "1" *--> "controller\n1" CreatGuestController
+CreatGuestUI                  -->  CreatGuestController         : "«create»"
+CreateAnnouncementController "1" *--> "announcementRepository\n1" AnnouncementRepository
+CreateAnnouncementController "1" *-->  AuthenticationRepository
+CreateAnnouncementController "1" *--> "clientRepository\n1" ClientRepository
+CreateAnnouncementController "1" *--> "propertyRepository\n1" PropertyRepository
+CreateAnnouncementUI         "1" *--> "client\n1" Client
+CreateAnnouncementUI          -->  CreateAnnouncementController : "«create»"
+CreatePropertyUI              -->  createPropertyController     : "«create»"
+CreateStoreController        "1" *--> "StoreRepository"
+CreateStoreUI                 ->  CreateStoreController        : "«create»"
+EmployeeProject              "1" *--> "store\n1" Store
+EmployeeProject               --^  User
+EmployeeUi                    -->  CreateAnnouncementUI         : "«create»"
+EmployeeUi                    -->  MenuItem                     : "«create»"
+EmployeeUi                    -->  ShowTextUI                   : "«create»"
+House                         --^  Property
+Land                          --^  Property
+Main                          -->  Bootstrap                    : "«create»"
+Main                          -->  MainMenuUI                   : "«create»"
+MainMenuUI                    -->  AuthenticationUI             : "«create»"
+MainMenuUI                    -->  CreatCLientUI                : "«create»"
+MainMenuUI                    -->  DevTeamUI                    : "«create»"
+MainMenuUI                    -->  MenuItem                     : "«create»"
+PropertyRepository           "1" *--> "apartments\n*" Apartment
+PropertyRepository           "1" *--> "houses\n*" House
+PropertyRepository           "1" *--> "lands\n*" Land
+PropertyRepository           "1" *--> "properties\n*" Property
+Repositories                  -->  AnnouncementRepository       : "«create»"
+Repositories                  -->  AuthenticationRepository     : "«create»"
+Repositories                  -->  ClientRepository             : "«create»"
+Repositories                  -->  PropertyRepository           : "«create»"
+Repositories                  -->  StoreRepository              : "«create»"
+Store                        "1" *--> "employees\n*" EmployeeProject
+Store                        "1" *--> "repositories\n1" Repositories
+User                         "1" *--> "roles\n1" Roles
+createPropertyController     "1" *--> "propertyRepository\n1" PropertyRepository
+createPropertyController     "1" *--> "storeRepository\n1" StoreRepository
+@enduml
