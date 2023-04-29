@@ -8,78 +8,131 @@ skinparam linetype polyline
 skinparam classAttributeIconSize "2"
 'left to right direction
 class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getStoreRepository()
-}
-class StoreRepository{
-
-}
-
-
-class CreateEmployeeUI{
-}
-
-class CreateEmployeeController{
-    + CreateEmployeeController(StoreRepository)
-    + createEmployee(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
 }
 
-class user{
-    - name
-    - descriptions
-    - tax number
-    - address
-    - email address
-    - phone number
-    - password
-    - roles
-
-}
-enum roles{
-
-}
-class RealEstate {
-    - name
-    - address
-    - descriptions
-    - website
-    - phoneNumber
-    - email
-    - vatNumber
-
+class StoreRepository {
+  + StoreRepository():
+  ~ stores: List<Store>
+  + addStore(Store): void
+  - validateStore(Store): void
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+  - addEmployeeToStore(Store, EmployeeProject): void
+  + addEmployeeToStorePublic(Store, EmployeeProject): void
+  + listEmployees(): List<EmployeeProject>
+   stores: List<Store>
 }
 
-class Employee extends user{
-    -salary
+class CreatEmployeeUi {
+  + CreatEmployeeUi():
+  - controller: CreatEmployeeController
+  - requestName(): String
+  - displayStoresOptions(List<Store>): void
+  - requestData(): void
+  - requestEmail(): String
+  - requestPassword(): String
+  - requestDescptions(): String
+  + run(): void
+  - requestSalary(): int
+  - requestPhone(): String
+  - requestTaxNumber(): int
+  - submitData(): void
+  - requestAddress(): String
+  - displayAndSelectStores(): Store
+   controller: CreatEmployeeController
+}
+class CreatEmployeeController {
+  + CreatEmployeeController():
+  - storeRepository: StoreRepository
+  - authenticationRepository: AuthenticationRepository
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+   stores: List<Store>
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
 }
 
-class Administrator extends user{
+class User {
+  + User(String, String, int, String, String, String, String, Roles):
+  - phone: String
+  - name: String
+  - email: String
+  - address: String
+  - taxNumber: int
+  - descptions: String
+  - roles: Roles
+  - password: String
+  + toString(): String
+   name: String
+   password: String
+   descptions: String
+   email: String
+   phone: String
+   address: String
+   roles: Roles
+   taxNumber: int
+}
+enum Roles << enumeration >> {
+  + Roles():
+  + values(): Roles[]
+  + valueOf(String): Roles
+}
 
+
+class Employee extends User{
+  + EmployeeProject(String, String, int, String, String, String, String, Roles[], int, Store):
+    - salary: int
+    - validateTaxNumber(int): void
+    - validateStore(Store): void
+    - validateEmployee(String, String, int, String, String, String, String, Roles[], int, Store): void
+    - validateSalary(int): void
+     salary: int
+}
+
+class Administrator extends User{
+  - Admin():
+  - instance: Admin
+   instance: Admin
 }
 class Store {
-    - name
-    - vatNumber
-    - address
-    - phoneNumber
-    - email
-    - branchNumber
+  + Store(String, String, String, String, String, int):
+  - name: String
+  - phone: String
+  - vatNumber: String
+  - branchNumber: int
+  - localManager: EmployeeProject
+  - address: String
+  - email: String
+  - employees: List<EmployeeProject>
+  + validate(String, String, String, String, String, int): boolean
+  + toString(): String
+   name: String
+   employees: List<EmployeeProject>
+   localManager: EmployeeProject
+   branchNumber: int
+   email: String
+   phone: String
+   vatNumber: String
+   address: String
 }
-class StoreNetWork{
-    + createStore(ID, designation/name, \n location, phone number, e-mail)
-    + validate(store)
-    + addStore(store)
-    - String name
-    - String address
-}
+
 Store "1" -- "0..*" Employee : has >
-StoreNetWork "1" -- "0..*" Store : has >
-RealEstate "1" -- "1" StoreNetWork : has >
-user "1"--"1..*" roles : has >
-CreateEmployeeController .> Repositories : repositories
-CreateEmployeeUI .> CreateEmployeeController
+User "1"--"1..*" Roles : has >
+CreatEmployeeController .> Repositories : repositories
+CreatEmployeeUi .> CreatEmployeeController
 Administrator --> Employee : createdBy
-CreateEmployeeController ..> "1" Store : Store
+CreatEmployeeController ..> "1" Store : Store
 Repositories "1" --> "*" StoreRepository : has >
 StoreRepository "1" --> "*" Store : has >
 @enduml
