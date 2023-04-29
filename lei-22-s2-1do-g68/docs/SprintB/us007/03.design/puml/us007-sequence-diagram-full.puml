@@ -12,6 +12,7 @@ participant ":CreateClientController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "ClientRepository:\nClientRepository" as ClientRepository
+participant "Client\n:Client" as TAREFA
 
 
 activate ADM
@@ -32,26 +33,31 @@ activate ADM
 
 
 group Create Client
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+CTRL -> ClientRepository: RegisterUser(name, discription, tax number, email, password, adress, phone, roles)
+                 activate ClientRepository
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
 
-                CTRL -> PLAT : getClientRepository()
-                activate PLAT
 
-                    PLAT --> CTRL: taskCategoryRepository
-                deactivate PLAT
+                             ClientRepository -> TAREFA**: RegisterUser(name, discription, tax number, email, password, adress, phone, roles)
+                             ClientRepository -> ClientRepository: addClient (Client)
 
-                CTRL -> ClientRepository : getTaskCategories()
-                activate ClientRepository
+                             activate ClientRepository
+                                 ClientRepository -> ClientRepository: validateClient(Client)
+                                 activate ClientRepository
+                                     ClientRepository --> ClientRepository
+                                 deactivate ClientRepository
 
-                    ClientRepository --> CTRL : taskCategoryList
-                deactivate ClientRepository
+                                 ClientRepository --> ClientRepository
+                             deactivate ClientRepository
 end
-                CTRL --> UI : New User
-            deactivate CTRL
+
+                     ClientRepository --> CTRL : Client
+                 deactivate ClientRepository
+                CTRL --> UI: Client
+              deactivate CTRL
+
+
+
 
             UI --> ADM : Displays Operation Sucess
         deactivate UI
