@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.Apartment;
+import pt.ipp.isep.dei.esoft.project.domain.House;
+import pt.ipp.isep.dei.esoft.project.domain.Land;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
 import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
 

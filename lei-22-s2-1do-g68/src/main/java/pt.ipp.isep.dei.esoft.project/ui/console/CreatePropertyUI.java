@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatePropertyController;
-import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.Apartment;
+import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
+import pt.ipp.isep.dei.esoft.project.domain.House;
+import pt.ipp.isep.dei.esoft.project.domain.Land;
 
 import java.util.Collections;
 import java.util.List;
