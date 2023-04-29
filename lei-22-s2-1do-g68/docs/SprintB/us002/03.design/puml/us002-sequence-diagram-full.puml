@@ -11,7 +11,7 @@ participant ":CreateAnnouncementUI" as UI
 participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "OwnersRepository:\nOwnersRepository" as TaskCategoryRepository
+participant "ClientRepository:\nClientRepository" as TaskCategoryRepository
 participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
 participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 participant "Announcement\n:Announcement" as TAREFA
@@ -26,7 +26,7 @@ activate ADM
             'create CTRL
             UI -> CTRL** : create
 
-            UI -> CTRL : getOwners()
+            UI -> CTRL : getClients()
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -35,25 +35,25 @@ activate ADM
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getOwnersRepository()
+                CTRL -> PLAT : getClientRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: OwnersRepository
+                    PLAT --> CTRL: ClientRepository
                 deactivate PLAT
 
-                CTRL -> TaskCategoryRepository : getOwnersList()
+                CTRL -> TaskCategoryRepository : getClientList()
                 activate TaskCategoryRepository
 
-                    TaskCategoryRepository --> CTRL : OwnersList
+                    TaskCategoryRepository --> CTRL : ClientList
                 deactivate TaskCategoryRepository
 
-                CTRL --> UI : OwnersList
+                CTRL --> UI : Client List
             deactivate CTRL
 
-            UI --> ADM : shows owners list\n and asks to select one
+            UI --> ADM : shows clients list\n and asks to select one
         deactivate UI
 
-    ADM -> UI : selects an Owner
+    ADM -> UI : selects a Client
     activate UI
 
                 UI -> CTRL : getProperty()
@@ -92,7 +92,7 @@ activate ADM
     ADM -> UI : types requested data (commission)
     activate UI
 
-        UI --> ADM : shows selected Property, Owner and commission
+        UI --> ADM : shows selected Property, Client and commission
     deactivate UI
 
     ADM -> UI : submits data
