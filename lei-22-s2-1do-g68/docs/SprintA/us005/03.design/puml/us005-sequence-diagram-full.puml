@@ -1,0 +1,75 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Administrator" as ADM
+participant ":CreateStoreUI" as UI
+participant ":CreateStoreController" as CTRL
+participant ":StoreNetWork" as SN
+participant "store\n:Store" as S
+participant ":Repository" as repository
+participant ":StoreRepository" as storeRepo
+
+activate ADM
+
+        ADM -> UI : asks to create a new Store
+
+        activate UI
+            UI -> CTRL** : create
+            activate CTRL
+            CTRL -> SN : instantiate
+                activate SN
+                SN -> repository : getInstance()
+                    activate repository
+                    repository -> storeRepo : getStoreRepository()
+                        activate storeRepo
+                        storeRepo --> repository : storeRepository
+                        deactivate storeRepo
+                        repository -->SN : storeRepository
+                        deactivate repository
+                deactivate SN
+            deactivate CTRL
+        UI --> ADM : requests data
+        deactivate UI
+
+        ADM ->UI : types requested data (designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
+        activate UI
+        UI --> UI :  keepData(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
+        UI--> ADM :show typed data and requests confirmation
+        deactivate UI
+
+        ADM -> UI: submit Data
+        activate UI
+        UI -> CTRL : createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
+        activate CTRL
+            CTRL -> SN : createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
+            activate SN
+            SN -> S** :createStore(designation, phoneNumber, \n e-mail, vatNumber, address,branchNumber)
+                activate S
+                    S->S : validate()
+                    activate S
+                    S-->SN : store
+                    deactivate S
+                deactivate S
+        SN -> storeRepo : addStore(store)
+       activate storeRepo
+       storeRepo -> storeRepo : addStore(store)
+       storeRepo -> storeRepo : validateStore(store)
+       storeRepo --> storeRepo
+       storeRepo --> SN : store
+       deactivate storeRepo
+
+
+
+        SN --> CTRL : store
+        deactivate SN
+        CTRL --> UI : store
+        deactivate CTRL
+        UI -->ADM :Shows Operation success
+        deactivate UI
+        deactivate ADM
+@enduml

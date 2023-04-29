@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
+participant "Announcement\n:Announcement" as TAREFA
+
+autonumber 16
+-> ORG: createAnnouncement(Property, commission, Employee)
+
+autonumber 16.1
+activate ORG
+    group Create Task
+
+        ORG -> TAREFA**: createAnnouncement(Property, commission, Employee)
+        ORG -> ORG: addAnnouncement (Announcement)
+
+        activate ORG
+            ORG -> ORG: validateAnnouncement(Announcement)
+            activate ORG
+                ORG --> ORG
+            deactivate ORG
+
+            ORG --> ORG
+        deactivate ORG
+    end
+
+    autonumber 17
+    <-- ORG : Announcement
+deactivate ORG
+
+
+@enduml

@@ -1,0 +1,133 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Organization Agent" as ADM
+participant ":CreateAnnouncementUI" as UI
+participant ":CreateAnnouncementController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "ClientRepository:\nClientRepository" as TaskCategoryRepository
+participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
+participant "Announcement\n:Announcement" as TAREFA
+
+activate ADM
+
+        ADM -> UI : asks to create a new Announcement
+
+        activate UI
+
+'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
+            'create CTRL
+            UI -> CTRL** : create
+
+            UI -> CTRL : getClients()
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getClientRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: ClientRepository
+                deactivate PLAT
+
+                CTRL -> TaskCategoryRepository : getClientList()
+                activate TaskCategoryRepository
+
+                    TaskCategoryRepository --> CTRL : ClientList
+                deactivate TaskCategoryRepository
+
+                CTRL --> UI : Client List
+            deactivate CTRL
+
+            UI --> ADM : shows clients list\n and asks to select one
+        deactivate UI
+
+    ADM -> UI : selects a Client
+    activate UI
+
+                UI -> CTRL : getProperty()
+                activate CTRL
+
+                    CTRL -> RepositorySingleton : getInstance()
+                    activate RepositorySingleton
+
+                        RepositorySingleton --> CTRL: repositories
+                    deactivate RepositorySingleton
+
+                    CTRL -> PLAT : getPropertyRepository()
+                    activate PLAT
+
+                        PLAT --> CTRL: PropertyRepository
+                    deactivate PLAT
+
+                    CTRL -> PropertyRepository : getPropertyList()
+                    activate PropertyRepository
+
+                        PropertyRepository --> CTRL : PropertyList
+                    deactivate PropertyRepository
+
+                    CTRL --> UI : PropertyList
+                deactivate CTRL
+
+                UI --> ADM : shows property list\n and asks to select one
+            deactivate UI
+
+        ADM -> UI : selects a property
+        activate UI
+
+        UI --> ADM : requests data
+    deactivate UI
+
+    ADM -> UI : types requested data (commission)
+    activate UI
+
+        UI --> ADM : shows selected Property, Client and commission
+    deactivate UI
+
+    ADM -> UI : submits data
+        activate UI
+
+            UI -> CTRL : createAnnouncement(Property, commission)
+            activate CTRL
+
+                CTRL -> ORG: createAnnouncement(Property, commission)
+                activate ORG
+
+                    group Create Announcement
+                        ORG -> TAREFA**: createAnnouncement(Property, commission)
+                        ORG -> ORG: addAnnouncement (Announcement)
+
+
+                        activate ORG
+                            TAREFA -> TAREFA: validateAnnouncement(Announcement)
+                        deactivate ORG
+
+                        activate TAREFA
+                            TAREFA --> TAREFA
+                        deactivate TAREFA
+
+
+                    end
+
+                    ORG --> CTRL : Announcement
+                deactivate ORG
+
+                CTRL --> UI: Announcement
+                deactivate CTRL
+                UI --> ADM: displays operation success
+        deactivate UI
+
+    deactivate ADM
+
+@enduml
