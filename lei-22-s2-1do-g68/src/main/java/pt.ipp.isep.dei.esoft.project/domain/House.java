@@ -73,6 +73,20 @@ public class House extends Property {
     public void setHasSunExposure(boolean hasSunExposure) {
         this.hasSunExposure = hasSunExposure;
     }
+
+    @Override
+    public String toString() {
+        return "House{" +
+                "numberOfRooms=" + numberOfRooms +
+                ", numberOfBathrooms=" + numberOfBathrooms +
+                ", numberOfFloors=" + numberOfFloors +
+                ", numberOfGarages=" + numberOfGarages +
+                ", equipments=" + equipments +
+                ", hasBasement=" + hasBasement +
+                ", hasLoft=" + hasLoft +
+                ", hasSunExposure=" + hasSunExposure +
+                '}';
+    }
 }
 
 

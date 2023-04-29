@@ -8,12 +8,12 @@ import java.util.List;
 
 public class CreatGuestController {
     private AuthenticationRepository authenticationRepository = null;
-    private PropertyRepository propertyRepository = null;
+    private AnnouncementRepository announcementRepository = null;
 
     //Repository instances are obtained from the Repositories class
     public CreatGuestController() {
         getAuthenticationRepository();
-        getPropertyRepository();
+        getAnnouncementRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
@@ -31,19 +31,16 @@ public class CreatGuestController {
         }
         return authenticationRepository;
     }
-    private PropertyRepository getPropertyRepository() {
-        if (propertyRepository == null) {
+    public AnnouncementRepository getAnnouncementRepository() {
+        if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
             //Get the PropertyRepository
-            propertyRepository = repositories.getPropertyRepository();
+            announcementRepository = repositories.getAnnouncementRepository();
         }
-        return propertyRepository;
+        return announcementRepository;
     }
 
-    public List<Property> getProperties() {
-        PropertyRepository propertyRepository = getPropertyRepository();
-        return propertyRepository.getAll();
-    }
+
 }
 

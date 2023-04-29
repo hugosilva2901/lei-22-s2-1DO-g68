@@ -49,5 +49,16 @@ public class Apartment extends Property {
     public void setEquipments(List<String> equipments) {
         this.equipments = equipments;
     }
+
+    @Override
+    public String toString() {
+        return "Apartment{" +
+                "numberOfRooms=" + numberOfRooms +
+                ", numberOfBathrooms=" + numberOfBathrooms +
+                ", numberOfFloors=" + numberOfFloors +
+                ", numberOfGarages=" + numberOfGarages +
+                ", equipments=" + equipments +
+                '}';
+    }
 }
 

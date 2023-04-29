@@ -31,4 +31,12 @@ public class Announcement {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Announcement{" +
+                "commission=" + commission +
+                ", property=" + property.toString() +
+                '}';
+    }
 }

@@ -54,6 +54,16 @@ public abstract class Property {
         this.isForRent = isForRent;
     }
 
-
+    @Override
+    public String toString() {
+        return "Property{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", isForSale=" + isForSale +
+                ", isForRent=" + isForRent +
+                '}';
+    }
 }
 

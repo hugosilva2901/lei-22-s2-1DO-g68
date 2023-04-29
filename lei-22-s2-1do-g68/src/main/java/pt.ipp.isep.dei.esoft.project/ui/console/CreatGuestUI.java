@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatGuestController;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.Store;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class CreatGuestUI implements Runnable {
@@ -16,9 +19,16 @@ public class CreatGuestUI implements Runnable {
     }
 
     private void showProperties() {
-        List<Property> properties = PropertyRepository.getAll();
-        for (Property property : properties) {
-            System.out.println(property.getName() + " - " + property.getAddress() + " - R$" + property.getPrice());
+        List<Announcement> announcements = controller.getAnnouncementRepository().getAnnouncements();
+        displayAnnoucementsOptions(announcements);
+    }
+
+    private void displayAnnoucementsOptions(List<Announcement> announcements) {
+        //display the Annoucements categories as a menu with number options to select
+        int i = 1;
+        for (Announcement announcement : announcements) {
+            System.out.println(i + " - " + announcement.toString());
+            i++;
         }
     }
 }

@@ -32,7 +32,7 @@ public class Bootstrap implements Runnable {
         addEmployee();
         addUsers();
         addProperty();
-
+        addAnnoucements();
     }
 
     private void addOrganization() {
@@ -110,4 +110,11 @@ public class Bootstrap implements Runnable {
                 AuthenticationController.ROLE_EMPLOYEE);
 
     }
+    private void addAnnoucements() {
+        CreateAnnouncementController announcementController = new CreateAnnouncementController();
+        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000);
+        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101);
+        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002);
+    }
+
 }
