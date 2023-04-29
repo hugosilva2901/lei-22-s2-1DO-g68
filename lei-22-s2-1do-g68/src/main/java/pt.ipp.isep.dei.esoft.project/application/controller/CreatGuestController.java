@@ -1,10 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.domain.Store;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CreatGuestController {
     private AuthenticationRepository authenticationRepository = null;
@@ -41,6 +42,39 @@ public class CreatGuestController {
         return announcementRepository;
     }
 
+    public List<Announcement> getAnnouncementsByNumberOfRooms(int numberOfRooms) {
+        List<Announcement> announcements = announcementRepository.getAnnouncements();
+        return announcements.stream()
+                .filter(a -> {
+                    Property property = a.getProperty();
+                    if (property instanceof Apartment) {
+                        return ((Apartment) property).getNumberOfRooms() == numberOfRooms;
+                    } else if (property instanceof House) {
+                        return ((House) property).getNumberOfRooms() == numberOfRooms;
+                    } else if (property instanceof Land) {
+                        return false;
+                    } else {
+                        throw new RuntimeException("Unknown property type: " + property.getClass().getName());
+                    }
+                })
+                .collect(Collectors.toList());
+    }
 
+    public List<Announcement> FilterPropertiesTypeChoice(String propertyType) {
+        List<Announcement> announcements = announcementRepository.getAnnouncements();
+        List<Announcement> filteredAnnouncements = new ArrayList<>();
+
+        for (Announcement announcement : announcements) {
+            if (announcement.getProperty().getType().equalsIgnoreCase(propertyType)) {
+                filteredAnnouncements.add(announcement);
+            }
+        }
+
+        if (filteredAnnouncements.isEmpty()) {
+            System.out.println("No properties of the selected type were found.");
+        }
+
+        return filteredAnnouncements;
+    }
 }
 

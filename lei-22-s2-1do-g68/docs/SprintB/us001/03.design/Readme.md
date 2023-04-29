@@ -11,7 +11,7 @@
 | Step 1  		     | 	... interacting with the actor?              | CreateGuestUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | 			  		        | 	... coordinating the US?                     | CreateGuestController | Controller                                                                                                    |
 | 			  		        | 	... instantiating a new Task?                | CreatTaskController   | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		        | ... knowing the user using the system?        | Authenticantion ?     | IE: cf. A&A component documentation.                                                                          |
+| 			  		        | ... knowing the user using the system?        | Authenticantion       | IE: cf. A&A component documentation.                                                                          |
 | Step 2  		     | 	...saving the properties?                    | PropertyRepository    | IE: object created in step 1 has its own data.                                                                |
 | Step 3  		     | 	...knowing properties to show?               | CreatGuestUI          | IE: Task Categories are defined by the Administrators.                                                        |
 | Step 4  		     | 	... saving the selected filters?             | CreatGuestController  | IE: object created in step 1 is classified in one Category.                                                   |

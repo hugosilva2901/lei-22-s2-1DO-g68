@@ -35,11 +35,13 @@ activate ADM
     ADM -> UI : Selects wanted filters for properties
     activate UI
         UI -> CTRL : getFilteredProperties
+        activate CTRL
         ref over CTRL
             Get Filtered Properties
-
         end ref
+
     CTRL --> UI : FilteredProperties
+    deactivate CTRL
     end alt
         UI --> ADM : Display list of properties by selected filter
 
@@ -48,11 +50,12 @@ activate ADM
     ADM -> UI : Selects wanted sort criteria for properties
     activate UI
     UI -> CTRL : getSortProperties
+            activate CTRL
             ref over CTRL
                 Get Sorted Properties
-
             end ref
         CTRL --> UI : SortedProperties
+            deactivate CTRL
     end alt
         UI --> ADM : Display list of properties by selected sort criteria
     deactivate UI

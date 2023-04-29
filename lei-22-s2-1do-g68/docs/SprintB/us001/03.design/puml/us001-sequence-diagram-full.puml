@@ -11,14 +11,14 @@ participant ":CreateGuestUI" as UI
 participant ":CreateGuestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "PropertyRepository:\PropertyRepository" as PropertyRepository
+participant "AnnouncementRepository:\AnnouncementRepository" as AnnouncementRepository
 
 
 
 
 activate ADM
 
-        ADM -> UI : asks to create a new task
+        ADM -> UI : Asks to list properties
 
         activate UI
 
@@ -36,17 +36,17 @@ group Get Property List
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getPropertyRepository()
+                CTRL -> PLAT : getAnnouncementRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: PropertyRepository
+                    PLAT --> CTRL: AnnouncementRepository
                 deactivate PLAT
 
-    CTRL -> PropertyRepository : getPropertyList()
-             activate PropertyRepository
+    CTRL -> AnnouncementRepository : getPropertyList()
+             activate AnnouncementRepository
 
-                 PropertyRepository --> CTRL : PropertyList
-             deactivate PropertyRepository
+                 AnnouncementRepository --> CTRL : PropertyList
+             deactivate AnnouncementRepository
 
 end
                 CTRL --> UI : ListProperty
@@ -58,28 +58,32 @@ alt User filters properties
     ADM -> UI : Selects wanted filters for properties
     activate UI
         UI -> CTRL : getFilteredProperties
+        activate CTRL
         ref over CTRL
             Get Filtered Properties
-
         end ref
+
     CTRL --> UI : FilteredProperties
+    deactivate CTRL
     end alt
         UI --> ADM : Display list of properties by selected filter
-        deactivate UI
 
-alt User sorts properties
+    deactivate UI
+    alt User sorts properties
     ADM -> UI : Selects wanted sort criteria for properties
     activate UI
     UI -> CTRL : getSortProperties
+            activate CTRL
             ref over CTRL
                 Get Sorted Properties
-
             end ref
         CTRL --> UI : SortedProperties
+            deactivate CTRL
     end alt
         UI --> ADM : Display list of properties by selected sort criteria
     deactivate UI
 
 
+deactivate ADM
 
 @enduml

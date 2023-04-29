@@ -7,7 +7,7 @@ participant ":CreateGuestUI" as UI
 participant ":CreateGuestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "PropertyRepository:\PropertyRepository" as PropertyRepository
+participant "AnnouncementRepository:\AnnouncementRepository" as AnnouncementRepository
 
 
  activate UI
@@ -22,17 +22,17 @@ group Get Property List
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getPropertyRepository()
+                CTRL -> PLAT : getAnnouncementRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: PropertyRepository
+                    PLAT --> CTRL: AnnouncementRepository
                 deactivate PLAT
 
-    CTRL -> PropertyRepository : getPropertyList()
-             activate PropertyRepository
+    CTRL -> AnnouncementRepository : getAnnouncementList()
+             activate AnnouncementRepository
 
-                 PropertyRepository --> CTRL : PropertyList
-             deactivate PropertyRepository
+                 AnnouncementRepository --> CTRL : AnnouncementList
+             deactivate AnnouncementRepository
 
 end
                 CTRL --> UI : ListProperty
