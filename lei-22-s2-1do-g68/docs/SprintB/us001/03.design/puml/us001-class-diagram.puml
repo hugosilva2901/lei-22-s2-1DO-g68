@@ -7,70 +7,58 @@ top to bottom direction
 skinparam classAttributeIconSize "2"
 
 
-class RealEstate {
-    - name
-    - address
-    - descriptions
-    - website
-    - phoneNumber
-    - email
-    - vatNumber
-    - logo
-}
-class House{
-    - numberOfRooms
-    - numberOfBathrooms
-    - numberOfFloors
-    - numberOfGarages
-    - Equipaments
-    - Basement: boolean
-    - inhabited  loft: boolean
-    - Sun exposure: boolean
-}
-class Apartment{
-    - numberOfRooms
-    - numberOfBathrooms
-    - numberOfFloors
-    - numberOfGarages
-    - Equipaments
-
-}
-class Land{
-    - area
-}
-abstract class Property {
-    - name
-    - Tipo
-    - address
-    - descriptions
-    - vender:boolean
-    - render:boolean
-}
 
 class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getPropertyRepository()
+    - Repositories():
+    ~ propertyRepository: PropertyRepository
+    ~ authenticationRepository: AuthenticationRepository
+    ~ clientRepository: ClientRepository
+    - instance: Repositories
+    ~ announcementRepository: AnnouncementRepository
+    ~ storeRepository: StoreRepository
+     announcementRepository: AnnouncementRepository
+     propertyRepository: PropertyRepository
+     instance: Repositories
+     clientRepository: ClientRepository
+     authenticationRepository: AuthenticationRepository
+     storeRepository: StoreRepository
 
 }
-class CreateGuestUI{
+class CreateGuestUI {
+  + CreatGuestUI():
+  - showProperties(): void
+  + run(): void
+}
+class CreateGuestController {
+  + CreatGuestController(AuthenticationRepository):
+  + CreatGuestController():
+  - propertyRepository: PropertyRepository
+  - authenticationRepository: AuthenticationRepository
+  + getProperties(): void
+   propertyRepository: PropertyRepository
+   authenticationRepository: AuthenticationRepository
+}
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
 }
 
-class CreateGuestController{
-
+class Announcement {
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
 }
-class PropertyRepository{
-
-}
-
 CreateGuestUI .> CreateGuestController
 CreateGuestController .> Repositories : repositories
-Repositories "1" --> "*" PropertyRepository : has >
-PropertyRepository "1" --> "*" Property : has >
-House  --|>  Property  : is
-Apartment  --|>  Property : is
-Land  --|>  Property : is
-RealEstate "1"--"0.*" Property: owns :
+Repositories "1" --> "*" AnnouncementRepository : has >
+AnnouncementRepository "1" --> "*" Announcement : has >
+
 
 
 @enduml
