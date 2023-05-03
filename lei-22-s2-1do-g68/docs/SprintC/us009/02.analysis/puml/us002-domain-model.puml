@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class Owner{
+ name
+ citizenCardNumber
+ taxNumber
+ Address
+ EmailAddress
+ phoneNumber
+}
+
+class Employee {
+
+}
+class Role {
+    ROLE_REAL_ESTATE_AGENT
+}
+
+abstract class user{
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+class SaleAnnouncement{
+    Owner
+    Property
+    descriptions
+    RealStateAgent
+    cost
+}
+
+Owner"1" - "1" Employee : contacts >
+Employee "1" - "0..*" SaleAnnouncement : publish >
+Owner --|> user : is
+Employee --|> user : is
+Employee "1" - "1" Role: as >
+@enduml

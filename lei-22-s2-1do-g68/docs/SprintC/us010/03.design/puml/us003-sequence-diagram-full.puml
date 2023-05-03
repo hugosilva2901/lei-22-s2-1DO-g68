@@ -1,0 +1,108 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Organization Employee" as ADM
+participant ":CreateEmployeeUI" as UI
+participant ":CreateEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "StoreRepository:\StoreRepository" as StoreRepository
+participant "Employee\n:Employee" as TAREFA
+
+activate ADM
+
+    ADM -> UI : asks to create a employee
+
+    activate UI
+
+        UI -> CTRL** : create
+        UI -> CTRL : getStores
+
+group Get Task Category List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getStoreRepository()
+            activate PLAT
+
+                PLAT --> CTRL: StoreRepository
+            deactivate PLAT
+
+            CTRL -> StoreRepository : getStoreList()
+            activate StoreRepository
+
+                StoreRepository --> CTRL : StoreList
+            deactivate StoreRepository
+
+
+    end
+
+        activate CTRL
+
+            CTRL --> UI : StoresList
+        deactivate CTRL
+
+        UI --> ADM : shows  stores list and asks to select one
+    deactivate UI
+    ADM -> UI : selects a stores
+
+    activate UI
+
+    UI --> ADM : shows list of roles and asks to select one
+
+
+    deactivate UI
+    ADM -> UI : selects roles
+        activate UI
+
+            UI --> ADM : requests data
+        deactivate UI
+        ADM -> UI : types requested data (name,descriptions,tax number,address,email address\n,phone number,password)
+        activate UI
+
+        UI --> ADM : shows selected store, roles and requested data
+        deactivate UI
+        ADM -> UI : submits data
+     activate UI
+
+     UI -> CTRL : createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
+    activate CTRL
+
+      CTRL -> StoreRepository: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
+                 activate StoreRepository
+
+                       group Create Employee
+
+                             StoreRepository -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+                             StoreRepository -> StoreRepository: addEmployee (Employee)
+
+                             activate StoreRepository
+                                 StoreRepository -> StoreRepository: validateEmployee(Employee)
+                                 activate StoreRepository
+                                     StoreRepository --> StoreRepository
+                                 deactivate StoreRepository
+
+                                 StoreRepository --> StoreRepository
+                             deactivate StoreRepository
+                         end
+
+                     StoreRepository --> CTRL : Employee
+                 deactivate StoreRepository
+                CTRL --> UI: Employee
+              deactivate CTRL
+              UI --> ADM: displays operation success
+      deactivate UI
+
+deactivate ADM
+
+@enduml

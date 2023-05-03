@@ -1,0 +1,123 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+top to bottom direction
+left to right direction
+
+class CreatePropertyUI{
+}
+
+class CreatePropertyController{
+   + getEmployee()
+   + getOwnerOfProperty()
+   + createProperty(Owner, type, address, description, cost, vender, render, PropertyData)
+}
+
+class user{
+    - name
+    - descriptions
+    - tax number
+    - address
+    - email address
+    - phone number
+    - password
+    - roles
+
+}
+
+enum roles{
+
+}
+
+class Client extends user{
+}
+
+class Employee extends user{
+    -salary
+}
+
+abstract class Property {
+    - name
+    - Tipo
+    - address
+    - descriptions
+    - vender:boolean
+    - render:boolean
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getPropertyRepository()
+    + getOwnerRepository()
+    + getEmployeeRepository()
+
+}
+
+class PropertyRepository {
+    - PropertyRepository()
+    + getInstance() : PropertyRepository
+    + addProperty(Property property)
+    + getProperty(String name)
+    + getProperties()
+    + removeProperty(String name)
+    + updateProperty(String name, Property property)
+}
+
+class ClientRepository {
+    - OwnerRepository()
+    + getInstance() : OwnerRepository
+    + addOwner(Owner owner)
+    + getOwner(String name)
+    + getOwners()
+    + removeOwner(String name)
+    + updateOwner(String name, Owner owner)
+}
+
+class StoreRepository{
+
+}
+
+class House{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+    - Basement: boolean
+    - inhabited  loft: boolean
+    - Sun exposure: boolean
+}
+
+class Apartment{
+    - numberOfRooms
+    - numberOfBathrooms
+    - numberOfFloors
+    - numberOfGarages
+    - Equipaments
+
+}
+class Land{
+    - area
+}
+
+
+CreatePropertyUI .> CreatePropertyController
+CreatePropertyController .> Repositories : repositories >
+Repositories "1" --> "*" PropertyRepository : has >
+Repositories "1" --> "*" ClientRepository : has >
+Repositories "1" --> "*" StoreRepository : has >
+PropertyRepository "1" --> "*" Property : has >
+ClientRepository "1" --> "*" Client : has >
+StoreRepository "1" --> "*" Store : has >
+Store "1"--"1..*" Employee : has >
+user "1"--"1..*" roles : has >
+House  --|>  Property  : is
+Apartment  --|>  Property : is
+Land  --|>  Property : is
+Client --|> Property : has
+
+
+@enduml

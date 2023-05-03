@@ -1,0 +1,64 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+top to bottom direction
+
+skinparam classAttributeIconSize "2"
+
+
+
+class Repositories {
+    - Repositories():
+    ~ propertyRepository: PropertyRepository
+    ~ authenticationRepository: AuthenticationRepository
+    ~ clientRepository: ClientRepository
+    - instance: Repositories
+    ~ announcementRepository: AnnouncementRepository
+    ~ storeRepository: StoreRepository
+     announcementRepository: AnnouncementRepository
+     propertyRepository: PropertyRepository
+     instance: Repositories
+     clientRepository: ClientRepository
+     authenticationRepository: AuthenticationRepository
+     storeRepository: StoreRepository
+
+}
+class CreateGuestUI {
+  + CreatGuestUI():
+  - showProperties(): void
+  + run(): void
+}
+class CreateGuestController {
+  + CreatGuestController(AuthenticationRepository):
+  + CreatGuestController():
+  - propertyRepository: PropertyRepository
+  - authenticationRepository: AuthenticationRepository
+  + getProperties(): void
+   propertyRepository: PropertyRepository
+   authenticationRepository: AuthenticationRepository
+}
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
+}
+
+class Announcement {
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
+}
+CreateGuestUI .> CreateGuestController
+CreateGuestController .> Repositories : repositories
+Repositories "1" --> "*" AnnouncementRepository : has >
+AnnouncementRepository "1" --> "*" Announcement : has >
+
+
+
+@enduml
