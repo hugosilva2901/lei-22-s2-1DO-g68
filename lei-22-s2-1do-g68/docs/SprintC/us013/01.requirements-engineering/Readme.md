@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 013 - To List all employees of every store 
 
 ## 1. Requirements Engineering
 
@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an organization employee, I want to create a new task in order to be further published.
+As an organization employee, I want to list all of the employees working  in every store of the network.
 
 
 
@@ -37,9 +37,9 @@ As an organization employee, I want to create a new task in order to be further 
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** All required fiels must be filled in.
-* **AC2:** Task reference must have at least 5 alphanumeric chars.
-* **AC3:** When creating a task with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
+* **AC1:** The list of employees should be alphabetically sorted and grouped by store
+* **AC2:** Stores should be sorted according to their property listings, from the one with more listings to the one with less listings.
+* **AC3:** . Each store should state how many property listings it has.
 
 
 ### 1.4. Found out Dependencies
@@ -54,21 +54,16 @@ As an organization employee, I want to create a new task in order to be further 
 **Input Data:**
 
 * Typed data:
-	* a reference, 
-	* a designation, 
-	* an informal description
-	* a technical description
-	* an estimated duration
-	* an estimated cost
+	* None
 	
 * Selected data:
-	* Classifying task category 
+	* None
 
 
 **Output Data:**
 
-* List of existing task categories
-* (In)Success of the operation
+* List of existing employees
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
