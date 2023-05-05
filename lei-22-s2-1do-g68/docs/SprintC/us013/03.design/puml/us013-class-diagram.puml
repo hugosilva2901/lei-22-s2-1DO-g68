@@ -1,0 +1,108 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+left to right direction
+top to bottom direction
+
+skinparam classAttributeIconSize "2"
+
+
+class CreatEmployeeUi {
+  + CreatEmployeeUi():
+  - controller: CreatEmployeeController
+  - requestName(): String
+  - displayStoresOptions(List<Store>): void
+  - requestData(): void
+  - requestEmail(): String
+  - requestPassword(): String
+  - requestDescptions(): String
+  + run(): void
+  - requestSalary(): int
+  - requestPhone(): String
+  - requestTaxNumber(): int
+  - submitData(): void
+  - requestAddress(): String
+  - displayAndSelectStores(): Store
+   controller: CreatEmployeeController
+}
+
+class CreatEmployeeController {
+  + CreatEmployeeController():
+  - storeRepository: StoreRepository
+  - authenticationRepository: AuthenticationRepository
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+   stores: List<Store>
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class CreateStoreUI {
+  + CreateStoreUI():
+  + run(): void
+}
+
+class CreateStoreController {
+  + CreateStoreController():
+  + createStore(String, String, String, String, String, int): Store
+}
+
+class Store {
+  + Store(String, String, String, String, String, int):
+  - name: String
+  - phone: String
+  - vatNumber: String
+  - branchNumber: int
+  - localManager: EmployeeProject
+  - address: String
+  - email: String
+  - employees: List<EmployeeProject>
+  + validate(String, String, String, String, String, int): boolean
+  + toString(): String
+   name: String
+   employees: List<EmployeeProject>
+   localManager: EmployeeProject
+   branchNumber: int
+   email: String
+   phone: String
+   vatNumber: String
+   address: String
+}
+
+class Repositories {
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class StoreRepository {
+  + StoreRepository():
+  ~ stores: List<Store>
+  + addStore(Store): void
+  - validateStore(Store): void
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+  - addEmployeeToStore(Store, EmployeeProject): void
+  + addEmployeeToStorePublic(Store, EmployeeProject): void
+  + listEmployees(): List<EmployeeProject>
+   stores: List<Store>
+}
+'Class EmployeeRepository
+
+
+CreatEmployeeUi               -->  CreatEmployeeController      : "«create»"
+CreateStoreController        "1" *--> "StoreRepository"
+CreateStoreUI                 ->  CreateStoreController        : "«create»"
+CreatEmployeeController      "1" *--> "storeRepository\n1" StoreRepository
+Store                        "1" *--> "repositories\n1" Repositories
+Repositories                  -->  StoreRepository              : "«create»"
+@enduml
