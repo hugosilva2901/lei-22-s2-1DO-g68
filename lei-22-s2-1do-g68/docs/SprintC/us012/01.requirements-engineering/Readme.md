@@ -1,50 +1,44 @@
-# US 005 - To register a Store 
+# US 012 - To import information from a legacy system
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a system administrator, I want to register a store.
-
+As a system administrator, I want to import information from a legacy  system that has been in use in several agencies.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 
 **From the specifications document:**
 
->	Each store in the network has a store manager and the set of stores is managed by a store network
-manager.
+>	Import information from a legacy
+system that has been in use in several agencies.
 
 **From the client clarifications:**
 
-> **Question:** Does a store designation have to be detailed?
+> **Question:**  In the legacy File provided, on the Location, I assume that the structure of the cell is: Address, City, State, and postal code. Assuming that this is the right structure, shouldn't the districts of the cities be there as well?
 >  
-> **Answer:** The ID is an integer number. An example of the store location is: 71 ST. NICHOLAS DRIVE, NORTH POLE, FAIRBANKS NORTH STAR, AK, 99705. An example phone number is (907) 488-6419.
+> **Answer:** Please check carefully the legacy file. For instance, in line 5 we get "71 ST. NICHOLAS DRIVE, NORTH POLE, FAIRBANKS NORTH STAR,  AK, 99705". When loading the data, you should consider location addresses with and without district info.
 
 
-> **Question:** When a System Administrator (admin) makes a request to register a new employee or a new network branch (or any other alteration), does the System ask for the admin credentials (login, password)?
+> **Question:**  From the provided CSV file, our team infers that this feature is meant to import data related to announcements only and not other data like, for example, employee information. Is this correct?
 >  
-> **Answer:** The System Administrator should be logged in the application.
+> **Answer:** The System Administrator should be able to load any file with the extension csv. The file content must be validated, showing a message to the system
+administrator if the file is empty or its content is not in the requested format.
 
-> **Question:** To register an employee I need to allocate him with a branch. To register a branch I need an employee (to be local manger) but I can't create the employee because I have no branch and I can’t create the branch because I have no employee.
+> **Question:**  Also, in relation to AC2, can we assume that a CSV file is any file whose filename ends with ".csv"?
 >
-> **Answer:**  Thank you for identifying this issue. We already updated the project description. When a store is created in the system, the System Administrator should not set the Store Manager.
-When registering a store, the System Administrator should introduce the following information: an ID, a designation/name, a location, a phone number and an e-mail address.
 
-> **Question:** Could you please share how will the designation of new stores be made, is there a pattern perhaps?
-> 
-> **Answer:**  There is no pattern. The System Administrator can introduce any designation/name. The designation/name should have at most forty characters.
-
-> **Question:** Will the System Administrator be able to choose a location from a list of available locations (defined elsewhere in the application) or will he be able to submit any location he wants?
->
-> **Answer:**  The System Administrator can submit any location.
 
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** All required fiels must be filled in.
-* **AC2:** Id is an integer number.
-* **AC3:** The designation/name should have at most forty characters.
+* **AC1:** The system administrator must be able to choose a file to import.
+* **AC2:** The system should only accept CSV files
+* **AC3:** The file content must be validated, showing a message to the system
+  administrator if the file is empty or its content is not in the requested format.
+* **AC4:** The import operation, when successful, should trigger a success message to
+  the system administrator.
 
 ### 1.4. Found out Dependencies
 
@@ -52,15 +46,10 @@ When registering a store, the System Administrator should introduce the followin
 
 ### 1.5 Input and Output Data
 
-
 **Input Data:**
 
 * Typed data:
-	* an ID, 
-	* a designation/name
-	* a location
-	* a phone number
-	* an e-mail address
+	* file directory
 
 **Output Data:**
 

@@ -29,6 +29,15 @@ abstract class User{
   -  phone number
   -  password
 }
+
+abstract class Property{
+    String name;
+     String type;
+     String address;
+     String description;
+     boolean isForSale;
+     boolean isForRent;
+}
 class StoreNetwork{
     - name
     - address
@@ -46,21 +55,25 @@ class Store {
 class Administrator{
 }
 
-class Employee {
+class Client {
 }
 enum Role{
     + ROLE_STORE_MANAGER
-    + ROLE_REAL_ESTATE_AGENT
+    + ROLE_AGENT
+    + ROLE_ADMIN
 }
-StoreNetwork "1"--"*" Store : has
-Store "1"--"0..*" Employee : has  >
-Employee "1"--"1" Role : is >
-Employee --|> User : is >
 
-RealEstate "1"--"1" Administrator:has >
-RealEstate "1"--"1" StoreNetwork :has >
-Administrator "1"--"*" Store : create >
-Administrator "1"--"1" StoreNetwork : manage >
-Administrator "1"-|>"1" User : is
-Administrator "1"--"*" Employee : create >
+RealEstate "1"--"*" User :> has
+StoreNetwork "1"--"*" Store : > has
+RealEstate "1"--"1" StoreNetwork : > has
+
+User -|>  Client : is
+
+Client "1"--"*" Property
+
+
+RealEstate "1"--"1" Administrator : > has
+
+Administrator "1"--"*" Role
+
 @enduml
