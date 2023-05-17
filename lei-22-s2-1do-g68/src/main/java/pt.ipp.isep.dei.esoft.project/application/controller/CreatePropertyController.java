@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Apartment;
 import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.domain.Land;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
 
 import java.util.List;
@@ -21,14 +22,16 @@ public class CreatePropertyController {
 
     public PropertyRepository getPropertyRepository() {
         if (propertyRepository == null) {
-            propertyRepository = new PropertyRepository();
+            Repositories repositories = Repositories.getInstance();
+            propertyRepository = repositories.getPropertyRepository();
         }
         return propertyRepository;
     }
 
     public StoreRepository getStoreRepository() {
         if (storeRepository == null) {
-            storeRepository = new StoreRepository();
+            Repositories repositories = Repositories.getInstance();
+            storeRepository = repositories.getStoreRepository();
         }
         return storeRepository;
     }

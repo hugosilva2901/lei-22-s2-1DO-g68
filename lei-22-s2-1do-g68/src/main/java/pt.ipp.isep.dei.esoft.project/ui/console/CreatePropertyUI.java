@@ -67,6 +67,10 @@ public class CreatePropertyUI implements Runnable {
         //Display the list of task categories
 
         List<EmployeeProject> Stores = controller.getStoreRepository().listEmployees();
+        if (Stores.isEmpty()) {
+            System.out.println("There are no employees to show.");
+            return null;
+        }
 
         int listSize = Stores.size();
         int answer = -1;

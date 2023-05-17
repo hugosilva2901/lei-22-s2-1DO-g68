@@ -9,6 +9,7 @@ public class AuthenticationRepository {
 
     public boolean doLogin(String email, String pwd) {
         return authenticationFacade.doLogin(email, pwd).isLoggedIn();
+
     }
 
     public void doLogout() {
