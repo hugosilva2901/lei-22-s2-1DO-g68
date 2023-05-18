@@ -6,70 +6,61 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateEmployeeUI" as UI
-participant ":CreateEmployeeController" as CTRL
-participant "storeRepository\n:StoreRepository" as ORG
+actor "Client:User" as CL
+participant ":CreateOrderUI" as UI
+participant ":CreateOrderController" as CTRL
+participant "OrderRepository\n:OrderRepository" as ORD
 
-activate ADM
+activate CL
 
-    ADM -> UI : asks to create a employee
+    CL -> UI :  to Buy a Property
 
     activate UI
 
         UI -> CTRL** : create
-        UI -> CTRL : getStores
+        UI -> CTRL : getAnnouncements
 
         ref over CTRL
-            Get list of stores
+            Get list of Announcements
 
         end ref
 
         activate CTRL
 
-            CTRL --> UI : StoresList
+            CTRL --> UI : AnnouncementsList
         deactivate CTRL
 
-        UI --> ADM : shows  stores list and asks to select one
+        UI --> CL : shows  Announcements list and asks to select one
     deactivate UI
-    ADM -> UI : selects a stores
+    CL -> UI : selects an Announcements
 
-    activate UI
-
-    UI --> ADM : shows list of roles and asks to select one
-
-
-    deactivate UI
-    ADM -> UI : selects roles
         activate UI
 
-            UI --> ADM : requests data
+            UI --> CL : requests data
         deactivate UI
-        ADM -> UI : types requested data (name,descriptions,tax number,address,email address\n,phone number,password)
+        CL -> UI : types requested data (Announcements, price)
         activate UI
 
-        UI --> ADM : shows selected store, roles and requested data
+        UI --> CL : shows selected Announcements and requested data
         deactivate UI
-        ADM -> UI : submits data
+        CL -> UI : submits data
      activate UI
 
-     UI -> CTRL : createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
+     UI -> CTRL : createOrder(Announcements, price)
     activate CTRL
+    CTRL -> CTRL : getClient from user session
 
-      CTRL -> ORG: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
-                 activate ORG
-
-                     ref over ORG
-                         Create Employee
-
+      CTRL -> ORD: createOrder(Announcements, price,client)
+                 activate ORD
+                     ref over ORD
+                         Create Order
                      end
-
-                     ORG --> CTRL : Employee
-                 deactivate ORG
-            CTRL --> UI: Employee
+                     ORD --> CTRL : Order
+                 deactivate ORD
+            CTRL --> UI: Order
               deactivate CTRL
-              UI --> ADM: displays operation success
+              UI --> CL: displays operation success
       deactivate UI
-deactivate ADM
+deactivate CL
 
 @enduml

@@ -1,0 +1,72 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+
+'hide footbox
+participant ":CreateOrderController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "ClientRepository:\nClientRepository" as ClientRepository
+participant "OrderRepository\n:OrderRepository" as ORG
+
+autonumber 14
+-> CTRL : getClientFromSession()
+autonumber 14.1
+activate CTRL
+
+    group Get Client
+        CTRL -> _APP: getInstance()
+        activate _APP
+            _APP -> CTRL: appSession
+        deactivate _APP
+
+        CTRL -> APP: getCurrentSession()
+        activate APP
+
+            APP --> CTRL: currentSession
+        deactivate APP
+
+        CTRL -> SESSAO: email = getUserEmail()
+        activate SESSAO
+
+            SESSAO --> CTRL: email
+        deactivate SESSAO
+
+        CTRL -> PLAT: getClientRepository(email)
+        activate PLAT
+
+            PLAT --> CTRL: ClientRepository
+        deactivate PLAT
+
+        CTRL -> ClientRepository: getClientByUserEmail(email)
+        activate ClientRepository
+
+            loop [for each organization
+                ClientRepository -> ORG : anyClientHasEmail(email)
+                activate ORG
+
+                     ORG --> ClientRepository : true/false
+                deactivate ORG
+            end
+
+            ClientRepository --> CTRL : organization
+
+        deactivate ClientRepository
+
+        CTRL -> ORG: getClientByEmail(email)
+        activate ORG
+
+            ORG --> CTRL : Client
+        deactivate ORG
+    end
+    autonumber 15
+    <-- CTRL : Client
+deactivate CTRL
+
+@enduml

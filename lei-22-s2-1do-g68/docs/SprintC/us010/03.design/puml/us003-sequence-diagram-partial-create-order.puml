@@ -3,21 +3,21 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "storeRepository\n:StoreRepository" as ORG
+participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
 participant "Employee\n:Employee" as TAREFA
 
 autonumber 14
--> ORG:  createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+-> ORG:  createOrder(Announcement,price,Client)
 
 autonumber 14.1
 activate ORG
     group Create Employee
 
-        ORG -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
-        ORG -> ORG: addEmployee (Employee)
+        ORG -> TAREFA**:  createOrder(Announcement,price,Client)
+        ORG -> ORG: createOrder (Order)
 
         activate ORG
-            ORG -> ORG: validateEmployee(Employee)
+            ORG -> ORG: validateOrder(Order)
             activate ORG
                 ORG --> ORG
             deactivate ORG
@@ -27,7 +27,7 @@ activate ORG
     end
 
     autonumber 15
-    <-- ORG : Employee
+    <-- ORG : Order
 deactivate ORG
 
 
