@@ -63,5 +63,13 @@ public class order {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "order{" +
+                "announcement=" + announcement +
+                ", value=" + value +
+                ", client=" + client +
+                ", statusOfOrder=" + statusOfOrder +
+                '}';
+    }
 }

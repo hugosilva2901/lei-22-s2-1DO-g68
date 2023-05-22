@@ -30,6 +30,7 @@ public class CreateAnnouncementUI implements Runnable {
         property=displayAndSelectProperty(client);
         if (property==null){
             System.out.println("No properties to announce");
+            return;
         }
         requestData();
         submitData();

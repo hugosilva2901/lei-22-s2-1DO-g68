@@ -2,14 +2,11 @@ package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Apartment;
-import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
-import pt.ipp.isep.dei.esoft.project.domain.House;
-import pt.ipp.isep.dei.esoft.project.domain.Land;
-import pt.ipp.isep.dei.esoft.project.domain.Roles;
-import pt.ipp.isep.dei.esoft.project.domain.Store;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         addProperty();
         addAnnoucements();
+        addOrder();
     }
 
 
@@ -88,4 +86,12 @@ public class Bootstrap implements Runnable {
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,Repositories.getInstance().getStoreRepository().listEmployees().get(0));
     }
 
+    private void addOrder(){
+        ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
+        CreateOrderController ctrl = new CreateOrderController();
+        Announcement announcement = ctrl.getAnnouncements().get(0);
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(0));
+        ctrl.addOrderToTest(announcement, 100,clientRepository.getClients().get(1));
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(2));
+    }
 }

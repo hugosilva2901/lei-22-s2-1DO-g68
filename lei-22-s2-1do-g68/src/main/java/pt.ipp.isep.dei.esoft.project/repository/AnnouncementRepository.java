@@ -31,4 +31,14 @@ public class AnnouncementRepository {
         return optionalValue;
     }
 
+    public List<Announcement> getAnnouncementsByEmployee(EmployeeProject employeeProject) {
+        List<Announcement> announcementsByEmployee = new ArrayList<>();
+        for (Announcement a : announcements) {
+            if (a.getEmployeeProject().equals(employeeProject)) {
+                announcementsByEmployee.add(a);
+            }
+        }
+        return announcementsByEmployee;
+    }
+
 }
