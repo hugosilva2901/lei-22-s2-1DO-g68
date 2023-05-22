@@ -2,12 +2,10 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
-import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +16,15 @@ public class CreateAnnouncementController {
     private AnnouncementRepository announcementRepository = null;
     private AuthenticationRepository authenticationRepository = null;
 
+    private StoreRepository storeRepository = null;
+
     //Repository instances are obtained from the Repositories class
     public CreateAnnouncementController() {
         getClientRepository();
         getPropertyRepository();
         getAnnouncementRepository();
         getAuthenticationRepository();
+        getStoreRepository();
 
     }
 
@@ -78,8 +79,32 @@ public class CreateAnnouncementController {
         return authenticationRepository;
     }
 
-    public Optional<Announcement> createAnnouncement(Property property, int commission){
-        return getAnnouncementRepository().createAnnouncement(property, commission);
+    private StoreRepository getStoreRepository() {
+        if (storeRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            //Get the StoreRepository
+            storeRepository = repositories.getStoreRepository();
+        }
+        return storeRepository;
     }
 
+    private EmployeeProject getEmployeeByName(String name) {
+        return storeRepository.getEmployeeByName(name);
+    }
+
+    public Optional<Announcement> createAnnouncement(Property property, int commission) {
+        EmployeeProject employeeProject = getEmployeeByName(authenticationRepository.getCurrentUserSession().getUserName());
+
+        return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
+    }
+
+    //this method is only to use in the bootstrap
+    public Optional<Announcement> createAnnouncementBootstrao(Property property, int commission, EmployeeProject employeeProject) {
+        return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
+    }
+
+
 }
+
+

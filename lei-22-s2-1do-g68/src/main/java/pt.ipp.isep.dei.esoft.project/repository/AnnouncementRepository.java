@@ -23,9 +23,9 @@ public class AnnouncementRepository {
         return announcements.remove(announcement);
     }
 
-    public Optional<Announcement>  createAnnouncement(Property property, int commission) {
+    public Optional<Announcement>  createAnnouncement(Property property, int commission,EmployeeProject employeeProject) {
         Optional<Announcement> optionalValue = Optional.empty();
-        Announcement announcement = new Announcement(property, commission);
+        Announcement announcement = new Announcement(property, commission,employeeProject);
         optionalValue = Optional.of(announcement);
         addAnnouncement(announcement);
         return optionalValue;

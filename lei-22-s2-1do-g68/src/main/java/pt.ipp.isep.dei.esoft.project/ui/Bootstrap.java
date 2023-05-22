@@ -82,9 +82,10 @@ public class Bootstrap implements Runnable {
     }
     private void addAnnoucements() {
         CreateAnnouncementController announcementController = new CreateAnnouncementController();
-        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000);
-        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101);
-        announcementController.createAnnouncement(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002);
+
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000, Repositories.getInstance().getStoreRepository().listEmployees().get(0));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101,Repositories.getInstance().getStoreRepository().listEmployees().get(0));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,Repositories.getInstance().getStoreRepository().listEmployees().get(0));
     }
 
 }

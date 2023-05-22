@@ -10,6 +10,7 @@ actor "Client:User" as CL
 participant ":CreateOrderUI" as UI
 participant ":CreateOrderController" as CTRL
 participant "OrderRepository\n:OrderRepository" as ORD
+participant "AnnouncementsRepository\n:AnnouncementsRepository" as ANN
 
 activate CL
 
@@ -25,9 +26,17 @@ activate CL
 
         end ref
 
+
+
         activate CTRL
 
-            CTRL --> UI : AnnouncementsList
+            CTRL -> ANN : getAnnouncements
+            activate ANN
+
+            ANN --> CTRL : AnnouncementsList
+
+          deactivate ANN
+          CTRL --> UI : AnnouncementsList
         deactivate CTRL
 
         UI --> CL : shows  Announcements list and asks to select one

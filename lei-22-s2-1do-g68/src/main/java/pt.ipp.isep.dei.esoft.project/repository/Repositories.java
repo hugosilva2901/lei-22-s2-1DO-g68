@@ -10,6 +10,9 @@ public class Repositories {
 
     PropertyRepository propertyRepository = new PropertyRepository();
     AnnouncementRepository announcementRepository = new AnnouncementRepository();
+
+
+    OrderRepository orderRepository = new OrderRepository();
     private Repositories() {
     }
 
@@ -23,6 +26,10 @@ public class Repositories {
 
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
+    }
+
+    public OrderRepository getOrderRepository() {
+        return orderRepository;
     }
 
     public ClientRepository getClientRepository() {

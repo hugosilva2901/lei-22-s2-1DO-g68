@@ -1,29 +1,42 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 public class Announcement {
-    private int commission;
+    private int valueOfProperty;
     private Property property;
 
-    public Announcement(Property property, int commission){
+    private EmployeeProject employeeProject;
+
+    public Announcement(Property property, int valueOfProperty,EmployeeProject employeeProject) {
         this.property = property;
-        this.commission = commission;
+        this.valueOfProperty = valueOfProperty;
+        this.employeeProject = employeeProject;
     }
 
-    public int getCommission() {
-        return commission;
+    public int getValueOfProperty() {
+        return valueOfProperty;
     }
+
 
     public Property getProperty(){
         return this.property;
     }
 
-    public void setCommission(int commission) {
-        this.commission = commission;
+    public void setCommission(int valueOfProperty) {
+        this.valueOfProperty = valueOfProperty;
+    }
+
+
+    public EmployeeProject getEmployeeProject() {
+        return employeeProject;
+    }
+
+    public void setEmployeeProject(EmployeeProject employeeProject) {
+        this.employeeProject = employeeProject;
     }
 
     public void validateAnnouncement(Announcement announcement){
-        if(announcement.commission <= 0){
-            throw new IllegalArgumentException("The commission is not valid");
+        if(announcement.valueOfProperty <= 0){
+            throw new IllegalArgumentException("The value Of Property is not valid");
         }
 
         if(announcement.property == null){
@@ -35,7 +48,7 @@ public class Announcement {
     @Override
     public String toString() {
         return "Announcement{" +
-                "commission=" + commission +
+                "value Of Property=" + valueOfProperty +
                 ", property=" + property.toString() +
                 '}';
     }
