@@ -1,0 +1,56 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "NetworkManager" as nm
+participant ":ShowEmployeeUI" as UI
+participant ":ShowEmployeeController" as CTRL
+participant "StoreRepository:\nStoreRepository" as StoreRepository
+participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
+
+
+activate nm
+
+        nm -> UI :  Request to list all employees
+        activate UI
+
+        UI -> CTRL** : create
+
+        UI -> CTRL : Get Stores
+        activate CTRL
+
+
+
+
+CTRL -> StoreRepository: getListStores()
+         activate StoreRepository
+
+         StoreRepository --> CTRL: List of Stores
+
+         deactivate StoreRepository
+
+         CTRL->PropertyRepository: Numbers of properties of each store
+         activate PropertyRepository
+         PropertyRepository-->CTRL:Numbers of properties of each store
+         deactivate PropertyRepository
+
+         UI->CTRL: Get Employee
+
+         CTRL->StoreRepository:getListEmployees()
+         activate StoreRepository
+
+         StoreRepository --> CTRL: List of Employee
+         deactivate StoreRepository
+
+         CTRL->CTRL:Sort employees alphabetically by store
+         CTRL --> UI : Returns List of Stores and respective employees order alphabetically
+         deactivate CTRL
+         UI-->nm: Displays List of Stores and respective employees order alphabetically
+        deactivate UI
+
+
+@enduml
