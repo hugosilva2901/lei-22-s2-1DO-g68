@@ -14,6 +14,8 @@ public class CreateOrderController {
 
     AuthenticationRepository authenticationRepository = null;
 
+
+
     ClientRepository clientRepository = null;
     public CreateOrderController() {
         getOrderRepository();
@@ -75,5 +77,12 @@ public class CreateOrderController {
         return true;
     }
 
+    // only to use in teste
+    public boolean addOrderToTest(Announcement announcement,int value, Client client){
+        if (orderRepository.createOrder(announcement, value, client).isEmpty()){
+            return false;
+        }
+        return true;
+    }
 
 }

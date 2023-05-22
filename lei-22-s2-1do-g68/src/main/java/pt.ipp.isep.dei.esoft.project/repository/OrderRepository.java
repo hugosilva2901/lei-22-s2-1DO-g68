@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.order;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +16,11 @@ public class OrderRepository {
 
     public void addOrder(order order){
         orders.add(order);
-    }
 
+    }
+    private void PutPerorder(){
+        Collections.sort(orders, (o1, o2) -> o1.getValue() - o2.getValue());
+    }
     public List<order> getOrders(){
         return orders;
     }
@@ -37,12 +41,14 @@ public class OrderRepository {
         return false;
     }
 
+
+
     public  Optional<order> createOrder(Announcement announcement, int value, Client client){
-        if(announcement.getValueOfProperty()>value){
+        if(announcement.getValueOfProperty()<value){
             throw new IllegalArgumentException("The value of the order is not valid");
         }
         if(valueAlreadyExists(value)){
-            throw new IllegalArgumentException("The value of the order already exists");
+            System.out.println("The value already exists in another order");
         }
         if(clientAlreadyExists(client)){
             throw new IllegalArgumentException("The client already exists");

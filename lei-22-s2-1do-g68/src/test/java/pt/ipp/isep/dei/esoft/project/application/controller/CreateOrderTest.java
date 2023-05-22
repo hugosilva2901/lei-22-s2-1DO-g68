@@ -1,20 +1,30 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CreateOrderTest {
 
     @Test
     public void testGetOrderRepository() {
+        Bootstrap boot = new Bootstrap();
+        boot.run();
+        ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
         // Arrange
         CreateOrderController ctrl = new CreateOrderController();
         Announcement announcement = ctrl.getAnnouncements().get(0);
         // Act
-        ctrl.addOrder(announcement, 1);
-
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(0));
+        ctrl.addOrderToTest(announcement, 100,clientRepository.getClients().get(1));
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(2));
         // Assert
-
+        assertFalse(ctrl.orderRepository.getOrders().isEmpty());
     }
 }
