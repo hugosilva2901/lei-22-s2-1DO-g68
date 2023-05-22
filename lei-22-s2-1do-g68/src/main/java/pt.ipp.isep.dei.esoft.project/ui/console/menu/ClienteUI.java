@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
+import pt.ipp.isep.dei.esoft.project.ui.console.CreateOrderUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.CreatePropertyUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -12,7 +13,7 @@ public class ClienteUI implements Runnable {
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Register new property:", new CreatePropertyUI()));
-        options.add(new MenuItem("Option 1 ", new ShowTextUI("You have chosen Option A.")));
+        options.add(new MenuItem("Place a Order", new CreateOrderUI()));
         options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
         options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
 
