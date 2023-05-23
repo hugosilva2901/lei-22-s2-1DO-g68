@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "storeRepository\n:StoreRepository" as ORG
+participant "Employee\n:Employee" as TAREFA
+
+autonumber 14
+-> ORG:  createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+
+autonumber 14.1
+activate ORG
+    group Create Employee
+
+        ORG -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
+        ORG -> ORG: addEmployee (Employee)
+
+        activate ORG
+            ORG -> ORG: validateEmployee(Employee)
+            activate ORG
+                ORG --> ORG
+            deactivate ORG
+
+            ORG --> ORG
+        deactivate ORG
+    end
+
+    autonumber 15
+    <-- ORG : Employee
+deactivate ORG
+
+
+@enduml

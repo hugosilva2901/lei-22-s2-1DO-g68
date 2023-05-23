@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":CreateEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "StoreRepository:\nStoreRepository" as StoreRepository
+
+autonumber 3
+
+ -> CTRL : getStores()
+autonumber 3.1
+activate CTRL
+    group Get Task Category List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getStoreRepository()
+            activate PLAT
+
+                PLAT --> CTRL: StoreRepository
+            deactivate PLAT
+
+            CTRL -> StoreRepository : getStoreList()
+            activate StoreRepository
+
+                StoreRepository --> CTRL : StoreList
+            deactivate StoreRepository
+
+
+    end
+    autonumber 4
+    <-- CTRL  : StoreList
+deactivate CTRL
+
+
+@enduml
