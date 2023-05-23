@@ -79,6 +79,8 @@ admin -> UI : input requested data
             loader -> store** : createStore(storeInfo)
                 activate store
                 store -->loader :store
+                deactivate store
+
                 deactivate client
             loader -> client : addProperty(property)
                 activate client
