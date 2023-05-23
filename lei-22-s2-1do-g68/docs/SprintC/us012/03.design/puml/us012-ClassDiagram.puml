@@ -1,0 +1,64 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+class ImportLegacySystemDataUI{
+}
+
+class ImportLegacySystemDataController{
+
+}
+
+class CSVLoader{
++getData()
+    +createStore(name,phone,email,\nvatNumber,address,branckNumber)
+    +createProperty(name,type,address,description)
+    +createClient(name,description,taxNumber,\nemail,password,address,phone,Role.Owner)
+}
+class LegacySystemData{
+
+}
+
+class Store{
+}
+
+class Property{
+}
+class Client{
+    +addProperty(Property)
+}
+interface ClientRepository{
+    +addClient(Client)
+}
+interface StoreRepository{
+    +addStore(Store)
+}
+interface PropertyRepository{
+    +addProperty(Property)
+}
+
+interface Repositories{
+    +getInstance()
+}
+
+ImportLegacySystemDataUI ..> ImportLegacySystemDataController
+ImportLegacySystemDataController ..> CSVLoader : use
+CSVLoader"1" --> "*" LegacySystemData : loads
+LegacySystemData "1"--"1" Client : Create
+LegacySystemData "1"--"1" Property : Create
+LegacySystemData "1"--"1" Store : Create
+
+StoreRepository "1"---"*" Store : has >
+ClientRepository "1"---"*" Client : has >
+PropertyRepository "1"---"*" Property : has >
+Property --> Client : saved into
+
+Repositories -->  StoreRepository
+Repositories --> PropertyRepository
+Repositories --> ClientRepository
+CSVLoader -->Repositories : use >
+
+@enduml

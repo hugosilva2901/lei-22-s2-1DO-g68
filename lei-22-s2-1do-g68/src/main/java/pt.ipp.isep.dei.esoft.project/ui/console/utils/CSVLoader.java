@@ -1,6 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.utils;
 
 import pt.ipp.isep.dei.esoft.project.domain.LegacySystemData;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
+import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.StoreRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,12 +16,20 @@ import java.util.Scanner;
 public class CSVLoader {
 
     private String fileDirectory;
+
+    private PropertyRepository propertyRepository;
+    private ClientRepository clientRepository;
+    private StoreRepository storeRepository;
     private Scanner scanner;
+
 
 
     public CSVLoader(String fileDirectory) throws Exception {
         checkFile(fileDirectory);
         this.fileDirectory = fileDirectory;
+        this.propertyRepository = Repositories.getInstance().getPropertyRepository();
+        this.clientRepository = Repositories.getInstance().getClientRepository();
+        this.storeRepository = Repositories.getInstance().getStoreRepository();
         getData();
     }
 
@@ -39,7 +52,7 @@ public class CSVLoader {
         return dataList;
     }
     private LegacySystemData verifyDataFormat(String info){
-        String[] datas = info.split(";");
+        String[] datas = info.split(",");
 
         LegacySystemData legacySystemData = new LegacySystemData();
         legacySystemData.setSid(Integer.parseInt(datas[0]));
@@ -88,11 +101,12 @@ public class CSVLoader {
             throw new Exception("File not Found");
         }
         scanner = new Scanner(file);
-        if (!scanner.nextLine().equals("sid;owner_name;owner_passportNum;owner_TIN(SSN);owner_email;owner_phone;property_type;property_area(square feet);property_location;property_distanceFromCenter (miles);property_numberBedrooms;property_numberBathrooms;property_pnumParking;property_centralHeating;property_airconditioned;property_basement;property_loft;property_sunExposure;property_requested_sale_rent_price;property_sale_rent_price (USD);commission(%);contract_duration(months);property_dateAnnounceRequest;property_dateofSale;type_business;store_ID;store_name;store_location;store_phonenumber;store_emailAddress")) {
+
+        if (!scanner.nextLine().equals("sid,owner_name,owner_passportNum,owner_TIN(SSN),owner_email,owner_phone,property_type,property_area(square feet),property_location,property_distanceFromCenter (miles),property_numberBedrooms,property_numberBathrooms,property_pnumParking,property_centralHeating,property_airconditioned,property_basement,property_loft,property_sunExposure,property_requested_sale_rent_price,property_sale_rent_price (USD),commission(%),contract_duration(months),property_dateAnnounceRequest,property_dateofSale,type_business,store_ID,store_name,store_location,store_phonenumber,store_emailAddress,,,,,,,,,,,")) {
+
             throw new Exception("Wrong File Information");
         }
     }
-
     private String verifySunExposure(String info){
         if (!(info.equals("S")||info.equals("N")||info.equals("W")||info.equals("E")||info.equals("NA"))){
             throw new IllegalArgumentException("Unknown format "+"\""+info+"\"");

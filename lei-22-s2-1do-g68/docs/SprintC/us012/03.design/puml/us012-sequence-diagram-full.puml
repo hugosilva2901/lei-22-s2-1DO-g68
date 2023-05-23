@@ -1,0 +1,108 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Administrator" as admin
+participant ":ImportLegacySystemDataUI" as UI
+participant ":ImportLegacySystemDataController" as controller
+participant ":CSVLoader" as loader
+participant ":File" as file
+participant ":LegacySystemData" as legacyData
+participant ":Property" as property
+participant ":Client" as client
+participant ":Store" as store
+
+participant ":Repositories" as repository
+participant ":StoreRepository" as storeRepo
+participant ":ClientRepository" as clientRepo
+participant ":PropertyRepository" as propertyRepo
+
+
+activate admin
+
+admin -> UI : request to import legacy data
+    activate UI
+    UI->admin : request data (fileDirectory)
+    deactivate UI
+admin -> UI : input requested data
+    activate UI
+    UI->controller : importData(fileDirectory)
+        activate controller
+        controller->loader** : new CSVLoader(fileDirectory)
+            activate loader
+            loader ->loader : validateFile()
+            loader -> repository : getInstance()
+                activate repository
+                repository -> storeRepo : getStoreRepository()
+                    activate storeRepo
+                    storeRepo --> repository : storeRepository
+                    deactivate storeRepo
+                repository -->loader : storeRepository
+                repository -> clientRepo : getStoreRepository()
+                    activate clientRepo
+                    clientRepo -->repository : clientRepository
+                    deactivate clientRepo
+                repository --> loader :ClientRepository
+                repository -> propertyRepo : getStoreRepository()
+                    activate propertyRepo
+                    propertyRepo -->repository :propertyRepository
+                    deactivate propertyRepo
+                repository --> loader : propertyRepo
+                    deactivate repository
+
+            loader ->file** : getData()
+                activate file
+                loop read all info from the given file
+                file-->loader: data
+            loader -> legacyData** : instance(data)
+                activate legacyData
+                legacyData --> legacyData : validate()
+                legacyData --> loader : legacyData
+                deactivate legacyData
+                loader -> loader : add(legacyData)
+            end loop
+            deactivate file
+            loader --> loader :legacyData list
+            loop for all legacyData from the list
+            loader -> property** : createProperty(propertyInfo)
+                activate property
+                property --> loader : property
+                deactivate property
+            loader -> client** : createClient(clientInfo)
+                activate client
+                client --> loader: client
+                deactivate client
+            loader -> store** : createStore(storeInfo)
+                activate store
+                store -->loader :store
+                deactivate client
+            loader -> client : addProperty(property)
+                activate client
+                deactivate client
+            loader -> propertyRepo : addProperty(property)
+                activate propertyRepo
+                deactivate propertyRepo
+            loader -> clientRepo : addClient(client)
+                activate clientRepo
+                deactivate clientRepo
+            loader -> storeRepo : addStore(store)
+                activate storeRepo
+                deactivate storeRepo
+
+            end loop
+            deactivate loader
+        deactivate controller
+    UI --> admin : inform operation successful
+    deactivate UI
+deactivate admin
+
+
+
+
+
+deactivate admin
+@enduml
