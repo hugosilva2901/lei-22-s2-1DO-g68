@@ -48,8 +48,73 @@ announcementRepository --> visitRequestController : announcementList
 
 deactivate announcementRepository
 
-visitRequestController --> visitRequestUI : displayAnnouncementList(announcementList)
-
+visitRequestController --> visitRequestUI : announcementList
 deactivate visitRequestController
+
+visitRequestUI --> user : displayAnnouncementList(anncouncementList)
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : selectAnnouncement(announcement)
+
+activate visitRequestUI
+
+visitRequestUI --> user : requestData(announcement)
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : types request Data(data)
+
+activate visitRequestUI
+
+visitRequestUI --> user : display request Data and announcement
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : confirmRequest()
+
+activate visitRequestUI
+
+
+'IF
+
+alt in case of date is avaiable
+
+    visitRequestUI -> visitRequestController : AddVisit(name, emaial, phone, date)
+
+    activate visitRequestController
+    visitRequestController -> visitRequestRepository : AddVisitData(name, emaial, phone, date)
+    activate visitRequestRepository
+
+    visitRequestRepository --> visitRequestController : VisitData
+    deactivate visitRequestRepository
+    visitRequestController --> visitRequestUI : VisitData
+    deactivate visitRequestController
+    visitRequestUI --> user : displays sucess message
+
+    deactivate visitRequestRepository
+end
+
+
+'ELSE
+
+alt else in case of date is not avaiable
+
+visitRequestUI -> visitRequestController : AddVisitRequest(name, emaial, phone, date)
+
+    activate visitRequestController
+    visitRequestController -> visitRequestRepository : AddVisitRequestData(name, emaial, phone, date)
+    activate visitRequestRepository
+
+    visitRequestRepository --> visitRequestController : VisitRequestData
+    deactivate visitRequestRepository
+    visitRequestController --> visitRequestUI : VisitRequestData
+    deactivate visitRequestController
+    visitRequestUI --> user : displays sucess message
+
+    deactivate visitRequestRepository
+    deactivate visitRequestUI
+    deactivate user
+end
 
 @enduml
