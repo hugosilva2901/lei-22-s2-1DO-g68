@@ -1,0 +1,88 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class  RealEstateAgent{
+}
+
+class Owner {
+     name
+     descriptions
+     tax number
+     address
+     email address
+     phone number
+     password
+}
+
+class Advertisement{
+    owner
+    descriptions
+    RealEstateAgent
+    cost
+    Proprietary
+}
+
+
+abstract class Proprietary {
+    name
+    Tipo
+    address
+    descriptions
+    cost
+    vender:boolean
+    render:boolean
+}
+
+
+class House{
+numberOfRooms
+    numberOfBathrooms
+    numberOfFloors
+    numberOfGarages
+    Equipaments
+    Basement: boolean
+    inhabited  loft: boolean
+    Sun exposure: boolean
+
+}
+
+class Apartment{
+numberOfRooms
+numberOfBathrooms
+numberOfFloors
+numberOfGarages
+Equipaments
+
+}
+
+class Land{
+}
+
+class RealEstate {
+    name
+    address
+    descriptions
+    website
+    phoneNumber
+    email
+    vatNumber
+    logo
+}
+Owner "1"--"0..*" RealEstateAgent : Request listing Proprietary
+RealEstateAgent "1"--"0..*"Advertisement : Publishes
+Advertisement "1"--"1" Proprietary : has
+House  --|>  Proprietary : is
+Apartment  --|>  Proprietary : is
+Land  --|>  Proprietary : is
+RealEstate "1"--"0..*" Proprietary : has
+
+@enduml
