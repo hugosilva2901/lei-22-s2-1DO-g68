@@ -16,7 +16,7 @@ public class EmployeeProjectMapper {
                 dto.getPassword(),
                 dto.getAddress(),
                 dto.getPhone(),
-                dto.getRoles(),
+                dto.getRolesOfEmployee(),
                 dto.getSalary(),
                 StoreMapper.toEntity(dto.getStore())
         );

@@ -80,8 +80,8 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public Roles[] getRoles() {
-        return new Roles[]{roles};
+    public Roles getRoles() {
+        return roles;
     }
 
     public void setRoles(Roles roles) {
