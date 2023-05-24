@@ -51,7 +51,7 @@ but it is split in partial diagrams to better illustrate the interactions betwee
 
 It uses interaction ocurrence.
 
-![Sequence Diagram - split](svg/us002-sequence-diagram-split.svg)
+![Sequence Diagram - split](svg/us009-sequence-diagram-split.svg)
 
 **Get Announcement List**
 

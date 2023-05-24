@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 009 - To leave a message for the agent 
 
 # 4. Tests 
 
@@ -29,19 +29,19 @@
 
 ```java
 public Task createTask(String reference, String description, String informalDescription,
-								 String technicalDescription, Integer duration, Double cost,
-								 String taskCategoryDescription) {
+        String technicalDescription, Integer duration, Double cost,
+        String taskCategoryDescription) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+        TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+        Employee employee = getEmployeeFromSession();
+        Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, 
-			duration, cost,taskCategory, employee);
-    
-	return newTask;
-}
+        newTask = organization.createTask(reference, description, informalDescription, technicalDescription,
+        duration, cost,taskCategory, employee);
+
+        return newTask;
+        }
 ```
 
 

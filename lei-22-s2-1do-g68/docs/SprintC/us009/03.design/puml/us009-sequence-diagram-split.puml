@@ -1,0 +1,64 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Client" as user
+participant ":visitRequestUI" as visitRequestUI
+participant ":visitRequestController" as visitRequestController
+
+activate user
+user -> visitRequestUI : asks to schedule a visit
+
+activate visitRequestUI
+visitRequestUI -> visitRequestController : createVisitRequest()
+
+activate visitRequestController
+
+    ref over visitRequestController
+        Get announcementList
+    end ref
+
+visitRequestController --> visitRequestUI : announcementList
+deactivate visitRequestController
+
+visitRequestUI --> user : displayAnnouncementList(anncouncementList)
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : selectAnnouncement(announcement)
+
+activate visitRequestUI
+
+visitRequestUI --> user : requestData(announcement)
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : types request Data(data)
+
+activate visitRequestUI
+
+visitRequestUI --> user : display request Data and announcement
+
+deactivate visitRequestUI
+
+user -> visitRequestUI : confirmRequest()
+
+activate visitRequestUI
+
+alt
+
+visitRequestUI -> visitRequestController : AddVisitRequest(name, emaial, phone, date)
+
+    activate visitRequestController
+    visitRequestController --> visitRequestUI : VisitRequestData
+    deactivate visitRequestController
+    visitRequestUI --> user : displays sucess message
+    deactivate visitRequestUI
+    deactivate user
+end
+
+@enduml
