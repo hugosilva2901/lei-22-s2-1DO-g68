@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -89,18 +90,18 @@ public class CreateAnnouncementController {
         return storeRepository;
     }
 
-    private EmployeeProject getEmployeeByName(String name) {
+    private EmployeeProjectDTO getEmployeeByName(String name) {
         return storeRepository.getEmployeeByName(name);
     }
 
     public Optional<Announcement> createAnnouncement(Property property, int commission) {
-        EmployeeProject employeeProject = getEmployeeByName(authenticationRepository.getCurrentUserSession().getUserName());
+        EmployeeProjectDTO employeeProject = getEmployeeByName(authenticationRepository.getCurrentUserSession().getUserName());
 
         return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
     }
 
     //this method is only to use in the bootstrap
-    public Optional<Announcement> createAnnouncementBootstrao(Property property, int commission, EmployeeProject employeeProject) {
+    public Optional<Announcement> createAnnouncementBootstrao(Property property, int commission, EmployeeProjectDTO employeeProject) {
         return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
     }
 
