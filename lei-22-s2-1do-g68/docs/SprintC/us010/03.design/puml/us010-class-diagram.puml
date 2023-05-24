@@ -60,6 +60,17 @@ class Order{
     -Announcement: Announcement
     -Client: Client
 }
+class OrderDTO{
+    - value: int
+    -Announcement: Announcement
+    -Client: Client
+}
+
+class OrderMapper{
+    +OrderMapper():
+    +mapToDTO(Order): OrderDTO
+    +mapToEntity(OrderDTO): Order
+}
 
 User "1"--"1..*" Roles : has >
 CreateOrderController .> Repositories : repositories
@@ -67,4 +78,5 @@ CreateOrderUI .> CreateOrderController
 CreateOrderController ..> "1" Store : Store
 Repositories "1" --> "*" StoreRepository : has >
 StoreRepository "1" --> "*" Store : has >
+
 @enduml
