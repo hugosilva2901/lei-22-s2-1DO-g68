@@ -6,103 +6,97 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateEmployeeUI" as UI
-participant ":CreateEmployeeController" as CTRL
+actor "EmployeeProject" as User
+participant ":ListAnnouncementRequestUI" as UI
+participant ":CreateAnnouncementController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "StoreRepository:\StoreRepository" as StoreRepository
-participant "Employee\n:Employee" as TAREFA
+participant "AnnouncementRepository\n:AnnouncementRepository" as REPO
 
-activate ADM
+activate User
 
-    ADM -> UI : asks to create a employee
+User -> UI : Requests to see the list of property announcement requests
+activate UI
 
-    activate UI
+UI -> CTRL : getPendingAnnouncementsByDate()
+activate CTRL
 
-        UI -> CTRL** : create
-        UI -> CTRL : getStores
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-group Get Task Category List
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
 
+CTRL -> PLAT : getAnnouncementRepository()
+activate PLAT
 
-            CTRL -> RepositorySingleton : getInstance()
-            activate RepositorySingleton
+PLAT --> CTRL: AnnouncementRepository
+deactivate PLAT
 
-                RepositorySingleton --> CTRL: repositories
-            deactivate RepositorySingleton
+CTRL -> REPO : getPendingAnnouncementsByDate()
+activate REPO
 
-            CTRL -> PLAT : getStoreRepository()
-            activate PLAT
+REPO --> CTRL : Sorted Announcements List
+deactivate REPO
 
-                PLAT --> CTRL: StoreRepository
-            deactivate PLAT
+CTRL --> UI : Sorted Announcements List
+deactivate CTRL
 
-            CTRL -> StoreRepository : getStoreList()
-            activate StoreRepository
+UI --> User : Sorted Announcements List
+deactivate UI
 
-                StoreRepository --> CTRL : StoreList
-            deactivate StoreRepository
+User -> UI : Selects a property announcement request to accept
+activate UI
 
+UI -> CTRL : changeAnnouncementState()
+activate CTRL
 
-    end
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-        activate CTRL
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
 
-            CTRL --> UI : StoresList
-        deactivate CTRL
+CTRL -> PLAT : getAnnouncementRepository()
+activate PLAT
 
-        UI --> ADM : shows  stores list and asks to select one
-    deactivate UI
-    ADM -> UI : selects a stores
+PLAT --> CTRL: AnnouncementRepository
+deactivate PLAT
 
-    activate UI
+CTRL -> REPO : changeAnnouncementState()
+activate REPO
 
-    UI --> ADM : shows list of roles and asks to select one
+REPO --> CTRL : State changed successfully
+deactivate REPO
 
+CTRL --> UI : State changed successfully
+deactivate CTRL
 
-    deactivate UI
-    ADM -> UI : selects roles
-        activate UI
+UI -> CTRL : getPendingAnnouncementsByDate()
+activate CTRL
 
-            UI --> ADM : requests data
-        deactivate UI
-        ADM -> UI : types requested data (name,descriptions,tax number,address,email address\n,phone number,password)
-        activate UI
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-        UI --> ADM : shows selected store, roles and requested data
-        deactivate UI
-        ADM -> UI : submits data
-     activate UI
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
 
-     UI -> CTRL : createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
-    activate CTRL
+CTRL -> PLAT : getAnnouncementRepository()
+activate PLAT
 
-      CTRL -> StoreRepository: createEMPLOYEE(name,descriptions,tax number,address,email address\n,phone number,password,store,roles)
-                 activate StoreRepository
+PLAT --> CTRL: AnnouncementRepository
+deactivate PLAT
 
-                       group Create Employee
+CTRL -> REPO : getPendingAnnouncementsByDate()
+activate REPO
 
-                             StoreRepository -> TAREFA**: createEMPLOYEE(name,descriptions,tax number,address\n,email address,phone number,password,store,roles)
-                             StoreRepository -> StoreRepository: addEmployee (Employee)
+REPO --> CTRL : Updated Sorted Announcements List
+deactivate REPO
 
-                             activate StoreRepository
-                                 StoreRepository -> StoreRepository: validateEmployee(Employee)
-                                 activate StoreRepository
-                                     StoreRepository --> StoreRepository
-                                 deactivate StoreRepository
+CTRL --> UI : Updated Sorted Announcements List
+deactivate CTRL
 
-                                 StoreRepository --> StoreRepository
-                             deactivate StoreRepository
-                         end
-
-                     StoreRepository --> CTRL : Employee
-                 deactivate StoreRepository
-                CTRL --> UI: Employee
-              deactivate CTRL
-              UI --> ADM: displays operation success
-      deactivate UI
-
-deactivate ADM
+UI --> User : Updated Sorted Announcements List
+deactivate UI
 
 @enduml

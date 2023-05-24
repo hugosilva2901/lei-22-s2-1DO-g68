@@ -77,7 +77,7 @@ class RealEstate {
     vatNumber
     logo
 }
-Owner "1"--"0..*" RealEstateAgent : Request listing Proprietary
+Owner "1"--"0..*" RealEstateAgent : Request listing Property
 RealEstateAgent "1"--"0..*"Advertisement : Publishes
 Advertisement "1"--"1" Property : has
 House  --|>  Property : is

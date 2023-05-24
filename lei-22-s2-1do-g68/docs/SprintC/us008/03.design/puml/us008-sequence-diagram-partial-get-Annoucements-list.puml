@@ -7,10 +7,10 @@ autonumber
 
 'hide footbox
 
-participant ":CreateEmployeeController" as CTRL
+participant ":CreateOrderController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "StoreRepository:\nStoreRepository" as StoreRepository
+participant "AnnouncementsRepository:\AnnouncementsRepository" as AnnouncementsRepository
 
 autonumber 3
 
@@ -26,17 +26,17 @@ activate CTRL
                 RepositorySingleton --> CTRL: repositories
             deactivate RepositorySingleton
 
-            CTRL -> PLAT : getStoreRepository()
+            CTRL -> PLAT : getAnnouncementsRepository()
             activate PLAT
 
-                PLAT --> CTRL: StoreRepository
+                PLAT --> CTRL: AnnouncementsRepository
             deactivate PLAT
 
-            CTRL -> StoreRepository : getStoreList()
-            activate StoreRepository
+            CTRL -> AnnouncementsRepository : getAnnouncementList()
+            activate AnnouncementsRepository
 
-                StoreRepository --> CTRL : StoreList
-            deactivate StoreRepository
+                AnnouncementsRepository --> CTRL : AnnouncementList
+            deactivate AnnouncementsRepository
 
 
     end

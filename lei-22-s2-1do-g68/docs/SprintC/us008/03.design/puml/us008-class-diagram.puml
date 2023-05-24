@@ -23,45 +23,10 @@ class Repositories {
    storeRepository: StoreRepository
 }
 
-class StoreRepository {
-  + StoreRepository():
-  ~ stores: List<Store>
-  + addStore(Store): void
-  - validateStore(Store): void
-  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
-  - addEmployeeToStore(Store, EmployeeProject): void
-  + addEmployeeToStorePublic(Store, EmployeeProject): void
-  + listEmployees(): List<EmployeeProject>
-   stores: List<Store>
+class ListAnnouncementRequestUI {
+
 }
 
-class CreatEmployeeUi {
-  + CreatEmployeeUi():
-  - controller: CreatEmployeeController
-  - requestName(): String
-  - displayStoresOptions(List<Store>): void
-  - requestData(): void
-  - requestEmail(): String
-  - requestPassword(): String
-  - requestDescptions(): String
-  + run(): void
-  - requestSalary(): int
-  - requestPhone(): String
-  - requestTaxNumber(): int
-  - submitData(): void
-  - requestAddress(): String
-  - displayAndSelectStores(): Store
-   controller: CreatEmployeeController
-}
-class CreatEmployeeController {
-  + CreatEmployeeController():
-  - storeRepository: StoreRepository
-  - authenticationRepository: AuthenticationRepository
-  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
-   stores: List<Store>
-   authenticationRepository: AuthenticationRepository
-   storeRepository: StoreRepository
-}
 
 class User {
   + User(String, String, int, String, String, String, String, Roles):
@@ -90,14 +55,14 @@ enum Roles << enumeration >> {
 }
 
 
-class Employee extends User{
+class EmployeeProject extends User{
   + EmployeeProject(String, String, int, String, String, String, String, Roles[], int, Store):
-    - salary: int
-    - validateTaxNumber(int): void
-    - validateStore(Store): void
-    - validateEmployee(String, String, int, String, String, String, String, Roles[], int, Store): void
-    - validateSalary(int): void
-     salary: int
+  - salary: int
+  - validateTaxNumber(int): void
+  - validateStore(Store): void
+  - validateEmployee(String, String, int, String, String, String, String, Roles[], int, Store): void
+  - validateSalary(int): void
+   salary: int
 }
 
 class Administrator extends User{
@@ -105,34 +70,45 @@ class Administrator extends User{
   - instance: Admin
    instance: Admin
 }
-class Store {
-  + Store(String, String, String, String, String, int):
-  - name: String
-  - phone: String
-  - vatNumber: String
-  - branchNumber: int
-  - localManager: EmployeeProject
-  - address: String
-  - email: String
-  - employees: List<EmployeeProject>
-  + validate(String, String, String, String, String, int): boolean
-  + toString(): String
-   name: String
-   employees: List<EmployeeProject>
-   localManager: EmployeeProject
-   branchNumber: int
-   email: String
-   phone: String
-   vatNumber: String
-   address: String
+
+class Announcement{
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
 }
 
-Store "1" -- "0..*" Employee : has >
+class AnnouncementRepository{
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
+}
+
+
+class CreateAnnouncementController {
+  + CreateAnnouncementController():
+  + CreateAnnouncementController(ClientRepository, PropertyRepository, AnnouncementRepository, AuthenticationRepository):
+  - announcementRepository: AnnouncementRepository
+  - propertyRepository: PropertyRepository
+  - clientRepository: ClientRepository
+  - authenticationRepository: AuthenticationRepository
+  + createAnnouncement(Property, int): Optional<Announcement>
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+}
+
+ListAnnouncementRequestUI .> CreateAnnouncementController
 User "1"--"1..*" Roles : has >
-CreatEmployeeController .> Repositories : repositories
-CreatEmployeeUi .> CreatEmployeeController
-Administrator --> Employee : createdBy
-CreatEmployeeController ..> "1" Store : Store
-Repositories "1" --> "*" StoreRepository : has >
-StoreRepository "1" --> "*" Store : has >
+Administrator --> EmployeeProject : createdBy
+EmployeeProject "1"--"1..*" Announcement : publish >
+CreateAnnouncementController .> Repositories : repositories
+CreateAnnouncementController ..> "1" Announcement : Announcement
+Repositories "1" --> "*" AnnouncementRepository : has >
+
 @enduml
