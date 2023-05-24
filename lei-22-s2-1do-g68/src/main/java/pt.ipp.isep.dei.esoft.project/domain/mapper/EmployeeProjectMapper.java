@@ -18,7 +18,7 @@ public class EmployeeProjectMapper {
                 dto.getPhone(),
                 dto.getRolesOfEmployee(),
                 dto.getSalary(),
-                StoreMapper.toEntity(dto.getStore())
+                dto.getStore()
         );
     }
 
@@ -33,7 +33,7 @@ public class EmployeeProjectMapper {
                 entity.getPhone(),
                 new Roles[]{entity.getRoles()},
                 entity.getSalary(),
-                StoreMapper.toDTO(entity.getStore())
+                entity.getStore()
         );
     }
 }

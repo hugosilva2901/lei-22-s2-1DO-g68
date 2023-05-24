@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AnnouncementRepository {
 
@@ -39,6 +42,11 @@ public class AnnouncementRepository {
             }
         }
         return announcementsByEmployee;
+    }
+    public List<AnnouncementDTO> getAnnouncementsDTO() {
+        return announcements.stream()
+                .map(AnnouncementMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
 }

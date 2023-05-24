@@ -1,14 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.domain.DTO;
 
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.Store;
 
 public class EmployeeProjectDTO extends UserDTO {
     private int salary;
-    private StoreDTO store;
+    private Store store;
 
     private Roles[] roles;
     public EmployeeProjectDTO(String name, String descptions, int taxNumber, String email, String password,
-                              String address, String phone, Roles[] roles, int salary, StoreDTO store) {
+                              String address, String phone, Roles[] roles, int salary, Store store) {
         super(name, descptions, taxNumber, email, password, address, phone, roles[0]);
         this.salary = salary;
         this.store = store;
@@ -23,11 +24,11 @@ public class EmployeeProjectDTO extends UserDTO {
         this.salary = salary;
     }
 
-    public StoreDTO getStore() {
+    public Store getStore() {
         return store;
     }
 
-    public void setStore(StoreDTO store) {
+    public void setStore(Store store) {
         this.store = store;
     }
 
