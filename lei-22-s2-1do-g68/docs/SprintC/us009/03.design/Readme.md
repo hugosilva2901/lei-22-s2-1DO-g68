@@ -40,7 +40,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us002-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us009-sequence-diagram-full.svg)
 
 ### Alternative 2 - Split Diagram
 
@@ -53,7 +53,7 @@ It uses interaction ocurrence.
 
 **Get Clients List**
 
-![Sequence Diagram - Partial - Get Clients List](svg/us002-sequence-diagram-partial-get-clients-list.svg)
+![Sequence Diagram - Partial - Get Clients List](svg/us009-sequence-diagram-partial-get-Announcement-list.svg)
 
 **Get Properties List**
 
@@ -61,7 +61,7 @@ It uses interaction ocurrence.
 
 **Create Announcement**
 
-![Sequence Diagram - Partial - Create Announcement](svg/us002-sequence-diagram-partial-create-Announcement.svg)
+![Sequence Diagram - Partial - Create Announcement](svg/us009-sequence-diagram-partial-create-VisitRequest.svg)
 
 ## 3.3. Class Diagram (CD)
 

@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+
+participant "AnnouncementsRepository:\AnnouncementsRepository" as AnnouncementsRepository
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+
+autonumber 9
+
+ -> AnnouncementsRepository : getAnnouncementList()
+autonumber 9.1
+activate AnnouncementsRepository
+    group Get Task Category List
+
+
+            AnnouncementsRepository -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> AnnouncementsRepository: repositories
+            deactivate RepositorySingleton
+
+            AnnouncementsRepository -> PLAT : getAnnouncementsRepository()
+            activate PLAT
+
+                PLAT --> AnnouncementsRepository: AnnouncementsRepository
+            deactivate PLAT
+
+            AnnouncementsRepository -> AnnouncementsRepository : getAnnouncementList()
+            activate AnnouncementsRepository
+
+                AnnouncementsRepository --> AnnouncementsRepository : AnnouncementList
+            deactivate AnnouncementsRepository
+
+
+    end
+    autonumber 10
+    <-- AnnouncementsRepository  : AnnouncementList
+deactivate AnnouncementsRepository
+
+
+@enduml
