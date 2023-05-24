@@ -7,8 +7,9 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        AdminUI ui = new AdminUI();
+      /*  AdminUI ui = new AdminUI();
         ui.run();
+        */
     }
 
 }
