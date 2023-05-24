@@ -5,6 +5,8 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementCo
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -81,17 +83,17 @@ public class Bootstrap implements Runnable {
     private void addAnnoucements() {
         CreateAnnouncementController announcementController = new CreateAnnouncementController();
 
-        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000, Repositories.getInstance().getStoreRepository().listEmployees().get(0));
-        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101,Repositories.getInstance().getStoreRepository().listEmployees().get(0));
-        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,Repositories.getInstance().getStoreRepository().listEmployees().get(0));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000, EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
     }
 
     private void addOrder(){
         ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
         CreateOrderController ctrl = new CreateOrderController();
-        Announcement announcement = ctrl.getAnnouncements().get(0);
-        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(0));
-        ctrl.addOrderToTest(announcement, 100,clientRepository.getClients().get(1));
-        ctrl.addOrderToTest(announcement, 1,clientRepository.getClients().get(2));
+        AnnouncementDTO announcement = ctrl.getAnnouncements().get(0);
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(0));
+        ctrl.addOrderToTest(announcement, 100,clientRepository.getClientsDTO().get(1));
+        ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(2));
     }
 }

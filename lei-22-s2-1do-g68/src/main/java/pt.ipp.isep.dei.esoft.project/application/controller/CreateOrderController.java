@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
 import pt.ipp.isep.dei.esoft.project.domain.order;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
@@ -61,16 +63,16 @@ public class CreateOrderController {
         return clientRepository;
     }
 
-    public List<Announcement> getAnnouncements(){
-        return announcementRepository.getAnnouncements();
+    public List<AnnouncementDTO> getAnnouncements(){
+        return announcementRepository.getAnnouncementsDTO();
     }
 
 
-    private Client getClientByUserName(String userName){
+    private ClientDTO getClientByUserName(String userName){
         return clientRepository.getClientByName(userName);
     }
-    public boolean addOrder(Announcement announcement,int value){
-        Client client = getClientByUserName(authenticationRepository.getCurrentUserSession().getUserName());
+    public boolean addOrder(AnnouncementDTO announcement,int value){
+        ClientDTO client = getClientByUserName(authenticationRepository.getCurrentUserSession().getUserName());
         if (orderRepository.createOrder(announcement, value, client).isEmpty()){
             return false;
         }
@@ -78,7 +80,7 @@ public class CreateOrderController {
     }
 
     // only to use in teste
-    public boolean addOrderToTest(Announcement announcement,int value, Client client){
+    public boolean addOrderToTest(AnnouncementDTO announcement,int value, ClientDTO client){
         if (orderRepository.createOrder(announcement, value, client).isEmpty()){
             return false;
         }

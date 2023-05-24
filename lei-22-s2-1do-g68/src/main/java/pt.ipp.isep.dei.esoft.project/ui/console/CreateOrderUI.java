@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class CreateOrderUI implements Runnable{
 
     CreateOrderController controller = new CreateOrderController();
 
-    private Announcement announcement;
+    private AnnouncementDTO announcement;
     private int value;
 
 
@@ -38,10 +39,10 @@ public class CreateOrderUI implements Runnable{
     }
 
 
-    private Announcement displayAndSelectAnnouncement() {
+    private AnnouncementDTO displayAndSelectAnnouncement() {
         //Display the list of task categories
 
-        List<Announcement> announcements = controller.getAnnouncements();
+        List<AnnouncementDTO> announcements = controller.getAnnouncements();
         if (announcements.isEmpty()) {
             System.out.println("There are no announcements to show.");
             return null;
@@ -58,15 +59,15 @@ public class CreateOrderUI implements Runnable{
             answer = input.nextInt();
         }
 
-        Announcement description = announcements.get(answer - 1);
+        AnnouncementDTO description = announcements.get(answer - 1);
         return description;
 
     }
 
-    private void displayAnnouncementOptions(List<Announcement> announcements) {
+    private void displayAnnouncementOptions(List<AnnouncementDTO> announcements) {
         //display the task categories as a menu with number options to select
         int i = 1;
-        for (Announcement announcement : announcements) {
+        for (AnnouncementDTO announcement : announcements) {
             System.out.println(i + " - " + announcement.toString());
             i++;
         }

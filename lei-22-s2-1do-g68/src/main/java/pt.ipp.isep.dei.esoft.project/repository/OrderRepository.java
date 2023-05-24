@@ -1,31 +1,36 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.StatusOfOrder;
 import pt.ipp.isep.dei.esoft.project.domain.order;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.*;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.*;
+
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class OrderRepository {
 
     List<order> orders = new ArrayList<>();
 
-
-    public void addOrder(order order) {
+    private void addOrder(order order) {
         orders.add(order);
-
+        PutPerorder();
     }
 
     private void PutPerorder() {
         Collections.sort(orders, (o1, o2) -> o1.getValue() - o2.getValue());
     }
 
-    public List<order> getOrders() {
-        return orders;
+    public List<OrderDTO> getOrders() {
+        return orders.stream()
+                .map(OrderMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     private boolean valueAlreadyExists(int value) {
@@ -37,9 +42,9 @@ public class OrderRepository {
         return false;
     }
 
-    private boolean clientAlreadyExists(Client client) {
+    private boolean clientAlreadyExists(ClientDTO client) {
         for (order o : orders) {
-            if (o.getClient().equals(client)) {
+            if (o.getClient().equals(ClientMapper.toEntity(client))) {
                 return true;
             }
         }
@@ -47,7 +52,7 @@ public class OrderRepository {
     }
 
 
-    public Optional<order> createOrder(Announcement announcement, int value, Client client) {
+    public Optional<OrderDTO> createOrder(AnnouncementDTO announcement, int value, ClientDTO client) {
         if (announcement.getValueOfProperty() < value) {
             throw new IllegalArgumentException("The value of the order is not valid");
         }
@@ -57,55 +62,59 @@ public class OrderRepository {
         if (clientAlreadyExists(client)) {
             throw new IllegalArgumentException("The client already exists");
         }
-        Optional<order> optionalValue = Optional.empty();
-        order order = new order(announcement, value, client);
-        optionalValue = Optional.of(order);
-        addOrder(order);
+        Optional<OrderDTO> optionalValue = Optional.empty();
+        order order = new order(
+                AnnouncementMapper.toEntity(announcement),
+                value,
+                ClientMapper.toEntity(client)
+        );
+        optionalValue = Optional.of(OrderMapper.toDTO(order));
+        addOrder(OrderMapper.toEntity(optionalValue.get()));
         return optionalValue;
 
     }
 
 
-    public List<order> OrderOfTheAgent(Announcement announcement) {
+    public List<OrderDTO> OrderOfTheAgent(AnnouncementDTO announcement) {
 
-        List<order> ordersOfTheAgent = new ArrayList<>();
+        List<OrderDTO> ordersOfTheAgent = new ArrayList<>();
         for (order o : orders) {
             if (o.getStatusOfOrder() == StatusOfOrder.Pending) {
-                if (o.getAnnouncement().equals(announcement)) {
-                    ordersOfTheAgent.add(o);
+                if (o.getAnnouncement().equals(AnnouncementMapper.toEntity(announcement))) {
+                    ordersOfTheAgent.add(OrderMapper.toDTO(o));
                 }
             }
         }
         return ordersOfTheAgent;
     }
 
-    private order findOrder(order order) {
+    private order findOrder(OrderDTO order) {
         for (order o : orders) {
-            if (o.equals(order)) {
+            if (o.equals(OrderMapper.toEntity(order))) {
                 return o;
             }
         }
         return null;
     }
 
-    public void acceptOrder(order order,MessagesOfClientRepository messagesOfClientRepository) {
+    public void acceptOrder(OrderDTO order, MessagesOfClientRepository messagesOfClientRepository) {
         order o = findOrder(order);
         o.setStatusOfOrder(StatusOfOrder.Accepted);
         Client client = o.getClient();
-        messagesOfClientRepository.addMessage(client, "The "+ order.toString() + " was accepted");
-        List<order> ord= OrderOfTheAgent (order.getAnnouncement());
-        System.out.println("The "+ order.toString() + " was accepted");
-        for (order or: ord) {
+        messagesOfClientRepository.addMessage(client, "The " + OrderMapper.toEntity(order).toString() + " was accepted");
+        List<OrderDTO> ord = OrderOfTheAgent(order.getAnnouncement());
+        System.out.println("The " + OrderMapper.toEntity(order).toString() + " was accepted");
+        for (OrderDTO or : ord) {
             rejectOrder(or, messagesOfClientRepository);
         }
     }
 
-    public void rejectOrder(order order,MessagesOfClientRepository messagesOfClientRepository) {
+    public void rejectOrder(OrderDTO order, MessagesOfClientRepository messagesOfClientRepository) {
         order o = findOrder(order);
         o.setStatusOfOrder(StatusOfOrder.Rejected);
         Client client = o.getClient();
-        messagesOfClientRepository.addMessage(client, "The" + order.toString() + "was rejected");
-        System.out.println("The" + order.toString() +"was rejected");
+        messagesOfClientRepository.addMessage(client, "The" + OrderMapper.toEntity(order).toString() + "was rejected");
+        System.out.println("The" + OrderMapper.toEntity(order).toString() + "was rejected");
 
     }
 
