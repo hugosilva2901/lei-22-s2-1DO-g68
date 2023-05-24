@@ -14,13 +14,11 @@ class Repositories {
   ~ clientRepository: ClientRepository
   - instance: Repositories
   ~ announcementRepository: AnnouncementRepository
-  ~ storeRepository: StoreRepository
    announcementRepository: AnnouncementRepository
-   propertyRepository: PropertyRepository
+   OrderRepository: OrderRepository
    instance: Repositories
    clientRepository: ClientRepository
    authenticationRepository: AuthenticationRepository
-   storeRepository: StoreRepository
 }
 
 
@@ -54,7 +52,8 @@ class CreateOrderUI{
 }
 class CreateOrderController{
 }
-
+class OrderRepository{
+}
 class Order{
     - value: int
     -Announcement: Announcement
@@ -71,12 +70,33 @@ class OrderMapper{
     +mapToDTO(Order): OrderDTO
     +mapToEntity(OrderDTO): Order
 }
+class AnnouncementRepository{
+}
+class AnnouncementDTO{
+    - value: int
+    -Announcement: Announcement
+    -Client: Client
+}
+class AnnouncementMapper{
+    +AnnouncementMapper():
+    +mapToDTO(Announcement): AnnouncementDTO
+    +mapToEntity(AnnouncementDTO): Announcement
+}
 
-User "1"--"1..*" Roles : has >
+User "1"--"1.*" Roles : has >
 CreateOrderController .> Repositories : repositories
 CreateOrderUI .> CreateOrderController
-CreateOrderController ..> "1" Store : Store
-Repositories "1" --> "*" StoreRepository : has >
-StoreRepository "1" --> "*" Store : has >
+
+Repositories "1" --> "*" OrderRepository : has >
+Repositories "1" --> "*" AnnouncementRepository : has >
+OrderRepository "1" --> "*" OrderMapper : Uses >
+OrderMapper "1" --> "*" OrderDTO : creates >
+AnnouncementRepository "1" --> "*" AnnouncementMapper : Uses >
+AnnouncementMapper "1" --> "*" AnnouncementDTO : creates >
+OrderRepository "1" --> "*" Order : has >
+Order "1" --> "*" User : has a client >
+Order "*" --> "1" Announcement : has a announcement >
+
+
 
 @enduml
