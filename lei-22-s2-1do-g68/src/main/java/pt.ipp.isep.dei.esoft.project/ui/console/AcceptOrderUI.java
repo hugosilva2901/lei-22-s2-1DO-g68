@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.AcceptOrderController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.OrderDTO;
 import pt.ipp.isep.dei.esoft.project.domain.order;
 
 import java.util.List;
@@ -15,12 +17,12 @@ public class AcceptOrderUI implements Runnable{
     @Override
     public void run() {
         System.out.println("Accept Order\n");
-        Announcement announcement= displayAndSelectAnnouncement();
+        AnnouncementDTO announcement= displayAndSelectAnnouncement();
         if (announcement==null){
             System.out.println("There are no announcements to show.");
             return;
         }
-        order order= displayAndSelectOrder(announcement);
+        OrderDTO order= displayAndSelectOrder(announcement);
 
         if (order==null){
             System.out.println("There are no orders to show.");
@@ -38,8 +40,8 @@ public class AcceptOrderUI implements Runnable{
     }
 
 
-     private Announcement displayAndSelectAnnouncement() {
-        List<Announcement> announcements = controller.getAnnouncements();
+     private AnnouncementDTO displayAndSelectAnnouncement() {
+        List<AnnouncementDTO> announcements = controller.getAnnouncements();
         if (announcements.isEmpty()) {
             return null;
         }
@@ -56,22 +58,22 @@ public class AcceptOrderUI implements Runnable{
             answer = input.nextInt();
         }
 
-        Announcement description = announcements.get(answer - 1);
+        AnnouncementDTO description = announcements.get(answer - 1);
         return description;
 
     }
 
-    private void displayAnnouncementOptions(List<Announcement> announcements) {
+    private void displayAnnouncementOptions(List<AnnouncementDTO> announcements) {
         //display the task categories as a menu with number options to select
         int i = 1;
-        for (Announcement announcement : announcements) {
+        for (AnnouncementDTO announcement : announcements) {
             System.out.println(i + " - " + announcement.toString());
             i++;
         }
     }
 
-    private order displayAndSelectOrder(Announcement announcement ) {
-        List<order> orders = controller.OrderOfAnoucement(announcement);
+    private OrderDTO displayAndSelectOrder(AnnouncementDTO announcement ) {
+        List<OrderDTO> orders = controller.OrderOfAnoucement(announcement);
         if (orders.isEmpty()) {
             return null;
         }
@@ -87,15 +89,15 @@ public class AcceptOrderUI implements Runnable{
             answer = input.nextInt();
         }
 
-        order description = orders.get(answer - 1);
+        OrderDTO description = orders.get(answer - 1);
         return description;
 
     }
 
-    private void displayOrderOptions(List<order> orders) {
+    private void displayOrderOptions(List<OrderDTO> orders) {
         //display the task categories as a menu with number options to select
         int i = 1;
-        for (order order : orders) {
+        for (OrderDTO order : orders) {
             System.out.println(i + " - " + order.toString());
             i++;
         }

@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.OrderDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.order;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -60,27 +63,27 @@ public class AcceptOrderController {
         }
         return messagesOfClientRepository;
     }
- public List<Announcement> getAnnouncements() {
-        return this.announcementRepository.getAnnouncements();
+ public List<AnnouncementDTO> getAnnouncements() {
+        return this.announcementRepository.getAnnouncementsDTO();
     }
 
 
 
 
-    private EmployeeProject getEmployeeProject(String name) {
+    private EmployeeProjectDTO getEmployeeProject(String name) {
         return this.storeRepository.getEmployeeByName(name);
     }
 
-    public List<Announcement> AnnoucementOfOrder(String name) {
-        EmployeeProject employeeProject = getEmployeeProject(name);
+    public List<AnnouncementDTO> AnnoucementOfOrder(String name) {
+        EmployeeProjectDTO employeeProject = getEmployeeProject(name);
         return announcementRepository.getAnnouncementsByEmployee(employeeProject);
     }
 
-    public List<order> OrderOfAnoucement(Announcement announcement) {
+    public List<OrderDTO> OrderOfAnoucement(AnnouncementDTO announcement) {
         return orderRepository.OrderOfTheAgent(announcement);
     }
 
-    public void acceptOrder(order order, int choice) {
+    public void acceptOrder(OrderDTO order, int choice) {
         if (choice == 2)
             orderRepository.rejectOrder(order,messagesOfClientRepository);
         else if (choice == 1)
