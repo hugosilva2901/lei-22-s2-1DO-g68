@@ -17,13 +17,11 @@ public class ImportLegacySystemDataUI implements Runnable{
         String dir = scanner.nextLine();
 
         try {
-            CSVLoader loader = new CSVLoader("C:\\Users\\a9239\\IdeaProjects\\lei-22-s2-1do-g68\\lei-22-s2-1do-g68\\src\\main\\java\\pt.ipp.isep.dei.esoft.project\\ui\\legacyRealStateUSAMoodle.csv");
-
-
-
+            controller.getData(dir);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println();
 
     }
 }

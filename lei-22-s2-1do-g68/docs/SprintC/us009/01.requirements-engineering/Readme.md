@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an agent, I can publish any sale announcement on the system, for example received through a phone call.
+As a client, I want to leave a message to the agent to schedule a visit to a property of my interest.
 
 
 ### 1.2. Customer Specifications and Clarifications 
@@ -14,8 +14,8 @@ As an agent, I can publish any sale announcement on the system, for example rece
 
 **From the specifications document:**
 
-> The RealState Agent will be responsible to publish the sale announcement on the system.
-> The sale announcement can be received through a phone call.
+> The client will be responsible to leave a message to inform the agent of the request to schedule a visit.
+> The Request can be received through a phone call.
 
 
 
@@ -124,10 +124,10 @@ telephone number. The Agent is an employee of the company.
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** The agent must input the necessary details of the sale announcement, such as the type of property, location, area in m2, requested price, and photographs, if available.
-* **AC2:** The agent can access the system to publish a sale announcement.
-* **AC3:** The agent can publish the sale announcement in the system, making it visible to all clients who visit the agency and use the application.
-
+* **AC1:** It is necessary to provide a list of available properties that is organized.
+* **AC2:** The name, email, phone and date, for the property tour must also be included in the message.
+* **AC3:** Multiple visit requests from the same client are allowed, but only provided they do not conflict with one another.
+* **AC4:** When the request is legitimate and recorded in the system, the client must get a success message.
 
 ### 1.4. Found out Dependencies
 

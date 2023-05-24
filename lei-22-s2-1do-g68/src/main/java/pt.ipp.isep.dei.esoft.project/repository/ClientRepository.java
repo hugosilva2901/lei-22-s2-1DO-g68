@@ -24,6 +24,9 @@ public class ClientRepository {
         return optionalValue;
     }
 
+    public boolean addClient(Client client){
+        return clients.add(client);
+    }
     public List<Client> getClients() {
         return clients;
     }

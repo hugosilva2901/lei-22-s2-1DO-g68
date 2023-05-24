@@ -1,12 +1,15 @@
 package org.example;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.ImportLegacySystemDataUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.CSVLoader;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        CSVLoader loader = new CSVLoader("C:\\Users\\a9239\\IdeaProjects\\lei-22-s2-1do-g68\\lei-22-s2-1do-g68\\src\\main\\java\\pt.ipp.isep.dei.esoft.project\\ui\\legacyRealStateUSAMoodle.csv");
-
+      /*  AdminUI ui = new AdminUI();
+        ui.run();
+        */
     }
 
 }

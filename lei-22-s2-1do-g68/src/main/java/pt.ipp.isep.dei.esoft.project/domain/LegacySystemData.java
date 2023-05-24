@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.shared.PropertyType;
+
 import java.util.Objects;
 
 public class LegacySystemData {
@@ -9,7 +11,7 @@ public class LegacySystemData {
     private String ownerTIN;
     private String ownerEmail;
     private String ownerPhone;
-    private String propertyType;
+    private PropertyType propertyType;
     private double propertyArea;
     private String propertyLocation;
     private double propertyDistanceFromCenter;
@@ -63,7 +65,7 @@ public class LegacySystemData {
         this.ownerPhone = ownerPhone;
     }
 
-    public void setPropertyType(String propertyType) {
+    public void setPropertyType(PropertyType propertyType) {
         this.propertyType = propertyType;
     }
 
@@ -157,6 +159,126 @@ public class LegacySystemData {
 
     public void setStoreEmailAddress(String storeEmailAddress) {
         this.storeEmailAddress = storeEmailAddress;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getOwnerPassportNum() {
+        return ownerPassportNum;
+    }
+
+    public String getOwnerTIN() {
+        return ownerTIN;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public String getOwnerPhone() {
+        return ownerPhone;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+
+    public double getPropertyArea() {
+        return propertyArea;
+    }
+
+    public String getPropertyLocation() {
+        return propertyLocation;
+    }
+
+    public double getPropertyDistanceFromCenter() {
+        return propertyDistanceFromCenter;
+    }
+
+    public int getPropertyNumBedrooms() {
+        return propertyNumBedrooms;
+    }
+
+    public int getPropertyNumBathrooms() {
+        return propertyNumBathrooms;
+    }
+
+    public int getPropertyNumParking() {
+        return propertyNumParking;
+    }
+
+    public boolean isPropertyCentralHeating() {
+        return propertyCentralHeating;
+    }
+
+    public boolean isPropertyAirconditioned() {
+        return propertyAirconditioned;
+    }
+
+    public boolean isPropertyBasement() {
+        return propertyBasement;
+    }
+
+    public boolean isPropertyLoft() {
+        return propertyLoft;
+    }
+
+    public String getPropertySunExposure() {
+        return propertySunExposure;
+    }
+
+    public double getPropertyRequestedSaleRentPrice() {
+        return propertyRequestedSaleRentPrice;
+    }
+
+    public double getPropertySaleRentPrice() {
+        return propertySaleRentPrice;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public String getContractDuration() {
+        return contractDuration;
+    }
+
+    public String getPropertyDateAnnounceRequest() {
+        return propertyDateAnnounceRequest;
+    }
+
+    public String getPropertyDateOfSale() {
+        return propertyDateOfSale;
+    }
+
+    public String getTypeBusiness() {
+        return typeBusiness;
+    }
+
+    public String getStoreID() {
+        return storeID;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getStoreLocation() {
+        return storeLocation;
+    }
+
+    public String getStorePhoneNumber() {
+        return storePhoneNumber;
+    }
+
+    public String getStoreEmailAddress() {
+        return storeEmailAddress;
     }
 
     @Override

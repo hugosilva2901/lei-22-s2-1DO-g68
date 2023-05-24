@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.CreatEmployeeUi;
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateStoreUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.ImportLegacySystemDataUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -22,7 +23,8 @@ public class AdminUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Create Employee", new CreatEmployeeUi()));
         options.add(new MenuItem("Create Store ", new CreateStoreUI()));
-        options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
+        options.add(new MenuItem("Import Legacy System Data ", new ImportLegacySystemDataUI()));
+        options.add(new MenuItem("Option 4 ", new ShowTextUI("You have chosen Option C.")));
 
         int option = 0;
         do {

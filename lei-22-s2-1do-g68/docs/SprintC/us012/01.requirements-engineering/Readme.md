@@ -34,7 +34,7 @@ administrator if the file is empty or its content is not in the requested format
 
 
 * **AC1:** The system administrator must be able to choose a file to import.
-* **AC2:** The system should only accept CSV files
+* **AC2:** The system should only accept CSV files.
 * **AC3:** The file content must be validated, showing a message to the system
   administrator if the file is empty or its content is not in the requested format.
 * **AC4:** The import operation, when successful, should trigger a success message to
@@ -57,8 +57,8 @@ administrator if the file is empty or its content is not in the requested format
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us005-SystemSequenceDiagram.svg)
+![System Sequence Diagram - Alternative One](svg/us012-SystemSequenceDiagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created Store can be assigned to a employee(Store manager).
+* The imported legacy system data will be used to create user , property and a store with default agent associate to it.
