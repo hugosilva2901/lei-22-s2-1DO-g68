@@ -55,10 +55,11 @@ public class OrderRepository {
 
     public Optional<OrderDTO> createOrder(AnnouncementDTO announcement, int value, ClientDTO client) {
         if (announcement.getValueOfProperty() < value) {
-            throw new IllegalArgumentException("The value of the order is not valid");
+            System.out.println("The order amount submitted is higher than the value of the property");
+            return Optional.empty();
         }
         if (valueAlreadyExists(value, announcement)) {
-            System.out.println("The value already exists in another order");
+            System.out.println("The order amount submitted has already been posted for this property. Please contact the agent that is responsible for this property");
         }
         if (clientAlreadyExists(client,announcement)) {
             System.out.println("The client already has an order in this announcement");
