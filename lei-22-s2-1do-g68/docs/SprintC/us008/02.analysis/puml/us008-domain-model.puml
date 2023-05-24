@@ -28,11 +28,11 @@ class Advertisement{
     descriptions
     RealEstateAgent
     cost
-    Proprietary
+    Property
 }
 
 
-abstract class Proprietary {
+abstract class Property {
     name
     Tipo
     address
@@ -79,10 +79,10 @@ class RealEstate {
 }
 Owner "1"--"0..*" RealEstateAgent : Request listing Proprietary
 RealEstateAgent "1"--"0..*"Advertisement : Publishes
-Advertisement "1"--"1" Proprietary : has
-House  --|>  Proprietary : is
-Apartment  --|>  Proprietary : is
-Land  --|>  Proprietary : is
-RealEstate "1"--"0..*" Proprietary : has
+Advertisement "1"--"1" Property : has
+House  --|>  Property : is
+Apartment  --|>  Property : is
+Land  --|>  Property : is
+RealEstate "1"--"0..*" Property : has
 
 @enduml

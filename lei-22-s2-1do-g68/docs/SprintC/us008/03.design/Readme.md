@@ -1,4 +1,4 @@
-# US 001 - To display listed properties
+# US 006 - To create a Task 
 
 ## 3. Design - User Story Realization 
 
@@ -6,27 +6,33 @@
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID | Question: Which class is responsible for...   | Answer                | Justification (with patterns)                                                                                 |
-|:---------------|:----------------------------------------------|:----------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?              | CreateGuestUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | CreateGuestController | Controller                                                                                                    |
-| 			  		        | 	... instantiating a new Task?                | CreatTaskController   | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		        | ... knowing the user using the system?        | Authenticantion       | IE: cf. A&A component documentation.                                                                          |
-| Step 2  		     | 	...saving the properties?                    | PropertyRepository    | IE: object created in step 1 has its own data.                                                                |
-| Step 3  		     | 	...knowing properties to show?               | CreatGuestUI          | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 4  		     | 	... saving the selected filters?             | CreatGuestController  | IE: object created in step 1 is classified in one Category.                                                   |
+| Interaction ID | Question: Which class is responsible for...   | Answer                   | Justification (with patterns)                                                                                 |
+|:---------------|:----------------------------------------------|:-------------------------|:--------------------------------------------------------------------------------------------------------------|
+| Step 1  		     | 	... interacting with the actor?              | CreateEmployeeUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| 			  		        | 	... coordinating the US?                     | CreateEmployeeController | Controller                                                                                                    |
+| 			  		        | 	... instantiating a new employee?            | admin                    | Creator (Rule 1): in the DM Store has employee.                                                               |
+| Step 2  		     | 	...knowing the ListOfStores to show?         | StoreRepository          | IE: knows all its stores                                                                                      |
+| Step 3  		     | 	... saving the selected store?               | employee                 | IE: object created in step 1 is classified in one or more roles.                                              |
+| Step 4  		     | 	...knowing the List roles to show?           | Roles                    | IE: knows all roles                                                                                           |
+| Step 5  		     | 	... saving the selected role?                | employee                 | IE: object created in step 1 is classified in one or more roles.                                              |
+| Step 6  		     | 							                                       |                          |                                                                                                               |              
+| Step 7  		     | 	... validating all data (local validation)?  | employee                 | IE: owns its data.                                                                                            | 
+| 			  		        | 	... validating all data (global validation)? | StoreRepository          | IE: knows all its employee.                                                                                   | 
+| 			  		        | 	... saving the created task?                 | StoreRepository          | IE: owns all its employee.                                                                                    | 
+| Step 9  		     | 	... informing operation success?             | CreateEmployeeUI         | IE: is responsible for user interactions.                                                                     |
+| Step 10  		    | 	... informing operation success?             | CreateEmployeeUI         | IE: is responsible for user interactions.                                                                     | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * PropertyRepository
- * Task
+ * StoreRepository
+ * employee
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * CreateGuestUI  
- * CreateGuestController
+ * CreateEmployeeUI  
+ * CreateEmployeeController
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -35,7 +41,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us001-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us003-sequence-diagram-full.svg)
 
 ### Alternative 2 - Split Diagram
 
@@ -43,13 +49,20 @@ This diagram shows the same sequence of interactions between the classes involve
 
 It uses interaction ocurrence.
 
-![Sequence Diagram - split](svg/us001-sequence-diagram-split.svg)
+![Sequence Diagram - split](svg/us003-sequence-diagram-split.svg)
 
-**Get Property List Partial SD**
+**Get Task Category List Partial SD**
 
-![Sequence Diagram - Partial - Get Task Category List](svg/us001-sequence-diagram-partial-get-property-list.svg)
+![Sequence Diagram - Partial - Get Task Category List](svg/us003-sequence-diagram-partial-get-store-list.svg)
 
+**Get Employee**
+
+![Sequence Diagram - Partial - Get Employee](svg/us006-sequence-diagram-partial-get-employee.svg)
+
+**Create Task**
+
+![Sequence Diagram - Partial - Create Task](svg/us003-sequence-diagram-partial-create-employee.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us001-class-diagram.svg)
+![Class Diagram](svg/us003-class-diagram.svg)
