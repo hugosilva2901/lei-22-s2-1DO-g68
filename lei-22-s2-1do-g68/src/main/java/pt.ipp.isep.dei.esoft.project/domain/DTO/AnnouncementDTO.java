@@ -36,4 +36,13 @@ public class AnnouncementDTO {
     public void setEmployeeProject(EmployeeProjectDTO employeeProject) {
         this.employeeProject = employeeProject;
     }
+
+    @Override
+    public String toString() {
+        return "AnnouncementDTO{" +
+                "valueOfProperty=" + valueOfProperty +
+                ", property=" + property +
+                ", employeeProject=" + employeeProject +
+                '}';
+    }
 }

@@ -75,9 +75,9 @@ public class ClientRepository {
         }
     }
 
-    public ClientDTO getClientByName(String name) {
+    public ClientDTO getClientByEmail(String email) {
         for (Client client : clients) {
-            if (client.getName().equals(name)) {
+            if (client.getEmail().equals(email)) {
                 return ClientMapper.toDTO(client);
             }
         }

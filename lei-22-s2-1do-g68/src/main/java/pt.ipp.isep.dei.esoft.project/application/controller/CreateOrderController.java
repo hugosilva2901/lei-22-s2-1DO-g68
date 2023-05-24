@@ -6,6 +6,9 @@ import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
 import pt.ipp.isep.dei.esoft.project.domain.order;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.domain.model.Email;
+import pt.isep.lei.esoft.auth.domain.model.User;
 
 import java.util.List;
 
@@ -68,11 +71,11 @@ public class CreateOrderController {
     }
 
 
-    private ClientDTO getClientByUserName(String userName){
-        return clientRepository.getClientByName(userName);
+    private ClientDTO getClientByUserEmail(String userName){
+        return clientRepository.getClientByEmail(userName);
     }
     public boolean addOrder(AnnouncementDTO announcement,int value){
-        ClientDTO client = getClientByUserName(authenticationRepository.getCurrentUserSession().getUserName());
+        ClientDTO client = getClientByUserEmail(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
         if (orderRepository.createOrder(announcement, value, client).isEmpty()){
             return false;
         }

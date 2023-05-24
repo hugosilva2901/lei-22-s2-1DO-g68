@@ -27,7 +27,13 @@ public class CreateOrderTest {
         ctrl.addOrderToTest(announcement, 100,clientRepository.getClientsDTO().get(1));
         ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(2));
 
+        ctrl.addOrderToTest( ctrl.getAnnouncements().get(1), 1,clientRepository.getClientsDTO().get(0));
+        ctrl.addOrderToTest( ctrl.getAnnouncements().get(1), 100,clientRepository.getClientsDTO().get(1));
+        ctrl.addOrderToTest( ctrl.getAnnouncements().get(1), 1,clientRepository.getClientsDTO().get(2));
+
         // Assert
         assertFalse(ctrl.orderRepository.getOrders().isEmpty());
     }
+
+
 }

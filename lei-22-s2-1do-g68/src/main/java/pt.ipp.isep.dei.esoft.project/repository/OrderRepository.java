@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.StatusOfOrder;
 import pt.ipp.isep.dei.esoft.project.domain.order;
@@ -24,7 +25,7 @@ public class OrderRepository {
     }
 
     private void PutPerorder() {
-        Collections.sort(orders, (o1, o2) -> o1.getValue() - o2.getValue());
+        Collections.sort(orders, (o1, o2) -> o2.getValue() - o1.getValue());
     }
 
     public List<OrderDTO> getOrders() {
@@ -33,18 +34,18 @@ public class OrderRepository {
                 .collect(Collectors.toList());
     }
 
-    private boolean valueAlreadyExists(int value) {
+    private boolean valueAlreadyExists(int value, AnnouncementDTO announcement) {
         for (order o : orders) {
-            if (o.getValue() == value) {
+            if (o.getValue() == value &&( o.getAnnouncement().equals(AnnouncementMapper.toEntity(announcement)))){
                 return true;
             }
         }
         return false;
     }
 
-    private boolean clientAlreadyExists(ClientDTO client) {
+    private boolean clientAlreadyExists(ClientDTO client,AnnouncementDTO announcement) {
         for (order o : orders) {
-            if (o.getClient().equals(ClientMapper.toEntity(client))) {
+            if (o.getClient().getTaxNumber()==(ClientMapper.toEntity(client)).getTaxNumber() && o.getStatusOfOrder() != StatusOfOrder.Accepted &&  o.getAnnouncement().toString().equals(AnnouncementMapper.toEntity(announcement).toString())) {
                 return true;
             }
         }
@@ -56,11 +57,12 @@ public class OrderRepository {
         if (announcement.getValueOfProperty() < value) {
             throw new IllegalArgumentException("The value of the order is not valid");
         }
-        if (valueAlreadyExists(value)) {
+        if (valueAlreadyExists(value, announcement)) {
             System.out.println("The value already exists in another order");
         }
-        if (clientAlreadyExists(client)) {
-            throw new IllegalArgumentException("The client already exists");
+        if (clientAlreadyExists(client,announcement)) {
+            System.out.println("The client already has an order in this announcement");
+            return Optional.empty();
         }
         Optional<OrderDTO> optionalValue = Optional.empty();
         order order = new order(
