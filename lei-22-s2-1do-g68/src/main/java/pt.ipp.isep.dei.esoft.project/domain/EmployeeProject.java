@@ -42,4 +42,11 @@ public class EmployeeProject extends User{
         validateTaxNumber(taxNumber);
     }
 
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }
