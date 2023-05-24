@@ -1,0 +1,144 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Client:User" as CL
+participant ":CreateOrderUI" as UI
+participant ":CreateOrderController" as CTRL
+participant "AnnouncementsRepository\n:AnnouncementsRepository" as ANN
+participant "OrderRepository\n:OrderRepository" as ORD
+participant "Order\n:Order" as TAREFA
+participant "ClientRepository:\nClientRepository" as ClientRepository
+participant "AnnouncementMapper:\AnnouncementMapper" as Mapper
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant "AnnouncementDTO:\AnnouncementDTO" as DTO
+
+activate CL
+
+    CL -> UI :  to Buy a Property
+
+    activate UI
+
+        UI -> CTRL** : create
+
+ -> CTRL : getAnnouncementDTO()
+activate CTRL
+    group Get Task Category List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getAnnouncementsRepository()
+            activate PLAT
+
+
+
+                PLAT --> CTRL: AnnouncementsRepository
+            deactivate PLAT
+
+            CTRL -> AnnouncementsRepository : getAnnouncementsDTO()
+            loop get list of announcementsDTO
+            activate AnnouncementsRepository
+              AnnouncementsRepository->Mapper:getAnnouncementDTO()
+            activate Mapper
+
+            Mapper->DTO:CreateAnnouncementDTO()
+
+            activate DTO
+            DTO-->Mapper:AnnouncementDTO
+            deactivate DTO
+            Mapper-->AnnouncementsRepository:AnnouncementDTO
+            deactivate Mapper
+            end
+                AnnouncementsRepository --> CTRL : AnnouncementList
+            deactivate AnnouncementsRepository
+
+
+
+    UI<-- CTRL  : AnnouncementList
+deactivate CTRL
+    UI-->CL: displays AnnouncementList
+    deactivate UI
+    CL -> UI : selects an Announcements
+
+        activate UI
+
+            UI --> CL : requests data
+        deactivate UI
+        CL -> UI : types requested data (Announcements, price)
+        activate UI
+
+        UI --> CL : shows selected Announcements and requested data
+        deactivate UI
+        CL -> UI : submits data
+     activate UI
+
+     UI -> CTRL : createOrder(Announcements, price)
+    activate CTRL
+    CTRL-> CTRL : getClientFromSession()
+    activate CTRL
+
+            CTRL -> _APP: getInstance()
+            activate _APP
+                _APP -> CTRL: appSession
+            deactivate _APP
+
+            CTRL -> APP: getCurrentSession()
+            activate APP
+
+                APP --> CTRL: currentSession
+            deactivate APP
+
+            CTRL -> SESSAO: name = getUserName()
+            activate SESSAO
+
+                SESSAO --> CTRL: name
+            deactivate SESSAO
+
+            CTRL -> PLAT: getClientRepository()
+            activate PLAT
+
+                PLAT --> CTRL: ClientRepository
+            deactivate PLAT
+
+            CTRL -> ClientRepository: getClientByUserName(email)
+            activate ClientRepository
+
+
+                ClientRepository --> CTRL : ClientDTO
+
+            deactivate ClientRepository
+
+
+       CTRL <-- CTRL : Client
+    deactivate CTRL
+
+      CTRL -> ORD: createOrder(AnnouncementsDTO, price,clientDTO)
+                 activate ORD
+
+        ORD -> TAREFA**:  createOrder(AnnouncementDTO,price,ClientDTO)
+        activate ORD
+            ORD -> ORD: validateOrder(Order)
+            activate ORD
+                ORD --> ORD
+            deactivate ORD
+            ORD --> ORD
+                     ORD --> CTRL : OrderDTO
+                 deactivate ORD
+            CTRL --> UI: OrderDTO
+              deactivate CTRL
+              UI --> CL: displays operation success
+      deactivate UI
+deactivate CL
+
+@enduml

@@ -18,7 +18,7 @@ activate CL
     activate UI
 
         UI -> CTRL** : create
-        UI -> CTRL : getAnnouncements
+        UI -> CTRL : getAnnouncementsDTO
 
         ref over CTRL
             Get list of Announcements

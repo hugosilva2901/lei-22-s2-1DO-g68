@@ -3,8 +3,8 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
-participant "Employee\n:Employee" as TAREFA
+participant "OrderRepository\n:OrderRepository" as ORG
+participant "Order\n:Order" as TAREFA
 
 autonumber 14
 -> ORG:  createOrder(Announcement,price,Client)
@@ -14,7 +14,6 @@ activate ORG
     group Create Employee
 
         ORG -> TAREFA**:  createOrder(Announcement,price,Client)
-        ORG -> ORG: createOrder (Order)
 
         activate ORG
             ORG -> ORG: validateOrder(Order)

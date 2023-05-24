@@ -16,7 +16,7 @@ participant "AnnouncementDTO:\AnnouncementDTO" as DTO
 
 autonumber 3
 
- -> CTRL : getStores()
+ -> CTRL : getAnnouncementDTO()
 autonumber 3.1
 activate CTRL
     group Get Task Category List
