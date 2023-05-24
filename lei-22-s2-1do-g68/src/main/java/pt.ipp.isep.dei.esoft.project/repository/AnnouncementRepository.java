@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +28,20 @@ public class AnnouncementRepository {
         return announcements.remove(announcement);
     }
 
-    public Optional<Announcement>  createAnnouncement(Property property, int commission,EmployeeProject employeeProject) {
+    public Optional<Announcement>  createAnnouncement(Property property, int commission,EmployeeProjectDTO employeeProject) {
+        EmployeeProject employeeProject1 = EmployeeProjectMapper.toEntity(employeeProject) ;
         Optional<Announcement> optionalValue = Optional.empty();
-        Announcement announcement = new Announcement(property, commission,employeeProject);
+        Announcement announcement = new Announcement(property, commission,employeeProject1);
         optionalValue = Optional.of(announcement);
         addAnnouncement(announcement);
         return optionalValue;
     }
 
-    public List<Announcement> getAnnouncementsByEmployee(EmployeeProject employeeProject) {
-        List<Announcement> announcementsByEmployee = new ArrayList<>();
+    public List<AnnouncementDTO> getAnnouncementsByEmployee(EmployeeProjectDTO employeeProject) {
+        List<AnnouncementDTO> announcementsByEmployee = new ArrayList<>();
         for (Announcement a : announcements) {
-            if (a.getEmployeeProject().equals(employeeProject)) {
-                announcementsByEmployee.add(a);
+            if (a.getEmployeeProject().equals(EmployeeProjectMapper.toEntity(employeeProject))) {
+                announcementsByEmployee.add(AnnouncementMapper.toDTO(a));
             }
         }
         return announcementsByEmployee;

@@ -2,12 +2,17 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.OrderDTO;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.OrderMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ClientRepository {
     List<Client> clients = new ArrayList<>();
@@ -27,10 +32,16 @@ public class ClientRepository {
     public boolean addClient(Client client){
         return clients.add(client);
     }
+
     public List<Client> getClients() {
         return clients;
     }
 
+    public List<ClientDTO> getClientsDTO() {
+        return clients.stream()
+                .map(ClientMapper::toDTO)
+                .collect(Collectors.toList());
+    }
     public Client getClientByTaxNumber(int taxNumber) {
         for (Client client : clients) {
             if (client.getTaxNumber() == taxNumber) {
@@ -64,10 +75,10 @@ public class ClientRepository {
         }
     }
 
-    public Client getClientByName(String name) {
+    public ClientDTO getClientByName(String name) {
         for (Client client : clients) {
             if (client.getName().equals(name)) {
-                return client;
+                return ClientMapper.toDTO(client);
             }
         }
         return null;

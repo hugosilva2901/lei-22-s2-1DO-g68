@@ -32,38 +32,27 @@ activate CTRL
             APP --> CTRL: currentSession
         deactivate APP
 
-        CTRL -> SESSAO: email = getUserEmail()
+        CTRL -> SESSAO: name = getUserName()
         activate SESSAO
 
-            SESSAO --> CTRL: email
+            SESSAO --> CTRL: name
         deactivate SESSAO
 
-        CTRL -> PLAT: getClientRepository(email)
+        CTRL -> PLAT: getClientRepository()
         activate PLAT
 
             PLAT --> CTRL: ClientRepository
         deactivate PLAT
 
-        CTRL -> ClientRepository: getClientByUserEmail(email)
+        CTRL -> ClientRepository: getClientByUserName(email)
         activate ClientRepository
 
-            loop [for each organization
-                ClientRepository -> ORG : anyClientHasEmail(email)
-                activate ORG
 
-                     ORG --> ClientRepository : true/false
-                deactivate ORG
-            end
-
-            ClientRepository --> CTRL : organization
+            ClientRepository --> CTRL : Client
 
         deactivate ClientRepository
 
-        CTRL -> ORG: getClientByEmail(email)
-        activate ORG
 
-            ORG --> CTRL : Client
-        deactivate ORG
     end
     autonumber 15
     <-- CTRL : Client

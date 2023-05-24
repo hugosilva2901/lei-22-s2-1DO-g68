@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
 import pt.ipp.isep.dei.esoft.project.domain.Store;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +75,7 @@ public class StoreRepository {
         return optionalValue;
     }
 
-    public EmployeeProject getEmployeeByName(String name){
+    private EmployeeProject getEmployeeByNameAux(String name){
         for (int i = 0; i < stores.size(); i++) {
             for (int j = 0; j < stores.get(i).getEmployees().size(); j++) {
                 if (stores.get(i).getEmployees().get(j).getName().equals(name))
@@ -81,6 +83,10 @@ public class StoreRepository {
             }
         }
         return null;
+    }
+    public EmployeeProjectDTO getEmployeeByName(String name){
+       EmployeeProject employeeProject= getEmployeeByNameAux(name);
+       return EmployeeProjectMapper.toDTO(employeeProject);
     }
 
 }
