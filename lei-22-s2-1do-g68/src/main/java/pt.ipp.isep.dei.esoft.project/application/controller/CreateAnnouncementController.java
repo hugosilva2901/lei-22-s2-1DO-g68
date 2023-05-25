@@ -1,13 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.application.session.UserSession;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
-import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,14 +97,23 @@ public class CreateAnnouncementController {
     }
 
     public Optional<Announcement> createAnnouncement(Property property, int commission) {
-        EmployeeProjectDTO employeeProject = getEmployeeByName(authenticationRepository.getCurrentUserSession().getUserName());
+        EmployeeProjectDTO employeeProjectDTO = getEmployeeByName(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
+        EmployeeProject employeeProject = EmployeeProjectMapper.toEntity(employeeProjectDTO);
 
         return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
     }
 
+
     //this method is only to use in the bootstrap
-    public Optional<Announcement> createAnnouncementBootstrao(Property property, int commission, EmployeeProjectDTO employeeProject) {
+    public Optional<Announcement> createAnnouncementBootstrao(Property property, int commission, EmployeeProjectDTO employeeProjectDTO) {
+        EmployeeProject employeeProject = EmployeeProjectMapper.toEntity(employeeProjectDTO);
+
         return getAnnouncementRepository().createAnnouncement(property, commission, employeeProject);
+    }
+
+
+    public List<AnnouncementDTO> getPendingAnnouncementsByDate(String employeeProject) {
+        return getAnnouncementRepository().getPendingAnnouncementsByDate(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
     }
 
 
