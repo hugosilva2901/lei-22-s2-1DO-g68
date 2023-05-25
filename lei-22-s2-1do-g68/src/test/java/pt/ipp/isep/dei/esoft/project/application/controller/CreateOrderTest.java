@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.AnnouncementState;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
@@ -20,6 +21,7 @@ public class CreateOrderTest {
         ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
         // Arrange
         CreateOrderController ctrl = new CreateOrderController();
+        ctrl.getAnnouncements().get(0).setAnnouncementState(AnnouncementState.ACCEPTED);
         AnnouncementDTO announcement = ctrl.getAnnouncements().get(0);
 
         // Act

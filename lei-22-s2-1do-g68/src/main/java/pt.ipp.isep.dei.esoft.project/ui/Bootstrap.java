@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -91,6 +92,10 @@ public class Bootstrap implements Runnable {
     private void addOrder(){
         ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
         CreateOrderController ctrl = new CreateOrderController();
+        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+
+        announcementRepository.getAnnouncements().get(1).setAnnouncementState(AnnouncementState.ACCEPTED);
+
         AnnouncementDTO announcement = ctrl.getAnnouncements().get(0);
         ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(0));
         ctrl.addOrderToTest(announcement, 100,clientRepository.getClientsDTO().get(1));

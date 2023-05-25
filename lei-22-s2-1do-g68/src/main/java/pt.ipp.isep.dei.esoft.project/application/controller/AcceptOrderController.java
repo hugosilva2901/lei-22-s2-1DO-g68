@@ -63,11 +63,10 @@ public class AcceptOrderController {
         }
         return messagesOfClientRepository;
     }
- public List<AnnouncementDTO> getAnnouncements() {
-        return this.announcementRepository.getAnnouncementsDTO();
+
+    public List<AnnouncementDTO> getAnnouncements() {
+        return this.announcementRepository.getAnnouncementsDTOAccepted();
     }
-
-
 
 
     private EmployeeProjectDTO getEmployeeProject(String name) {
@@ -80,18 +79,18 @@ public class AcceptOrderController {
     }
 
     public List<OrderDTO> OrderOfAnoucement(AnnouncementDTO announcement) {
-    List<OrderDTO> orders = orderRepository.OrderOfTheAgent(announcement);
-        if(orders.isEmpty()){
-        System.out.println("There are no orders to show.");
+        List<OrderDTO> orders = orderRepository.OrderOfTheAgent(announcement);
+        if (orders.isEmpty()) {
+            System.out.println("There are no orders to show.");
         }
         return orders;
     }
 
     public void acceptOrder(OrderDTO order, int choice) {
         if (choice == 2)
-            orderRepository.rejectOrder(order,messagesOfClientRepository);
+            orderRepository.rejectOrder(order, messagesOfClientRepository);
         else if (choice == 1)
-            orderRepository.acceptOrder(order,messagesOfClientRepository);
+            orderRepository.acceptOrder(order, messagesOfClientRepository);
     }
 
 }

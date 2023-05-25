@@ -67,7 +67,7 @@ public class CreateOrderController {
     }
 
     public List<AnnouncementDTO> getAnnouncements(){
-        return announcementRepository.getAnnouncementsDTO();
+        return announcementRepository.getAnnouncementsDTOAccepted();
     }
 
 

@@ -46,6 +46,13 @@ public class AnnouncementRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<AnnouncementDTO> getAnnouncementsDTOAccepted(){
+        return announcements.stream()
+                .filter(a -> a.getAnnouncementState() == AnnouncementState.ACCEPTED)
+                .map(AnnouncementMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<AnnouncementDTO> getPendingAnnouncementsByDate(String employeeProject) {
         return announcements.stream()
                 .filter(a -> a.getEmployeeProject().getEmail().equals(employeeProject))
