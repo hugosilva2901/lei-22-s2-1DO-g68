@@ -103,6 +103,17 @@ class CreateAnnouncementController {
    propertyRepository: PropertyRepository
 }
 
+class AnnouncementDTO{
+    - value: int
+    -Announcement: Announcement
+    -Client: Client
+}
+class AnnouncementMapper{
+    +AnnouncementMapper():
+    +mapToDTO(Announcement): AnnouncementDTO
+    +mapToEntity(AnnouncementDTO): Announcement
+}
+
 ListAnnouncementRequestUI .> CreateAnnouncementController
 User "1"--"1..*" Roles : has >
 Administrator --> EmployeeProject : createdBy
@@ -110,5 +121,7 @@ EmployeeProject "1"--"1..*" Announcement : publish >
 CreateAnnouncementController .> Repositories : repositories
 CreateAnnouncementController ..> "1" Announcement : Announcement
 Repositories "1" --> "*" AnnouncementRepository : has >
+AnnouncementRepository "1" --> "*" AnnouncementMapper : Uses >
+AnnouncementMapper "1" --> "*" AnnouncementDTO : creates >
 
 @enduml
