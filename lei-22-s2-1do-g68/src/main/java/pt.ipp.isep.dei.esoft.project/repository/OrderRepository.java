@@ -93,7 +93,7 @@ public class OrderRepository {
 
     private order findOrder(OrderDTO order) {
         for (order o : orders) {
-            if (o.equals(OrderMapper.toEntity(order))) {
+            if (o.getClient().getTaxNumber()==(OrderMapper.toEntity(order)).getClient().getTaxNumber()&& o.getAnnouncement().toString().equals(OrderMapper.toEntity(order).getAnnouncement().toString())) {
                 return o;
             }
         }

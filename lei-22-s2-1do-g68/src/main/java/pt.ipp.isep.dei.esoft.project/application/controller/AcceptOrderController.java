@@ -80,7 +80,11 @@ public class AcceptOrderController {
     }
 
     public List<OrderDTO> OrderOfAnoucement(AnnouncementDTO announcement) {
-        return orderRepository.OrderOfTheAgent(announcement);
+    List<OrderDTO> orders = orderRepository.OrderOfTheAgent(announcement);
+        if(orders.isEmpty()){
+        System.out.println("There are no orders to show.");
+        }
+        return orders;
     }
 
     public void acceptOrder(OrderDTO order, int choice) {
