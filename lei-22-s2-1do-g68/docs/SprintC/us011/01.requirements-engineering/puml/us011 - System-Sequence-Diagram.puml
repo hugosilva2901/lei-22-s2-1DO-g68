@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as ag
+participant ":System" as System
+actor "Client" as cl
+
+activate ag
+
+ag -> System : "Asks to list real estate purchase orders"
+activate System
+
+System -> System: Group purchase orders by property
+System -> System: Sort properties from oldest to most recent
+System -> System: Sort purchase orders from highest offer to lowest
+
+System --> ag : "Displays list real estate purchase orders"
+deactivate System
+
+alt [Accept]
+
+ag -> System : "Accept purchase order"
+activate System
+
+System -> System: Decline all other purchase orders for property
+
+loop for each declined purchase order
+System --> cl : "Send email notification"
+end
+System --> ag : "Displays success message"
+
+deactivate System
+end alt
+
+alt [Decline]
+
+ag -> System : "Decline purchase order"
+activate System
+
+System --> cl : "Send email notification"
+System --> ag : "Displays success message"
+
+deactivate System
+end alt
+
+@enduml
