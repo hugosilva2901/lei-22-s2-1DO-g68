@@ -24,14 +24,9 @@ As an organization employee, I want to list all of the employees working  in eve
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:**  Do you want a list where the header is ID, the name of the store, and the total number of listings that the store has?
 >  
-> **Answer:** Duration is estimated in days.
-
-
-> **Question:** Monetary data is expressed in any particular currency?
->  
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
+> **Answer:** Yes.
 
 
 ### 1.3. Acceptance Criteria
@@ -39,7 +34,7 @@ As an organization employee, I want to list all of the employees working  in eve
 
 * **AC1:** The list of employees should be alphabetically sorted and grouped by store
 * **AC2:** Stores should be sorted according to their property listings, from the one with more listings to the one with less listings.
-* **AC3:** . Each store should state how many property listings it has.
+* **AC3:** Each store should state how many property listings it has.
 
 
 ### 1.4. Found out Dependencies
