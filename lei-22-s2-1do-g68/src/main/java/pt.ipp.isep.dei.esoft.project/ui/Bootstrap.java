@@ -57,7 +57,7 @@ public class Bootstrap implements Runnable {
         creatClienteController.createClient("Joao","f",510447465,"joao@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Luis","f",510185380,"luis@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(2), house);
-        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(2), land);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(0), land);
         announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), apartment);
 
     }
@@ -85,7 +85,7 @@ public class Bootstrap implements Runnable {
         CreateAnnouncementController announcementController = new CreateAnnouncementController();
 
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000, EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
-        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(1),101,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(0).getProperties().get(0),1001,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
     }
 

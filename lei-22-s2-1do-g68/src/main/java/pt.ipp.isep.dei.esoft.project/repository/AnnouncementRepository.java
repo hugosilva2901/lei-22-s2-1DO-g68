@@ -62,5 +62,10 @@ public class AnnouncementRepository {
                 .collect(Collectors.toList());
     }
 
+    public void changeAnnouncementState(AnnouncementDTO announcement, AnnouncementState newState) {
+        if (announcement != null) {
+            announcement.setAnnouncementState(newState);
+        }
+    }
 
 }

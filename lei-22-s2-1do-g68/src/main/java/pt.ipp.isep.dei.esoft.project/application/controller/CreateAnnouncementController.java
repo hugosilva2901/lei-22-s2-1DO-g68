@@ -18,7 +18,6 @@ public class CreateAnnouncementController {
     private PropertyRepository propertyRepository = null;
     private AnnouncementRepository announcementRepository = null;
     private AuthenticationRepository authenticationRepository = null;
-
     private StoreRepository storeRepository = null;
 
     //Repository instances are obtained from the Repositories class
@@ -114,6 +113,10 @@ public class CreateAnnouncementController {
 
     public List<AnnouncementDTO> getPendingAnnouncementsByDate(String employeeProject) {
         return getAnnouncementRepository().getPendingAnnouncementsByDate(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
+    }
+
+    public void changeAnnouncementState(AnnouncementDTO announcement, AnnouncementState newState) {
+        getAnnouncementRepository().changeAnnouncementState(announcement, newState);
     }
 
 
