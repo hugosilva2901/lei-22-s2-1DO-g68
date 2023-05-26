@@ -9,7 +9,6 @@ autonumber
 
 actor "Agent" as ag
 participant ":System" as System
-actor "Client" as cl
 
 activate ag
 
@@ -30,20 +29,27 @@ activate System
 
 System -> System: Decline all other purchase orders for property
 
-loop for each declined purchase order
-System --> cl : "Send email notification"
-end
+
+
+System --> System : "Send an email to the client to confirm the agent decision"
+
 System --> ag : "Displays success message"
 
 deactivate System
-end alt
 
+
+end alt
 alt [Decline]
 
+
+
 ag -> System : "Decline purchase order"
+
+
 activate System
 
-System --> cl : "Send email notification"
+System --> System : "Send an email to the client to confirm the agent decision"
+
 System --> ag : "Displays success message"
 
 deactivate System

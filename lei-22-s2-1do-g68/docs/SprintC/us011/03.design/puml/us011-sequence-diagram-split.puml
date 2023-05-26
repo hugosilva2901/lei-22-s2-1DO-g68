@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as ag
+participant "AcceptOrderUI" as UI
+participant "AcceptOrderController" as CTRL
+
+activate ag
+
+    ag -> UI : Request to list purchase orders
+    activate UI
+
+group List Purchase Order
+    UI -> CTRL : Get Purchase Orders
+    activate CTRL
+
+
+    CTRL -> CTRL: Group purchase orders by property
+    CTRL -> CTRL: Sort properties from oldest to most recent
+    CTRL -> CTRL: Sort purchase orders from the highest offer to the lowest
+
+    CTRL --> UI: Return Purchase Orders
+    deactivate CTRL
+end group
+
+    UI --> ag : Display list of grouped purchase orders by property
+
+    UI --> ag: Request data (select an offer to accept/decline)
+    deactivate UI
+
+    ag -> UI: Selects Order
+    activate UI
+
+    UI->CTRL: Selected Order
+    activate CTRL
+
+CTRL --> UI: Returns sucess message
+deactivate CTRL
+UI-->ag: Displays Sucesse Message
+deactivate UI
+
+@enduml
