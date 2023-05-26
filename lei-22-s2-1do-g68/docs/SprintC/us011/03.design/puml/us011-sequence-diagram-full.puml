@@ -1,0 +1,112 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as ag
+participant "AcceptOrderUI" as UI
+participant "AcceptOrderController" as CTRL
+participant "PropertyRepository" as prepository
+participant "ClientRepository" as crepository
+participant "OrderRepository" as orepository
+participant "repositories\n:Repositories" as PLAT
+participant ":Repositories" as RepositorySingleton
+participant "MessagesOfClientRepository" as mrepository
+
+activate ag
+
+    ag -> UI : Request to list purchase orders
+    activate UI
+
+group List Purchase Order
+    UI -> CTRL : Get Purchase Orders
+    activate CTRL
+
+activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+
+    RepositorySingleton --> CTRL: repositories
+    deactivate RepositorySingleton
+
+    CTRL -> PLAT : getPropertyRepository()
+    activate PLAT
+
+    PLAT --> CTRL : PropertyRepository
+    deactivate PLAT
+
+    CTRL -> prepository: getProperty
+    activate prepository
+
+    prepository --> CTRL: List of Property
+    deactivate prepository
+
+    CTRL -> PLAT : getOrderRepository()
+    activate PLAT
+
+    PLAT --> CTRL : OrderRepository
+    deactivate PLAT
+
+    CTRL -> orepository : getOrder
+    activate orepository
+
+    orepository --> CTRL : List of Orders
+    deactivate orepository
+
+    CTRL -> CTRL: Group purchase orders by property
+    CTRL -> CTRL: Sort properties from oldest to most recent
+    CTRL -> CTRL: Sort purchase orders from the highest offer to the lowest
+
+    CTRL --> UI: Return Purchase Orders
+    deactivate CTRL
+end group
+
+    UI --> ag : Display list of grouped purchase orders by property
+
+    UI --> ag: Request data (select an offer to accept/decline)
+    deactivate UI
+
+    ag -> UI: Selects Order
+    activate UI
+
+    UI->CTRL: Selected Order
+
+group Select Order
+       activate CTRL
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+
+            RepositorySingleton --> CTRL: repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getOrderRepository()
+        activate PLAT
+
+            PLAT --> CTRL : OrderRepository
+        deactivate PLAT
+
+
+
+     alt Type Accept
+
+         CTRL -> orepository: deleteOthersFromRepository()
+         activate orepository
+         deactivate orepository
+         CTRL -> Client**: sendsEmail()
+
+         else Type Decline
+         CTRL ->orepository: deleteFromRepository()
+         activate orepository
+         deactivate orepository
+         CTRL -> Client**: sendsEmail()
+
+     end
+CTRL --> UI: Returns sucess message
+end group
+UI-->ag: Displays Sucesse Message
+
+@enduml

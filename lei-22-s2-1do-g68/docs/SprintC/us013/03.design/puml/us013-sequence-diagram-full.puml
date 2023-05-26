@@ -52,5 +52,13 @@ CTRL -> StoreRepository: getListStores()
          UI-->nm: Displays List of Stores and respective employees order alphabetically
         deactivate UI
 
+'note over CTRL, StoreRepository: Convert to StoreDTO
+'CTRL -> StoreDTO : Convert Store to StoreDTO
+
+'note over CTRL, StoreRepository: Convert to EmployeeDTO
+'CTRL -> EmployeeDTO : Convert Employee to EmployeeDTO
+
+'CTRL --> StoreDTO : Display List of Stores
+'CTRL--> EmployeeDTO : Display List of Employees
 
 @enduml
