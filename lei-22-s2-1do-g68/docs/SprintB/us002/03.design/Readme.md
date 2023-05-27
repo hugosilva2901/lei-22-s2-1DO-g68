@@ -49,17 +49,11 @@ but it is split in partial diagrams to better illustrate the interactions betwee
 
 It uses interaction ocurrence.
 
-![Sequence Diagram - split](svg/us002-sequence-diagram-split.svg)
+![Sequence Diagram - split](svg/us008-sequence-diagram-split.svg)
 
-**Get Clients List**
+**Get Announcements List**
 
-![Sequence Diagram - Partial - Get Clients List](svg/us002-sequence-diagram-partial-get-clients-list.svg)
-
-**Get Properties List**
-
-![Sequence Diagram - Partial - Get Properties List](svg/us002-sequence-diagram-partial-get-properties-list.svg)
-
-**Create Announcement**
+![Sequence Diagram - Partial - Get Announcements List](svg/us002-sequence-diagram-partial-get-properties-list.svg)
 
 ![Sequence Diagram - Partial - Create Announcement](svg/us002-sequence-diagram-partial-create-Announcement.svg)
 

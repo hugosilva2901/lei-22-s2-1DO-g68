@@ -6,121 +6,119 @@
 ### 1.1. User Story Description
 
 
-As a system administrator, I want to register a new employee.
-
+As an agent, I intend to see the list of property announcement requests made to myself, so that I can post the announcement.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 
 **From the specifications document:**
-The company's systems administrator will be responsible for registering all employees
-(specifying the name, descriptions, tax number,address, email address, phone number and the role of the employee) and branches of the network
-(specifying the designation, location) as well as preparing the system in order to facilitate the insertion of advertisements and facilitate the use of applications by employees.
+An agent views the pending announcement requests sorted by the date they were created, with the most recent 
+requests appearing first. An announcement is posted once a request is accepted. The list of requests should be 
+refreshed, and the accepted request should no longer be displayed.
 
 **From the client clarifications:**
 
-> **Question:** Can a single employee have more than one role? This is, when a system administrator is
-> registering an employee, can he/she select more than one role for that employee or is it limited to
-> one role per employee?
+> **Question:** About US08, since as an agent I intend to see the advertisement 
+> requests made to me in order to publish the chosen advertisement after consulting 
+> the list, why should there be an option to reject it since the previously chosen 
+> advertisement had already the intention of being published.The rejection operation 
+> shouldn't be described as another feature?
 >  
-> **Answer:**  An employee can have more than one role.
+> **Answer:** I want to check all property announcement requests and have the option to 
+> accept or reject any announcement request. The property owner is a human being and can 
+> make errors like any other human being...
 
 
-> **Question:** The statement specifies 3 different types of employees. The admnistrator, the agent 
-> and the store manager. Do we consider that there are only that functions for employees or are there more?
+> **Question:** besides the creation of a message justifiyng the rejection should a message or an email be sent to the client.
+> 
+> **Answer:** The system should also send the message to the owner by e-mail.
+
+> **Question:** Does the request once its declined by the agent be deleted from the request list?
+> 
+> **Answer:** The announce request should not be shown again to the agent. We never delete information from our system.
+
+> **Question:** Do the agent have to insert the commission after accepting the request from the request list?
+> 
+> **Answer:** The agent should, firstly, set the commission and then publishes the offer in the system. 
+> The sale price (the USD value that is shown in the announcement) should include the commission value 
+> (owner requested price + commission) and should not show the commission. The commission is only specified 
+> when the agent accepts the request.
+
+> **Question:** Does the customer have any say in setting the commission (agree or deny, eg: commission too high so I 
+> withdraw the ad request) or is the commission solely set by the agent without customer approval?
+> Assuming that and that the agent accepts the ad request:
+> Does he set the commission and post the ad?
+> or
+> does he set the commission, and wait for customer approval?
+> Taking that into account, what happens when the agent accepts the advertisement request:
+> Is the commission defined, is the ad registered and is feedback from the customer expected on the commission?
+> or
+> the agent sets the commission and the ad is published automatically?
+> 
+> **Answer:**  The agent should, firstly, set the commission and then publishes the offer in the system. 
+> The sale price (the USD value that is shown in the announcement) should include the commission value 
+> (owner requested price + commission) and should not show the commission. The commission is only specified 
+> when the agent accepts the request.
+
+> **Question:**  Is the owner responsible to assigning the property to an agent or there are other ways to do that?
 >
-> **Answer:** On this subject everything has already been clarified. Please check the project 
-> description and the posts I wrote in this forum.
+> **Answer:**  In US8 we get "As an agent, I intend to see the list of property announcement requests made to myself, 
+> so that I can post the announcement". In this US the agent is the actor.
+> The owner chooses the responsible agent in one other US. Please discuss this question with your teammates and teatchers.
 
-> **Question:** I have a question related to the output data: when the system administrator
-> is registering a new employee are we free to display what we feel is important or should 
-> a specific message be shown? I was thinking of displaying whether the operation was successful
-> or not, is that fine or should something else be displayed as well?
-> 
-> **Answer:** A good pratice is to show the information and ask for confirmation.
-
-> **Question:** ou have stated before that name, cc number, tax number, email address, phone number 
-> and the assigned agency of the employee are the mandatory requirements to register a new one, 
-> leaving out the employee's adress and role. This confused me, because it wasn't clear whether 
-> leaving out those two characteristics from the answer was intentional or not. Futhermore, 
-> the role of the employee seems like too much of an important piece of information to be left out. 
-> My request is, then, for you to state whether or not that was a conscious decision in your answer.
-> 
-> **Answer:** The role is required
-
-> **Question:** When registering a new employee, all the required data (name, citizen's card number, etc...)
-> have to be filled or exists not mandatory data?
-> 
-> **Answer:**  Required/Mandatory data that should be filled when registering an employee: name, 
-> the citizen's card number, the tax number, the email address, the contact telephone number and
-> the agency to which it is assigned.
-
-> **Question:** Does the system administrator select the agency to which the employee is assigned and his role from a list
-> ? Or does he just type that data
+> **Question:**  In this US8, will it be necessary to show search criteria? If so, which ones?
 >
-> **Answer:** The System Administrator should select
+> **Answer:**  There is no search criteria.
 
-> **Question:** The system administrator cannot add an agent that already exists, the agent has two unique numbers that
-> identify him (Tax number and Citizen's card number) which one should be used to identify the agent?
+> **Question:** Regarding US008, can the agent decline an announcement request?
 > 
-> **Answer:**  The tax number
+> **Answer:**  Yes. The agent must include a message justifying the rejection.
 
-> **Question:** Must the Tax number and Citizen's card number follow any convention? If so, which?
+> **Question:** Can the agent select multiple requests at the same time?
 > 
-> **Answer:**  You should use the tax identification number used for tax purposes in the US
+> **Answer:**  No. The agent can only post one announcement at a time.
 
-> **Question:** Does the System Administrator have permission to create, edit, delete, or just create new employee registrations?
-> 
-> **Answer:**  For now, the System Administrator can only do what is specified in the Project Requirements.
+> **Question:** When displaying the property announcement requests in the system to the agent besides 
+> them being ordered from most recent to oldest is there a need to display the specific day where the 
+> requests were published?
+>
+> **Answer:**  The list of property announcement requests should be sorted by the date they were created, 
+> with the most recent requests appearing first. The system should show the date when the property announcement 
+> requests was made.
+
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** If the store already has a Store Manager, the only role that can be assigned to a new employee is "ROLE_REAL_ESTATE_AGENT".
-* **AC3:** When creating a employee with an already existing tax number, the system must reject such operation and the user must have the change to modify the tax number.
-* **AC4:** The personal Information must correspond.
+* **AC1:** The list of property announcement requests should be sorted by the date they were created, with the most recent requests appearing first.
+* **AC2:** An announcement is posted when a request is accepted. The list of requests should be refreshed, and that request should not be shown again.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency to "US005 Create a store" since at least a store must exist to associate to the employee being created.
-
+There is a dependency on 'US002: As an agent, I can publish any sale announcement on the system, for example, received through a phone call' because at least one announcement must exist in order to associate it with an agent.
 ### 1.5 Input and Output Data
 
 
 **Input Data:**
 
 * Typed data:
-    * name
-    * descriptions
-    * tax number
-    * address
-    * email address
-    * phone number
-    * password
 	
+
 * Selected data:
-	* Role of the employee
-    * Branch of the network
+  * Announcement
 
 
 **Output Data:**
 +
-* List of existing employees
-* List of existing branches
-* List of existing roles
-* (In)Success of the operation
+* List Pending announcements sorted by date
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Other alternatives might exist.**
-
 #### Alternative One
 
-![Sequence Diagram- Alternative One](svg/us003-Sequence-diagram-alternative-one.svg)
+![Sequence Diagram- Alternative One](svg/us008-Sequence-diagram-alternative-one.svg)
 
-![Sequence Diagram- Alternative Two](svg/us003-Sequence-diagram-alternative-two.svg)
 
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* The announcement is set to PENDING by default.

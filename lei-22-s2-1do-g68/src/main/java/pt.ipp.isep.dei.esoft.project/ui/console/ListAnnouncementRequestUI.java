@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.AnnouncementState;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
@@ -14,10 +13,12 @@ public class ListAnnouncementRequestUI implements Runnable {
     private CreateAnnouncementController createAnnouncementController = new CreateAnnouncementController();
     private AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
 
+    private List<AnnouncementDTO> pendingAnnouncements;
+
     @Override
     public void run() {
         String employeeProject = authenticationRepository.getCurrentUserSession().getUserId().getEmail();
-        List<AnnouncementDTO> pendingAnnouncements = createAnnouncementController.getPendingAnnouncementsByDate(employeeProject);
+        pendingAnnouncements = createAnnouncementController.getPendingAnnouncementsByDate(employeeProject);
 
         displayAnnouncements(pendingAnnouncements);
 
@@ -47,7 +48,6 @@ public class ListAnnouncementRequestUI implements Runnable {
             announcementId++;
         }
 
-        System.out.println();
     }
 
     private int getSelectedAnnouncementIndex(List<AnnouncementDTO> announcements) {
