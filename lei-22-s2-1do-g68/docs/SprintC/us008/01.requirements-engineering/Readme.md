@@ -101,7 +101,7 @@ There is a dependency on 'US002: As an agent, I can publish any sale announcemen
 **Input Data:**
 
 * Typed data:
-	
+	Menu options
 
 * Selected data:
   * Announcement
