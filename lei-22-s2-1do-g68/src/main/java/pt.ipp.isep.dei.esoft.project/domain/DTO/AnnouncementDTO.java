@@ -12,11 +12,11 @@ public class AnnouncementDTO {
     private AnnouncementState announcementState;
     private LocalDateTime creationDate;
 
-    public AnnouncementDTO(Property property, int valueOfProperty, EmployeeProjectDTO employeeProject) {
+    public AnnouncementDTO(Property property, int valueOfProperty, EmployeeProjectDTO employeeProject, AnnouncementState announcementState ){
         this.property = property;
         this.valueOfProperty = valueOfProperty;
         this.employeeProject = employeeProject;
-        this.announcementState = AnnouncementState.PENDING;
+        this.announcementState = announcementState;
         this.creationDate = LocalDateTime.now();
     }
 

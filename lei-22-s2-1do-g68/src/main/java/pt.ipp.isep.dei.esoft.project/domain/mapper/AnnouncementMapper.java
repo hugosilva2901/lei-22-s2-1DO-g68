@@ -17,7 +17,8 @@ public class AnnouncementMapper {
         return new AnnouncementDTO(
                 entity.getProperty(),
                 entity.getValueOfProperty(),
-                EmployeeProjectMapper.toDTO(entity.getEmployeeProject())
+                EmployeeProjectMapper.toDTO(entity.getEmployeeProject()),
+                entity.getAnnouncementState()
         );
     }
 }
