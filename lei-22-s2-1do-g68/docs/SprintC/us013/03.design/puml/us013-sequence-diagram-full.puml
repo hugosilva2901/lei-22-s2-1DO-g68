@@ -11,6 +11,10 @@ participant ":ShowEmployeeUI" as UI
 participant ":ShowEmployeeController" as CTRL
 participant "StoreRepository:\nStoreRepository" as StoreRepository
 participant "PropertyRepository:\nPropertyRepository" as PropertyRepository
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "StoreMapper:\StoreMapper" as SMapper
+participant "StoreDTO:\StoreDTO" as SDTO
 
 
 activate nm
@@ -23,22 +27,84 @@ activate nm
         UI -> CTRL : Get Stores
         activate CTRL
 
+CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
 
+            CTRL -> PLAT : getStoreRepository()
+            activate PLAT
 
-CTRL -> StoreRepository: getListStores()
-         activate StoreRepository
+            PLAT --> CTRL: StoreRepository
+            deactivate PLAT
 
-         StoreRepository --> CTRL: List of Stores
+CTRL -> StoreRepository : getListStoresDTO()
+            loop storesDTO
+            activate StoreRepository
+              StoreRepository->SMapper:getListStoresDTO()
+            activate SMapper
 
-         deactivate StoreRepository
+            SMapper->SDTO:CreateStoreDTO()
+
+            activate SDTO
+            SDTO-->SMapper:StoreDTO
+            deactivate SDTO
+            SMapper-->StoreRepository:StoreDTO
+            deactivate SMapper
+            end
+                StoreRepository --> CTRL : StoreList
+            deactivate StoreRepository
+
+CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getPropertyRepository()
+            activate PLAT
+
+            PLAT --> CTRL: PropertyRepository
+            deactivate PLAT
 
          CTRL->PropertyRepository: Numbers of properties of each store
          activate PropertyRepository
+
+
          PropertyRepository-->CTRL:Numbers of properties of each store
          deactivate PropertyRepository
 
          UI->CTRL: Get Employee
+
+CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getStoreRepository()
+            activate PLAT
+
+            PLAT --> CTRL: StoreRepository
+            deactivate PLAT
+
+CTRL -> StoreRepository : getListEmployeeDTO()
+            loop employeeDTO
+            activate StoreRepository
+             StoreRepository->SMapper:getListEmployeeDTO()
+            activate SMapper
+
+            SMapper->SDTO:CreateEmployeeDTO()
+
+            activate SDTO
+            SDTO-->SMapper:EmployeeDTO
+            deactivate SDTO
+            SMapper-->StoreRepository:EmployeeDTO
+            deactivate SMapper
+            end
+                StoreRepository --> CTRL : EmployeeList
+            deactivate StoreRepository
 
          CTRL->StoreRepository:getListEmployees()
          activate StoreRepository
@@ -52,13 +118,5 @@ CTRL -> StoreRepository: getListStores()
          UI-->nm: Displays List of Stores and respective employees order alphabetically
         deactivate UI
 
-'note over CTRL, StoreRepository: Convert to StoreDTO
-'CTRL -> StoreDTO : Convert Store to StoreDTO
-
-'note over CTRL, StoreRepository: Convert to EmployeeDTO
-'CTRL -> EmployeeDTO : Convert Employee to EmployeeDTO
-
-'CTRL --> StoreDTO : Display List of Stores
-'CTRL--> EmployeeDTO : Display List of Employees
 
 @enduml

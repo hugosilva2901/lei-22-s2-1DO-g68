@@ -178,6 +178,24 @@ class AcceptOrderController{
   + void acceptOrder()
 }
 
+class OrderMapper{
+    +OrderMapper():
+    +mapToDTO(Order): OrderDTO
+    +mapToEntity(OrderDTO): Order
+}
+
+class OrderDTO{
+    - value: int
+    -Announcement: Announcement
+    -Client: Client
+}
+
+class Order{
+    - value: int
+    -Announcement: Announcement
+    -Client: Client
+}
+
 class MessagesOfClientRepository
 
 
@@ -188,10 +206,14 @@ AcceptOrderController --> MessagesOfClientRepository
 MessagesOfClientRepository --> Client
 AcceptOrderController --> PropertyRepository
 User "1" *--> "roles\n1" Roles
+Order "1" --> "*" User : has a client >
 ClientRepository "1" *--> "clients\n*" Client
 PropertyRepository           "1" *--> "apartments\n*" Apartment
 PropertyRepository           "1" *--> "houses\n*" House
 PropertyRepository           "1" *--> "lands\n*" Land
+OrderRepository "1" --> "*" Order : has >
+OrderRepository "1" --> "*" OrderMapper : Uses >
+OrderMapper "1" --> "*" OrderDTO : creates >
 Repositories -->  ClientRepository : "«create»"
 Repositories -->  PropertyRepository : "«create»"
 Repositories -->  OrderRepository : "«create»"

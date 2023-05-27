@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an organization employee, I want to list all of the employees working  in every store of the network.
+As an network manager, I want to list all the employees working in every store of the network.
 
 
 
@@ -40,7 +40,7 @@ As an organization employee, I want to list all of the employees working  in eve
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US003 Create a task category" since at least a task category must exist to classify the task being created.
+* There is a dependency to "US003 register a new employee"  and "US005 register a new store" since at least an employee and a store must exist to classify the task being created.
 
 
 ### 1.5 Input and Output Data
@@ -66,7 +66,7 @@ As an organization employee, I want to list all of the employees working  in eve
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us007-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us013-system-sequence-diagram-alternative-one.svg)
 
 
 ### 1.7 Other Relevant Remarks
