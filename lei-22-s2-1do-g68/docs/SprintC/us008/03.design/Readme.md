@@ -21,7 +21,6 @@
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
  * AnnouncementRepository
- * employee
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
