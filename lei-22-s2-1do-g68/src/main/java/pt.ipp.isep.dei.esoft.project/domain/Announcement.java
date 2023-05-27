@@ -72,7 +72,6 @@ public class Announcement {
         return "Announcement{" +
                 "value Of Property=" + valueOfProperty +
                 ", property=" + property.toString() +
-                ", creationDate=" + creationDate.toString() +
                 '}';
     }
 }
