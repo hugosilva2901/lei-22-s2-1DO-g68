@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.OrderMapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -62,10 +63,18 @@ public class AnnouncementRepository {
                 .collect(Collectors.toList());
     }
 
-    public void changeAnnouncementState(AnnouncementDTO announcement, AnnouncementState newState) {
-        if (announcement != null) {
-            announcement.setAnnouncementState(newState);
+    private Announcement findAnnouncement(AnnouncementDTO ann) {
+        for (Announcement a : announcements) {
+            if(a.toString().equals(AnnouncementMapper.toEntity(ann).toString())){
+                return a;
+            }
         }
+        return null;
+    }
+
+    public void changeAnnouncementState(AnnouncementDTO announcement, AnnouncementState newState) {
+        Announcement a = findAnnouncement(announcement);
+            a.setAnnouncementState(newState);
     }
 
 }
