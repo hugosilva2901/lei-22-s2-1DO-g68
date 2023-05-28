@@ -69,6 +69,15 @@ class Store {
    address: String
 }
 
+class Announcement {
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
+}
+
 class Repositories {
   - Repositories():
   ~ propertyRepository: PropertyRepository
@@ -96,13 +105,37 @@ class StoreRepository {
   + listEmployees(): List<EmployeeProject>
    stores: List<Store>
 }
-'Class EmployeeRepository
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
+}
+
+class ShowEmployeeUI{
+  + void run()
+}
+
+class ShowEmployeeController{
+  + ShowEmployeeController
+  + ShowEmployeeController(AuthenticationRepository authenticationRepository)
+  + AnnouncementRepository getAnnouncementRepository()
+  - AuthenticationRepository getAuthenticationRepository()
+  + StoreRepository getStoreRepository()
+  + void showStoresandEmployes()
+  + void displayEmployee()
+}
 
 
 CreatEmployeeUi               -->  CreatEmployeeController      : "«create»"
 CreateStoreController        "1" *--> "StoreRepository"
 CreateStoreUI                 ->  CreateStoreController        : "«create»"
 CreatEmployeeController      "1" *--> "storeRepository\n1" StoreRepository
+ShowEmployeeUI                 ->  ShowEmployeeController        : "«create»"
+ShowEmployeeController .> Repositories: repositories
+AnnouncementRepository       "1" *--> "announcements\n*" Announcement
 Store                        "1" *--> "repositories\n1" Repositories
 Repositories                  -->  StoreRepository              : "«create»"
+Repositories                  -->  AnnouncementRepository       : "«create»"
 @enduml

@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an network manager, I want to list all the employees working in every store of the network.
+As a network manager, I want to list all the employees working in every store of the network.
 
 
 

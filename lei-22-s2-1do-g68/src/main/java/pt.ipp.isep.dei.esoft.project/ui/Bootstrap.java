@@ -32,7 +32,9 @@ public class Bootstrap implements Runnable {
 
     private void addStore() {
         Store store = new Store("Store","9155555", "Rua do Teste", "vatnumber", "Portugal",5);
+        Store store2 = new Store("ArmStrong","9166691", "Teste Rua", "vatnumber", "Portugal",1);
         Repositories.getInstance().getStoreRepository().addStore(store);
+        Repositories.getInstance().getStoreRepository().addStore(store2);
     }
 
     private void addEmployee() {
@@ -41,9 +43,13 @@ public class Bootstrap implements Runnable {
         Roles[] roles1 = new Roles[1];
         roles1[0] = Roles.STOREMANAGER;
         Store store = Repositories.getInstance().getStoreRepository().getStores().get(0);
-        EmployeeProject employeeProject = new EmployeeProject("name", "ajent", 265903075,"employee2@this.app"
+        Store store2 = Repositories.getInstance().getStoreRepository().getStores().get(1);
+        EmployeeProject employeeProject = new EmployeeProject("Jota", "ajent", 265903075,"employee2@this.app"
                 ,"hugo","rua dp calvario","910634405", roles,500, store);
+        EmployeeProject employeeProject2 = new EmployeeProject("Migua", "ajent", 265903076,"employee3@this.app"
+                ,"migua","rua dp calvario","910634405", roles,500, store2);
         Repositories.getInstance().getStoreRepository().addEmployeeToStorePublic(store,employeeProject);
+        Repositories.getInstance().getStoreRepository().addEmployeeToStorePublic(store2,employeeProject2);
     }
     private void addProperty() {
         List<String> list= new ArrayList<>();

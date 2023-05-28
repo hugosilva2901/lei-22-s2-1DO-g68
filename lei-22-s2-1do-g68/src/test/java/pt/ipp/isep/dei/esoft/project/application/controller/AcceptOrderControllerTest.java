@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 import java.util.List;
 
