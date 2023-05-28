@@ -83,7 +83,7 @@ public class OrderRepository {
         List<OrderDTO> ordersOfTheAgent = new ArrayList<>();
         for (order o : orders) {
             if (o.getStatusOfOrder() == StatusOfOrder.Pending) {
-                if (o.getAnnouncement().equals(AnnouncementMapper.toEntity(announcement))) {
+                if (o.getAnnouncement().toString().equals(AnnouncementMapper.toEntity(announcement).toString())) {
                     ordersOfTheAgent.add(OrderMapper.toDTO(o));
                 }
             }

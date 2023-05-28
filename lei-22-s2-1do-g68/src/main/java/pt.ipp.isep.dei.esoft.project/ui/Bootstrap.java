@@ -95,7 +95,7 @@ public class Bootstrap implements Runnable {
         AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
 
         announcementRepository.getAnnouncements().get(1).setAnnouncementState(AnnouncementState.ACCEPTED);
-
+        announcementRepository.getAnnouncements().get(0).setAnnouncementState(AnnouncementState.ACCEPTED);
         AnnouncementDTO announcement = ctrl.getAnnouncements().get(0);
         ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(0));
         ctrl.addOrderToTest(announcement, 100,clientRepository.getClientsDTO().get(1));
