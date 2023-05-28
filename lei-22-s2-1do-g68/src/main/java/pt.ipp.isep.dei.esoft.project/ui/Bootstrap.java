@@ -52,6 +52,10 @@ public class Bootstrap implements Runnable {
         House house = new House("Casa Torneirinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
         Land land = new Land("Land Torneirinhas", "land", "Rua das torneiras", "Muito bem equipada", true, true, 5);
         Apartment apartment = new Apartment("Apartment Torneirinhas", "apartment", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list);
+        House house1 = new House("Casa Tornrinhas", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
+        House house2 = new House("Casa To", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
+        House house3 = new House("Casa T", "house", "Rua das torneiras", "Muito bem equipada", true, true, 5, 5, 5, 5, list , true, true, true);
+
 
         creatClienteController.createClient("Tiago","f",254054706,"tiago@this.app","tiago","aggaga","910634405",Roles.CLIENT);
         creatClienteController.createClient("Joao","f",510447465,"joao@this.app","tiago","aggaga","910634405",Roles.CLIENT);
@@ -59,6 +63,9 @@ public class Bootstrap implements Runnable {
         announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(2), house);
         announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(0), land);
         announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), apartment);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), house1);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), house2);
+        announcementController.getClientRepository().addPropertyToClient(announcementController.getClientRepository().getClients().get(1), house3);
 
     }
     private void addUsers() {
@@ -87,6 +94,9 @@ public class Bootstrap implements Runnable {
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(2).getProperties().get(0),1000, EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(0).getProperties().get(0),1001,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
         announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(0),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(1),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(2),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
+        announcementController.createAnnouncementBootstrao(announcementController.getClientRepository().getClients().get(1).getProperties().get(3),1002,EmployeeProjectMapper.toDTO(Repositories.getInstance().getStoreRepository().listEmployees().get(0)));
     }
 
     private void addOrder(){
