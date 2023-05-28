@@ -1,14 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.AnnouncementState;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
-import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

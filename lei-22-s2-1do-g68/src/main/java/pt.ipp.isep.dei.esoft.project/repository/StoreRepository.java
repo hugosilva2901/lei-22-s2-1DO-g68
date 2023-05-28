@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
 import pt.ipp.isep.dei.esoft.project.domain.Store;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
@@ -38,6 +39,7 @@ public class StoreRepository {
         return employees;
      }
 
+
     public void setStores(List<Store> stores) {
         this.stores = stores;
     }
@@ -58,6 +60,33 @@ public class StoreRepository {
             }
         }
         store.getEmployees().add(employee);
+    }
+
+    public void addPropertyToStorePublic(Store store, Property property){
+        addPropertyToStore(store, property);
+    }
+    private void addPropertyToStore(Store store, Property property) {
+        if (store == null){
+            throw new IllegalArgumentException("Store is null");
+        }
+        if (property == null){
+            throw new IllegalArgumentException("Property is null");
+        }
+        for (int i = 0; i < stores.size(); i++) {
+            for (int j = 0; j < stores.get(i).getProperties().size(); j++) {
+                if (stores.get(i).getProperties().get(j).getName()==property.getName())
+                    throw new IllegalArgumentException("Property already exists in another store");
+            }
+        }
+        store.getProperties().add(property);
+    }
+
+    public int countPropertiesByStore() {
+        int count = 0;
+        for (Store store : stores) {
+            count += store.getProperties().size();
+        }
+        return count;
     }
 
     public Optional<EmployeeProject> createEmployee(String name, String descptions, int taxNumber, String email, String password,
@@ -88,5 +117,6 @@ public class StoreRepository {
        EmployeeProject employeeProject= getEmployeeByNameAux(name);
        return EmployeeProjectMapper.toDTO(employeeProject);
     }
+
 
 }

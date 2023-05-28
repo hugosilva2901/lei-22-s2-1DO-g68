@@ -16,6 +16,7 @@ public class Store {
     private int branchNumber;
 
     private List<EmployeeProject> employees;
+    private List<Property> properties;
     private Repositories repositories = Repositories.getInstance();
     private EmployeeProject localManager;
     public Store(String name, String phone, String email, String vatNumber, String address, int branchNumber) {
@@ -26,6 +27,7 @@ public class Store {
         this.address = address;
         this.branchNumber = branchNumber;
         this.employees = new ArrayList<>();
+        this.properties = new ArrayList<>();
         validate(name,phone,email,vatNumber,address,branchNumber);
         this.localManager = null;
     }
@@ -42,8 +44,14 @@ public class Store {
         return employees;
     }
 
+    public List<Property> getProperties(){return properties;}
+
     public void setEmployees(List<EmployeeProject> employees) {
         this.employees = employees;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
     }
 
     public String getName() {
