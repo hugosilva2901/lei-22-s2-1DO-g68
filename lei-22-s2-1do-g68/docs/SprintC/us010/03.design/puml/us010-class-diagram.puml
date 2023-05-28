@@ -7,6 +7,8 @@ skinparam linetype polyline
 
 skinparam classAttributeIconSize "2"
 'left to right direction
+
+
 class Repositories {
   - Repositories():
   ~ propertyRepository: PropertyRepository
@@ -48,39 +50,113 @@ enum Roles << enumeration >> {
   + valueOf(String): Roles
 }
 
-class CreateOrderUI{
+class CreateOrderUI {
+  + CreateOrderUI():
+  - displayAndSelectAnnouncement(): AnnouncementDTO?
+  + run(): void
+  - submitData(): void
+  - displayAnnouncementOptions(List<AnnouncementDTO>): void
 }
-class CreateOrderController{
+class CreateOrderController {
+  + CreateOrderController():
+  + addOrderToTest(AnnouncementDTO, int, ClientDTO): boolean
+  + addOrder(AnnouncementDTO, int): boolean
+  - getClientByUserEmail(String): ClientDTO
+   orderRepository: OrderRepository
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   announcementRepository: AnnouncementRepository
+   announcements: List<AnnouncementDTO>
 }
-class OrderRepository{
+class OrderRepository {
+  + OrderRepository():
+  + createOrder(AnnouncementDTO, int, ClientDTO): Optional<OrderDTO>
+  - addOrder(order): void
+  - PutPerorder(): void
+  - findOrder(OrderDTO): order?
+  + rejectOrder(OrderDTO, MessagesOfClientRepository): void
+  + acceptOrder(OrderDTO, MessagesOfClientRepository): void
+  + OrderOfTheAgent(AnnouncementDTO): List<OrderDTO>
+  - valueAlreadyExists(int, AnnouncementDTO): boolean
+  - clientAlreadyExists(ClientDTO, AnnouncementDTO): boolean
+   orders: List<OrderDTO>
 }
-class Order{
-    - value: int
-    -Announcement: Announcement
-    -Client: Client
+class Order {
+  + order(Announcement, int, Client):
+  + toString(): String
+  + validateOrder(order): void
+   value: int
+   client: Client
+   statusOfOrder: StatusOfOrder
+   announcement: Announcement
 }
-class OrderDTO{
-    - value: int
-    -Announcement: Announcement
-    -Client: Client
+class OrderDTO {
+  + OrderDTO(AnnouncementDTO, int, ClientDTO, StatusOfOrder):
+   value: int
+   statusOfOrder: StatusOfOrder
+   announcement: AnnouncementDTO
+   client: ClientDTO
+}
+class OrderMapper {
+  + OrderMapper():
+  + toEntity(OrderDTO): order
+  + toDTO(order): OrderDTO
+}
+enum StatusOfOrder << enumeration >> {
+  + StatusOfOrder():
+  + values(): StatusOfOrder[]
+  + valueOf(String): StatusOfOrder
+}
+class Announcement {
+  + Announcement(Property, int, EmployeeProject):
+  + toString(): String
+  + validateAnnouncement(Announcement): void
+   employeeProject: EmployeeProject
+   announcementState: AnnouncementState
+   valueOfProperty: int
+   property: Property
+   commission: int
+   creationDate: LocalDateTime
+}
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  - findAnnouncement(AnnouncementDTO): Announcement?
+  + removeAnnouncement(Announcement): boolean
+  + getAnnouncementsByEmployee(EmployeeProjectDTO): List<AnnouncementDTO>
+  + addAnnouncement(Announcement): void
+  + createAnnouncement(Property, int, EmployeeProject): Optional<Announcement>
+  + getPendingAnnouncementsByDate(String): List<AnnouncementDTO>
+  + changeAnnouncementState(AnnouncementDTO, AnnouncementState): void
+   announcements: List<Announcement>
+   announcementsDTO: List<AnnouncementDTO>
+   announcementsDTOAccepted: List<AnnouncementDTO>
+}
+enum AnnouncementState << enumeration >> {
+  + AnnouncementState():
+  + values(): AnnouncementState[]
+  + valueOf(String): AnnouncementState
+}
+class AnnouncementDTO {
+  + AnnouncementDTO(Property, int, EmployeeProjectDTO, AnnouncementState):
+  + toString(): String
+   announcementState: AnnouncementState
+   employeeProject: EmployeeProjectDTO
+   valueOfProperty: int
+   property: Property
+   creationDate: LocalDateTime
+}
+class AnnouncementMapper {
+  + AnnouncementMapper():
+  + toDTO(Announcement): AnnouncementDTO
+  + toEntity(AnnouncementDTO): Announcement
 }
 
-class OrderMapper{
-    +OrderMapper():
-    +mapToDTO(Order): OrderDTO
-    +mapToEntity(OrderDTO): Order
-}
-class AnnouncementRepository{
-}
-class AnnouncementDTO{
-    - value: int
-    -Announcement: Announcement
-    -Client: Client
-}
-class AnnouncementMapper{
-    +AnnouncementMapper():
-    +mapToDTO(Announcement): AnnouncementDTO
-    +mapToEntity(AnnouncementDTO): Announcement
+class Client extends User {
+  + Client(String, String, int, String, String, String, String, Roles):
+  - validateTaxNumber(int): void
+  - validateClient(String, String, int, String, String, String, String, Roles): void
+  + addProperty(Property): void
+   properties: List<Property>
 }
 
 User "1"--"1.*" Roles : has >
@@ -93,10 +169,13 @@ OrderRepository "1" --> "*" OrderMapper : Uses >
 OrderMapper "1" --> "*" OrderDTO : creates >
 AnnouncementRepository "1" --> "*" AnnouncementMapper : Uses >
 AnnouncementMapper "1" --> "*" AnnouncementDTO : creates >
+AnnouncementMapper "1" --> "*" Announcement : transformsDTO to object>
 OrderRepository "1" --> "*" Order : has >
-Order "1" --> "*" User : has a client >
 Order "*" --> "1" Announcement : has a announcement >
-
-
+Order "1" --> "*" Client : has a client >
+Announcement "*" -> "1" AnnouncementState : has a state >
+AnnouncementDTO "*" -> "1" AnnouncementState : has a state >
+OrderDTO "*" -> "1" StatusOfOrder : has a state >
+Order "*"->"1" StatusOfOrder : has a state >
 
 @enduml
