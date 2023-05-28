@@ -27,7 +27,7 @@ activate CL
 
         UI -> CTRL** : create
 
- -> CTRL : getAnnouncementDTO()
+ UI-> CTRL : getAnnouncementDTO()
 activate CTRL
     group Get Task Category List
 
