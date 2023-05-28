@@ -13,6 +13,8 @@ public class Repositories {
 
     MessagesOfClientRepository messagesOfClientRepository = new MessagesOfClientRepository();
     OrderRepository orderRepository = new OrderRepository();
+    VisitRepository visitRepository = new VisitRepository();
+
     private Repositories() {
     }
 
@@ -40,11 +42,16 @@ public class Repositories {
         return propertyRepository;
     }
 
-    public AnnouncementRepository getAnnouncementRepository(){
+    public AnnouncementRepository getAnnouncementRepository() {
         return announcementRepository;
     }
 
-    public MessagesOfClientRepository getMessagesOfClientRepository(){
+    public MessagesOfClientRepository getMessagesOfClientRepository() {
         return messagesOfClientRepository;
     }
+
+    public VisitRepository getVisitRepository() {
+        return visitRepository;
+    }
+
 }

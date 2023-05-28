@@ -77,4 +77,7 @@ public class AnnouncementRepository {
             a.setAnnouncementState(newState);
     }
 
+    public ArrayList<Announcement> getAnnouncementList() {
+        return new ArrayList<>(this.announcements);
+    }
 }
