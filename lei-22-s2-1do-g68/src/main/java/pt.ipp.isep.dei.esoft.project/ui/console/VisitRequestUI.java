@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.VisitRequestController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
 
@@ -18,12 +19,10 @@ public class VisitRequestUI implements Runnable{
 
     private String date;
     private String message;
-    private Announcement announcement;
+    private AnnouncementDTO announcement;
     private Client client;
 
-    private VisitRequestController getController(){
-        return controller;
-    }
+
 
     @Override
     public void run() {
@@ -47,15 +46,15 @@ public class VisitRequestUI implements Runnable{
     }
 
     private void submitData() {
-        if (getController().registerVisitRequest(date, message, announcement, client)) {
+        if (controller.registerVisitRequest(date, message, announcement, client)) {
             System.out.println("Visit Request successfully created.");
         } else {
             System.out.println("An error occurred. Please try again.");
         }
     }
 
-    private Announcement displayAndSelectAnnouncement() {
-        List<Announcement> announcements = getController().getAnnouncementRepository().getAnnouncements();
+    private AnnouncementDTO displayAndSelectAnnouncement() {
+        List<AnnouncementDTO> announcements = controller.getAnnouncementRepository().getAnnouncementsDTOAccepted();
 
         int listSize = announcements.size();
         int answer = -1;
@@ -68,20 +67,20 @@ public class VisitRequestUI implements Runnable{
             answer = input.nextInt();
         }
 
-        Announcement announcement = announcements.get(answer - 1);
+        AnnouncementDTO announcement = announcements.get(answer - 1);
         return announcement;
     }
 
-    private void displayAnnouncements(List<Announcement> announcements) {
+    private void displayAnnouncements(List<AnnouncementDTO> announcements) {
         int i = 1;
-        for (Announcement announcement : announcements) {
+        for (AnnouncementDTO announcement : announcements) {
             System.out.println(i + " - " + announcement.getAnnouncementState());
             i++;
         }
     }
 
     private String displayVisitMessage(){
-        List<VisitRequest> visitList = getController().getVisitRepository().getVisitList();
+        List<VisitRequest> visitList = controller.getVisitRepository().getVisitList();
 
         if (visitList.isEmpty()){
             System.out.println("There are no Visit Requests to show.");

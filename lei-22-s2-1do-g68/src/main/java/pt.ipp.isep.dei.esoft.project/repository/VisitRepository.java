@@ -2,8 +2,12 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
+
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class VisitRepository {
 
@@ -15,6 +19,13 @@ public class VisitRepository {
 
     public static ArrayList<VisitRequest> getVisitList(){
         return visitList;
+    }
+
+    public Optional<VisitRequest> createVisitRequest(AnnouncementDTO announcement, String date, String message, Client client){
+        Announcement  announcement1= AnnouncementMapper.toEntity(announcement);
+        addVisit(announcement1, date, message, client);
+
+        return Optional.of(new VisitRequest(announcement1, date, message, client));
     }
 
 }
