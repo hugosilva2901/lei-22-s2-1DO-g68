@@ -14,6 +14,12 @@ activate Agent
     Agent -> System : Requests to see the list of visit requests
     activate System
 
+    System --> Agent : Requests begin data and end data of the visit requests
+    deactivate System
+    "Agent" -> System : fill the requested data
+
+    activate System
+
     System --> Agent : Shows list of visit requests of the agent
     deactivate System
 
