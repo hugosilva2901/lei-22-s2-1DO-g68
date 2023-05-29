@@ -3,11 +3,10 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
-import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
-import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.VisitRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -17,10 +16,13 @@ public class VisitRequestController {
     private AnnouncementRepository announcementRepository = null;
     private ClientRepository clientRepository = null;
 
+    private AuthenticationRepository authenticationRepository = null;
+
     public VisitRequestController() {
         getVisitRepository();
         getAnnouncementRepository();
         getClientRepository();
+        getAuthenticationRepository();
     }
 
     public VisitRepository getVisitRepository(){
@@ -47,14 +49,26 @@ public class VisitRequestController {
         return clientRepository;
     }
 
+    public AuthenticationRepository getAuthenticationRepository(){
+        if (authenticationRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            authenticationRepository = repositories.getAuthenticationRepository();
+        }
+        return authenticationRepository;
+    }
+
     public ArrayList<Announcement> getAnnouncementList(){
         return this.announcementRepository.getAnnouncementList();
     }
 
+    private ClientDTO getClientByUserEmail(String userName){
+        return clientRepository.getClientByEmail(userName);
+    }
 
 
     public boolean registerVisitRequest(String date, String message, AnnouncementDTO announcement, Client client) {
-        return this.visitRepository.createVisitRequest(announcement, date, message, client).isPresent();
+        ClientDTO client1 = getClientByUserEmail(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
+        return this.visitRepository.createVisitRequest(announcement, date, message, client1).isPresent();
     }
 }
 
