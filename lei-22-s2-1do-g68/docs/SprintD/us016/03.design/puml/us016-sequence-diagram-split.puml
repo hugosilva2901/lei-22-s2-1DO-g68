@@ -7,8 +7,8 @@ autonumber
 
 'hide footbox
 actor "EmployeeProject" as User
-participant ":ListVisitRequestUI" as UI
-participant ":ListVisitRequestController" as CTRL
+participant ":MessageVisitRequestUI" as UI
+participant ":MessageVisitRequestController" as CTRL
 
 activate User
 

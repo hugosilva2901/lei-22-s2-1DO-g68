@@ -7,7 +7,7 @@ autonumber
 
 'hide footbox
 
-participant ":ListVisitRequestController" as CTRL
+participant ":MessageVisitRequestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "VisitRequestRepository:\VisitRequestRepository" as VisitRequestRepository
