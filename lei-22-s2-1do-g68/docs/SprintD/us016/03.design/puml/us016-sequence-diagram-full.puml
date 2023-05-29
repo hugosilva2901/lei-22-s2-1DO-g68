@@ -1,0 +1,130 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as User
+participant ":ListVisitRequestUI" as UI
+participant ":ListVisitRequestController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant "EmployeeRepository:\nEmployeeRepository" as EmployeeRepository
+participant "MessageRepository:\nMessageRepository" as MessageRepository
+
+participant "VisitRequestsRepository\n:VisitRequestsRepository" as REPO
+participant "VisitRequestMapper:\VisitRequestMapper" as Mapper
+
+activate User
+
+    User -> UI : Requests to see the list of visit requests
+
+activate UI
+
+    UI --> User :Requests begin data and end data of the visit requests
+deactivate UI
+
+        User -> UI : fill the requested data
+        activate UI
+
+                UI -> CTRL** : creates
+
+                UI -> CTRL : Requests the list of visit requests
+                activate CTRL
+  CTRL -> _APP: getInstance()
+        activate _APP
+            _APP -> CTRL: appSession
+        deactivate _APP
+
+        CTRL -> APP: getCurrentSession()
+        activate APP
+
+            APP --> CTRL: currentSession
+        deactivate APP
+
+        CTRL -> SESSAO: name = getUserName()
+        activate SESSAO
+
+            SESSAO --> CTRL: name
+        deactivate SESSAO
+
+        CTRL -> PLAT: getEmployeeRepository()
+        activate PLAT
+
+            PLAT --> CTRL: EmployeeRepository
+        deactivate PLAT
+
+        CTRL -> EmployeeRepository: getEmployeeByUserName(email)
+        activate EmployeeRepository
+
+            EmployeeRepository --> CTRL : Employee
+
+        deactivate EmployeeRepository
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getVisitRequestRepository()
+            activate PLAT
+
+                PLAT --> CTRL: VisitRequestRepository
+            deactivate PLAT
+
+            CTRL -> VisitRequestRepository : getVisitRequestDTO(Employee,beginDate,endDate)
+            loop get list of VisitRequestDTO
+            activate VisitRequestRepository
+              VisitRequestRepository->Mapper:getVisitRequestDTO()
+            activate Mapper
+
+            Mapper->DTO:CreateVisitRequestDTO()
+
+            activate DTO
+            DTO-->Mapper:VisitRequestDTO
+            deactivate DTO
+            Mapper-->VisitRequestRepository:VisitRequestDTO
+            deactivate Mapper
+            end
+            VisitRequestRepository --> VisitRequestRepository : Put the list in ascending order
+                VisitRequestRepository --> CTRL : VisitRequestList
+            deactivate VisitRequestRepository
+
+            CTRL --> UI : VisitRequestList
+
+                    deactivate CTRL
+
+                UI --> User : Shows the list of visit requests
+                deactivate UI
+                User -> UI : Selects a visit request
+                activate UI
+
+                UI --> User : asks to write a message
+                deactivate UI
+                User -> UI : writes a message
+                activate UI
+
+                UI -> CTRL : send message
+                activate CTRL
+
+                CTRL -> MessageRepository : sendMessage()
+                activate MessageRepository
+
+                MessageRepository -> CTRL : success
+                deactivate MessageRepository
+
+                CTRL -> UI : success
+                deactivate CTRL
+
+                UI -> User : success
+                deactivate UI
+deactivate User
+
+@enduml

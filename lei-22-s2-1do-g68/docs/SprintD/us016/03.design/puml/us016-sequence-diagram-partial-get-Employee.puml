@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+
+'hide footbox
+participant ":ListVisitRequestController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "EmployeeRepository:\nEmployeeRepository" as EmployeeRepository
+
+autonumber 14
+-> CTRL : getClientFromSession()
+autonumber 14.1
+activate CTRL
+
+    group Get Client
+        CTRL -> _APP: getInstance()
+        activate _APP
+            _APP -> CTRL: appSession
+        deactivate _APP
+
+        CTRL -> APP: getCurrentSession()
+        activate APP
+
+            APP --> CTRL: currentSession
+        deactivate APP
+
+        CTRL -> SESSAO: name = getUserName()
+        activate SESSAO
+
+            SESSAO --> CTRL: name
+        deactivate SESSAO
+
+        CTRL -> PLAT: getEmployeeRepository()
+        activate PLAT
+
+            PLAT --> CTRL: EmployeeRepository
+        deactivate PLAT
+
+        CTRL -> EmployeeRepository: getEmployeeByUserName(email)
+        activate EmployeeRepository
+
+            EmployeeRepository --> CTRL : Employee
+
+        deactivate EmployeeRepository
+
+
+    end
+    autonumber 15
+    <-- CTRL : Employee
+deactivate CTRL
+
+@enduml

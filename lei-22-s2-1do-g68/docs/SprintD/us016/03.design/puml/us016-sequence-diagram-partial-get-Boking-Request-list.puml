@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":ListVisitRequestController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "VisitRequestRepository:\VisitRequestRepository" as VisitRequestRepository
+participant "VisitRequestMapper:\VisitRequestMapper" as Mapper
+participant "VisitRequestDTO:\VisitRequestDTO" as DTO
+
+autonumber 3
+
+ -> CTRL : getVisitRequestDTO()
+autonumber 3.1
+activate CTRL
+    group Get Task Category List
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getVisitRequestRepository()
+            activate PLAT
+
+                PLAT --> CTRL: VisitRequestRepository
+            deactivate PLAT
+
+            CTRL -> VisitRequestRepository : getVisitRequestDTO()
+            loop get list of VisitRequestDTO
+            activate VisitRequestRepository
+              VisitRequestRepository->Mapper:getVisitRequestDTO()
+            activate Mapper
+
+            Mapper->DTO:CreateVisitRequestDTO()
+
+            activate DTO
+            DTO-->Mapper:VisitRequestDTO
+            deactivate DTO
+            Mapper-->VisitRequestRepository:VisitRequestDTO
+            deactivate Mapper
+            end
+                VisitRequestRepository --> CTRL : VisitRequestList
+            deactivate VisitRequestRepository
+
+    end
+    autonumber 4
+    <-- CTRL  : VisitRequestList
+deactivate CTRL
+
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "EmployeeProject" as User
+participant ":ListVisitRequestUI" as UI
+participant ":ListVisitRequestController" as CTRL
+
+activate User
+
+    User -> UI : Requests to see the list of visit requests
+
+activate UI
+
+    UI --> User :Requests begin data and end data of the visit requests
+deactivate UI
+
+        User -> UI : fill the requested data
+        activate UI
+
+                UI -> CTRL** : creates
+
+                UI -> CTRL : Requests the list of visit requests
+                activate CTRL
+                    CTRL->CTRL : Put the list in ascending order
+
+                    CTRL -> UI : Sends the list of visit requests
+                    deactivate CTRL
+
+                UI --> User : Shows the list of visit requests
+                deactivate UI
+                User -> UI : Selects a visit request
+                activate UI
+
+                UI -> User : Requests message of the visit request
+                deactivate UI
+                User -> UI : fill the message
+                activate UI
+                UI -> CTRL : Sends the message
+                activate CTRL
+                CTRL -> CTRL : Checks if the message is valid
+                CTRL -> CTRL : Sends the message
+                CTRL -> UI : success message
+                deactivate CTRL
+                UI --> User : Shows success message
+                deactivate UI
+
+deactivate User
+@enduml
