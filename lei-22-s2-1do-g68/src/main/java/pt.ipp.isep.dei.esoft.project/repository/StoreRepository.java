@@ -92,5 +92,20 @@ public class StoreRepository {
        return EmployeeProjectMapper.toDTO(employeeProject);
     }
 
+    private EmployeeProject getEmployeeByEmailAux(String email){
+        for (int i = 0; i < stores.size(); i++) {
+            for (int j = 0; j < stores.get(i).getEmployees().size(); j++) {
+                if (stores.get(i).getEmployees().get(j).getEmail().equals(email))
+                    return stores.get(i).getEmployees().get(j);
+            }
+        }
+        return null;
+    }
+
+    public EmployeeProjectDTO getEmployeeByEmail(String email){
+        EmployeeProject employeeProject= getEmployeeByEmailAux(email);
+        return EmployeeProjectMapper.toDTO(employeeProject);
+    }
+
 
 }

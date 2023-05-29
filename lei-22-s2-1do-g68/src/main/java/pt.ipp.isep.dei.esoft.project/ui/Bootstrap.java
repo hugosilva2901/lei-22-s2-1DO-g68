@@ -130,12 +130,12 @@ public class Bootstrap implements Runnable {
         AnnouncementDTO announcement = AnnouncementMapper.toDTO( announcementRepository.getAnnouncements().get(0));
         String formatString = "24-01-2003";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
-        formatString= "25-01-2003";
-        dateFormat = new SimpleDateFormat(formatString);
-        formatString= "26-01-2003";
-        dateFormat = new SimpleDateFormat(formatString);
+        String formatString1= "25-01-2003";
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat(formatString1);
+        String  formatString2= "26-01-2003";
+        SimpleDateFormat  dateFormat2 = new SimpleDateFormat(formatString2);
         ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client " + clientRepository.getClients().get(0).getName(),announcement, ClientMapper.toDTO(clientRepository.getClients().get(0)));
-        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client " + clientRepository.getClients().get(1).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(1)));
-        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
+        ctrl.registerVisitRequestBootstrap(dateFormat1,"visit of client " + clientRepository.getClients().get(1).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(1)));
+        ctrl.registerVisitRequestBootstrap(dateFormat2,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
     }
 }

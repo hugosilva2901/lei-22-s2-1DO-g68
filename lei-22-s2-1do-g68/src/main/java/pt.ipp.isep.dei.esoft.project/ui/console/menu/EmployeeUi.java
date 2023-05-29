@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-import pt.ipp.isep.dei.esoft.project.ui.console.AcceptOrderUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.CreateAnnouncementUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.ListAnnouncementRequestUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ public class EmployeeUi implements Runnable {
         options.add(new MenuItem("Create Announcement", new CreateAnnouncementUI()));
         options.add(new MenuItem("Accept/Reject Order ", new AcceptOrderUI()));
         options.add(new MenuItem("List Announcement My Announcement Requests", new ListAnnouncementRequestUI()));
-        options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
+        options.add(new MenuItem("List visits requests  ", new ListVisitRequestUI()));
 
         int option = 0;
         do {
