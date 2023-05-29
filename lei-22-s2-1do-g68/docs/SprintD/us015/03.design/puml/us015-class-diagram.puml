@@ -1,0 +1,133 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize "2"
+'left to right direction
+class Repositories {
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class StoreRepository {
+  + StoreRepository():
+  ~ stores: List<Store>
+  + addStore(Store): void
+  - validateStore(Store): void
+  + createEmployee(String, String, int, String, String, String, String, Roles[], int, Store): Optional<EmployeeProject>
+  - addEmployeeToStore(Store, EmployeeProject): void
+  + addEmployeeToStorePublic(Store, EmployeeProject): void
+  + listEmployees(): List<EmployeeProject>
+   stores: List<Store>
+}
+
+
+class VisitRequestRepository {
+    - VisitRequestRepository()
+    + getInstance() : VisitRequestRepository
+    + getVisitRequestList()
+    + insertVisitRequest(name: String, email: String, phone: int, date: String, property: String)
+}
+
+class ListVisitRequestUI {
+    + showVisitRequestList()
+}
+
+class ListVisitRequestController{
+}
+
+class User {
+  + User(String, String, int, String, String, String, String, Roles):
+  - phone: String
+  - name: String
+  - email: String
+  - address: String
+  - taxNumber: int
+  - descptions: String
+  - roles: Roles
+  - password: String
+  + toString(): String
+   name: String
+   password: String
+   descptions: String
+   email: String
+   phone: String
+   address: String
+   roles: Roles
+   taxNumber: int
+}
+
+enum Roles << enumeration >> {
+  + Roles():
+  + values(): Roles[]
+  + valueOf(String): Roles
+}
+
+class visitRequest {
+    -String name
+    -String email
+    -int phone
+    -String date
+    -Announcement announcement
+    +setName
+    +setEmail
+    +setPhone
+    +setDate
+    +setProperty
+}
+
+class visitRequestDTO{
+    -String name
+    -String email
+    -int phone
+    -String date
+    -AnnouncementDTO announcement
+    +setName
+    +setEmail
+    +setPhone
+    +setDate
+    +setProperty
+}
+
+class visitRequestMapper{
+    +mapToDTO(visitRequest)
+    +mapToDomain(visitRequestDTO)
+}
+
+
+
+
+class EmployeeProject extends User{
+  + EmployeeProject(String, String, int, String, String, String, String, Roles[], int, Store):
+  - salary: int
+  - validateTaxNumber(int): void
+  - validateStore(Store): void
+  - validateEmployee(String, String, int, String, String, String, String, Roles[], int, Store): void
+  - validateSalary(int): void
+   salary: int
+}
+ListVisitRequestController .> Repositories : repositories
+ListVisitRequestUI .> ListVisitRequestController
+Repositories "1" --> "*" StoreRepository : has >
+Repositories "1" --> "*" VisitRequestRepository : has >
+VisitRequestRepository "1" --> "*" visitRequestMapper : Uses >
+visitRequestMapper "1" --> "*" visitRequestDTO : creates >
+visitRequestMapper "1" --> "*" visitRequest : transformsDTO to object>
+visitRequest "1" --> "*" EmployeeProject : has a agent responsible >
+User "*" --> "1" Roles : has a role >
+StoreRepository "1" --> "*" EmployeeProject : has a employee >
+@enduml
