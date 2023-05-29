@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class  RealEstateAgent{
+}
+
+class visit{
+    Client
+    date
+    time
+    descriptions
+    RealEstateAgent
+    ResultOfTheVisit : boolean
+}
+class Client {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+Client "1" -- "1..*" visit :request visit
+
+visit "1" -- "1" RealEstateAgent : responds to request
+
+@enduml

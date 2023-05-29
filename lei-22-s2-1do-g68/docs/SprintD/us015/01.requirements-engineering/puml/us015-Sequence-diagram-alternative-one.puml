@@ -1,0 +1,23 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : Requests to see the list of visit requests
+    activate System
+
+    System --> Agent : Shows list of visit requests of the agent
+    deactivate System
+
+
+deactivate Agent
+
+@enduml
