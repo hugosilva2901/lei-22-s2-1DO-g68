@@ -1,0 +1,105 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+
+hide circle
+hide methods
+class House{
+      numberOfRooms;
+      numberOfBathrooms;
+      numberOfFloors;
+      numberOfGarages;
+     List<String> equipments;
+     boolean hasBasement;
+     boolean hasLoft;
+     boolean hasSunExposure;
+
+
+}
+
+class Land{
+    area
+
+}
+
+class Apartment{
+     numberOfRooms;
+      numberOfBathrooms;
+      numberOfFloors;
+      numberOfGarages;
+     List<String> equipments;
+
+}
+
+class LegacySystemData{
+}
+
+abstract class User{
+   - name
+   - descriptions
+  -  tax number
+  -  address
+  -  email address
+  -  phone number
+  -  password
+}
+
+abstract class Property{
+     name;
+      type;
+      address;
+      description;
+      isForSale;
+      isForRent;
+}
+
+
+class Store {
+    - branchNumber : int
+    - designation
+    - address
+    - phone
+    - email
+    - vatNumber
+    - manager
+}
+class Administrator{
+}
+
+enum Role{
+    + ROLE_ADMIN
+}
+enum Roles{
+    +OWNER
+}
+class Client{
+     List<Property> properties;
+}
+
+
+
+
+
+Administrator "1"--"*" Role
+
+Administrator "1"--"*" LegacySystemData : > import
+LegacySystemData "1"--"0..*" User : > create
+LegacySystemData "1"--"0..*" Property : > create
+LegacySystemData "1"--"0..*" Store: > create
+
+User "1"--"1" Roles : > with
+ Client --|> User
+Client "1"--"*" Property
+
+Apartment --|> Property
+Land --|> Property
+House --|> Property
+StoreNetWork "1"--"*" Store
+
+
+
+@enduml

@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":CreateOrderController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "AnnouncementsRepository:\AnnouncementsRepository" as AnnouncementsRepository
+participant "AnnouncementMapper:\AnnouncementMapper" as Mapper
+participant "AnnouncementDTO:\AnnouncementDTO" as DTO
+
+autonumber 3
+
+ -> CTRL : getAnnouncementDTO()
+autonumber 3.1
+activate CTRL
+    group Get Task Category List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getAnnouncementsRepository()
+            activate PLAT
+
+
+
+                PLAT --> CTRL: AnnouncementsRepository
+            deactivate PLAT
+
+            CTRL -> AnnouncementsRepository : getAnnouncementsDTO()
+            loop get list of announcementsDTO
+            activate AnnouncementsRepository
+              AnnouncementsRepository->Mapper:getAnnouncementDTO()
+            activate Mapper
+
+            Mapper->DTO:CreateAnnouncementDTO()
+
+            activate DTO
+            DTO-->Mapper:AnnouncementDTO
+            deactivate DTO
+            Mapper-->AnnouncementsRepository:AnnouncementDTO
+            deactivate Mapper
+            end
+                AnnouncementsRepository --> CTRL : AnnouncementList
+            deactivate AnnouncementsRepository
+
+
+    end
+    autonumber 4
+    <-- CTRL  : AnnouncementList
+deactivate CTRL
+
+
+@enduml
