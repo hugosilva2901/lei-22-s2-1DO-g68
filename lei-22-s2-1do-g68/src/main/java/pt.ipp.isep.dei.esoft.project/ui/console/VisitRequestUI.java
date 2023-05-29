@@ -20,7 +20,7 @@ public class VisitRequestUI implements Runnable{
 
     private final VisitRequestController controller = new VisitRequestController();
 
-    private SimpleDateFormat date;
+    private Date date;
     private String message;
     private AnnouncementDTO announcement;
     private Client client;
@@ -124,7 +124,7 @@ public class VisitRequestUI implements Runnable{
         int i = 1;
         Date date = new Date();
         for (VisitRequest visit : visitList) {
-            System.out.println(i + " - " + visit.getDate().format(date));
+            System.out.println(i + " - " + visit.getDate());
             i++;
         }
     }
@@ -135,12 +135,18 @@ public class VisitRequestUI implements Runnable{
         this.message = requestMessage();
     }
 
-    private SimpleDateFormat requestDate() {
+    private Date requestDate() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Insert a date format:");
-        String formatString = input.nextLine();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
-        return dateFormat;
+        System.out.println("Insert a date (dd-MM-yyyy):");
+        String dateString = input.nextLine();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format");
+        }
+        return date;
     }
     private String requestMessage(){
         Scanner input = new Scanner(System.in);

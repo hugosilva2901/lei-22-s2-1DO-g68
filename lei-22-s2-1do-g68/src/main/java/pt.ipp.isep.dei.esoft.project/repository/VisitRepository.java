@@ -6,23 +6,24 @@ import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.VisitRequestDTO;
-import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.VisitRequestMapper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class VisitRepository {
 
     public static ArrayList<VisitRequest> visitList = new ArrayList<VisitRequest>();
 
-    public static void addVisit(Announcement announcement, SimpleDateFormat date, String message, Client client){
+    public static void addVisit(Announcement announcement, Date date, String message, Client client){
         visitList.add(new VisitRequest(announcement, date, message, client));
     }
 
@@ -30,7 +31,7 @@ public class VisitRepository {
         return visitList;
     }
 
-    public Optional<VisitRequest> createVisitRequest(AnnouncementDTO announcement, SimpleDateFormat date, String message, ClientDTO client){
+    public Optional<VisitRequest> createVisitRequest(AnnouncementDTO announcement, Date date, String message, ClientDTO client){
         Client client1= ClientMapper.toEntity(client);
         Announcement  announcement1= AnnouncementMapper.toEntity(announcement);
         addVisit(announcement1, date, message, client1);
@@ -53,7 +54,13 @@ public class VisitRepository {
                 visitRequestDTOList.add(VisitRequestMapper.toDTO(visitRequest));
             }
         }
-        return getAllVisitRequestsDTO();
+        visitRequestDTOList.sort((o1, o2) -> {
+            Date date1 = o1.getDate();
+            Date date2 = o2.getDate();
+            return date1.compareTo(date2);
+        });
+
+        return visitRequestDTOList;
     }
 
 }

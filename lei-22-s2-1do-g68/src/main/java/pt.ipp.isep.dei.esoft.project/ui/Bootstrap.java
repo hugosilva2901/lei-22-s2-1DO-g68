@@ -15,8 +15,10 @@ import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Bootstrap implements Runnable {
@@ -130,12 +132,11 @@ public class Bootstrap implements Runnable {
         AnnouncementDTO announcement = AnnouncementMapper.toDTO( announcementRepository.getAnnouncements().get(0));
         String formatString = "24-01-2003";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
-        String formatString1= "25-01-2003";
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat(formatString1);
-        String  formatString2= "26-01-2003";
-        SimpleDateFormat  dateFormat2 = new SimpleDateFormat(formatString2);
-        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client " + clientRepository.getClients().get(0).getName(),announcement, ClientMapper.toDTO(clientRepository.getClients().get(0)));
-        ctrl.registerVisitRequestBootstrap(dateFormat1,"visit of client " + clientRepository.getClients().get(1).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(1)));
-        ctrl.registerVisitRequestBootstrap(dateFormat2,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
+        Date date = new Date(2003, 1, 24);
+        ctrl.registerVisitRequestBootstrap(date,"visit of client " + clientRepository.getClients().get(1).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(1)));
+        date = new Date(2003, 1, 26);
+        ctrl.registerVisitRequestBootstrap(date,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
+        date = new Date(2003, 1, 25);
+        ctrl.registerVisitRequestBootstrap(date,"visit of client " + clientRepository.getClients().get(0).getName(),announcement, ClientMapper.toDTO(clientRepository.getClients().get(0)));
     }
 }

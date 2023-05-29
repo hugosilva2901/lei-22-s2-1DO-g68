@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class VisitRequest {
     private Announcement announcement;
-    private SimpleDateFormat date;
+    private Date date;
     private String message;
     private Client client;
 
     public Announcement getAnnouncement() {return announcement;}
-    public SimpleDateFormat getDate() {return date;}
+    public Date getDate() {return date;}
     public String getMessage() {return message;}
     public Client getClient() {return client;}
 
-    public VisitRequest(Announcement announcement, SimpleDateFormat date, String message, Client client){
+    public VisitRequest(Announcement announcement, Date date, String message, Client client){
         this.announcement = announcement;
         this.date = date;
         this.message = message;
@@ -25,7 +25,7 @@ public class VisitRequest {
     public String toString() {
 
         return "VisitRequest { \n" + announcement +
-                ",\n\n date: " + date.toString()  +
+                ",\n\n date: day: " + date.getDay() + " month: " + date.getMonth() + " year: " + date.getYear() +
                 ",\n message: {" + message  + "}" +
                 ",\n Client Name: " + client.getName() +
                 ",\n Client Phone Number: " + client.getPhone() +

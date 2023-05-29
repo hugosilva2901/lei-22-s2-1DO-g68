@@ -68,11 +68,11 @@ public class VisitRequestController {
     }
 
 
-    public boolean registerVisitRequest(SimpleDateFormat date, String message, AnnouncementDTO announcement, Client client) {
+    public boolean registerVisitRequest(Date date, String message, AnnouncementDTO announcement, Client client) {
         ClientDTO client1 = getClientByUserEmail(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
         return this.visitRepository.createVisitRequest(announcement, date, message, client1).isPresent();
     }
-    public boolean registerVisitRequestBootstrap(SimpleDateFormat date, String message, AnnouncementDTO announcement, ClientDTO client) {
+    public boolean registerVisitRequestBootstrap(Date date, String message, AnnouncementDTO announcement, ClientDTO client) {
         return this.visitRepository.createVisitRequest(announcement, date, message, client).isPresent();
     }
 }
