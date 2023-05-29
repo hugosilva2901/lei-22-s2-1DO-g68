@@ -7,6 +7,9 @@ import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,7 +20,7 @@ public class VisitRequestUI implements Runnable{
 
     private final VisitRequestController controller = new VisitRequestController();
 
-    private String date;
+    private SimpleDateFormat date;
     private String message;
     private AnnouncementDTO announcement;
     private Client client;
@@ -119,8 +122,9 @@ public class VisitRequestUI implements Runnable{
 
     private void displayVisitList(List<VisitRequest> visitList) {
         int i = 1;
+        Date date = new Date();
         for (VisitRequest visit : visitList) {
-            System.out.println(i + " - " + visit.getDate());
+            System.out.println(i + " - " + visit.getDate().format(date));
             i++;
         }
     }
@@ -131,12 +135,13 @@ public class VisitRequestUI implements Runnable{
         this.message = requestMessage();
     }
 
-    private String requestDate(){
+    private SimpleDateFormat requestDate() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Insert a date:");
-        return input.nextLine();
+        System.out.println("Insert a date format:");
+        String formatString = input.nextLine();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
+        return dateFormat;
     }
-
     private String requestMessage(){
         Scanner input = new Scanner(System.in);
         System.out.println("Insert a message:");

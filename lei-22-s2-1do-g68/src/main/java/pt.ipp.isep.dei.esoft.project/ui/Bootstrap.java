@@ -3,15 +3,19 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreatClienteController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
+import pt.ipp.isep.dei.esoft.project.application.controller.VisitRequestController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class Bootstrap implements Runnable {
         addProperty();
         addAnnoucements();
         addOrder();
+        addVisitRequest();
     }
 
 
@@ -116,5 +121,21 @@ public class Bootstrap implements Runnable {
         ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(0));
         ctrl.addOrderToTest(announcement, 100,clientRepository.getClientsDTO().get(1));
         ctrl.addOrderToTest(announcement, 1,clientRepository.getClientsDTO().get(2));
+    }
+
+    private void addVisitRequest(){
+        VisitRequestController ctrl = new VisitRequestController();
+        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+        ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
+        AnnouncementDTO announcement = AnnouncementMapper.toDTO( announcementRepository.getAnnouncements().get(0));
+        String formatString = "24-01-2003";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
+        formatString= "25-01-2003";
+        dateFormat = new SimpleDateFormat(formatString);
+        formatString= "26-01-2003";
+        dateFormat = new SimpleDateFormat(formatString);
+        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client " + clientRepository.getClients().get(0).getName(),announcement, ClientMapper.toDTO(clientRepository.getClients().get(0)));
+        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client " + clientRepository.getClients().get(1).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(1)));
+        ctrl.registerVisitRequestBootstrap(dateFormat,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
     }
 }
