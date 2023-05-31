@@ -24,6 +24,19 @@ public class House extends Property {
         this.hasSunExposure = hasSunExposure;
     }
 
+    public House(String name, String type, String address, String description, boolean isForSale, boolean isForRent,
+                 int numberOfRooms, int numberOfBathrooms, int numberOfFloors, int numberOfGarages, List<String> equipments,
+                 boolean hasBasement, boolean hasLoft, boolean hasSunExposure,int price, int area,int distanceFromCenter) {
+        super(name, type, address, description, isForSale, isForRent,price,area,distanceFromCenter);
+        this.numberOfRooms = numberOfRooms;
+        this.numberOfBathrooms = numberOfBathrooms;
+        this.numberOfFloors = numberOfFloors;
+        this.numberOfGarages = numberOfGarages;
+        this.equipments = equipments;
+        this.hasBasement = hasBasement;
+        this.hasLoft = hasLoft;
+        this.hasSunExposure = hasSunExposure;
+    }
     // getters and setters for all fields
     public int getNumberOfRooms() {
         return numberOfRooms;

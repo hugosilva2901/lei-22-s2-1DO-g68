@@ -8,6 +8,11 @@ public abstract class Property {
     private boolean isForSale;
     private boolean isForRent;
 
+    private int property_area;
+    private int distanceFromCenter;
+
+    private int price;
+
     public Property(String name, String type, String address, String description, boolean isForSale, boolean isForRent) {
         this.name = name;
         this.type = type;
@@ -17,6 +22,17 @@ public abstract class Property {
         this.isForRent = isForRent;
     }
 
+    public Property(String name, String type, String address, String description, boolean isForSale, boolean isForRent, int property_area, int distanceFromCenter, int price) {
+        this.name = name;
+        this.type = type;
+        this.address = address;
+        this.description = description;
+        this.isForSale = isForSale;
+        this.isForRent = isForRent;
+        this.property_area = property_area;
+        this.distanceFromCenter = distanceFromCenter;
+        this.price = price;
+    }
     public String getName() {
         return name;
     }
@@ -53,6 +69,31 @@ public abstract class Property {
     public void setForRent(boolean isForRent) {
         this.isForRent = isForRent;
     }
+
+    public int getProperty_area() {
+        return property_area;
+    }
+
+    public void setProperty_area(int property_area) {
+        this.property_area = property_area;
+    }
+
+    public int getDistanceFromCenter() {
+        return distanceFromCenter;
+    }
+
+    public void setDistanceFromCenter(int distanceFromCenter) {
+        this.distanceFromCenter = distanceFromCenter;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
 
     @Override
     public String toString() {

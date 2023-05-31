@@ -9,8 +9,21 @@ public class Apartment extends Property {
     private int numberOfGarages;
     private List<String> equipments;
 
-    public Apartment(String name, String type, String address, String description, boolean isForSale, boolean isForRent, int numberOfRooms, int numberOfBathrooms, int numberOfFloors, int numberOfGarages, List<String> equipments) {
+    public Apartment(String name, String type, String address, String description, boolean isForSale, boolean isForRent,
+                     int numberOfRooms, int numberOfBathrooms, int numberOfFloors, int numberOfGarages,
+                     List<String> equipments) {
         super(name, type, address, description, isForSale, isForRent);
+        this.numberOfRooms = numberOfRooms;
+        this.numberOfBathrooms = numberOfBathrooms;
+        this.numberOfFloors = numberOfFloors;
+        this.numberOfGarages = numberOfGarages;
+        this.equipments = equipments;
+    }
+
+    public Apartment(String name, String type, String address, String description, boolean isForSale, boolean isForRent,
+                     int numberOfRooms, int numberOfBathrooms, int numberOfFloors, int numberOfGarages,
+                     List<String> equipments,int price, int area,int distanceFromCenter) {
+        super(name, type, address, description, isForSale, isForRent,price,area,distanceFromCenter);
         this.numberOfRooms = numberOfRooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.numberOfFloors = numberOfFloors;
