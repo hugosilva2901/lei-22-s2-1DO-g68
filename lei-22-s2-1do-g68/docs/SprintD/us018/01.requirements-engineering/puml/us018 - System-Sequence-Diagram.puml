@@ -12,6 +12,11 @@ participant ":System" as System
 
 activate st
 
+st -> System : asks to analyze the deals
+activate System
+
+System --> st : shows the deals
+deactivate System
 
 deactivate st
 
