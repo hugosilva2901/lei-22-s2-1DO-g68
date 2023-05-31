@@ -1,0 +1,125 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+left to right direction
+top to bottom direction
+
+skinparam classAttributeIconSize "2"
+
+class Client {
+  + Client(String, String, int, String, String, String, String, Roles):
+  - properties: List<Property>
+  - validateTaxNumber(int): void
+  + addProperty(Property): void
+  - validateOwner(String, String, int, String, String, String, String, Roles): void
+   properties: List<Property>
+}
+
+class ClientRepository {
+  + ClientRepository():
+  ~ clients: List<Client>
+  - validateClient(Client): void
+  + addClient(String, String, int, String, String, String, String, Roles): Optional<Client>
+  + removeClient(Client): boolean
+  + getClientByTaxNumber(int): Client
+  + addPropertyToClient(Client, Property): void
+   clients: List<Client>
+}
+
+class ClientMapper {
+  + ClientMapper():
+  + toDomain(ClientEntity): Client
+  + toEntity(Client): ClientEntity
+}
+
+class ClientDTO {
+  + ClientDTO():
+  + toDomain(): Client
+  + toEntity(): ClientEntity
+}
+
+class Repositories {
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class MessagesOfClientRepository {
+  + MessagesOfClientRepository():
+  ~ messages: List<Message>
+  + addMessage(Message): void
+  + getMessagesByClient(Client): List<Message>
+   messages: List<Message>
+}
+
+class Message {
+  + Message(String, Client):
+  - client: Client
+  - message: String
+  + getMessage(): String
+  + getClient(): Client
+   client: Client
+   message: String
+}
+
+class VisitRequestController {
+  + VisitRequestController():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+class VisitRequest {
+  + VisitRequest():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+class VisitRequestDTO {
+  + VisitRequestDTO():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+class VisitRequestMapper {
+  + VisitRequestMapper():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+class VisitRequestRepository {
+  + VisitRequestRepository():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+class VisitRequestUI {
+  + VisitRequestUI():
+  + addVisitRequest():
+  + getVisitRequests():
+}
+
+VisitRequest                 "1" *--> "MessagesOfClientRepository" : "«Messages»"
+VisitRequestController       "1" *--> "VisitRequest" : "«create»"
+VisitRequestUI               "1" *--> "VisitRequestController" : "«create»"
+ClientRepository             "1" *--> "clients" Client
+Repositories                 "1" *--> "MessagesOfClientRepository" : "«create»"
+Repositories                 "1" *--> "ClientRepository" : "«create»"
+Repositories                 "1" *--> "VisitRequestRepository" : "«create»"
+ClientRepository             "1" *--> "ClientMapper" : "«Uses»"
+ClientMapper                 "1" *--> "ClientDTO" : "«create»"
+VisitRequestRepository       "1" *--> "VisitRequestMapper" : "«Uses»"
+VisitRequestMapper           "1" *--> "VisitRequestDTO" : "«create»"
+MessagesOfClientRepository   "1" *--> "Message" : "«create»"
+
+@enduml

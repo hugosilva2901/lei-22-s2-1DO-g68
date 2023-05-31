@@ -51,4 +51,4 @@ It uses interaction ocurrence.
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us013-class-diagram.svg)
+![Class Diagram](svg/us020-class-diagram.svg)

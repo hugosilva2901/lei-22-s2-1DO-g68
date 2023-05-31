@@ -36,14 +36,6 @@ enum Roles{
 class  RealEstateAgent{
 }
 
-class Order{
-    descriptions
-    client
-    owner
-    Property
-    RealEstateAgent
-}
-
 class ApoitmentRequest{
     descriptions
     client
@@ -52,7 +44,30 @@ class ApoitmentRequest{
     RealEstateAgent
 }
 
+class visit{
+    Client
+    date
+    time
+    descriptions
+    RealEstateAgent
+    ResultOfTheVisit : boolean
+}
+
+class Schedule{
+    date
+    time
+    descriptions
+}
+
 RealEstateAgent --|> Employee : is
+Client "1"--"1"visit : request
+RealEstateAgent "1"--"1"visit : attends
+RealEstateAgent "1"--"0..*"Schedule : has
+Employee "1"--"1" Roles : has
+ApoitmentRequest "1"--"1" Client : has
+ApoitmentRequest "1"--"1" RealEstateAgent : has
+
+
 
 
 @enduml
