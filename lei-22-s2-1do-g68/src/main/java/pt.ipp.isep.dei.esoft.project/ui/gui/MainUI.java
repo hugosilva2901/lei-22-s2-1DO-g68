@@ -24,6 +24,12 @@ public class MainUI extends Application {
         stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
 
 
+        toCalculatePartionUI();
+        /*
+        NOTE : Testing using calculate Partion UI / Remove it if necessary
+         */
+
+
         stage.show();
     }
 
@@ -41,6 +47,24 @@ public class MainUI extends Application {
         }
 
     }
+
+
+    public void toMainUI()  {
+        try{
+
+            /**
+             * Replace with main UI
+             */
+
+            //  CalculatePartionUI calculatePartionUI =  (CalculatePartionUI) replaceSceneContent("/fxml/CalculatePartionUI.fxml");
+         //   calculatePartionUI.setMainUI(this);
+            this.stage.setResizable(false);
+        }catch (Exception e){
+            Logger.getLogger(MainUI.class.getName()).log(Level.SEVERE,null,e);
+        }
+
+    }
+
     public Initializable replaceSceneContent(String fxml) throws Exception{
 
         FXMLLoader loader = new FXMLLoader(MainUI.class.getResource(fxml));

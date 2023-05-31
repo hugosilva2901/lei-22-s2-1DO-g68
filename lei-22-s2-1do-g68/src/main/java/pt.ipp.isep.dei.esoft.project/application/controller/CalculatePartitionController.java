@@ -24,11 +24,11 @@ public class CalculatePartitionController {
         List<Store> stores = new ArrayList<>();
         int x = 0;
         for(Store store : repository.getStores()){
-
             if(n == x ){
                 break;
             }else{
                 stores.add(store);
+                x++;
             }
         }
         return stores;
