@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide empty members
+
+class NetworkManager{
+}
+
+class RealEstateAgent{
+}
+
+class Order{
+ descriptions
+ client
+ owner
+ Property
+ RealEstateAgent
+}
+
+class Client {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+Client "1"--"0..*" Order : Request
+RealEstateAgent "0..*"--"1" Order : Accepts or rejects
+NetworkManager "1" -- "1..*" Order : list
+@enduml

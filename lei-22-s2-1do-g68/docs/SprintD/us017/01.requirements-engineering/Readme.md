@@ -73,15 +73,15 @@ to create a new order, it must also exit already a announcement.
     * value
 	
 * Selected data:
-	* announcement
+	* Sorting algorithm
   
  * Data Provided by the System:
-   * Client
+   * Sorting algorithm
 
 **Output Data:**
-+
-* List of existing announcements
-* (In)Success of the operation
+
+* List of all deals made
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
