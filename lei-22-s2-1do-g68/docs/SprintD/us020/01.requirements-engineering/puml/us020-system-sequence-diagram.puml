@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+actor "Client" as cl
+participant ":System" as System
+
+activate cl
+
+cl -> System: Read appointment request
+activate System
+System -> System: Notify agent of message display
+System --> cl: Display appointment request (property info, date, agent name and phone number)
+deactivate System
+
+alt Appointment accepted
+
+cl -> System: Accept or reject appointment
+
+
+activate System
+    System -> System: Notify agent of acceptance
+
+    end
+
+alt Appointment rejected
+    System --> cl: Request reason for rejection
+    deactivate System
+    cl -> System: Provide reason for rejection
+    activate System
+    System -> System: Notify agent of rejection and reason
+
+    System --> cl: Display sucess message
+
+end
+
+deactivate System
+
+@enduml

@@ -9,19 +9,15 @@ hide methods
 left to right direction
 
 
-class NetWorkManager{
+class Client {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
 }
-
-class Store{
-name
-vatNumber
-website
-phoneNumber
-email
-NumberOfBranches
-LocalManager
-}
-
 class Employee{
     name
     descriptions
@@ -31,12 +27,32 @@ class Employee{
     phone number
     password
 }
-class StoreNetWork{
-name
-address
+
+enum Roles{
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
 }
 
-StoreNetWork "1"--"*" Store : has
-Store "1"--"0..*" Employee : has
-NetWorkManager "1"--"1" StoreNetWork: has
+class  RealEstateAgent{
+}
+
+class Order{
+    descriptions
+    client
+    owner
+    Property
+    RealEstateAgent
+}
+
+class ApoitmentRequest{
+    descriptions
+    client
+    owner
+    Property
+    RealEstateAgent
+}
+
+RealEstateAgent --|> Employee : is
+
+
 @enduml

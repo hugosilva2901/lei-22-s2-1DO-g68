@@ -1,4 +1,4 @@
-# US 013 - To List all employees of every store 
+# US 020 - To List all employees of every store 
 
 ## 1. Requirements Engineering
 
@@ -66,7 +66,7 @@ As a network manager, I want to list all the employees working in every store of
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us013-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us020-system-sequence-diagram-alternative-one.svg)
 
 
 ### 1.7 Other Relevant Remarks
