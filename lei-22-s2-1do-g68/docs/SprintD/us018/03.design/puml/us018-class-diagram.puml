@@ -1,0 +1,133 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize "2"
+'left to right direction
+class Repositories {
+  - Repositories():
+  ~ propertyRepository: PropertyRepository
+  ~ authenticationRepository: AuthenticationRepository
+  ~ clientRepository: ClientRepository
+  - instance: Repositories
+  ~ announcementRepository: AnnouncementRepository
+  ~ storeRepository: StoreRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+   instance: Repositories
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   storeRepository: StoreRepository
+}
+
+class User {
+  + User(String, String, int, String, String, String, String, Roles):
+  - phone: String
+  - name: String
+  - email: String
+  - address: String
+  - taxNumber: int
+  - descptions: String
+  - roles: Roles
+  - password: String
+  + toString(): String
+   name: String
+   password: String
+   descptions: String
+   email: String
+   phone: String
+   address: String
+   roles: Roles
+   taxNumber: int
+}
+
+enum Roles << enumeration >> {
+  + Roles():
+  + values(): Roles[]
+  + valueOf(String): Roles
+}
+
+class Announcement {
+  + Announcement(Property, int):
+  - commission: int
+  - property: Property
+  + validateAnnouncement(Announcement): void
+   commission: int
+   property: Property
+}
+class AnnouncementRepository {
+  + AnnouncementRepository():
+  ~ announcements: List<Announcement>
+  + createAnnouncement(Property, int): Optional<Announcement>
+  + addAnnouncement(Announcement): void
+  + removeAnnouncement(Announcement): boolean
+}
+
+class CreateAnnouncementController {
+  + CreateAnnouncementController():
+  + CreateAnnouncementController(ClientRepository, PropertyRepository, AnnouncementRepository, AuthenticationRepository):
+  - announcementRepository: AnnouncementRepository
+  - propertyRepository: PropertyRepository
+  - clientRepository: ClientRepository
+  - authenticationRepository: AuthenticationRepository
+  + createAnnouncement(Property, int): Optional<Announcement>
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   announcementRepository: AnnouncementRepository
+   propertyRepository: PropertyRepository
+}
+
+class CreateOrderController {
+  + CreateOrderController():
+  + addOrderToTest(AnnouncementDTO, int, ClientDTO): boolean
+  + addOrder(AnnouncementDTO, int): boolean
+  - getClientByUserEmail(String): ClientDTO
+   orderRepository: OrderRepository
+   clientRepository: ClientRepository
+   authenticationRepository: AuthenticationRepository
+   announcementRepository: AnnouncementRepository
+   announcements: List<AnnouncementDTO>
+}
+class OrderRepository {
+  + OrderRepository():
+  + createOrder(AnnouncementDTO, int, ClientDTO): Optional<OrderDTO>
+  - addOrder(order): void
+  - PutPerorder(): void
+  - findOrder(OrderDTO): order?
+  + rejectOrder(OrderDTO, MessagesOfClientRepository): void
+  + acceptOrder(OrderDTO, MessagesOfClientRepository): void
+  + OrderOfTheAgent(AnnouncementDTO): List<OrderDTO>
+  - valueAlreadyExists(int, AnnouncementDTO): boolean
+  - clientAlreadyExists(ClientDTO, AnnouncementDTO): boolean
+   orders: List<OrderDTO>
+}
+class Order {
+  + order(Announcement, int, Client):
+  + toString(): String
+  + validateOrder(order): void
+   value: int
+   client: Client
+   statusOfOrder: StatusOfOrder
+   announcement: Announcement
+}
+
+Repositories                  -->  AnnouncementRepository       : "«create»"
+User                         "1" *--> "roles\n1" Roles
+CreateAnnouncementController "1" *--> "announcementRepository\n1" AnnouncementRepository
+AnnouncementRepository       "1" *--> "announcements\n*" Announcement
+EmployeeProject               --^  User
+OrderRepository "1" --> "*" Order : has >
+Order "*" --> "1" Announcement : has a announcement >
+CreateOrderController .> Repositories : repositories
+Repositories "1" --> "*" OrderRepository : has >
+CreateAnnouncementController .> Repositories : repositories
+EmployeeProject "1"--"1..*" Order : analyse
+
+
+
+
+
+@enduml

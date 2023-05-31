@@ -1,0 +1,101 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class StoreManager{
+}
+
+class Employee{
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+enum Roles{
+    ROLE_STORE_MANAGER
+    ROLE_REAL_ESTATE_AGENT
+}
+
+class House{
+numberOfRooms
+    numberOfBathrooms
+    numberOfFloors
+    numberOfGarages
+    Equipaments
+    Basement: boolean
+    inhabited  loft: boolean
+    Sun exposure: boolean
+
+}
+
+class Apartment{
+numberOfRooms
+numberOfBathrooms
+numberOfFloors
+numberOfGarages
+Equipaments
+
+}
+
+abstract class Property {
+    name
+    Tipo
+    address
+    descriptions
+    cost
+    vender:boolean
+    render:boolean
+}
+
+class Order{
+    descriptions
+    client
+    owner
+    Property
+    RealEstateAgent
+}
+
+class Advertisement{
+    owner
+    descriptions
+    RealEstateAgent
+    cost
+    Property
+}
+
+class Client {
+    name
+    descriptions
+    tax number
+    address
+    email address
+    phone number
+    password
+}
+
+
+StoreManager --|> Employee : is
+Employee "1"--"1" Roles : has
+House  --|>  Property : is
+Apartment  --|>  Property : is
+Client "1"--"0..*" Order : Request
+Order "1"--"1" Property : has
+Advertisement "1"--"1" Property : has
+StoreManager "1"--"1..*" Advertisement : analyse
+
+
+
+
+@enduml
