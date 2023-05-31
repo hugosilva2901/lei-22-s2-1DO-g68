@@ -1,12 +1,11 @@
-# US 006 - To create a Task 
+# US17: As a network manager, I want to list all deals made. 
 
 ## 1. Requirements Engineering
 
 
 ### 1.1. User Story Description
 
-
-As a system administrator, I want to register a new employee.
+As a network manager, I want to list all deals made.
 
 
 ### 1.2. Customer Specifications and Clarifications 
@@ -53,13 +52,13 @@ As a system administrator, I want to register a new employee.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The order amount submitted by the client must be equal to or lower than the price set by the owner for the property.
-* **AC2:** If the order amount submitted by the client has already been posted for
-  the property (by another request from this client or any other client), the
-  system must state that on the screen and the order placed previously should be
-  considered first when selling the property.
-* **AC3:**  A client can only submit a new order to purchase the same property after
-  the previous one is declined.
+* **AC1:** The actor should be able to sort all properties by property area (square feet)
+  in descending/ascending order.
+* **AC2:** Two sorting algorithms should be implemented (to be chosen manually by
+  the network manager).
+* **AC3:**  Worst-case time complexity of each algorithm should be documented in the
+  application user manual that must be delivered with the application (in the
+  annexes, where algorithms should be written in pseudocode).
 ### 1.4. Found out Dependencies
 
 * There is a dependency that a client must already exist in the system in order 

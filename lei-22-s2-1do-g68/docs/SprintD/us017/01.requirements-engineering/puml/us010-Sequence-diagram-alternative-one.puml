@@ -6,36 +6,26 @@ skinparam shadowing false
 title System Sequence Diagram (SSD)
 
 autonumber
-actor "Client" as cl
+actor "Network Manager" as nm
 participant ":System" as System
 
-activate cl
+activate nm
 
-        cl -> System : to Buy a Property
+    nm -> System : Ask to list all deals made
     activate System
 
-        System --> cl : shows list of Announcements and asks to select one
+    System --> nm : Displays list of all deals made
+
+
+    System --> nm : Displays two options(ascending/descending order) to sort deals (by property area)
     deactivate System
 
-        cl -> System : selects an Announcements
-    activate System
-
-
-        System --> cl : requests data
-    deactivate System
-
-        cl -> System : types requested data (Client, Property, Payment)
+    nm -> System : Choose sorting algorithm
     activate System
 
 
-        System --> cl : shows Request to confirm
+    System --> nm :Displays sorted list of deals
     deactivate System
 
-        cl -> System : submits Request
-    activate System
-
-        System --> cl : displays operation success
-    deactivate System
-
-
+deactivate nm
 @enduml
