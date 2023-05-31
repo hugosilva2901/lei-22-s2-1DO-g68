@@ -23,7 +23,6 @@ public class CalculatePartionUI implements  Initializable{
     private Button button;
     @FXML
     private TextField infoToDisplay;
-
     @FXML
     private TextField nNumber;
     private CalculatePartitionController controller;

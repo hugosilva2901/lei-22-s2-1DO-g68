@@ -23,7 +23,7 @@ public class MainUI extends Application {
         stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
         stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
 
-        toCalculatePartionUI();
+
         stage.show();
     }
 
@@ -41,8 +41,6 @@ public class MainUI extends Application {
         }
 
     }
-
-
     public Initializable replaceSceneContent(String fxml) throws Exception{
 
         FXMLLoader loader = new FXMLLoader(MainUI.class.getResource(fxml));

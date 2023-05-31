@@ -33,65 +33,78 @@
 
 # 5. Construction (Implementation)
 ```java
-   public CSVLoader(String fileDirectory) throws Exception {
-        checkFile(fileDirectory);
-        this.fileDirectory = fileDirectory;
-        this.propertyRepository = Repositories.getInstance().getPropertyRepository();
-        this.clientRepository = Repositories.getInstance().getClientRepository();
-        this.storeRepository = Repositories.getInstance().getStoreRepository();
+  public SubsetPartition(List<Store> storeList){
+        this.tupletList = loadTuplet(storeList);
+        this.sumSubset1 = calculateSum(findMinPartition());
+        this.sumSubset2 = calculateSum(tupletList) - sumSubset1;
+        this.difference = Math.abs(sumSubset1 - sumSubset2);
         }
 ```
-## Class LegacySystemData
+## Class SubsetPartition
 
 ```java
-private int sid;
-private String ownerName;
-private String ownerPassportNum;
-private String ownerTIN;
-private String ownerEmail;
-private String ownerPhone;
-private PropertyType propertyType;
-private double propertyArea;
-private String propertyLocation;
-private double propertyDistanceFromCenter;
-private int propertyNumBedrooms;
-private int propertyNumBathrooms;
-private int propertyNumParking;
-private boolean propertyCentralHeating;
-private boolean propertyAirconditioned;
-private boolean propertyBasement;
-private boolean propertyLoft;
-private String propertySunExposure;
-private double propertyRequestedSaleRentPrice;
+private List<Tuplet> tupletList;
+private List<Tuplet> minPartition;
+private int sumSubset1;
+private int sumSubset2;
+private int difference;
+private class Tuplet{
+    private String storeId;
+    private int propertyCount;
 
-private double propertySaleRentPrice;
-private double commission;
-private String contractDuration;
-private String propertyDateAnnounceRequest;
-private String propertyDateOfSale;
-private String typeBusiness;
-private String storeID;
-private String storeName;
-private String storeLocation;
-private String storePhoneNumber;
-private String storeEmailAddress;
+    public Tuplet (String storeId , int propertyCount){
+        this.storeId = storeId;
+        this.propertyCount = propertyCount;
+    }
 
-public LegacySystemData(){
+    public int getPropertyCount() {
+        return propertyCount;
+    }
 
-        }
+    public String getStoreId() {
+        return storeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Tuplet{" +
+                "storeId='" + storeId + '\'' +
+                ", propertyCount=" + propertyCount +
+                '}';
+    }
+}
 ```
 
 
-## Class ImportLegacySystemFileController 
+## Class CalculatePartitionController 
 
 ```java
-public ImportLegacySystemFileController(){
-        }
+public class CalculatePartitionController {
 
-public void getData(String data) throws Exception {
-        CSVLoader csvLoader = new CSVLoader(data);
-        csvLoader.getData();
+    private StoreRepository repository;
+    public CalculatePartitionController (){
+        repository = Repositories.getInstance().getStoreRepository();
+    }
+    public SubsetPartition calculateWithNstores(int n){
+        return new SubsetPartition(getNstoreFromRepository(n));
+    }
+    public SubsetPartition calculateAll(){
+        return new SubsetPartition(repository.getStores());
+    }
+    private List<Store> getNstoreFromRepository(int n){
+        List<Store> stores = new ArrayList<>();
+        int x = 0;
+        for(Store store : repository.getStores()){
+
+            if(n == x ){
+                break;
+            }else{
+                stores.add(store);
+            }
         }
+        return stores;
+    }
+}
 ```
 
 
@@ -117,12 +130,10 @@ public void run() {
 
 # 6. Integration and Demo 
 
-Run the ImportLegacySystemDataUI class and provide the file directory of the sample CSV file. The application should handle the file import and display any relevant messages, such as successful import or specific error messages if any issues occur.
-
+N/A
 # 7. Observations
 
-The CSVLoader class is responsible for loading data from a CSV file, while the ImportLegacySystemFileController class uses CSVLoader to import the data. The ImportLegacySystemDataUI class interacts with the user and invokes the getData method of the controller.
-
+The analysis must import data before making the performance calculation in order to obtain something.
 
 
 

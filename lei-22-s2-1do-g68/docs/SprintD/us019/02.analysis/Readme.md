@@ -1,10 +1,9 @@
-# US 012 - As a system administrator, I want to import information from a legacy system that has been in use in several agencies.
-
+# US 019 - As a network manager, I want to divide the set of all stores into two subsets, so that the total number of properties of the stores between the two subsets is the closest possible.
 ## 2. Analysis
 
 ### 2.1. Relevant Domain Model Excerpt 
 
-![Domain Model](svg/us012-DomainModel.svg)
+![Domain Model](svg/us019-DomainModel.svg)
 
 ### 2.2. Other Remarks
 
