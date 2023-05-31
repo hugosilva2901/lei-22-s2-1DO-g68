@@ -51,21 +51,24 @@ public class CSVLoader {
             }
         }
         loadEntities(dataList);
-
     }
+
+
 
     private void loadEntities(List<LegacySystemData> dataList){
         for(LegacySystemData data : dataList){
             Store store = createStore(data);
             System.out.println("Created new Store" + store);
-            storeRepository.addStore(store);
             Property property = createProperty(data);
             System.out.println("Created new property" + property);
-            propertyRepository.add(property);
             Client client = createClient(data,property);
             System.out.println("Created new client" + client);
+            store.getProperties().add(property);
+            propertyRepository.add(property);
+            storeRepository.addStore(store);
             clientRepository.addClient(client);
         }
+        System.out.println(dataList.size());
     }
 
     private Store createStore(LegacySystemData data){
@@ -168,10 +171,18 @@ public class CSVLoader {
         legacySystemData.setPropertyNumBathrooms(verifyNumber(datas[11]));
         legacySystemData.setPropertyNumParking(verifyNumber(datas[12]));
 
-        legacySystemData.setPropertyCentralHeating(verifyTrueOrFalse(datas[13]));
-        legacySystemData.setPropertyAirconditioned(verifyTrueOrFalse(datas[14]));
-        legacySystemData.setPropertyBasement(verifyTrueOrFalse(datas[15]));
-        legacySystemData.setPropertyLoft(verifyTrueOrFalse(datas[16]));
+        try {
+            legacySystemData.setPropertyCentralHeating(verifyTrueOrFalse(datas[13]));
+            legacySystemData.setPropertyAirconditioned(verifyTrueOrFalse(datas[14]));
+            legacySystemData.setPropertyBasement(verifyTrueOrFalse(datas[15]));
+            legacySystemData.setPropertyLoft(verifyTrueOrFalse(datas[16]));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            legacySystemData.setPropertyCentralHeating(true);
+            legacySystemData.setPropertyAirconditioned(true);
+            legacySystemData.setPropertyBasement(true);
+            legacySystemData.setPropertyLoft(true);
+        }
         legacySystemData.setPropertySunExposure(verifySunExposure(datas[17]));
         legacySystemData.setPropertyRequestedSaleRentPrice(verifyNumber(datas[18]));
         legacySystemData.setPropertySaleRentPrice(verifyNumber(datas[19]));
