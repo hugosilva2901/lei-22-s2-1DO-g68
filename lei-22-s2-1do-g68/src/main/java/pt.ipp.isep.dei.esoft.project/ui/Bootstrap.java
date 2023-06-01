@@ -33,7 +33,7 @@ public class Bootstrap implements Runnable {
         addOrder();
         addVisitRequest();
     }
-
+//ikoj
 
 
 
