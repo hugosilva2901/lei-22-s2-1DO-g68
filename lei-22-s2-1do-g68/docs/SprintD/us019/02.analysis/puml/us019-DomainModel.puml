@@ -35,9 +35,6 @@ class Apartment{
 
 }
 
-class LegacySystemData{
-}
-
 abstract class User{
    - name
    - descriptions
@@ -67,38 +64,23 @@ class Store {
     - vatNumber
     - manager
 }
-class Administrator{
+
+class EmployeeProject{
+
 }
 
-enum Role{
-    + ROLE_ADMIN
-}
-enum Roles{
-    +OWNER
-}
-class Client{
-     List<Property> properties;
+enum ROLE{
+    - NETWORK_MANAGER
 }
 
-
-
-
-
-Administrator "1"--"*" Role
-
-Administrator "1"--"*" LegacySystemData : > import
-LegacySystemData "1"--"0..*" User : > create
-LegacySystemData "1"--"0..*" Property : > create
-LegacySystemData "1"--"0..*" Store: > create
-
-User "1"--"1" Roles : > with
- Client --|> User
-Client "1"--"*" Property
-
-Apartment --|> Property
-Land --|> Property
 House --|> Property
-StoreNetWork "1"--"*" Store
+Land --|> Property
+Apartment --|> Property
+
+Store "1" --"*" Property : has >
+EmployeeProject --|> User
+EmployeeProject "1"-->"1" ROLE : has role >
+EmployeeProject "1"-->"*" Store : > knows
 
 
 

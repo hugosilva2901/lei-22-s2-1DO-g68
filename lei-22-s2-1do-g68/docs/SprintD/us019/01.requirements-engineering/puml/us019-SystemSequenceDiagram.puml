@@ -1,0 +1,24 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Network Manager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : ask to perform subset partition calculation
+    activate System
+
+    System --> Employee : show result and displays\n operation success
+    deactivate System
+deactivate Employee
+
+
+
+@enduml
