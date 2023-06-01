@@ -1,0 +1,53 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+class CalculatePartionUI{
+}
+
+class CalculatePartionController{
+ + calculateWithNstores(int n)
+ + calculateAll()
+
+}
+
+class EmployeeProject{
+}
+abstract class User{
+}
+
+
+class Store{
+    +getProperties()
+}
+
+class Property{
+}
+
+class SubsetPartition{
++findMinPartition()
++calculatePartitions()
++loadTuplet()
++calculateSum()
++getDifference()
++getSumSubset1()
++getSumSubset2()
+}
+
+interface StoreRepository{
+    +getStoreList()
+}
+StoreRepository "1" --"*" Store : knows
+Store "1" --"*" Property : has >
+
+CalculatePartionUI --> CalculatePartionController
+CalculatePartionController --> SubsetPartition : uses
+EmployeeProject --> SubsetPartition : uses
+SubsetPartition --> Store : perform analysis
+EmployeeProject -|> User : is >
+
+
+@enduml

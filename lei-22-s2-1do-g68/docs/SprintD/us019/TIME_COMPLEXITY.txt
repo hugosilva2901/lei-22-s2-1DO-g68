@@ -1,0 +1,14 @@
+The time complexity of the brute-force algorithm for partitioning the stores into two subsets and finding the minimum difference can be analyzed as follows:
+Generating Partitions:
+The algorithm generates all possible partitions of the stores.
+ For n stores, there are a total of 2^(n-1) - 2 partitions.
+  Therefore, the time complexity of generating partitions is O(2^n).
+
+Finding Minimum Difference:
+For each generated partition,
+the algorithm calculates the sums of the elements in the two subsets and finds the minimum difference.
+Since there are 2^(n-1) - 2 partitions, the time complexity for finding the minimum difference is O(2^n).
+
+Overall Time Complexity:
+The dominant factor in the algorithm's time complexity is the generation of partitions,
+which has a time complexity of O(2^n). Therefore, the overall time complexity of the algorithm is O(2^n).
