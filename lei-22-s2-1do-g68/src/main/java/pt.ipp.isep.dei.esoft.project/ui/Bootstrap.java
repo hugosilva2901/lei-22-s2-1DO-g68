@@ -43,7 +43,7 @@ public class Bootstrap implements Runnable {
         Repositories.getInstance().getStoreRepository().addStore(store);
         Repositories.getInstance().getStoreRepository().addStore(store2);
     }
-
+//ijijo
     private void addEmployee() {
         Roles[] roles= new Roles[1] ;
         roles[0] = Roles.AGENT;
