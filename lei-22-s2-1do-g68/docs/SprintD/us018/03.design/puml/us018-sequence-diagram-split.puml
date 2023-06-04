@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Store Managaer" as st
+participant ":AnalyzeDealsUI" as UI
+participant ":CSVReader" as CSV
+participant ":AnalyzeDealsController" as CTRL
+
+activate st
+
+st -> UI : Requests to analyze all the deals
+activate UI
+
+UI -> CSV : CSVReader
+activate CSV
+
+CSV --> UI : csv read
+deactivate CSV
+
+UI -> CTRL : AnalyzeDeals()
+activate CTRL
+
+CTRL --> UI : show the comparison between the values of the deals
+deactivate CTRL
+
+UI --> st : show the comparison between the values of the deals
+deactivate UI
+
+@enduml
