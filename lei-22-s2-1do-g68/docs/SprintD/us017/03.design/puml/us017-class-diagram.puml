@@ -108,9 +108,12 @@ enum StatusOfOrder << enumeration >> {
   + valueOf(String): StatusOfOrder
 }
 
+class ListDealUI{
+  + run(): void
+}
 
-
-
+class ListDealController{
+}
 
 class Client extends User {
   + Client(String, String, int, String, String, String, String, Roles):
@@ -123,6 +126,8 @@ class Client extends User {
 User "1"--"1.*" Roles : has >
 CreateOrderController .> Repositories : repositories
 CreateOrderUI .> CreateOrderController
+ListDealUI .> ListDealController
+ListDealController .>Repositories : repositories
 
 Repositories "1" --> "*" OrderRepository : has >
 OrderRepository "1" --> "*" OrderMapper : Uses >
