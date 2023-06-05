@@ -9,7 +9,13 @@ autonumber
 actor "Store Managaer" as st
 participant ":AnalyzeDealsUI" as UI
 participant ":CSVReader" as CSV
+participant ":StoreRepository" as StoreREPO
+participant ":ClientRepository" as ClientREPO
+participant ":OrderRepository" as OrderREPO
+participant ":AnnouncementRepository" as AnnouncementREPO
+participant ":PropertyRepository" as PropertyREPO
 participant ":AnalyzeDealsController" as CTRL
+
 
 activate st
 
@@ -19,7 +25,37 @@ activate UI
 UI -> CSV : CSVReader
 activate CSV
 
-CSV --> UI : csv read
+CSV -> StoreREPO : addStoreDTO()
+activate StoreREPO
+
+StoreREPO --> CSV : Save Store information
+deactivate StoreREPO
+
+CSV -> ClientREPO : addClient()
+activate ClientREPO
+
+ClientREPO --> CSV : Save Client information
+deactivate ClientREPO
+
+CSV -> OrderREPO : createOrder()
+activate OrderREPO
+
+OrderREPO --> CSV : Save Order information
+deactivate OrderREPO
+
+CSV -> AnnouncementREPO : addAnnouncement()
+activate AnnouncementREPO
+
+AnnouncementREPO --> CSV : Save Announcement information
+deactivate AnnouncementREPO
+
+CSV -> PropertyREPO : add()
+activate PropertyREPO
+
+PropertyREPO --> CSV : Save Property information
+deactivate PropertyREPO
+
+CSV --> UI : All information have been saved
 deactivate CSV
 
 UI -> CTRL : AnalyzeDeals()
@@ -31,4 +67,5 @@ deactivate CTRL
 UI --> st : show the comparison between the values of the deals
 deactivate UI
 
+deactivate st
 @enduml

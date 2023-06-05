@@ -1,0 +1,182 @@
+  @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Store Managaer" as User
+participant ":AnalyzeDealsUI" as UI
+participant ":CSVReader" as CSV
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant ":StoreRepository" as StoreREPO
+participant ":StoreDTO" as StoreDTO
+participant ":StoreMapper" as StoreMapper
+participant ":ClientRepository" as ClientREPO
+participant ":ClientDTO" as ClientDTO
+participant ":ClientMapper" as ClientMapper
+participant ":OrderRepository" as OrderREPO
+participant ":OrderDTO" as OrderDTO
+participant ":OrderMapper" as OrderMapper
+participant ":PropertyRepository" as PropertyREPO
+participant ":AnnouncementRepository" as AnnouncementREPO
+participant ":AnnouncementDTO" as AnnouncementDTO
+participant ":AnnouncementMapper" as AnnouncementMapper
+participant ":AnalyzeDealsController" as CTRL
+
+activate User
+
+User -> UI : Requests to analyze all the deals
+activate UI
+
+UI -> CSV : CSVReader()
+activate CSV
+
+            CSV -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CSV: repositories
+            deactivate RepositorySingleton
+
+            CSV -> PLAT : getStoreRepository()
+            activate PLAT
+
+            PLAT --> CSV: StoreRepository
+            deactivate PLAT
+
+            CSV -> StoreREPO : getStoreDTO()
+            loop StoreDTO
+
+            activate StoreREPO
+            StoreREPO->StoreMapper:getAnnouncementDTO()
+            activate StoreMapper
+
+            StoreMapper->StoreDTO:CreateAnnouncementDTO()
+
+            activate StoreDTO
+            StoreDTO-->StoreMapper:AnnouncementDTO
+            deactivate StoreDTO
+            StoreMapper-->StoreREPO:AnnouncementDTO
+            deactivate StoreMapper
+            end
+            StoreREPO --> CSV : Save Store information
+            deactivate StoreREPO
+
+            CSV -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CSV: repositories
+            deactivate RepositorySingleton
+
+            CSV -> PLAT : getClientRepository()
+            activate PLAT
+
+            PLAT --> CSV: ClientRepository
+            deactivate PLAT
+
+            CSV -> ClientREPO : getClientDTO()
+            loop ClientDTO
+
+            activate ClientREPO
+            ClientREPO->ClientMapper:getClientDTO()
+            activate ClientMapper
+
+            ClientMapper->ClientDTO:CreateClientDTO()
+
+            activate ClientDTO
+            ClientDTO-->ClientMapper:ClientDTO
+            deactivate ClientDTO
+            ClientMapper-->ClientREPO:ClientDTO
+            deactivate ClientMapper
+            end
+            ClientREPO --> CSV : Save Client information
+            deactivate ClientREPO
+
+            CSV -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CSV: repositories
+            deactivate RepositorySingleton
+
+            CSV -> PLAT : gerOrderRepository()
+            activate PLAT
+
+            PLAT --> CSV: OrderRepository
+            deactivate PLAT
+
+            CSV -> OrderREPO : getOrderDTO()
+            loop OrderDTO
+
+            activate OrderREPO
+            OrderREPO->OrderMapper:getOrderDTO()
+            activate OrderMapper
+
+            OrderMapper->OrderDTO:CreateOrderDTO()
+
+            activate OrderDTO
+            OrderDTO-->OrderMapper:OrderDTO
+            deactivate OrderDTO
+            OrderMapper-->OrderREPO:OrderDTO
+            deactivate OrderMapper
+            end
+            OrderREPO --> CSV : Save Order information
+            deactivate OrderREPO
+
+            CSV -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CSV: repositories
+            deactivate RepositorySingleton
+
+            CSV -> PLAT : getPropertyRepository()
+            activate PLAT
+
+            PLAT --> CSV: PropertyRepository
+            deactivate PLAT
+
+            CSV -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CSV: repositories
+            deactivate RepositorySingleton
+
+            CSV -> PLAT : getAnnouncementRepository()
+            activate PLAT
+
+            PLAT --> CSV: AnnouncementRepository
+            deactivate PLAT
+
+            CSV -> AnnouncementREPO : getAnnouncementDTO()
+            loop AnnouncementDTO
+
+            activate AnnouncementREPO
+            AnnouncementREPO->AnnouncementMapper:getAnnouncementDTO()
+            activate AnnouncementMapper
+
+            AnnouncementMapper->AnnouncementDTO:createAnnouncementDTO()
+
+            activate AnnouncementDTO
+            AnnouncementDTO-->AnnouncementMapper:AnnouncementDTO
+            deactivate AnnouncementDTO
+            AnnouncementMapper-->AnnouncementREPO:AnnouncementDTO
+            deactivate AnnouncementMapper
+            end
+            AnnouncementREPO --> CSV : Save Announcement information
+            deactivate AnnouncementREPO
+
+CSV --> UI : All the information have been saved
+deactivate CSV
+
+UI -> CTRL : AnalyzeDeals()
+activate CTRL
+
+CTRL --> UI : show the comparison between the values of the deals
+deactivate CTRL
+
+UI --> User : show the comparison between the values of the deals
+deactivate UI
+
+deactivate User
+@enduml
