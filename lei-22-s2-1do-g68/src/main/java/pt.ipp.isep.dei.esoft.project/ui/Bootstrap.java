@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.VisitRequestControll
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.csv.CSVReader;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
@@ -15,6 +16,7 @@ import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.ClientRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,8 +34,15 @@ public class Bootstrap implements Runnable {
         addAnnoucements();
         addOrder();
         addVisitRequest();
+        try {
+            readCSV();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
-//ikoj
+
 
 
 
@@ -43,7 +52,6 @@ public class Bootstrap implements Runnable {
         Repositories.getInstance().getStoreRepository().addStore(store);
         Repositories.getInstance().getStoreRepository().addStore(store2);
     }
-//ijijo
     private void addEmployee() {
         Roles[] roles= new Roles[1] ;
         roles[0] = Roles.AGENT;
@@ -138,5 +146,9 @@ public class Bootstrap implements Runnable {
         ctrl.registerVisitRequestBootstrap(date,"visit of client "+clientRepository.getClients().get(2).getName(),announcement,ClientMapper.toDTO(clientRepository.getClients().get(2)));
         date = new Date(2003, 1, 25);
         ctrl.registerVisitRequestBootstrap(date,"visit of client " + clientRepository.getClients().get(0).getName(),announcement, ClientMapper.toDTO(clientRepository.getClients().get(0)));
+    }
+
+    private void readCSV() throws IOException, ParseException {
+        new CSVReader().readCSV();
     }
 }

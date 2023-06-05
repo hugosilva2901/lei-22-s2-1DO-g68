@@ -24,6 +24,18 @@ public class OrderRepository {
         PutPerorder();
     }
 
+    public void addOrder(OrderDTO orderDTO) {
+        order order = OrderMapper.toEntity(orderDTO);
+        order.setStatusOfOrder(StatusOfOrder.Accepted);
+        for (order o: orders) {
+            if (o.toString().equals(order.toString())) {
+                return;
+            }
+        }
+        addOrder(order);
+
+    }
+
     private void PutPerorder() {
         Collections.sort(orders, (o1, o2) -> o2.getValue() - o1.getValue());
     }

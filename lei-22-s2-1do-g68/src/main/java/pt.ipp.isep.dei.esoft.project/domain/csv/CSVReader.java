@@ -25,17 +25,14 @@ import java.util.Date;
 import java.util.List;
 
 public class CSVReader {
-    public static void main(String[] args) {
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.run();
-        StoreRepository storeRepository = Repositories.getInstance().getStoreRepository();
-        ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
+    StoreRepository storeRepository = Repositories.getInstance().getStoreRepository();
+    ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
 
-        OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
+    OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
 
-        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
-        PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
-
+    AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+    PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
+   public void readCSV() throws IOException, ParseException {
 
         String csvFile = "lei-22-s2-1do-g68\\src\\main\\java\\pt.ipp.isep.dei.esoft.project\\domain\\csv\\legacyRealStateUSAMoodle_MATCP_MDISC.csv";
         String line = "";
@@ -129,9 +126,9 @@ public class CSVReader {
                     Client client = new Client(owner_name, "client form the csv", taxNumber, owner_email, "Password1", "rua de ", owner_phone, Roles.CLIENT);
                     clientRepository.addClient(client);
                     int priceOfSale = Integer.parseInt(property_sale_rent_price);
-                    orderRepository.createOrder(announcementRepository.getAnnouncementsDTO().get(announcementRepository.getAnnouncementsDTO().size()-1),
-                            priceOfSale, clientRepository.getClientsDTO().get(clientRepository.getClientsDTO().size() - 1));
-                    orderRepository.getOrders().get(orderRepository.getOrders().size() - 1).setStatusOfOrder(StatusOfOrder.Accepted);
+                    OrderDTO orderDTO = new OrderDTO(announcementRepository.getAnnouncementsDTO().get(announcementRepository.getAnnouncementsDTO().size()-1),
+                            priceOfSale, clientRepository.getClientsDTO().get(clientRepository.getClientsDTO().size() - 1), StatusOfOrder.Accepted);
+                    orderRepository.addOrder(orderDTO);
                 }
                 i++;
             }

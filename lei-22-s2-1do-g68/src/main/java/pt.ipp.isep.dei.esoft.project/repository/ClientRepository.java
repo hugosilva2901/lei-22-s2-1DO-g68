@@ -30,6 +30,7 @@ public class ClientRepository {
     }
 
     public boolean addClient(Client client){
+        validateClient(client);
         return clients.add(client);
     }
 
