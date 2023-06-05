@@ -22,7 +22,7 @@ public abstract class Property {
         this.isForRent = isForRent;
     }
 
-    public Property(String name, String type, String address, String description, boolean isForSale, boolean isForRent, int property_area, int distanceFromCenter, int price) {
+    public Property(String name, String type, String address, String description, boolean isForSale, boolean isForRent, int property_area, int distanceFromCenter) {
         this.name = name;
         this.type = type;
         this.address = address;
@@ -31,7 +31,7 @@ public abstract class Property {
         this.isForRent = isForRent;
         this.property_area = property_area;
         this.distanceFromCenter = distanceFromCenter;
-        this.price = price;
+
     }
     public String getName() {
         return name;

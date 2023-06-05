@@ -26,8 +26,8 @@ public class House extends Property {
 
     public House(String name, String type, String address, String description, boolean isForSale, boolean isForRent,
                  int numberOfRooms, int numberOfBathrooms, int numberOfFloors, int numberOfGarages, List<String> equipments,
-                 boolean hasBasement, boolean hasLoft, boolean hasSunExposure,int price, int area,int distanceFromCenter) {
-        super(name, type, address, description, isForSale, isForRent,price,area,distanceFromCenter);
+                 boolean hasBasement, boolean hasLoft, boolean hasSunExposure, int area,int distanceFromCenter) {
+        super(name, type, address, description, isForSale, isForRent,area,distanceFromCenter);
         this.numberOfRooms = numberOfRooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.numberOfFloors = numberOfFloors;

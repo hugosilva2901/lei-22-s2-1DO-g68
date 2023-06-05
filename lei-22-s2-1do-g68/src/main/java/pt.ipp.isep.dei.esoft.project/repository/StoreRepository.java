@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.StoreDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.Roles;
 import pt.ipp.isep.dei.esoft.project.domain.Store;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.StoreMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,22 @@ public class StoreRepository {
     public void addStore(Store store) {
         validateStore(store);
         this.stores.add(store);
+    }
+
+    public void addStoreDTO(StoreDTO store) {
+        Store Store=StoreMapper.toEntity(store);
+        if (verifyStore(Store)){
+            addStore(Store);
+        }
+    }
+
+    private boolean verifyStore(Store store) {
+        for (int i = 0; i < this.stores.size(); i++) {
+            if(stores.get(i).getBranchNumber()==store.getBranchNumber());
+            System.out.println("Store already exists");
+            return false;
+        }
+       return true;
     }
 
     private void validateStore(Store store) {
