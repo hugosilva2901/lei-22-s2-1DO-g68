@@ -1,9 +1,9 @@
 @startuml
-'skinparam monochrome true
+skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
+skinparam linetype orto
 
 skinparam classAttributeIconSize "2"
 'left to right direction
@@ -107,49 +107,10 @@ enum StatusOfOrder << enumeration >> {
   + values(): StatusOfOrder[]
   + valueOf(String): StatusOfOrder
 }
-class Announcement {
-  + Announcement(Property, int, EmployeeProject):
-  + toString(): String
-  + validateAnnouncement(Announcement): void
-   employeeProject: EmployeeProject
-   announcementState: AnnouncementState
-   valueOfProperty: int
-   property: Property
-   commission: int
-   creationDate: LocalDateTime
-}
-class AnnouncementRepository {
-  + AnnouncementRepository():
-  - findAnnouncement(AnnouncementDTO): Announcement?
-  + removeAnnouncement(Announcement): boolean
-  + getAnnouncementsByEmployee(EmployeeProjectDTO): List<AnnouncementDTO>
-  + addAnnouncement(Announcement): void
-  + createAnnouncement(Property, int, EmployeeProject): Optional<Announcement>
-  + getPendingAnnouncementsByDate(String): List<AnnouncementDTO>
-  + changeAnnouncementState(AnnouncementDTO, AnnouncementState): void
-   announcements: List<Announcement>
-   announcementsDTO: List<AnnouncementDTO>
-   announcementsDTOAccepted: List<AnnouncementDTO>
-}
-enum AnnouncementState << enumeration >> {
-  + AnnouncementState():
-  + values(): AnnouncementState[]
-  + valueOf(String): AnnouncementState
-}
-class AnnouncementDTO {
-  + AnnouncementDTO(Property, int, EmployeeProjectDTO, AnnouncementState):
-  + toString(): String
-   announcementState: AnnouncementState
-   employeeProject: EmployeeProjectDTO
-   valueOfProperty: int
-   property: Property
-   creationDate: LocalDateTime
-}
-class AnnouncementMapper {
-  + AnnouncementMapper():
-  + toDTO(Announcement): AnnouncementDTO
-  + toEntity(AnnouncementDTO): Announcement
-}
+
+
+
+
 
 class Client extends User {
   + Client(String, String, int, String, String, String, String, Roles):
@@ -164,17 +125,10 @@ CreateOrderController .> Repositories : repositories
 CreateOrderUI .> CreateOrderController
 
 Repositories "1" --> "*" OrderRepository : has >
-Repositories "1" --> "*" AnnouncementRepository : has >
 OrderRepository "1" --> "*" OrderMapper : Uses >
 OrderMapper "1" --> "*" OrderDTO : creates >
-AnnouncementRepository "1" --> "*" AnnouncementMapper : Uses >
-AnnouncementMapper "1" --> "*" AnnouncementDTO : creates >
-AnnouncementMapper "1" --> "*" Announcement : transformsDTO to object>
 OrderRepository "1" --> "*" Order : has >
-Order "*" --> "1" Announcement : has a announcement >
 Order "1" --> "*" Client : has a client >
-Announcement "*" -> "1" AnnouncementState : has a state >
-AnnouncementDTO "*" -> "1" AnnouncementState : has a state >
 OrderDTO "*" -> "1" StatusOfOrder : has a state >
 Order "*"->"1" StatusOfOrder : has a state >
 
