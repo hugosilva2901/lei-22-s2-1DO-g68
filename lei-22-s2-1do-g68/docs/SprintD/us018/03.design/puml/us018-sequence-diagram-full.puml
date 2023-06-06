@@ -46,19 +46,19 @@ activate CSV
             PLAT --> CSV: StoreRepository
             deactivate PLAT
 
-            CSV -> StoreREPO : getStoreDTO()
+            CSV -> StoreREPO : addStore()
             loop StoreDTO
 
             activate StoreREPO
-            StoreREPO->StoreMapper:getAnnouncementDTO()
+            StoreREPO->StoreMapper: getStoreDTO()
             activate StoreMapper
 
-            StoreMapper->StoreDTO:CreateAnnouncementDTO()
+            StoreMapper->StoreDTO:CreateStoreDTO()
 
             activate StoreDTO
-            StoreDTO-->StoreMapper:AnnouncementDTO
+            StoreDTO-->StoreMapper:StoreDTO
             deactivate StoreDTO
-            StoreMapper-->StoreREPO:AnnouncementDTO
+            StoreMapper-->StoreREPO:StoreDTO
             deactivate StoreMapper
             end
             StoreREPO --> CSV : Save Store information
@@ -76,7 +76,7 @@ activate CSV
             PLAT --> CSV: ClientRepository
             deactivate PLAT
 
-            CSV -> ClientREPO : getClientDTO()
+            CSV -> ClientREPO : addClient()
             loop ClientDTO
 
             activate ClientREPO
@@ -106,7 +106,7 @@ activate CSV
             PLAT --> CSV: OrderRepository
             deactivate PLAT
 
-            CSV -> OrderREPO : getOrderDTO()
+            CSV -> OrderREPO : addOrder()
             loop OrderDTO
 
             activate OrderREPO
@@ -148,7 +148,7 @@ activate CSV
             PLAT --> CSV: AnnouncementRepository
             deactivate PLAT
 
-            CSV -> AnnouncementREPO : getAnnouncementDTO()
+            CSV -> AnnouncementREPO : addAnnouncement()
             loop AnnouncementDTO
 
             activate AnnouncementREPO
