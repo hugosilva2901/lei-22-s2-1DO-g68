@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.csv;
+package pt.ipp.isep.dei.esoft.project.domain.matcp;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
@@ -8,18 +8,14 @@ import pt.ipp.isep.dei.esoft.project.domain.DTO.StoreDTO;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
-import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +30,7 @@ public class CSVReader {
     PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
    public void readCSV() throws IOException, ParseException {
 
-        String csvFile = "lei-22-s2-1do-g68\\src\\main\\java\\pt.ipp.isep.dei.esoft.project\\domain\\csv\\legacyRealStateUSAMoodle_MATCP_MDISC.csv";
+        String csvFile = "lei-22-s2-1do-g68\\src\\main\\java\\pt.ipp.isep.dei.esoft.project\\domain\\matcp\\legacyRealStateUSAMoodle_MATCP_MDISC.csv";
         String line = "";
         String cvsSplitBy = ";";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {

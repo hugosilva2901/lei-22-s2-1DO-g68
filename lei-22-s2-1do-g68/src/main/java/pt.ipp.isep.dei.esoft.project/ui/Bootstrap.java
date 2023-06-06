@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.VisitRequestControll
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
-import pt.ipp.isep.dei.esoft.project.domain.csv.CSVReader;
+import pt.ipp.isep.dei.esoft.project.domain.matcp.CSVReader;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.AnnouncementMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
 import pt.ipp.isep.dei.esoft.project.domain.mapper.EmployeeProjectMapper;
@@ -36,9 +36,7 @@ public class Bootstrap implements Runnable {
         addVisitRequest();
         try {
             readCSV();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
