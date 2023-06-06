@@ -23,11 +23,11 @@ public class PropertyRepository {
         properties.add(property);
     }
 
-    public void add(House house) {
+    public void addHouse(House house) {
         houses.add(house);
     }
 
-    public void add(Apartment apartment) {
+    public void addApartment(Apartment apartment) {
         apartments.add(apartment);
     }
 

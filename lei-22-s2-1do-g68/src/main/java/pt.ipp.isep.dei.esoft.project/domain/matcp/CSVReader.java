@@ -95,18 +95,20 @@ public class CSVReader {
                     }
                     int area = Integer.parseInt(property_area);
                     int distanceFromCenter = Integer.parseInt(property_distanceFromCenter);
-                    if (property_type == "house") {
+                    if (property_type.equals("house")) {
 
 
                         House house = new House("house", "house", property_location, "it is a house"
                                 , true, false, numberRoms, numberBathrooms, 1, numberParking
                                 , equipment, basement, loft, sunExposure, area, distanceFromCenter);
                         propertyRepository.add(house);
+                        propertyRepository.addHouse(house);
                     } else {
                         Apartment apartment = new Apartment("apartment", "apartment",property_location, "it is a apartment"
                                 , true, false, numberRoms, numberBathrooms, 2, numberParking
                                 , equipment, area, distanceFromCenter);
                         propertyRepository.add(apartment);
+                        propertyRepository.addApartment(apartment);
                     }
                     int priceOnTheannoucement = Integer.parseInt(property_requested_sale_rent_price);
                     EmployeeProjectDTO employeeProject=EmployeeProjectMapper.toDTO(storeRepository.listEmployees().get(0));
