@@ -23,6 +23,14 @@ public class PropertyRepository {
         properties.add(property);
     }
 
+    public void add(House house) {
+        houses.add(house);
+    }
+
+    public void add(Apartment apartment) {
+        apartments.add(apartment);
+    }
+
     public Optional<Property> getByName(String name) {
         return properties.stream()
                 .filter(p -> p.getName().equals(name))
@@ -80,4 +88,7 @@ public class PropertyRepository {
         lands.add(land);
         return optionalValue;
     }
+
+
+
 }
