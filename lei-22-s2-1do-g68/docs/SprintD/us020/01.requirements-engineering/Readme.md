@@ -6,41 +6,45 @@
 ### 1.1. User Story Description
 
 
-As a network manager, I want to list all the employees working in every store of the network.
+As a client, I want to read the response for the appointment request, to accept or reject it.
 
 
-
-### 1.2. Customer Specifications and Clarifications 
-
-
-**From the specifications document:**
-
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost as well as the its classifying task category. 
-
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
-
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:**  Do you want a list where the header is ID, the name of the store, and the total number of listings that the store has?
+> **Question:**  Should the response for the booking request be displayed in the console? Or is it implied that the client saw the response in the email and knows what is being handled?
 >  
-> **Answer:** Yes.
+> **Answer:** The agent must be notified by email when the message is displayed to the client.
+
+> **Question:**  According to AC1, the agent must be notified when the message is displayed to the client. Should he receive an email?
+> 
+> **Answer:** The agent must be notified by email when the message is displayed to the client.
+
+> **Question:**  When the agent rejects the visit request it doesn't make sense for the client to accept or reject that. What should be the options for the client in that case?
+> 
+> **Answer:** When the agent rejects the visit, the client should only acknowledge that he is aware of the agent's answer.
+
+> **Question:**  The reason for declining the appointment should be selected from predefined options or entered as free text?
+>
+> **Answer:** The message should be entered as free text.
+
 
 
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** The list of employees should be alphabetically sorted and grouped by store
-* **AC2:** Stores should be sorted according to their property listings, from the one with more listings to the one with less listings.
-* **AC3:** Each store should state how many property listings it has.
+* **AC1:** The agent must be notified when the message is displayed to the client.
+* **AC2:** The appointment request must provide information about the property and the date of the appointment.
+* **AC3:** When the appointment is rejected, the client must specify the reason.
+* **AC4:** The appointment request must provide the agent name and phone number.
 
 
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US003 register a new employee"  and "US005 register a new store" since at least an employee and a store must exist to classify the task being created.
+* There is a dependency to "US009 As a client, I want to leave a message to the agent to schedule a visit to a
+  property of my interest." because the message is sent as a response to the appointment request.
 
 
 ### 1.5 Input and Output Data
@@ -57,7 +61,7 @@ As a network manager, I want to list all the employees working in every store of
 
 **Output Data:**
 
-* List of existing employees
+* List of messages apointement request responses.
 
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -71,4 +75,4 @@ As a network manager, I want to list all the employees working in every store of
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* None
