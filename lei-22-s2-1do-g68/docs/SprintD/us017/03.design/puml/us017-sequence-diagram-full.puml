@@ -1,0 +1,165 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "NetWorkManager" as nm
+participant ":ListDealsUI" as UI
+participant ":ListDealsController" as CTRL
+participant "PropertyRepository\n:PropertyRepository" as PropertyRepository
+participant "OrderRepository\n:OrderRepository" as OrderRepository
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "Order\n:Order" as TAREFA
+participant "OrderMapper:\OrderMapper" as Mapper
+participant "OrderDTO:\OrderDTO" as DTO
+
+activate nm
+
+    nm -> UI : Ask List of all Deals made
+
+    activate UI
+
+        UI -> CTRL** : create
+
+    UI-> CTRL : Get all Deals
+    activate CTRL
+
+    group Get Deals List
+
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getOrderRepository()
+            activate PLAT
+
+            PLAT --> CTRL: OrderRepository
+            deactivate PLAT
+
+            CTRL -> OrderRepository : getOrdersDTO()
+            loop get list of ordersDTO
+            activate OrderRepository
+              OrderRepository->Mapper:getOrdersDTO()
+            activate Mapper
+
+            Mapper->DTO:CreateOrderDTO()
+
+            activate DTO
+            DTO-->Mapper:OrderDTO
+            deactivate DTO
+            Mapper-->OrderRepository:OrderDTO
+            deactivate Mapper
+            end
+                OrderRepository --> CTRL : OrderList
+            deactivate OrderRepository
+    end group
+
+
+
+    UI<-- CTRL  : OrderList
+    deactivate CTRL
+
+    UI --> nm : Displays DealsList
+
+    UI --> nm : Displays Sort Options
+    deactivate UI
+    deactivate nm
+
+group Sort Options by Area
+
+    nm --> UI : User selects an Option
+    activate nm
+    activate UI
+
+    alt ascending
+        UI -> CTRL : Sort by Area
+        activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getRepository()
+                activate PLAT
+
+                PLAT --> CTRL: Repository
+                deactivate PLAT
+
+                CTRL -> OrderRepository : getAreaDTO()
+                loop get list of AreaDTO
+                activate OrderRepository
+                  OrderRepository->Mapper:getAreaDTO()
+                activate Mapper
+
+                Mapper->DTO:CreateAreaDTO()
+
+                activate DTO
+                DTO-->Mapper:AreaDTO
+                deactivate DTO
+                Mapper-->OrderRepository:AreaDTO
+                deactivate Mapper
+                end
+                    OrderRepository --> CTRL : AreaList
+                deactivate OrderRepository
+                CTRL-->CTRL : Sort by Area
+                CTRL--> UI : List of Orders Sorted by Area
+                deactivate CTRL
+                UI --> nm : Displays DealsList Sorted by Area
+                deactivate UI
+                deactivate nm
+    end alt
+
+    alt Descending
+            nm-> UI : User selects an Option
+            activate nm
+            activate UI
+
+            UI -> CTRL : Sort by Area
+            activate CTRL
+
+                    CTRL -> RepositorySingleton : getInstance()
+                    activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                    deactivate RepositorySingleton
+
+                    CTRL -> PLAT : getRepository()
+                    activate PLAT
+
+                    PLAT --> CTRL: Repository
+                    deactivate PLAT
+
+                    CTRL -> OrderRepository : getAreaDTO()
+                    loop get list of AreaDTO
+                    activate OrderRepository
+                      OrderRepository->Mapper:getAreaDTO()
+                    activate Mapper
+
+                    Mapper->DTO:CreateAreaDTO()
+
+                    activate DTO
+                    DTO-->Mapper:AreaDTO
+                    deactivate DTO
+                    Mapper-->OrderRepository:AreaDTO
+                    deactivate Mapper
+                    end
+                        OrderRepository --> CTRL : AreaList
+                    deactivate OrderRepository
+                    CTRL-->CTRL : Sort by Area
+                    CTRL--> UI : List of Orders Sorted by Area
+                    deactivate CTRL
+                    UI --> nm : Displays DealsList Sorted by Area
+                    deactivate UI
+                    deactivate nm
+        end alt
+    end group
+@enduml
