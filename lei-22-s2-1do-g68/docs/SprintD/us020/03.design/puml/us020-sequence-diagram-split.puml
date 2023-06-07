@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Client" as CL
+participant ":VisitRequestUI" as UI
+participant ":VisitRequestController" as CTRL
+
+activate CL
+
+        CL -> UI :  Request the message of the apointment
+        activate UI
+
+        UI -> CTRL** : create
+
+        UI -> CTRL : Get message of the apointment
+        activate CTRL
+
+
+            CTRL --> UI : Message of the apointment
+
+            deactivate CTRL
+            UI --> CL : Shows message of the apointment
+
+            deactivate UI
+
+            CL -> UI : Decide if accept or reject the apointment
+
+            activate UI
+
+            UI -> CTRL : Accept or reject the apointment
+
+            activate CTRL
+
+            CTRL --> UI : Saved the decision of the client about the apointment
+
+            deactivate CTRL
+
+            UI --> CL : Display sucess message
+
+            deactivate UI
+
+@enduml

@@ -1,0 +1,111 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Client" as CL
+participant ":VisitRequestUI" as UI
+participant ":VisitRequestController" as CTRL
+participant ":VisitRequestRepository" as VisitRequestRepository
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "VisitRequestMapper:\VisitRequestMapper" as Mapper
+participant "VisitRequestDTO:\VisitRequestDTO" as DTO
+participant "MessagesOfClientRepository:\MessagesOfClientRepository" as MessagesOfClientRepository
+
+
+activate CL
+
+        CL -> UI :  Request the message of the apointment
+        activate UI
+
+        UI -> CTRL** : create
+
+        UI -> CTRL : Get message of the apointment
+        activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getVisitRequestRepository()
+            activate PLAT
+
+            PLAT --> CTRL: VisitRequestRepository
+            deactivate PLAT
+
+            CTRL -> VisitRequestRepository : save(VisitRequest)
+            activate VisitRequestRepository
+
+            VisitRequestRepository -> Mapper : VisitRequestMapper
+            activate Mapper
+
+            Mapper -> DTO : VisitRequestDTO
+            activate DTO
+
+            DTO --> Mapper : VisitRequestDTO
+
+            deactivate DTO
+
+            Mapper --> VisitRequestRepository : VisitRequestMapper
+
+            deactivate Mapper
+
+
+            VisitRequestRepository --> CTRL : VisitRequestMessage
+
+            deactivate VisitRequestRepository
+            CTRL --> UI : Message of the apointment
+
+            deactivate CTRL
+            UI --> CL : Shows message of the apointment
+
+            deactivate UI
+
+            CL -> UI : Decide if accept or reject the apointment
+
+            activate UI
+
+            UI -> CTRL : Accept or reject the apointment
+
+            activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL: repositories
+
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getMessagesOfClientRepository()
+
+            activate PLAT
+
+            PLAT --> CTRL: MessagesOfClientRepository
+
+            deactivate PLAT
+
+            CTRL -> MessagesOfClientRepository : save(MessagesOfClient)
+
+            activate MessagesOfClientRepository
+
+            MessagesOfClientRepository --> CTRL : Saved messages of client
+
+            deactivate MessagesOfClientRepository
+
+            CTRL --> UI : Saved the decision of the client about the apointment
+
+            deactivate CTRL
+
+            UI --> CL : Display sucess message
+
+            deactivate UI
+
+
+@enduml

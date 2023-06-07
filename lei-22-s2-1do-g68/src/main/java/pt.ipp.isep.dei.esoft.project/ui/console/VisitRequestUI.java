@@ -6,14 +6,12 @@ import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.EmployeeProject;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
 import static pt.ipp.isep.dei.esoft.project.repository.VisitRepository.visitList;
 
 public class VisitRequestUI implements Runnable{
