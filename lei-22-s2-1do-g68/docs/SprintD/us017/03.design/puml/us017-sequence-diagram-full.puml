@@ -16,6 +16,8 @@ participant "repositories\n:Repositories" as PLAT
 participant "Order\n:Order" as TAREFA
 participant "OrderMapper:\OrderMapper" as Mapper
 participant "OrderDTO:\OrderDTO" as DTO
+participant "PropertyMapper:\PropertyMapper" as PMapper
+participant "PropertyDTO:\PropertyDTO" as PDTO
 
 activate nm
 
@@ -88,28 +90,28 @@ group Sort Options by Area
                 RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getRepository()
+                CTRL -> PLAT : getPropertyRepository()
                 activate PLAT
 
-                PLAT --> CTRL: Repository
+                PLAT --> CTRL: PropertyRepository
                 deactivate PLAT
 
-                CTRL -> OrderRepository : getAreaDTO()
+                CTRL -> PropertyRepository : getAreaDTO()
                 loop get list of AreaDTO
-                activate OrderRepository
-                  OrderRepository->Mapper:getAreaDTO()
-                activate Mapper
+                activate PropertyRepository
+                  PropertyRepository->PMapper:getAreaDTO()
+                activate PMapper
 
-                Mapper->DTO:CreateAreaDTO()
+                PMapper->PDTO:CreateAreaDTO()
 
-                activate DTO
-                DTO-->Mapper:AreaDTO
-                deactivate DTO
-                Mapper-->OrderRepository:AreaDTO
-                deactivate Mapper
+                activate PDTO
+                PDTO-->PMapper:AreaDTO
+                deactivate PDTO
+                PMapper-->PropertyRepository:AreaDTO
+                deactivate PMapper
                 end
-                    OrderRepository --> CTRL : AreaList
-                deactivate OrderRepository
+                    PropertyRepository --> CTRL : AreaList
+                deactivate PropertyRepository
                 CTRL-->CTRL : Sort by Area
                 CTRL--> UI : List of Orders Sorted by Area
                 deactivate CTRL
@@ -118,48 +120,48 @@ group Sort Options by Area
                 deactivate nm
     end alt
 
-    alt Descending
-            nm-> UI : User selects an Option
-            activate nm
-            activate UI
+    alt descending
+        nm->UI: User selects an Option
+        activate nm
+        activate UI
 
-            UI -> CTRL : Sort by Area
-            activate CTRL
+        UI -> CTRL : Sort by Area
+        activate CTRL
 
-                    CTRL -> RepositorySingleton : getInstance()
-                    activate RepositorySingleton
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
 
-                    RepositorySingleton --> CTRL: repositories
-                    deactivate RepositorySingleton
+                RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
 
-                    CTRL -> PLAT : getRepository()
-                    activate PLAT
+                CTRL -> PLAT : getPropertyRepository()
+                activate PLAT
 
-                    PLAT --> CTRL: Repository
-                    deactivate PLAT
+                PLAT --> CTRL: PropertyRepository
+                deactivate PLAT
 
-                    CTRL -> OrderRepository : getAreaDTO()
-                    loop get list of AreaDTO
-                    activate OrderRepository
-                      OrderRepository->Mapper:getAreaDTO()
-                    activate Mapper
+                CTRL -> PropertyRepository : getAreaDTO()
+                loop get list of AreaDTO
+                activate PropertyRepository
+                  PropertyRepository->PMapper:getAreaDTO()
+                activate PMapper
 
-                    Mapper->DTO:CreateAreaDTO()
+                PMapper->PDTO:CreateAreaDTO()
 
-                    activate DTO
-                    DTO-->Mapper:AreaDTO
-                    deactivate DTO
-                    Mapper-->OrderRepository:AreaDTO
-                    deactivate Mapper
-                    end
-                        OrderRepository --> CTRL : AreaList
-                    deactivate OrderRepository
-                    CTRL-->CTRL : Sort by Area
-                    CTRL--> UI : List of Orders Sorted by Area
-                    deactivate CTRL
-                    UI --> nm : Displays DealsList Sorted by Area
-                    deactivate UI
-                    deactivate nm
-        end alt
-    end group
+                activate PDTO
+                PDTO-->PMapper:AreaDTO
+                deactivate PDTO
+                PMapper-->PropertyRepository:AreaDTO
+                deactivate PMapper
+                end
+                    PropertyRepository --> CTRL : AreaList
+                deactivate PropertyRepository
+                CTRL-->CTRL : Sort by Area
+                CTRL--> UI : List of Orders Sorted by Area
+                deactivate CTRL
+                UI --> nm : Displays DealsList Sorted by Area
+                deactivate UI
+                deactivate nm
+    end alt
+end group
 @enduml
