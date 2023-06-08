@@ -98,6 +98,7 @@ public class CreateAnnouncementUI implements Runnable {
         Optional<Announcement> announcement = getController().createAnnouncement(property,comission);
         if (announcement.isPresent()) {
             System.out.println("Announcement created!");
+            controller.messageAnnouncement(announcement.get(), client);
 
         } else {
             System.out.println("Announcement not created!");

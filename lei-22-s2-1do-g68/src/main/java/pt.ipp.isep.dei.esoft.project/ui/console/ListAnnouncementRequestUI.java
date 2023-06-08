@@ -11,14 +11,12 @@ import java.util.Scanner;
 
 public class ListAnnouncementRequestUI implements Runnable {
     private CreateAnnouncementController createAnnouncementController = new CreateAnnouncementController();
-    private AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
 
     private List<AnnouncementDTO> pendingAnnouncements;
 
     @Override
     public void run() {
-        String employeeProject = authenticationRepository.getCurrentUserSession().getUserId().getEmail();
-        pendingAnnouncements = createAnnouncementController.getPendingAnnouncementsByDate(employeeProject);
+        pendingAnnouncements = createAnnouncementController.getPendingAnnouncementsByDate();
 
         displayAnnouncements(pendingAnnouncements);
 

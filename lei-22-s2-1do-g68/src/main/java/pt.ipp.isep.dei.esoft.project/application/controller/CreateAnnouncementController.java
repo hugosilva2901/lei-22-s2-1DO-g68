@@ -21,6 +21,7 @@ public class CreateAnnouncementController {
     private AnnouncementRepository announcementRepository = null;
     private AuthenticationRepository authenticationRepository = null;
     private StoreRepository storeRepository = null;
+    private MessagesOfClientRepository messagesOfClientRepository = null;
 
     //Repository instances are obtained from the Repositories class
     public CreateAnnouncementController() {
@@ -29,7 +30,7 @@ public class CreateAnnouncementController {
         getAnnouncementRepository();
         getAuthenticationRepository();
         getStoreRepository();
-
+        getMessageRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
@@ -41,6 +42,7 @@ public class CreateAnnouncementController {
         this.propertyRepository = propertyRepository;
         this.announcementRepository = announcementRepository;
         this.authenticationRepository = authenticationRepository;
+
     }
 
     public PropertyRepository getPropertyRepository() {
@@ -93,6 +95,14 @@ public class CreateAnnouncementController {
         return storeRepository;
     }
 
+    private MessagesOfClientRepository getMessageRepository(){
+        if(messagesOfClientRepository == null){
+            Repositories repositories = Repositories.getInstance();
+            messagesOfClientRepository = repositories.getMessagesOfClientRepository();
+        }
+        return messagesOfClientRepository;
+    }
+
     private EmployeeProjectDTO getEmployeeByName(String name) {
         return storeRepository.getEmployeeByEmail(name);
     }
@@ -113,12 +123,23 @@ public class CreateAnnouncementController {
     }
 
 
-    public List<AnnouncementDTO> getPendingAnnouncementsByDate(String employeeProject) {
+    public List<AnnouncementDTO> getPendingAnnouncementsByDate() {
         return getAnnouncementRepository().getPendingAnnouncementsByDate(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
     }
 
     public void changeAnnouncementState(AnnouncementDTO announcement, AnnouncementState newState) {
         getAnnouncementRepository().changeAnnouncementState(announcement, newState);
+    }
+
+    private EmployeeProjectDTO getEmployeeProject(String email) {
+        return this.storeRepository.getEmployeeByEmail(email);
+    }
+
+    public void messageAnnouncement(Announcement announcement, Client client){
+        EmployeeProjectDTO employeeProjectDTO = getEmployeeProject(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
+        String message = "O seu anuncio foi publicado";
+        String MessageFinal = "" + message + "\n" + employeeProjectDTO.getName() + " " + employeeProjectDTO.getPhone();
+        this.messagesOfClientRepository.addMessage(client , MessageFinal);
     }
 
 

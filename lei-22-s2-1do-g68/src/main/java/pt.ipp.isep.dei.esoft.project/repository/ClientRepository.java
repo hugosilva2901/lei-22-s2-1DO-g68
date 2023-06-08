@@ -85,4 +85,13 @@ public class ClientRepository {
         return null;
     }
 
+    public ClientDTO getClientByProperty(Property property){
+        for(Client client : clients){
+            if(client.getProperties().equals(property)){
+                return ClientMapper.toDTO(client);
+            }
+        }
+        return null;
+    }
+
 }
