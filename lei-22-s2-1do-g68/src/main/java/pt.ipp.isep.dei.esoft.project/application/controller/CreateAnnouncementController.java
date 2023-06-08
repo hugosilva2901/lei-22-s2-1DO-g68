@@ -94,7 +94,7 @@ public class CreateAnnouncementController {
     }
 
     private EmployeeProjectDTO getEmployeeByName(String name) {
-        return storeRepository.getEmployeeByName(name);
+        return storeRepository.getEmployeeByEmail(name);
     }
 
     public Optional<Announcement> createAnnouncement(Property property, int commission) {
