@@ -70,8 +70,10 @@ public class Announcement {
     @Override
     public String toString() {
         return "Announcement{" +
-                "value Of Property=" + valueOfProperty +
+                "valueOfProperty=" + valueOfProperty +
                 ", property=" + property.toString() +
+                ", announcementState=" + announcementState +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }

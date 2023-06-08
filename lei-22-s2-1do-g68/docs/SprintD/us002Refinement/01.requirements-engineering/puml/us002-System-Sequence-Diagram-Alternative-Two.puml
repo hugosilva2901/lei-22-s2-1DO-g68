@@ -1,0 +1,78 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+actor "RealStateAgent" as User
+participant ":System" as System
+
+activate User
+
+User -> System : Initiate property registration
+activate System
+
+System --> User : Asks for Owner attributes (name, citizenCardNumber, taxNumber, Address, EmailAddress, phoneNumber)
+deactivate System
+
+User -> System : submits Owner attributes (name, citizenCardNumber, taxNumber, Address, EmailAddress, phoneNumber)
+activate System
+
+System --> User : Asks for property type (House or Apartment or Land))
+deactivate System
+
+User -> System : selects Property Type (House/Apartment or Land)
+activate System
+
+alt Property type is Apartment
+
+System --> User : Asks for number of rooms, number of bathrooms, number of kitchens,
+deactivate System
+
+User -> System : fills out number of rooms, number of bathrooms, number of kitchens...
+activate System
+
+System --> User : Display a form for the agent to select whether or not the property has a garage
+deactivate System
+
+User -> System : Select whether the property has a garage or not
+activate System
+
+else Property type is House
+
+System --> User : Asks for number of rooms, number of bathrooms, number of kitchens...
+deactivate System
+
+User -> System : fills out number of rooms, number of bathrooms, number of kitchens
+activate System
+
+System --> User : Displays form for additional property details (e.g., garage, backyard, etc.)
+deactivate System
+
+User -> System : Fills out additional property details
+activate System
+
+else Property type is Land
+
+System --> User : Ask for additional details of the land (m^2, if it is for construction or agricultural purposes...)
+deactivate System
+
+User -> System : Fills out the additional details of the land (m^2, if it is for construction or agricultural purposes...)
+activate System
+
+end
+
+System --> User : Displays a form for the agent to fill with the property description and cost
+deactivate System
+
+User -> System : Fills out the form with the description of the property and the cost
+activate System
+
+System --> System: Save new property
+deactivate System
+
+System --> User: Display confirmation message and sends message to property owner
+deactivate System
+@enduml

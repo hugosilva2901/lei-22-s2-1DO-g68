@@ -138,7 +138,8 @@ public class CreateAnnouncementController {
     public void messageAnnouncement(Announcement announcement, Client client){
         EmployeeProjectDTO employeeProjectDTO = getEmployeeProject(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
         String message = "O seu anuncio foi publicado";
-        String MessageFinal = "" + message + "\n" + employeeProjectDTO.getName() + " " + employeeProjectDTO.getPhone();
+        String MessageFinal = "" + message + "\n" + employeeProjectDTO.getName() + " " + employeeProjectDTO.getPhone() + "\n" + announcement.toString();
+        System.out.println(MessageFinal);
         this.messagesOfClientRepository.addMessage(client , MessageFinal);
     }
 
