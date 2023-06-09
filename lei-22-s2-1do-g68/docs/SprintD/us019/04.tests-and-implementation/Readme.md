@@ -5,26 +5,26 @@
 ```java
  @Test (test constructor with correct file)
     void testConstructor01(){
-        assertDoesNotThrow(()->csvLoader = new CSVLoader("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.csv"));
+        assertDoesNotThrow(()->csvLoader = new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.csv"));
     }
     
     @Test (test constructor with wrong file format)
     void testConstructor02(){
         assertThrows(InvalidPropertiesFormatException.class, () -> {
-            new CSVLoader("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.txt");
+            new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.txt");
         });
     }
     
     @Test (test constructor with no header)
     void testConstructor03(){
         assertThrows(InvalidPropertiesFormatException.class, () -> {
-            new CSVLoader("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest.txt");
+            new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest.txt");
         });    }
 
     @Test (test constructor with wrong header)
     void testConstructor04(){
         assertThrows(InvalidPropertiesFormatException.class, () -> {
-            new CSVLoader("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest2.txt");
+            new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest2.txt");
         });    }
 ```
 
