@@ -10,6 +10,7 @@ actor "Real State agent" as ADM
 participant ":CreateAnnouncementUI" as UI
 participant ":CreateAnnouncementController" as CTRL
 participant "AnnouncementRepository\n:AnnouncementRepository" as ORG
+participant "MessagesOfClientRepository\nMessagesOfClientRepository" as MessREPO
 
 activate ADM
 
@@ -91,7 +92,17 @@ activate ADM
 
             CTRL --> UI: Announcement
             deactivate CTRL
-            UI --> ADM: displays operation success
+
+    UI -> CTRL : messageAnnouncement(Announcement, Client)
+    activate CTRL
+    CTRL -> MessREPO: addMessageOfVisit(String,String)
+    activate MessREPO
+
+    MessREPO --> CTRL : Sends message to property owner
+    deactivate MessREPO
+    CTRL --> UI: Sends message to property owner
+    deactivate CTRL
+    UI --> ADM: Display confirmation message and sends message to property owner
     deactivate UI
 
 deactivate ADM

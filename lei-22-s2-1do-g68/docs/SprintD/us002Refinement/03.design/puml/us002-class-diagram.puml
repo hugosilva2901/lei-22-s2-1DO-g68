@@ -184,10 +184,21 @@ class ClientRepository{
    clients: List<Client>
 }
 
+class MessagesOfClientRepository {
+  - messages: Map<Client, List<String>>
+  - messagesOfEmployee: Map<EmployeeProject, List<String>>
+  - MessageOfVisitByEmail: Map<String, List<String>>
+
+  + addMessage(Client client, String message): void
+  + getMessage(Client client): List<String>
+  + addMessageOfVisit(String email, String message): void
+}
+
 CreateAnnouncementUI .> CreateAnnouncementController
 CreateAnnouncementController .> Repositories : repositories
 Repositories "1" --> "*" PropertyRepository : has >
 PropertyRepository "1" --> "*" Property : has >
+Repositories "1" --> "*" MessagesOfClientRepository : has >
 House  --|>  Property  : is
 Apartment  --|>  Property : is
 Land  --|>  Property : is
