@@ -48,7 +48,6 @@
             <version>${junit-jupiter}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -70,11 +69,27 @@
             <scope>test</scope>
         </dependency>
 
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math4-core -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math-parent</artifactId>
+            <version>4.0-beta1</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math4-legacy</artifactId>
+            <version>4.0-beta1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>pt.isep.lei.esoft</groupId>
@@ -84,14 +99,8 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.2</version>
-            <scope>compile</scope>
+            <version>7.7.1</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
