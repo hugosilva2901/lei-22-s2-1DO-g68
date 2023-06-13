@@ -74,6 +74,7 @@ public abstract class Property {
         return property_area;
     }
 
+
     public void setProperty_area(int property_area) {
         this.property_area = property_area;
     }
