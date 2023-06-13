@@ -27,7 +27,7 @@ public class OrderRepository {
     public void addOrder(OrderDTO orderDTO) {
         order order = OrderMapper.toEntity(orderDTO);
         order.setStatusOfOrder(StatusOfOrder.Accepted);
-        for (order o: orders) {
+        for (order o : orders) {
             if (o.toString().equals(order.toString())) {
                 return;
             }
@@ -48,16 +48,16 @@ public class OrderRepository {
 
     private boolean valueAlreadyExists(int value, AnnouncementDTO announcement) {
         for (order o : orders) {
-            if (o.getValue() == value &&( o.getAnnouncement().equals(AnnouncementMapper.toEntity(announcement)))){
+            if (o.getValue() == value && (o.getAnnouncement().equals(AnnouncementMapper.toEntity(announcement)))) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean clientAlreadyExists(ClientDTO client,AnnouncementDTO announcement) {
+    private boolean clientAlreadyExists(ClientDTO client, AnnouncementDTO announcement) {
         for (order o : orders) {
-            if (o.getClient().getTaxNumber()==(ClientMapper.toEntity(client)).getTaxNumber() && o.getStatusOfOrder() != StatusOfOrder.Accepted &&  o.getAnnouncement().toString().equals(AnnouncementMapper.toEntity(announcement).toString())) {
+            if (o.getClient().getTaxNumber() == (ClientMapper.toEntity(client)).getTaxNumber() && o.getStatusOfOrder() != StatusOfOrder.Accepted && o.getAnnouncement().toString().equals(AnnouncementMapper.toEntity(announcement).toString())) {
                 return true;
             }
         }
@@ -73,7 +73,7 @@ public class OrderRepository {
         if (valueAlreadyExists(value, announcement)) {
             System.out.println("The order amount submitted has already been posted for this property. Please contact the agent that is responsible for this property");
         }
-        if (clientAlreadyExists(client,announcement)) {
+        if (clientAlreadyExists(client, announcement)) {
             System.out.println("The client already has an order in this announcement");
             return Optional.empty();
         }
@@ -105,7 +105,7 @@ public class OrderRepository {
 
     private order findOrder(OrderDTO order) {
         for (order o : orders) {
-            if (o.getClient().getTaxNumber()==(OrderMapper.toEntity(order)).getClient().getTaxNumber()&& o.getAnnouncement().toString().equals(OrderMapper.toEntity(order).getAnnouncement().toString())) {
+            if (o.getClient().getTaxNumber() == (OrderMapper.toEntity(order)).getClient().getTaxNumber() && o.getAnnouncement().toString().equals(OrderMapper.toEntity(order).getAnnouncement().toString())) {
                 return o;
             }
         }
@@ -132,5 +132,5 @@ public class OrderRepository {
         System.out.println("The" + OrderMapper.toEntity(order).toString() + "was rejected");
 
     }
-
 }
+

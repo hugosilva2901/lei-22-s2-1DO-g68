@@ -47,4 +47,6 @@ public class OrderDTO {
     public void setStatusOfOrder(StatusOfOrder statusOfOrder) {
         this.statusOfOrder = statusOfOrder;
     }
+
+
 }
