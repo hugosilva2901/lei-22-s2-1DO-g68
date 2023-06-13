@@ -16,7 +16,7 @@ public class CreateAnnouncementUI implements Runnable {
 
     private Client client;
     private Property property;
-    private int comission;
+    private int valueofproperty;
 
     public static CreateAnnouncementController getController() {
         return controller;
@@ -95,7 +95,7 @@ public class CreateAnnouncementUI implements Runnable {
 
 
     private void submitData() {
-        Optional<Announcement> announcement = getController().createAnnouncement(property,comission);
+        Optional<Announcement> announcement = getController().createAnnouncement(property,valueofproperty);
         if (announcement.isPresent()) {
             System.out.println("Announcement created!");
             controller.messageAnnouncement(announcement.get(), client);
@@ -105,15 +105,15 @@ public class CreateAnnouncementUI implements Runnable {
         }
     }
     private void requestData() {
-        comission=requestComission();
+        valueofproperty=requestvalue();
     }
 
 
-    private int requestComission() {
+    private int requestvalue() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Insert the comission");
-        int comission = input.nextInt();
-        return comission;
+        System.out.println("Insert value of the property");
+        int valueofproperty = input.nextInt();
+        return valueofproperty;
     }
 
 }
