@@ -1,20 +1,22 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class VisitRequest {
-    private Announcement announcement;
+    private AnnouncementDTO announcement;
     private Date date;
     private String message;
     private Client client;
 
-    public Announcement getAnnouncement() {return announcement;}
+    public AnnouncementDTO getAnnouncement() {return announcement;}
     public Date getDate() {return date;}
     public String getMessage() {return message;}
     public Client getClient() {return client;}
 
-    public VisitRequest(Announcement announcement, Date date, String message, Client client){
+    public VisitRequest(AnnouncementDTO announcement, Date date, String message, Client client){
         this.announcement = announcement;
         this.date = date;
         this.message = message;

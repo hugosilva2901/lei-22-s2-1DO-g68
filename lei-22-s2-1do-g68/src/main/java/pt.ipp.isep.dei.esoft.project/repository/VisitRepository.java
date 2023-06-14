@@ -23,7 +23,7 @@ public class VisitRepository {
 
     public static ArrayList<VisitRequest> visitList = new ArrayList<VisitRequest>();
 
-    public static void addVisit(Announcement announcement, Date date, String message, Client client){
+    public static void addVisit(AnnouncementDTO announcement, Date date, String message, Client client){
         visitList.add(new VisitRequest(announcement, date, message, client));
     }
 
@@ -33,10 +33,9 @@ public class VisitRepository {
 
     public Optional<VisitRequest> createVisitRequest(AnnouncementDTO announcement, Date date, String message, ClientDTO client){
         Client client1= ClientMapper.toEntity(client);
-        Announcement  announcement1= AnnouncementMapper.toEntity(announcement);
-        addVisit(announcement1, date, message, client1);
+        addVisit(announcement, date, message, client1);
 
-        return Optional.of(new VisitRequest(announcement1, date, message, client1));
+        return Optional.of(new VisitRequest(announcement, date, message, client1));
     }
 
     public List<VisitRequestDTO> getAllVisitRequestsDTO() {
