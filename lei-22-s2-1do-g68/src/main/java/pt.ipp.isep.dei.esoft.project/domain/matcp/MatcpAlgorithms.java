@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain.matcp;
 
 import org.apache.commons.math4.legacy.stat.regression.MultipleLinearRegression;
+import org.apache.commons.math4.legacy.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.SimpleRegression;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -8,9 +9,11 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 public class MatcpAlgorithms {
 
     OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
+    public void PropertyArea(){
+        PropertyArea2();
+    }
 
-
-    private void PropertyArea() {
+    private void PropertyArea2() {
         SimpleRegression regression = new SimpleRegression();
 
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -26,8 +29,11 @@ public class MatcpAlgorithms {
         System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
         System.out.println("Predict(100): " + regression.predict(100));
     }
+    public void DistanceFromCenter(){
+        DistanceFromCenter2();
+    }
 
-    private void DistanceFromCenter(){
+    private void DistanceFromCenter2(){
         SimpleRegression regression = new SimpleRegression();
 
         for (int i = 0; i <orderRepository.getOrders().size() ; i++) {
@@ -47,7 +53,9 @@ public class MatcpAlgorithms {
 
     private void MultipleRegression(){
         //MultipleLinearRegression regression = new MultipleLinearRegression();
+            OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+       // regression;
+        };
 
     }
 
-}

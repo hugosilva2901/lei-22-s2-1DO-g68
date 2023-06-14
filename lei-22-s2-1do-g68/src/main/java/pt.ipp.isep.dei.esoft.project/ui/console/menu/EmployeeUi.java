@@ -15,6 +15,7 @@ public class EmployeeUi implements Runnable {
         options.add(new MenuItem("List Announcement My Announcement Requests", new ListAnnouncementRequestUI()));
         options.add(new MenuItem("List visits requests  ", new ListVisitRequestUI()));
         options.add(new MenuItem("Respond To request", new MessageVisitRequestUI()));
+        options.add(new MenuItem("Regressão linear", new RegressoesLinearesUI()));
 
         int option = 0;
         do {
