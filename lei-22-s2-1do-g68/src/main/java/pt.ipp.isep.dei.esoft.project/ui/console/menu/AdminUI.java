@@ -21,8 +21,8 @@ public class AdminUI implements Runnable {
         options.add(new MenuItem("Create Employee", new CreatEmployeeUi()));
         options.add(new MenuItem("Create Store ", new CreateStoreUI()));
         options.add(new MenuItem("Import Legacy System Data ", new ImportLegacySystemDataUI()));
-        options.add(new MenuItem("Option 4 ", new ShowTextUI("You have chosen Option C.")));
-        //options.add(new MenuItem("List Deals", new ListDealUI()));
+        options.add(new MenuItem("List Deals", new ListDealUI()));
+        options.add(new MenuItem("Show Employee", new ShowEmployeeUI()));
 
         int option = 0;
 
