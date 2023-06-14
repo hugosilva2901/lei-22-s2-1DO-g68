@@ -66,6 +66,7 @@ public class MessageVisitRequestController {
         EmployeeProjectDTO employeeProjectDTO = getEmployeeProject(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
         MessageVisit messageVisit = new MessageVisit(message,employeeProjectDTO.getName(),employeeProjectDTO.getPhone(),visitRequestDTO.getAnnouncement().getProperty().toString());
         this.messagesOfClientRepository.addMessageOfVisit(visitRequestDTO.getClient().getEmail(),messageVisit);
+        visitRepository.removeVisit(visitRequestDTO);
         return messageVisit.toString();
     }
 

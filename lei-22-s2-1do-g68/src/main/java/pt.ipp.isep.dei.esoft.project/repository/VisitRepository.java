@@ -38,6 +38,11 @@ public class VisitRepository {
         return Optional.of(new VisitRequest(announcement, date, message, client1));
     }
 
+    public void removeVisit(VisitRequestDTO visit){
+        VisitRequest vi =VisitRequestMapper.toDomain(visit);
+        visitList.remove(vi);
+    }
+
     public List<VisitRequestDTO> getAllVisitRequestsDTO() {
         List<VisitRequestDTO> visitRequestDTOList = new ArrayList<>();
         for (VisitRequest visitRequest : visitList) {
