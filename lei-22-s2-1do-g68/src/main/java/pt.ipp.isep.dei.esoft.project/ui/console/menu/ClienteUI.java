@@ -14,7 +14,7 @@ public class ClienteUI implements Runnable {
         options.add(new MenuItem("Place a Order", new CreateOrderUI()));
         options.add(new MenuItem("Visit Requests", new VisitRequestUI()));
         options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
-        options.add(new MenuItem("List Deals", new ListDealUI()));
+
 
         int option = 0;
         do {
