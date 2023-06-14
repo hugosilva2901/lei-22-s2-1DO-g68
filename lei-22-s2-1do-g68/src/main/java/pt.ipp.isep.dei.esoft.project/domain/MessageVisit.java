@@ -9,7 +9,7 @@ public class MessageVisit {
 
     private String reson;
 
-    public MessageVisit(String message, String nameEmployee, String phoneEmployee, String property, StatusOfMessage statusOfMessage) {
+    public MessageVisit(String message, String nameEmployee, String phoneEmployee, String property) {
         this.message = message;
         this.nameEmployee = nameEmployee;
         this.phoneEmployee = phoneEmployee;
@@ -70,5 +70,17 @@ public class MessageVisit {
 
     public void setPhoneEmployee(String phoneEmployee) {
         this.phoneEmployee = phoneEmployee;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageVisit{" +
+                "message='" + message + '\'' +
+                ", nameEmployee='" + nameEmployee + '\'' +
+                ", phoneEmployee='" + phoneEmployee + '\'' +
+                ", Property='" + Property + '\'' +
+                ", statusOfMessage=" + statusOfMessage +
+                ", reson='" + reson + '\'' +
+                '}';
     }
 }

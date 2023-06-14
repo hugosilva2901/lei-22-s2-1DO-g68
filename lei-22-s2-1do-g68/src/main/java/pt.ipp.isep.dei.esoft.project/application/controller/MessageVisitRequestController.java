@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.DTO.EmployeeProjectDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.VisitRequestDTO;
+import pt.ipp.isep.dei.esoft.project.domain.MessageVisit;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -63,9 +64,9 @@ public class MessageVisitRequestController {
 
     public String ResponseOfRequest( String message,VisitRequestDTO visitRequestDTO) {
         EmployeeProjectDTO employeeProjectDTO = getEmployeeProject(authenticationRepository.getCurrentUserSession().getUserId().getEmail());
-        String MessageFinal= ""+message+"\n"+employeeProjectDTO.getName()+" "+ employeeProjectDTO.getPhone()+"\n"+visitRequestDTO.getAnnouncement().getProperty().toString();
-        this.messagesOfClientRepository.addMessageOfVisit(visitRequestDTO.getClient().getEmail(),MessageFinal);
-        return MessageFinal;
+        MessageVisit messageVisit = new MessageVisit(message,employeeProjectDTO.getName(),employeeProjectDTO.getPhone(),visitRequestDTO.getAnnouncement().getProperty().toString());
+        this.messagesOfClientRepository.addMessageOfVisit(visitRequestDTO.getClient().getEmail(),messageVisit);
+        return messageVisit.toString();
     }
 
 }
