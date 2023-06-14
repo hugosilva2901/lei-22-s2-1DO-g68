@@ -13,34 +13,20 @@ public class ListDealUI implements Runnable {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("List of Deals:");
-        System.out.println("Select sorting order:");
+
+// Prompt the user to select a sorting algorithm
+        System.out.println("Select a sorting algorithm:");
+        System.out.println("bubble");
+        System.out.println("quick");
+        String sortingAlgorithm = scanner.nextLine();
+
+// Prompt the user to select a sort order
+        System.out.println("Select a sort order:");
         System.out.println("1 - Ascending");
         System.out.println("2 - Descending");
         int sortOrderOption = scanner.nextInt();
-        if (sortOrderOption != 1 && sortOrderOption != 2) {
-            System.out.println("Invalid input. Please choose either 1 or 2.");
-            return;
-        }
+        boolean ascending = sortOrderOption == 1;
 
-
-
-        System.out.println("Select sorting algorithm:");
-        System.out.println("1 - Bubble Sort");
-        System.out.println("2 - Quick Sort");
-        System.out.println("3 - Default (Bubble Sort)");
-        int sortingOption = scanner.nextInt();
-        boolean ascending = true;
-
-        String sortingAlgorithm;
-        if (sortingOption == 1) {
-            sortingAlgorithm = "bubble";
-        } else if (sortingOption == 2) {
-            sortingAlgorithm = "quick";
-        } else {
-            // invalid inputs will choose bubble sort as default
-            sortingAlgorithm = "bubble";
-        }
 
         List<OrderDTO> sortedDeals = controller.listAllDealsByPropertyArea(ascending, sortingAlgorithm, sortOrderOption);
 

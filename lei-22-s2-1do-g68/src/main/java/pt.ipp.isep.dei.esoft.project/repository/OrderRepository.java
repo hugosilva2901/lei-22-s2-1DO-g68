@@ -123,7 +123,6 @@ public class OrderRepository {
             rejectOrder(or, messagesOfClientRepository);
         }
     }
-
     public void rejectOrder(OrderDTO order, MessagesOfClientRepository messagesOfClientRepository) {
         order o = findOrder(order);
         o.setStatusOfOrder(StatusOfOrder.Rejected);

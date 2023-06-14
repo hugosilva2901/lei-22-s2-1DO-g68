@@ -43,13 +43,6 @@ public class ListDealController {
             } else {
                 quickSortDescending(deals, 0, deals.size() - 1);
             }
-        } else {
-            // Default sorting algorithm if none specified or invalid choice
-            if (ascending) {
-                bubbleSortAscending(deals);
-            } else {
-                bubbleSortDescending(deals);
-            }
         }
 
         return deals;
@@ -71,13 +64,7 @@ public class ListDealController {
                     OrderDTO temp = deals.get(j);
                     deals.set(j, deals.get(j + 1));
                     deals.set(j + 1, temp);
-                } else if (propertyArea1 < propertyArea2) {
-                    // Swap elements
-                    OrderDTO temp = deals.get(j);
-                    deals.set(j, deals.get(j + 1));
-                    deals.set(j + 1, temp);
                 }
-
             }
         }
     }
@@ -92,18 +79,12 @@ public class ListDealController {
                 double propertyArea1 = deal1.getAnnouncement().getProperty().getProperty_area();
                 double propertyArea2 = deal2.getAnnouncement().getProperty().getProperty_area();
 
-                if (propertyArea1 > propertyArea2) {
-                    // Swap elements
-                    OrderDTO temp = deals.get(j);
-                    deals.set(j, deals.get(j + 1));
-                    deals.set(j + 1, temp);
-                } else if (propertyArea1 < propertyArea2) {
+                if (propertyArea1 < propertyArea2) {
                     // Swap elements
                     OrderDTO temp = deals.get(j);
                     deals.set(j, deals.get(j + 1));
                     deals.set(j + 1, temp);
                 }
-
             }
         }
     }
