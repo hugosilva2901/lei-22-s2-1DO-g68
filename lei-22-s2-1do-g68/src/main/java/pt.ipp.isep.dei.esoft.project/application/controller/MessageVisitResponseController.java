@@ -1,8 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
+import pt.ipp.isep.dei.esoft.project.domain.DTO.ClientDTO;
 import pt.ipp.isep.dei.esoft.project.domain.MessageVisit;
+import pt.ipp.isep.dei.esoft.project.domain.StatusOfMessage;
 import pt.ipp.isep.dei.esoft.project.domain.VisitRequest;
+import pt.ipp.isep.dei.esoft.project.domain.mapper.ClientMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -14,6 +18,9 @@ public class MessageVisitResponseController {
     AuthenticationRepository authenticationRepository = null;
     StoreRepository storeRepository = null;
 
+    MessagesOfClientRepository messagesOfClientRepository = null;
+
+    ClientRepository clientRepository = null;
 
 
 
@@ -23,6 +30,8 @@ public class MessageVisitResponseController {
         getVisitRepository();
         getAuthenticationRepository();
         getStoreRepository();
+        getMessagesOfClientRepository();
+        getClientRepository();
     }
 
     private StoreRepository getStoreRepository() {
@@ -48,6 +57,22 @@ public class MessageVisitResponseController {
         return visitRepository;
     }
 
+    private MessagesOfClientRepository getMessagesOfClientRepository() {
+        if (messagesOfClientRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            messagesOfClientRepository = repositories.getMessagesOfClientRepository();
+        }
+        return messagesOfClientRepository;
+    }
+
+    private ClientRepository getClientRepository() {
+        if (clientRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            clientRepository = repositories.getClientRepository();
+        }
+        return clientRepository;
+    }
+
     private AnnouncementRepository getAnnouncementRepository() {
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -64,15 +89,14 @@ public class MessageVisitResponseController {
         return this.getVisitRepository().getVisitRequestById(id);
     }
 
-    public void acceptorRejectVisitRequest(String id, String status, String reson) {
-        VisitRequest visitRequest = this.getVisitRequest(id);
+    public void acceptorRejectVisitRequest(String email, String status, String reson) {
+     MessageVisit messageVisit=  messagesOfClientRepository.getMessage(email);
         if (status.equals("ACCEPTED")) {
-            MessageVisit.putStatusOfMessage(MessageVisit.statusOfMessage.ACCEPTED);
+            messageVisit.putStatusOfMessage(StatusOfMessage.ACCEPTED);
         } else if (status.equals("REJECTED")) {
-            MessageVisit.putStatusOfMessage(MessageVisit.statusOfMessage.REJECTED, reson);
+            messageVisit.putStatusOfMessage(StatusOfMessage.REJECTED, reson);
         }
     }
-
 
 
 
