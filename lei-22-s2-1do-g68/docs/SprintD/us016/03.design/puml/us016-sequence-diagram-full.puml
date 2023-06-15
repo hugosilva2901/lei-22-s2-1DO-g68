@@ -16,7 +16,7 @@ participant "appSession\n:ApplicationSession" as APP
 participant "currentSession\n:UserSession" as SESSAO
 participant "EmployeeRepository:\nEmployeeRepository" as EmployeeRepository
 participant "MessageRepository:\nMessageRepository" as MessageRepository
-
+participant "MessageVisit:\nMessageVisit" as MessageVisit
 participant "VisitRequestsRepository\n:VisitRequestsRepository" as REPO
 participant "VisitRequestMapper:\VisitRequestMapper" as Mapper
 
@@ -113,8 +113,12 @@ deactivate UI
 
                 UI -> CTRL : send message
                 activate CTRL
-
+                CTRL->MessageVisit**:creates
+                activate MessageVisit
+                MessageVisit->CTRL:MessageVisit
+                deactivate MessageVisit
                 CTRL -> MessageRepository : sendMessage()
+
                 activate MessageRepository
 
                 MessageRepository -> CTRL : success

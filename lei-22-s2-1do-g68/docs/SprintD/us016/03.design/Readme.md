@@ -6,30 +6,28 @@
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID | Question: Which class is responsible for...   | Answer                 | Justification (with patterns)                                                                                 |
-|:---------------|:----------------------------------------------|:-----------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?              | CreateOrderUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | CreateOrderController  | Controller                                                                                                    |
-| 			  		        | 	... instantiating a new order?               | client                 | Creator (Rule 1): in the DM client has order.                                                                 |
-| Step 2  		     | 	...knowing the ListOfAnnouncements to show?  | AnnouncementRepository | IE: knows all its Announcements                                                                               |
-| Step 3  		     | 	... saving the selected Announcement?        | order                  | IE: object created in step 1 is classified in one or more roles.                                              |
-| 			  		        | 	Returning the announcements in a DTO ?       | Mapper                 | Class created with that objective and know all it methods of creation                                         |
-| Step 3  		     | 	... saving the selected Announcement?        | order                  | IE: object created in step 1 is classified in one or more roles.                                              |
-| Step 4  		     | 	...knowing the Client login?                 | AnnouncementRepository | IE: knows all the credentials and who is login in the moment                                                  |
-| Step 5  		     | 	... saving the selected client?              | order                  | IE: object created in step 1 is classified in one or more roles.                                              |
-| Step 6  		     | 							                                       |                        |                                                                                                               |              
-| Step 7  		     | 	... validating all data (local validation)?  | order                  | IE: owns its data.                                                                                            | 
-| 			  		        | 	... validating all data (global validation)? | OrderRepository        | IE: knows all its orders.                                                                                     | 
-| 			  		        | 	... saving the created task?                 | OrderRepository        | IE: owns all its orders.                                                                                      | 
-| Step 9  		     | 	... informing operation success?             | CreateOrderUI          | IE: is responsible for user interactions.                                                                     |
-| Step 10  		    | 	... informing operation success?             | CreateOrderUI          | IE: is responsible for user interactions.                                                                     | 
+| Interaction ID | Question: Which class is responsible for...    | Answer                        | Justification (with patterns)                                                                                 |
+|:---------------|:-----------------------------------------------|:------------------------------|:--------------------------------------------------------------------------------------------------------------|
+| Step 1  		     | 	... interacting with the actor?               | MessageVisitRequestUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| 			  		        | 	... coordinating the US?                      | MessageVisitRequestController | Controller                                                                                                    |
+| Step 2  		     | 	...knowing the ListOfVisitingRequest to show? | VisitRequestRepository        | IE: knows all its VisitRequest                                                                                |
+| Step 3  		     | 	... saving the selected VisitRequest ?        | MessageVisit                  | IE: object created in step 1                                                                                  |
+| 			  		        | 	Returning the VisitRequest in a DTO ?         | Mapper                        | Class created with that objective and know all it methods of creation                                         |
+| Step 4  		     | 	...knowing the Agent login?                   | AnnouncementRepository        | IE: knows all the credentials and who is login in the moment                                                  |
+| Step 5  		     | 	... saving the Agent client?                  | MessageVisit                  | IE: object created in step 1 is classified in one or more roles.                                              |
+| Step 6  		     | 							                                        |                               |                                                                                                               |              
+| Step 7  		     | 	... validating all data (local validation)?   | MessageVisit                  | IE: owns its data.                                                                                            | 
+| 			  		        | 	... validating all data (global validation)?  | MessagesOfClientRepository    | IE: knows all its orders.                                                                                     | 
+| 			  		        | 	... saving the created message?               | MessagesOfClientRepository    | IE: owns all its orders.                                                                                      | 
+| Step 9  		     | 	... informing operation success?              | MessageVisitRequestUI         | IE: is responsible for user interactions.                                                                     |
+| Step 10  		    | 	... informing operation success?              | MessageVisitRequestUI         | IE: is responsible for user interactions.                                                                     | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* AnnouncementRepository
-* Announcement
+* MessagesOfClientRepository
+* MessageVisit
 * VisitRequestRepository
 * VisitRequest
 
@@ -44,7 +42,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us009-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us016-sequence-diagram-full.svg)
 
 ### Alternative 2 - Split Diagram
 
@@ -53,16 +51,16 @@ but it is split in partial diagrams to better illustrate the interactions betwee
 
 It uses interaction ocurrence.
 
-![Sequence Diagram - split](svg/us009-sequence-diagram-split.svg)
+![Sequence Diagram - split](svg/us016-sequence-diagram-split.svg)
 
 **Get Announcement List**
 
-![Sequence Diagram - Partial - Get Clients List](svg/us009-sequence-diagram-partial-get-Announcement-list.svg)
+![Sequence Diagram - Partial - Get Clients List](svg/us016-sequence-diagram-partial-get-Employee.svg)
 
 **Create Visit Request**
 
-![Sequence Diagram - Partial - Create Announcement](svg/us009-sequence-diagram-partial-create-VisitRequest.svg)
+![Sequence Diagram - Partial - Create Announcement](svg/us016-sequence-diagram-partial-get-Boking-Request-list.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us009-class-diagram.svg)
+![Class Diagram](svg/us016-class-diagram.svg)
