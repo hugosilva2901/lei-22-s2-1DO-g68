@@ -31,7 +31,7 @@ public class MessagesOfClientRepository {
     }
 
     public MessageVisit getMessage(String email) {
-        return MessageOfVisitByEmail.get(email);
+        return MessageOfVisitByEmail.get(email).get(0);
     }
 
     public void addMessageOfVisit(String email, MessageVisit message){
