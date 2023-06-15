@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public class VisitRequestController {
 
+    private  MessagesOfClientRepository messagesOfClientRepository = null;
     private VisitRepository visitRepository = null;
     private AnnouncementRepository announcementRepository = null;
     private ClientRepository clientRepository = null;
@@ -59,6 +60,14 @@ public class VisitRequestController {
         return authenticationRepository;
     }
 
+    public MessagesOfClientRepository getMessagesOfClientRepository() {
+        if (messagesOfClientRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            messagesOfClientRepository = repositories.getMessagesOfClientRepository();
+        }
+        return messagesOfClientRepository;
+    }
+
     public ArrayList<Announcement> getAnnouncementList(){
         return this.announcementRepository.getAnnouncementList();
     }
@@ -75,5 +84,7 @@ public class VisitRequestController {
     public boolean registerVisitRequestBootstrap(Date date, String message, AnnouncementDTO announcement, ClientDTO client) {
         return this.visitRepository.createVisitRequest(announcement, date, message, client).isPresent();
     }
+
+
 }
 

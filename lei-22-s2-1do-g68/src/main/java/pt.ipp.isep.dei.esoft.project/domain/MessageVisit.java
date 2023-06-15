@@ -5,7 +5,7 @@ public class MessageVisit {
     private String nameEmployee;
     private String phoneEmployee;
     private String Property;
-    private StatusOfMessage statusOfMessage;
+    public static StatusOfMessage statusOfMessage;
 
     private String reson;
 
@@ -39,7 +39,7 @@ public class MessageVisit {
         }
 
     }
-    public void putStatusOfMessage(StatusOfMessage statusOfMessage,String reson) {
+    public void putStatusOfMessage(StatusOfMessage statusOfMessage, String reson) {
         if (statusOfMessage.equals(StatusOfMessage.ACCEPTED)) {
             this.statusOfMessage = statusOfMessage;
         }else if (statusOfMessage.equals(StatusOfMessage.REJECTED)){
@@ -48,7 +48,7 @@ public class MessageVisit {
         }
     }
 
-        public String getProperty() {
+    public String getProperty() {
         return Property;
     }
 
@@ -70,6 +70,10 @@ public class MessageVisit {
 
     public void setPhoneEmployee(String phoneEmployee) {
         this.phoneEmployee = phoneEmployee;
+    }
+
+    public String getReson() {
+        return reson;
     }
 
     @Override
