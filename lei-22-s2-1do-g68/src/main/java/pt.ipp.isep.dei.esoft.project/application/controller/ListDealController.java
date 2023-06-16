@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.OrderDTO;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;

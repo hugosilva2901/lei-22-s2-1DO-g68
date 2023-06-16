@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreatGuestController;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListDealController;
-import pt.ipp.isep.dei.esoft.project.domain.DTO.AnnouncementDTO;
 import pt.ipp.isep.dei.esoft.project.domain.DTO.OrderDTO;
 
 import java.util.*;
@@ -37,15 +35,6 @@ public class ListDealUI implements Runnable {
 
         }
 
-        // Get all deals sorted by property area in ascending order using Bubble Sort
-       /* List<OrderDTO> ascendingDeals = controller.listAllDealsByPropertyArea(true, "bubble");
-        System.out.println("Ascending order (Bubble Sort):");
-        displayDeals(ascendingDeals);
-
-        // Get all deals sorted by property area in descending order using Quick Sort
-        List<OrderDTO> descendingDeals = controller.listAllDealsByPropertyArea(false, "quick");
-        System.out.println("Descending order (Quick Sort):");
-        displayDeals(descendingDeals);*/
     }
 
 }
