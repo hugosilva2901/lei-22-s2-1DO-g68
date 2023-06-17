@@ -49,7 +49,7 @@ public class MatcpAlgorithms {
 
     }
 
-    private void MultipleLinearRegression(OLSMultipleLinearRegression regression) {
+    private void MultipleLinearRegression(OLSMultipleLinearRegression regression,int n,int p) {
         double rSquared = regression.calculateRSquared();
         double adjustedRSquared = regression.calculateAdjustedRSquared();
         System.out.println("R-squared: " + rSquared);
@@ -79,8 +79,22 @@ public class MatcpAlgorithms {
             System.out.println("Coefficient " + i + ": " + beta[i] + " +/- " + criticalValue * standardErrors[i] + " [" + lowerBound + ", " + upperBound + "]");
         }
         // Perform a hypothesis test for the regression coefficients
-   
 
+        double fStatistic = (rSquared / (p - 1)) / ((1 - rSquared) / (n - p));
+
+        System.out.println("F-statistic: " + fStatistic);
+/*
+        FDistribution fDist = new FDistribution(p - 1, n - p);
+        double pValue = 1 - fDist.cumulativeProbability(fStatistic);
+
+
+ */
+        
+        if (fStatistic > criticalValue) {
+            System.out.println("Reject the null hypothesis at a significance level of 0.95");
+        } else {
+            System.out.println("Do not reject the null hypothesis at a significance level of  0.95");
+        }
     }
 
     public void PropertyArea() {
@@ -219,7 +233,7 @@ public class MatcpAlgorithms {
 
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void AreaAndNumberOfBedroomsP() {
@@ -246,7 +260,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void AreaAndNumberOfBathroomsP() {
@@ -273,7 +287,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void AreaAndNumberOfGaragesP() {
@@ -300,7 +314,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void DistanceAndNumberOfRoomsP() {
@@ -327,7 +341,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void DistanceAndNumberOfBathroomsP() {
@@ -354,7 +368,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void DistanceAndNumberOfGaragesP() {
@@ -381,7 +395,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void NumberOfRoomsAndNumberOfBathroomsP() {
@@ -409,7 +423,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void NumberOfRoomsAndNumberOfGaragesP() {
@@ -437,7 +451,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 
     public void NumberOfBathroomsAndNumberOfGaragesP() {
@@ -465,7 +479,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression);
+        MultipleLinearRegression(regression,y.length,x[0].length);
     }
 }
 
