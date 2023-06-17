@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 public class MessageVisitTest {
     Bootstrap boot = new Bootstrap();
-        
+
 
     @Test
     void test1(){

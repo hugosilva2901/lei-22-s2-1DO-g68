@@ -44,12 +44,20 @@ public class MessageVisitResponseUI implements Runnable{
 
     private void runAccept() {
         messageVisit= displayAndSelectMessageVisit();
+        if (messageVisit == null) {
+            System.out.println("There are no Visit messages to show.\n");
+            return;
+        }
         controller.AcceptVisitRequest(messageVisit, StatusOfMessage.ACCEPTED);
     }
 
 
     private void runReject() {
         messageVisit= displayAndSelectMessageVisit();
+        if (messageVisit == null) {
+            System.out.println("There are no Visit messages to show.\n");
+            return;
+        }
         String message = RequestmessageConfimation();
         controller.RejectVisitRequest(messageVisit,StatusOfMessage.REJECTED, message);
         System.out.println(message);
@@ -61,7 +69,6 @@ public class MessageVisitResponseUI implements Runnable{
 
         List<MessageVisit> messageVisit = controller.getMessagesOfVisit();
         if (messageVisit == null) {
-            System.out.println("There are no Visit messages to show.\n");
             return null;
         }
 
