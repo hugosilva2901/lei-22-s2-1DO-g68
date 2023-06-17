@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain.matcp;
 
+import org.apache.commons.math4.legacy.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math4.legacy.stat.regression.MultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.SimpleRegression;
+import org.apache.commons.statistics.distribution.FDistribution;
+import org.apache.commons.statistics.distribution.TDistribution;
 import pt.ipp.isep.dei.esoft.project.domain.Apartment;
 import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
@@ -15,6 +18,71 @@ public class MatcpAlgorithms {
 
     PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
 
+
+
+    private void SimpleRegression(SimpleRegression regression) {
+
+// Estimate the slope and intercept of the regression line
+        double slope = regression.getSlope();
+        double intercept = regression.getIntercept();
+
+// Get other statistics
+        double r = regression.getR();
+        double rSquare = regression.getRSquare();
+        int n = (int) regression.getN();
+        int k = 1;
+        double adjustedRSquare = 1 - ((1 - rSquare) * (n - 1) / (n - k - 1));
+        System.out.println("Slope: " + slope);
+        System.out.println("Intercept: " + intercept);
+        System.out.println("R-Square: " + rSquare);
+        System.out.println("Adjusted R-Square: " + adjustedRSquare);
+
+// Get a confidence interval for the slope
+        double alpha = 0.95; // significance level
+        double lowerBound = regression.getSlopeConfidenceInterval(alpha);
+        double upperBound = regression.getSlopeConfidenceInterval(alpha);
+        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound);
+
+// Perform a hypothesis test for the slope
+        double pValue = regression.getSignificance();
+        System.out.println("p-value: " + pValue);
+
+    }
+
+    private void MultipleLinearRegression(OLSMultipleLinearRegression regression) {
+        double rSquared = regression.calculateRSquared();
+        double adjustedRSquared = regression.calculateAdjustedRSquared();
+        System.out.println("R-squared: " + rSquared);
+        System.out.println("Adjusted R-squared: " + adjustedRSquared);
+
+        // Get the regression coefficients, their standard errors, and t-statistics
+/*
+        double pointEstimate = stats.getMean();
+        double standardDeviation = stats.getStandardDeviation();
+
+ */
+        double criticalValue = 1.96; // for 95% confidence interval
+        /*
+        long sampleSize = stats.getN();
+        double standardError = standardDeviation / Math.sqrt(sampleSize);
+        double marginOfError = criticalValue * standardError;
+        double lowerBound = pointEstimate - marginOfError;
+        double upperBound = pointEstimate + marginOfError;
+        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound);
+
+         */
+        double[] beta = regression.estimateRegressionParameters();
+        double[] standardErrors = regression.estimateRegressionParametersStandardErrors();
+        for (int i = 0; i < beta.length; i++) {
+            double lowerBound = beta[i] - criticalValue * standardErrors[i];
+            double upperBound = beta[i] + criticalValue * standardErrors[i];
+            System.out.println("Coefficient " + i + ": " + beta[i] + " +/- " + criticalValue * standardErrors[i] + " [" + lowerBound + ", " + upperBound + "]");
+        }
+        // Perform a hypothesis test for the regression coefficients
+   
+
+    }
+
     public void PropertyArea() {
         PropertyArea2();
     }
@@ -26,14 +94,7 @@ public class MatcpAlgorithms {
             double propretyArea = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
             regression.addData(propretyArea, orderRepository.getOrders().get(i).getValue());
         }
-        System.out.println("Slope: " + regression.getSlope());
-        System.out.println("Intercept: " + regression.getIntercept());
-        System.out.println("R-Square: " + regression.getRSquare());
-        System.out.println("Slope Std Error: " + regression.getSlopeStdErr());
-        System.out.println("Intercept Std Error: " + regression.getInterceptStdErr());
-        System.out.println("Significance: " + regression.getSignificance());
-        System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
-        System.out.println("Predict(100): " + regression.predict(100));
+        SimpleRegression(regression);
     }
 
     public void DistanceFromCenter() {
@@ -43,18 +104,14 @@ public class MatcpAlgorithms {
     private void DistanceFromCenter2() {
         SimpleRegression regression = new SimpleRegression();
 
+        DescriptiveStatistics stats = new DescriptiveStatistics();
+
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             int DistanceFromCenter = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
             regression.addData(DistanceFromCenter, orderRepository.getOrders().get(i).getValue());
+            stats.addValue(DistanceFromCenter);
         }
-        System.out.println("Slope: " + regression.getSlope());
-        System.out.println("Intercept: " + regression.getIntercept());
-        System.out.println("R-Square: " + regression.getRSquare());
-        System.out.println("Slope Std Error: " + regression.getSlopeStdErr());
-        System.out.println("Intercept Std Error: " + regression.getInterceptStdErr());
-        System.out.println("Significance: " + regression.getSignificance());
-        System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
-        System.out.println("Predict(100): " + regression.predict(100));
+        SimpleRegression(regression);
     }
 
     public void numberOfBedroomsP() {
@@ -63,12 +120,12 @@ public class MatcpAlgorithms {
 
     private void numberOfBedrooms() {
         SimpleRegression regression = new SimpleRegression();
-        int numberOfBedrooms=-1;
+        int numberOfBedrooms = -1;
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
                 numberOfBedrooms = house.getNumberOfRooms();
-            }else {
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
                     numberOfBedrooms = apartment.getNumberOfRooms();
@@ -77,18 +134,12 @@ public class MatcpAlgorithms {
             if (numberOfBedrooms == -1) {
                 System.out.println("Number of bathrooms not found");
 
-            }else {
+            } else {
                 regression.addData(numberOfBedrooms, orderRepository.getOrders().get(i).getValue());
             }
         }
-        System.out.println("Slope: " + regression.getSlope());
-        System.out.println("Intercept: " + regression.getIntercept());
-        System.out.println("R-Square: " + regression.getRSquare());
-        System.out.println("Slope Std Error: " + regression.getSlopeStdErr());
-        System.out.println("Intercept Std Error: " + regression.getInterceptStdErr());
-        System.out.println("Significance: " + regression.getSignificance());
-        System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
-        System.out.println("Predict(100): " + regression.predict(100));
+        SimpleRegression(regression);
+
     }
 
     public void numberOfBathroomsP() {
@@ -102,27 +153,21 @@ public class MatcpAlgorithms {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
                 numberOfBathrooms = house.getNumberOfBathrooms();
-            }else {
-            Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (apartment != null) {
-                numberOfBathrooms = apartment.getNumberOfBathrooms();
-            }
+            } else {
+                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
+                if (apartment != null) {
+                    numberOfBathrooms = apartment.getNumberOfBathrooms();
+                }
             }
             if (numberOfBathrooms == -1) {
                 System.out.println("Number of bathrooms not found");
 
-            }else {
+            } else {
                 regression.addData(numberOfBathrooms, orderRepository.getOrders().get(i).getValue());
             }
         }
-        System.out.println("Slope: " + regression.getSlope());
-        System.out.println("Intercept: " + regression.getIntercept());
-        System.out.println("R-Square: " + regression.getRSquare());
-        System.out.println("Slope Std Error: " + regression.getSlopeStdErr());
-        System.out.println("Intercept Std Error: " + regression.getInterceptStdErr());
-        System.out.println("Significance: " + regression.getSignificance());
-        System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
-        System.out.println("Predict(100): " + regression.predict(100));
+        SimpleRegression(regression);
+
     }
 
     public void numberOfGaragesP() {
@@ -131,12 +176,12 @@ public class MatcpAlgorithms {
 
     private void numberOfGarages() {
         SimpleRegression regression = new SimpleRegression();
-        int numberOfGarages=-1;
+        int numberOfGarages = -1;
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
                 numberOfGarages = house.getNumberOfGarages();
-            }else {
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
                     numberOfGarages = apartment.getNumberOfGarages();
@@ -145,19 +190,14 @@ public class MatcpAlgorithms {
             if (numberOfGarages == -1) {
                 System.out.println("Number of bathrooms not found");
 
-            }else {
+            } else {
                 regression.addData(numberOfGarages, orderRepository.getOrders().get(i).getValue());
             }
         }
-        System.out.println("Slope: " + regression.getSlope());
-        System.out.println("Intercept: " + regression.getIntercept());
-        System.out.println("R-Square: " + regression.getRSquare());
-        System.out.println("Slope Std Error: " + regression.getSlopeStdErr());
-        System.out.println("Intercept Std Error: " + regression.getInterceptStdErr());
-        System.out.println("Significance: " + regression.getSignificance());
-        System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
-        System.out.println("Predict(100): " + regression.predict(100));
+        SimpleRegression(regression);
+
     }
+
     public void AreaAndDistance() {
         MultipleRegression();
     }
@@ -173,24 +213,20 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-                x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();;
-                x[i][1] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();;
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
+
+            x[i][1] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
+
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
+
     public void AreaAndNumberOfBedroomsP() {
         AreaAndNumberOfBedrooms();
     }
-    private void  AreaAndNumberOfBedrooms(){
+
+    private void AreaAndNumberOfBedrooms() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -198,32 +234,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfRooms();
-            }else {
+                x[i][1] = house.getNumberOfRooms();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfRooms();
+                    x[i][1] = apartment.getNumberOfRooms();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
+
     public void AreaAndNumberOfBathroomsP() {
         AreaAndNumberOfBathrooms();
     }
-    private void  AreaAndNumberOfBathrooms(){
+
+    private void AreaAndNumberOfBathrooms() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -231,33 +261,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfBathrooms();
-            }else {
+                x[i][1] = house.getNumberOfBathrooms();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfBathrooms();
+                    x[i][1] = apartment.getNumberOfBathrooms();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
+
     public void AreaAndNumberOfGaragesP() {
         AreaAndNumberOfGarages();
     }
 
-    private void AreaAndNumberOfGarages(){
+    private void AreaAndNumberOfGarages() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -265,33 +288,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfGarages();
-            }else {
+                x[i][1] = house.getNumberOfGarages();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfGarages();
+                    x[i][1] = apartment.getNumberOfGarages();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
+
     public void DistanceAndNumberOfRoomsP() {
         DistanceAndNumberOfRooms();
     }
 
-    private void DistanceAndNumberOfRooms(){
+    private void DistanceAndNumberOfRooms() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -299,33 +315,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfRooms();
-            }else {
+                x[i][1] = house.getNumberOfRooms();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfRooms();
+                    x[i][1] = apartment.getNumberOfRooms();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
+
     public void DistanceAndNumberOfBathroomsP() {
         DistanceAndNumberOfBathrooms();
     }
 
-    private void DistanceAndNumberOfBathrooms(){
+    private void DistanceAndNumberOfBathrooms() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -333,34 +342,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfBathrooms();
-            }else {
+                x[i][1] = house.getNumberOfBathrooms();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfBathrooms();
+                    x[i][1] = apartment.getNumberOfBathrooms();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
 
     public void DistanceAndNumberOfGaragesP() {
         DistanceAndNumberOfGarages();
     }
 
-    private void DistanceAndNumberOfGarages(){
+    private void DistanceAndNumberOfGarages() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -368,34 +369,26 @@ public class MatcpAlgorithms {
         }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
+            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1]  = house.getNumberOfGarages();
-            }else {
+                x[i][1] = house.getNumberOfGarages();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1]  = apartment.getNumberOfGarages();
+                    x[i][1] = apartment.getNumberOfGarages();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
 
     public void NumberOfRoomsAndNumberOfBathroomsP() {
         NumberOfRoomsAndNumberOfBathrooms();
     }
 
-    private void NumberOfRoomsAndNumberOfBathrooms(){
+    private void NumberOfRoomsAndNumberOfBathrooms() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -405,33 +398,25 @@ public class MatcpAlgorithms {
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][0]  = house.getNumberOfRooms();
-                x[i][1]  = house.getNumberOfBathrooms();
-            }else {
+                x[i][0] = house.getNumberOfRooms();
+                x[i][1] = house.getNumberOfBathrooms();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][0]  = apartment.getNumberOfRooms();
-                    x[i][1]  = apartment.getNumberOfBathrooms();
+                    x[i][0] = apartment.getNumberOfRooms();
+                    x[i][1] = apartment.getNumberOfBathrooms();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
 
     public void NumberOfRoomsAndNumberOfGaragesP() {
         NumberOfRoomsAndNumberOfGarages();
     }
 
-    private void NumberOfRoomsAndNumberOfGarages(){
+    private void NumberOfRoomsAndNumberOfGarages() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -441,33 +426,25 @@ public class MatcpAlgorithms {
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][0]  = house.getNumberOfRooms();
-                x[i][1]  = house.getNumberOfGarages();
-            }else {
+                x[i][0] = house.getNumberOfRooms();
+                x[i][1] = house.getNumberOfGarages();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][0]  = apartment.getNumberOfRooms();
-                    x[i][1]  = apartment.getNumberOfGarages();
+                    x[i][0] = apartment.getNumberOfRooms();
+                    x[i][1] = apartment.getNumberOfGarages();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
 
     public void NumberOfBathroomsAndNumberOfGaragesP() {
         NumberOfBathroomsAndNumberOfGarages();
     }
 
-    private void NumberOfBathroomsAndNumberOfGarages(){
+    private void NumberOfBathroomsAndNumberOfGarages() {
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
@@ -477,28 +454,18 @@ public class MatcpAlgorithms {
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][0]  = house.getNumberOfBathrooms();
-                x[i][1]  = house.getNumberOfGarages();
-            }else {
+                x[i][0] = house.getNumberOfBathrooms();
+                x[i][1] = house.getNumberOfGarages();
+            } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][0]  = apartment.getNumberOfBathrooms();
-                    x[i][1]  = apartment.getNumberOfGarages();
+                    x[i][0] = apartment.getNumberOfBathrooms();
+                    x[i][1] = apartment.getNumberOfGarages();
                 }
             }
         }
         regression.newSampleData(y, x);
-        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
-        System.out.println("R-Square: " + regression.calculateRSquared());
-        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
-        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
-        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
-        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
-        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
-
+        MultipleLinearRegression(regression);
     }
-
-
 }
 
