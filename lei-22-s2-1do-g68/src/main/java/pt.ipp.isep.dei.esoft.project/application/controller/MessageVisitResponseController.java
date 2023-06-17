@@ -80,14 +80,18 @@ public class MessageVisitResponseController {
         }
         return announcementRepository;
     }
-
+/*
     public List<AnnouncementDTO> getAnnouncement() {
         return this.getAnnouncementRepository().getAnnouncementsByEmployee(storeRepository.getEmployeeByEmail(authenticationRepository.getEmail()));
     }
 
+ */
+/*
     public VisitRequest getVisitRequest(String id) {
         return this.getVisitRepository().getVisitRequestById(id);
     }
+
+
 
     public void acceptorRejectVisitRequest(String email, String status, String reson) {
      MessageVisit messageVisit=  messagesOfClientRepository.getMessage(email);
@@ -98,5 +102,7 @@ public class MessageVisitResponseController {
         }
     }
 
+
+ */
 
 }

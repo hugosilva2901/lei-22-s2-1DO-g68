@@ -16,9 +16,6 @@ import java.util.Optional;
 public class StoreRepository {
     List<Store> stores = new ArrayList<>();
 
-    public static StoreRepository getInstance() {
-    }
-
     public void addStore(Store store) {
         validateStore(store);
         this.stores.add(store);

@@ -7,9 +7,6 @@ import pt.isep.lei.esoft.auth.UserSession;
 public class AuthenticationRepository {
     private final AuthFacade authenticationFacade = new AuthFacade();
 
-    public static Object getInstance() {
-    }
-
     public boolean doLogin(String email, String pwd) {
         return authenticationFacade.doLogin(email, pwd).isLoggedIn();
 
@@ -31,6 +28,4 @@ public class AuthenticationRepository {
         return authenticationFacade.addUserWithRole(name, email, pwd, roleId);
     }
 
-    public String getEmail() {
-    }
 }

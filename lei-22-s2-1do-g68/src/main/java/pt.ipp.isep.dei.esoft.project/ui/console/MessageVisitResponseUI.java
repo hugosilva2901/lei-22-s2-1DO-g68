@@ -6,14 +6,15 @@ import pt.ipp.isep.dei.esoft.project.domain.MessageVisit;
 import java.util.List;
 import java.util.Scanner;
 
-public class MessageVisitResponseUI {
+public class MessageVisitResponseUI implements Runnable{
 
     MessageVisitResponseController controller = new MessageVisitResponseController();
     private MessageVisit messageVisit;
 
     @Override
     public void run() {
-        System.out.println("Do you want to accept or reject a Visit Request?");
+        /*
+                System.out.println("Do you want to accept or reject a Visit Request?");
         System.out.println("1 - Accept");
         System.out.println("2 - Reject");
         System.out.println("0 - Exit");
@@ -36,8 +37,10 @@ public class MessageVisitResponseUI {
             case 0:
                 break;
         }
-    }
 
+         */
+    }
+/*
     private void runAccept() {
         messageVisit= displayAndSelectMessageVisit();
         if(messageVisit==null){
@@ -108,6 +111,8 @@ public class MessageVisitResponseUI {
 
 
 
+
+ */
 
 
 }

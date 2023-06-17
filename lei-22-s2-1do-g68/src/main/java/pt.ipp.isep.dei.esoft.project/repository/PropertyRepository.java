@@ -36,7 +36,16 @@ public class PropertyRepository {
                 .filter(p -> p.getName().equals(name))
                 .findFirst();
     }
-
+    public Apartment getApartmentByAddress(Property property) {
+        return apartments.stream()
+                .filter(p -> p.getAddress().equals(property.getAddress()))
+                .findFirst().orElse(null);
+    }
+    public House getHouseByAddress(Property property) {
+        return houses.stream()
+                .filter(p -> p.getAddress().equals(property.getAddress()))
+                .findFirst().orElse(null);
+    }
     public List<Property> getAll() {
         return new ArrayList<>(properties);
     }

@@ -66,7 +66,9 @@ public class VisitRepository {
 
         return visitRequestDTOList;
     }
-
+    /*
     public VisitRequest getVisitRequestById(String id) {
     }
+
+     */
 }
