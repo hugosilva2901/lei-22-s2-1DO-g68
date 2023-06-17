@@ -44,19 +44,12 @@ public class MessageVisitResponseUI implements Runnable{
 
     private void runAccept() {
         messageVisit= displayAndSelectMessageVisit();
-        if(messageVisit==null){
-            System.out.println("There are no Visit messages to show.\n");
-            return;
-        }
-       controller.AcceptVisitRequest(messageVisit, StatusOfMessage.ACCEPTED);
+        controller.AcceptVisitRequest(messageVisit, StatusOfMessage.ACCEPTED);
     }
 
 
     private void runReject() {
         messageVisit= displayAndSelectMessageVisit();
-
-
-
         String message = RequestmessageConfimation();
         controller.RejectVisitRequest(messageVisit,StatusOfMessage.REJECTED, message);
         System.out.println(message);
