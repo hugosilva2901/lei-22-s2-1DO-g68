@@ -26,9 +26,36 @@ public class RegressoesLinearesController {
     public void RegressoesLinearesMultiples(int option) {
 
         if (option==1){
-            matcpAlgorithms.MultipleRegressionP();
-
+            matcpAlgorithms.AreaAndDistance();
         }
+        if (option==2){
+            matcpAlgorithms.AreaAndNumberOfBedroomsP();
+        }
+        if (option==3){
+            matcpAlgorithms.AreaAndNumberOfBathroomsP();
+        }
+        if (option==4){
+            matcpAlgorithms.AreaAndNumberOfGaragesP();
+        }
+        if (option==5){
+            matcpAlgorithms.DistanceAndNumberOfRoomsP();
+        }
+        if (option==6){
+            matcpAlgorithms.DistanceAndNumberOfBathroomsP();
+        }
+        if (option==7){
+            matcpAlgorithms.DistanceAndNumberOfGaragesP();
+        }
+        if (option==8){
+            matcpAlgorithms.NumberOfRoomsAndNumberOfBathroomsP();
+        }
+        if (option==9){
+            matcpAlgorithms.NumberOfRoomsAndNumberOfGaragesP();
+        }
+        if (option==10){
+            matcpAlgorithms.NumberOfBathroomsAndNumberOfGaragesP();
+        }
+
 
     }
 }

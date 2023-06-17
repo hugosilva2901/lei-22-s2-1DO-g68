@@ -52,11 +52,20 @@ public class RegressoesLinearesUI implements Runnable{
         }
     }
     private void runRegressoesLinearesMultiples() {
-        System.out.println(" Regressão Linear Múltipla por Área da Propriedade, Distância ao Centro, Número de Quartos, Número de Casas de Banho e Número de Garagens");
+        System.out.println("1-Regressão linear múltipla por Área da Propriedade e Distância ao Centro");
+        System.out.println("2-Regressão linear múltipla por Área da Propriedade e Número de Quartos");
+        System.out.println("3-Regressão linear múltipla por Área da Propriedade e Número de Casas de Banho");
+        System.out.println("4-Regressão linear múltipla por Área da Propriedade e Número de Garagens");
+        System.out.println("5-Regressão linear múltipla por Distância ao Centro e Número de Quartos");
+        System.out.println("6-Regressão linear múltipla por Distância ao Centro e Número de Casas de Banho");
+        System.out.println("7-Regressão linear múltipla por Distância ao Centro e Número de Garagens");
+        System.out.println("8-Regressão linear múltipla por Número de Quartos e Número de Casas de Banho");
+        System.out.println("9-Regressão linear múltipla por Número de Quartos e Número de Garagens");
+        System.out.println("10-Regressão linear múltipla por Número de Casas de Banho e Número de Garagens");
         System.out.println("0 - Exit");
         Scanner input = new Scanner(System.in);
         int option = input.nextInt();
-        while (option < 0 || option > 5) {
+        while (option < 0 || option > 10) {
             System.out.println("Select an option:");
             option = input.nextInt();
         }
