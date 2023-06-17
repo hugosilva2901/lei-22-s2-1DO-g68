@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.MessageVisitResponseController;
 import pt.ipp.isep.dei.esoft.project.domain.MessageVisit;
+import pt.ipp.isep.dei.esoft.project.domain.StatusOfMessage;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +14,8 @@ public class MessageVisitResponseUI implements Runnable{
 
     @Override
     public void run() {
-        /*
-                System.out.println("Do you want to accept or reject a Visit Request?");
+
+        System.out.println("Do you want to accept or reject a Visit Request?");
         System.out.println("1 - Accept");
         System.out.println("2 - Reject");
         System.out.println("0 - Exit");
@@ -38,21 +39,18 @@ public class MessageVisitResponseUI implements Runnable{
                 break;
         }
 
-         */
+
     }
-/*
+
     private void runAccept() {
         messageVisit= displayAndSelectMessageVisit();
         if(messageVisit==null){
             System.out.println("There are no Visit messages to show.\n");
             return;
         }
-
-        String id = controller.getVisitRequest();
-        String message = RequestmessageConfimation();
-        String messagefinal= controller.acceptorRejectVisitRequest(id, message, messageVisit);
-        System.out.println(messagefinal);
+       controller.AcceptVisitRequest(messageVisit, StatusOfMessage.ACCEPTED);
     }
+
 
     private void runReject() {
         messageVisit= displayAndSelectMessageVisit();
@@ -61,17 +59,17 @@ public class MessageVisitResponseUI implements Runnable{
             return;
         }
 
-        String id = controller.getVisitRequest();
+
         String message = RequestmessageConfimation();
-        String messagefinal= controller.acceptorRejectVisitRequest(id, message, messageVisit);
-        System.out.println(messagefinal);
+        controller.RejectVisitRequest(messageVisit,StatusOfMessage.REJECTED, message);
+        System.out.println(message);
     }
 
 
 
     private MessageVisit displayAndSelectMessageVisit() {
 
-        List<MessageVisit> messageVisit = controller.getVisitRequest();
+        List<MessageVisit> messageVisit = controller.getMessagesOfVisit();
 
         int listSize = messageVisit.size();
         if (listSize == 0) {
@@ -112,7 +110,7 @@ public class MessageVisitResponseUI implements Runnable{
 
 
 
- */
+
 
 
 }

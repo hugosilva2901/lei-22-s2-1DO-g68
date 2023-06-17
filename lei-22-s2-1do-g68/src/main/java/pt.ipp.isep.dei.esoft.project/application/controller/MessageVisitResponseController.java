@@ -13,34 +13,21 @@ import java.util.List;
 
 public class MessageVisitResponseController {
 
-    AnnouncementRepository  announcementRepository = null;
-    VisitRepository visitRepository = null;
     AuthenticationRepository authenticationRepository = null;
-    StoreRepository storeRepository = null;
 
     MessagesOfClientRepository messagesOfClientRepository = null;
 
-    ClientRepository clientRepository = null;
 
 
 
 
     public MessageVisitResponseController() {
-        getAnnouncementRepository();
-        getVisitRepository();
         getAuthenticationRepository();
-        getStoreRepository();
         getMessagesOfClientRepository();
-        getClientRepository();
+
     }
 
-    private StoreRepository getStoreRepository() {
-        if (storeRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            storeRepository = repositories.getStoreRepository();
-        }
-        return storeRepository;
-    }
+
 
     private AuthenticationRepository getAuthenticationRepository() {
         if (authenticationRepository == null) {
@@ -49,14 +36,6 @@ public class MessageVisitResponseController {
         }
         return authenticationRepository;
     }
-    private VisitRepository getVisitRepository() {
-        if (visitRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            visitRepository = repositories.getVisitRepository();
-        }
-        return visitRepository;
-    }
-
     private MessagesOfClientRepository getMessagesOfClientRepository() {
         if (messagesOfClientRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -65,44 +44,24 @@ public class MessageVisitResponseController {
         return messagesOfClientRepository;
     }
 
-    private ClientRepository getClientRepository() {
-        if (clientRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            clientRepository = repositories.getClientRepository();
+
+    public List<MessageVisit> getMessagesOfVisit() {
+        String email = authenticationRepository.getCurrentUserSession().getUserId().getEmail();
+        return messagesOfClientRepository.MessageOfVisitByEmail(email);
+    }
+    public void AcceptVisitRequest(MessageVisit messageVisit, StatusOfMessage status) {
+        if (status.equals(StatusOfMessage.ACCEPTED)) {
+            messageVisit.putStatusOfMessage(StatusOfMessage.ACCEPTED, "");
         }
-        return clientRepository;
-    }
-
-    private AnnouncementRepository getAnnouncementRepository() {
-        if (announcementRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            announcementRepository = repositories.getAnnouncementRepository();
-        }
-        return announcementRepository;
-    }
-/*
-    public List<AnnouncementDTO> getAnnouncement() {
-        return this.getAnnouncementRepository().getAnnouncementsByEmployee(storeRepository.getEmployeeByEmail(authenticationRepository.getEmail()));
-    }
-
- */
-/*
-    public VisitRequest getVisitRequest(String id) {
-        return this.getVisitRepository().getVisitRequestById(id);
     }
 
 
-
-    public void acceptorRejectVisitRequest(String email, String status, String reson) {
-     MessageVisit messageVisit=  messagesOfClientRepository.getMessage(email);
-        if (status.equals("ACCEPTED")) {
-            messageVisit.putStatusOfMessage(StatusOfMessage.ACCEPTED);
-        } else if (status.equals("REJECTED")) {
+    public void RejectVisitRequest(MessageVisit messageVisit, StatusOfMessage status, String reson) {
+        if (status.equals(StatusOfMessage.REJECTED)) {
             messageVisit.putStatusOfMessage(StatusOfMessage.REJECTED, reson);
         }
     }
 
 
- */
 
 }

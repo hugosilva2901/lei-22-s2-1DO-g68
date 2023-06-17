@@ -26,6 +26,10 @@ public class MessagesOfClientRepository {
         return MessageOfVisitByEmail;
     }
 
+    public List<MessageVisit> MessageOfVisitByEmail(String email) {
+        return MessageOfVisitByEmail.get(email);
+    }
+
     public void setMessageOfVisitByEmail(Map<String, List<MessageVisit>> messageOfVisitByEmail) {
         MessageOfVisitByEmail = messageOfVisitByEmail;
     }
