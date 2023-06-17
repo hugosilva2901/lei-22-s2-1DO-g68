@@ -39,6 +39,7 @@ public class MessageVisit {
         }
 
     }
+
     public void putStatusOfMessage(StatusOfMessage statusOfMessage, String reson) {
         if (statusOfMessage.equals(StatusOfMessage.ACCEPTED)) {
             this.statusOfMessage = statusOfMessage;
