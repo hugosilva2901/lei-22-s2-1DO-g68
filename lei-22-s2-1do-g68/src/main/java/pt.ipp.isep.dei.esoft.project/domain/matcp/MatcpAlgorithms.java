@@ -158,22 +158,35 @@ public class MatcpAlgorithms {
         System.out.println("Slope Confidence Interval: " + regression.getSlopeConfidenceInterval());
         System.out.println("Predict(100): " + regression.predict(100));
     }
+    public void MultipleRegressionP() {
+        MultipleRegression();
+    }
 
     private void MultipleRegression() {
         //MultipleLinearRegression regression = new MultipleLinearRegression();
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
         double[] y = new double[orderRepository.getOrders().size()];
+        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
+            y[i] = orderRepository.getOrders().get(i).getValue();
+        }
         double[][] x = new double[orderRepository.getOrders().size()][2];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-                x[i][0] = 0;
-                x[i][1] = 0;
-
-
+                x[i][0] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();;
+                x[i][1] =  orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();;
         }
-      //  regression.newSampleData();
+        regression.newSampleData(y, x);
+        System.out.println("Slope: " + regression.estimateRegressionParameters()[0]);
+        System.out.println("Intercept: " + regression.estimateRegressionParameters()[1]);
+        System.out.println("R-Square: " + regression.calculateRSquared());
+        System.out.println("Slope Std Error: " + regression.estimateRegressionParametersStandardErrors()[0]);
+        System.out.println("Intercept Std Error: " + regression.estimateRegressionParametersStandardErrors()[1]);
+        System.out.println("Significance: " + regression.calculateResidualSumOfSquares());
+        System.out.println("Slope Confidence Interval: " + regression.estimateRegressionParameters()[0]);
+        System.out.println("Predict(100): " + regression.estimateRegressionParameters()[0]*100+regression.estimateRegressionParameters()[1]*100);
+
     }
 
-    ;
+
 
 }
 

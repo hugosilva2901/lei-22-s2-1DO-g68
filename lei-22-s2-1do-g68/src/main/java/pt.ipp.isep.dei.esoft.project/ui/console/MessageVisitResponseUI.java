@@ -54,10 +54,7 @@ public class MessageVisitResponseUI implements Runnable{
 
     private void runReject() {
         messageVisit= displayAndSelectMessageVisit();
-        if(messageVisit==null){
-            System.out.println("There are no Visit messages to show.\n");
-            return;
-        }
+
 
 
         String message = RequestmessageConfimation();
@@ -70,12 +67,12 @@ public class MessageVisitResponseUI implements Runnable{
     private MessageVisit displayAndSelectMessageVisit() {
 
         List<MessageVisit> messageVisit = controller.getMessagesOfVisit();
-
-        int listSize = messageVisit.size();
-        if (listSize == 0) {
+        if (messageVisit == null) {
             System.out.println("There are no Visit messages to show.\n");
             return null;
         }
+
+        int listSize = messageVisit.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);

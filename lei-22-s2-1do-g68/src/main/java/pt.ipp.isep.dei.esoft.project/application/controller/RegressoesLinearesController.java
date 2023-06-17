@@ -23,4 +23,12 @@ public class RegressoesLinearesController {
             matcpAlgorithms.numberOfGaragesP();
         }
     }
+    public void RegressoesLinearesMultiples(int option) {
+
+        if (option==1){
+            matcpAlgorithms.MultipleRegressionP();
+
+        }
+
+    }
 }
