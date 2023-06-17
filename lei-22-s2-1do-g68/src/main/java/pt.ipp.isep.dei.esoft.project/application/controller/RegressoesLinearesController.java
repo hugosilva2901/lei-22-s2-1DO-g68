@@ -13,5 +13,14 @@ public class RegressoesLinearesController {
         if (option==2){
             matcpAlgorithms.DistanceFromCenter();
         }
+        if (option==3){
+            matcpAlgorithms.numberOfBedroomsP();
+        }
+        if (option==4){
+            matcpAlgorithms.numberOfBathroomsP();
+        }
+        if (option==5){
+            matcpAlgorithms.numberOfGaragesP();
+        }
     }
 }
