@@ -33,6 +33,8 @@ public class MessageVisitResponseController {
     //test only
     public MessageVisitResponseController(MessageVisit messageVisit){
         this.messageVisit = messageVisit;
+        getStoreRepository();
+        getMessagesOfClientRepository();
     }
 
     private AuthenticationRepository getAuthenticationRepository() {
