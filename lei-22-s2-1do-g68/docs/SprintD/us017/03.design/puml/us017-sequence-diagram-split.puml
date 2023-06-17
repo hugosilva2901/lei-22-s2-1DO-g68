@@ -30,7 +30,7 @@ activate nm
             CTRL --> UI : OrdersList
         deactivate CTRL
 
-            UI --> nm : Displays DealsList
+
 
             UI --> nm : Displays Sort Options
        deactivate UI

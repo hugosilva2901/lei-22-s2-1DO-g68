@@ -14,7 +14,9 @@ activate nm
     nm -> System : Ask to list all deals made
     activate System
 
-    System --> nm : Displays two sorting options of all deals made
+    System --> nm : Displays all deals made
+
+    System --> nm : Displays sorting algorithm
 
     nm -> System : Choose sorting algorithm
 

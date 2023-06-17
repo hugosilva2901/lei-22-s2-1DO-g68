@@ -37,7 +37,7 @@ As a network manager, I want to list all deals made.
   annexes, where algorithms should be written in pseudocode).
 ### 1.4. Found out Dependencies
 
-* There is a dependency  order 
+* There is a dependency on order 
 
 ### 1.5 Input and Output Data
 
@@ -46,7 +46,7 @@ As a network manager, I want to list all deals made.
 
 * Typed data:
     * value
-	
+	* string
 * Selected data:
 	* Sorting algorithm
   
@@ -64,8 +64,11 @@ As a network manager, I want to list all deals made.
 
 #### Alternative One
 
-![Sequence Diagram- Alternative One](svg/us010-Sequence-diagram-alternative-one.svg)
+![Sequence Diagram- Alternative One](svg/us017-Sequence-diagram-alternative-one.svg)
 
+#### Alternative Two
+
+![Sequence Diagram- Alternative One](svg/us017-Sequence-diagram-alternative-two.svg)
 
 
 ### 1.7 Other Relevant Remarks

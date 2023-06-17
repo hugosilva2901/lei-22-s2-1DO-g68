@@ -46,20 +46,6 @@ This diagram shows the same sequence of interactions between the classes involve
 
 It uses interaction ocurrence.
 
-![Sequence Diagram - split](svg/us010-sequence-diagram-split.svg)
-
-**Get Announcements Partial SD**
-
-![Sequence Diagram - Partial - Get Task Category List](svg/us010-sequence-diagram-partial-get-Annoucements-list.svg)
-
-**Create order partial**
-
-![Sequence Diagram - Partial - Get Employee](svg/us010-sequence-diagram-partial-create-order.svg)
-
-**Get client**
-
-![Sequence Diagram - Partial - Create Task](svg/us010-sequence-diagram-partial-get-cliente.svg)
-
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us010-class-diagram.svg)
+![Class Diagram](svg/us017-class-diagram.svg)
