@@ -31,7 +31,7 @@ public class MessageVisitResponseController {
     }
 
     //test only
-    protected MessageVisitResponseController(MessageVisit messageVisit){
+    public MessageVisitResponseController(MessageVisit messageVisit){
         this.messageVisit = messageVisit;
     }
 
