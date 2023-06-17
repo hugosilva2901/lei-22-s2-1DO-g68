@@ -170,7 +170,7 @@ public class MatcpAlgorithms {
 
 
         }
-        regression.newSampleData();
+      //  regression.newSampleData();
     }
 
     ;
