@@ -108,9 +108,4 @@ public class MessageVisitResponseUI implements Runnable{
     }
 
 
-
-
-
-
-
 }

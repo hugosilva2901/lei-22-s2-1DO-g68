@@ -13,7 +13,7 @@ public class ClienteUI implements Runnable {
         options.add(new MenuItem("Register new property", new CreatePropertyUI()));
         options.add(new MenuItem("Place a Order", new CreateOrderUI()));
         options.add(new MenuItem("Visit Requests", new VisitRequestUI()));
-        options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
+        options.add(new MenuItem("Accept or Reject the appointment request", new MessageVisitResponseUI()));
 
 
         int option = 0;
