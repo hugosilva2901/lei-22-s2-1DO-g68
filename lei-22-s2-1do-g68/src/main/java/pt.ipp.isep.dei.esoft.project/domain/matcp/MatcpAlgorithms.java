@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.esoft.project.domain.matcp;
 import org.apache.commons.math4.legacy.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math4.legacy.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.SimpleRegression;
+import org.apache.commons.statistics.distribution.FDistribution;
+import org.apache.commons.statistics.distribution.TDistribution;
 import pt.ipp.isep.dei.esoft.project.domain.Apartment;
 import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
@@ -104,8 +106,9 @@ public class MatcpAlgorithms {
         standardErrors = regression.estimateRegressionParametersStandardErrors();
         for (int i = 0; i < beta.length; i++) {
             System.out.println("confidence levels of 90%");
-            double lowerBound = beta[i] - criticalValue * standardErrors[i];
-            double upperBound = beta[i] + criticalValue * standardErrors[i];
+            double aux= criticalValue * standardErrors[i];
+            double lowerBound = beta[i] - aux;
+            double upperBound = beta[i] + aux;
             System.out.println("Coefficient " + i + ": " + beta[i] + " +/- " + criticalValue * standardErrors[i] + " [" + lowerBound + ", " + upperBound + "]");
         }
 
@@ -113,9 +116,7 @@ public class MatcpAlgorithms {
         // Calculate the F-statistic
          // n number of observations
          // p number of independent variables
-
         double fStatistic = msr / mse;
-
         System.out.println("F-statistic: " + fStatistic);
 
         criticalValue=2.23215118;// Critical F-value for significance level of 5%
