@@ -3,32 +3,68 @@
 # 4. Tests 
 
 ```java
- @Test (test constructor with correct file)
+@Test 
+@DisplayName("test constructor with correct file")
     void testConstructor01(){
         assertDoesNotThrow(()->csvLoader = new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.csv"));
     }
     
-    @Test (test constructor with wrong file format)
+    
+@Test
+@DisplayName("test constructor with wrong file format")
     void testConstructor02(){
         assertThrows(InvalidPropertiesFormatException.class, () -> {
             new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodle.txt");
         });
     }
-    
-    @Test (test constructor with no header)
-    void testConstructor03(){
-        assertThrows(InvalidPropertiesFormatException.class, () -> {
-            new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest.txt");
-        });    }
 
-    @Test (test constructor with wrong header)
-    void testConstructor04(){
-        assertThrows(InvalidPropertiesFormatException.class, () -> {
-            new SubsetPartition("src/test/java/pt/ipp/isep/dei/esoft/project/ui/console/utils/legacyRealStateUSAMoodleTest2.txt");
-        });    }
+@Test
+@DisplayName("test subset partition with store list result")
+public void testSubsetPartitionWithStoreList() {
+
+        List<Store> storeList = new ArrayList<>();
+        storeList.add(new Store("Store1", Arrays.asList("Property1", "Property2")));
+        storeList.add(new Store("Store2", Arrays.asList("Property3")));
+        storeList.add(new Store("Store3", Arrays.asList("Property4", "Property5")));
+        storeList.add(new Store("Store4", Arrays.asList("Property6")));
+
+        SubsetPartition subsetPartition = new SubsetPartition(storeList);
+
+        List<SubsetPartition.Tuplet> minPartition = subsetPartition.getMinPartition();
+
+        Assert.assertEquals(2, minPartition.size());
+        Assert.assertTrue(minPartition.contains(new SubsetPartition.Tuplet("Store1", 2)));
+        Assert.assertTrue(minPartition.contains(new SubsetPartition.Tuplet("Store3", 2)));
+
+        Assert.assertEquals(4, subsetPartition.getSumSubset1());
+        Assert.assertEquals(3, subsetPartition.getSumSubset2());
+        Assert.assertEquals(1, subsetPartition.getDifference());
+        }
+
+@Test
+@DisplayName("test subset partition with infos")
+public void testSubsetPartitionWithInfos() {
+        
+        int[][] infoArray = {
+        {1, 2}, // Store1 with 2 properties
+        {2, 1}, // Store2 with 1 property
+        {3, 2}, // Store3 with 2 properties
+        {4, 1}  // Store4 with 1 property
+        };
+        
+        SubsetPartition subsetPartition = new SubsetPartition(infoArray);
+
+        List<SubsetPartition.Tuplet> minPartition = subsetPartition.getMinPartition();
+        
+        Assert.assertEquals(2, minPartition.size());
+        Assert.assertTrue(minPartition.contains(new SubsetPartition.Tuplet("1", 2)));
+        Assert.assertTrue(minPartition.contains(new SubsetPartition.Tuplet("3", 2)));
+
+        Assert.assertEquals(4, subsetPartition.getSumSubset1());
+        Assert.assertEquals(3, subsetPartition.getSumSubset2());
+        Assert.assertEquals(1, subsetPartition.getDifference());
+        }
 ```
-
-
 
 
 # 5. Construction (Implementation)
