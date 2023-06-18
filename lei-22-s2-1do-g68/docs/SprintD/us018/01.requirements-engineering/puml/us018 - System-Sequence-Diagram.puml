@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate st
 
-st -> System : asks to analyze the deals
+st -> System : Asks if the user wants to run a Simple Linear Regression or a Multiple Linear Regression
 activate System
 
-System --> st : shows the deals
+System --> st : show the values
 deactivate System
 
 deactivate st

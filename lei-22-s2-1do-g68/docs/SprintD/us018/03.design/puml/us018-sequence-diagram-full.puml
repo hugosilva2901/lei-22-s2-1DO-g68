@@ -169,14 +169,41 @@ activate CSV
 CSV --> UI : All the information have been saved
 deactivate CSV
 
-UI -> CTRL : AnalyzeDeals()
-activate CTRL
-
-CTRL --> UI : show the comparison between the values of the deals
-deactivate CTRL
-
-UI --> User : show the comparison between the values of the deals
+UI -->  User: Asks if the user wants to run a Simple Linear Regression or a Multiple Linear Regression
 deactivate UI
 
+alt Simple Regression
+User -> UI: selects to run Simple Linear Regression
+activate UI
+
+UI --> User: Asks if the user wants to run the simple linear regression for Property Area, distance form center, number of bedrooms, number of bathrooms or number of garages
+deactivate UI
+
+User -> UI: User selects to run the simple linear regression for Property Area, distance form center, number of bedrooms, number of bathrooms or number of garages
+activate UI
+
+UI -> CTRL: RegressoesLinearesSimples()
+activate CTRL
+
+CTRL --> UI: Show the values
+deactivate
+
+UI --> User: Show the values
+deactivate
+end
+
+alt Multiple Regression
+User -> UI: selects to run Multiple Linear Regression
+activate UI
+
+UI -> CTRL: RegressoesLinearesMultiples()
+activate CTRL
+
+CTRL --> UI: Show the values
+deactivate
+
+UI --> User: Show the values
+deactivate
+end
 deactivate User
 @enduml
