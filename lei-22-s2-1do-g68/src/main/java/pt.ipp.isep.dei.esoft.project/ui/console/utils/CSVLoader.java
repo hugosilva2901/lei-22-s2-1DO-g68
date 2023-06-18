@@ -57,6 +57,7 @@ public class CSVLoader {
 
     private void loadEntities(List<LegacySystemData> dataList){
         for(LegacySystemData data : dataList){
+            try{
             Store store = createStore(data);
             System.out.println("Created new Store" + store);
             Property property = createProperty(data);
@@ -66,9 +67,10 @@ public class CSVLoader {
             store.getProperties().add(property);
             propertyRepository.add(property);
             storeRepository.addStore(store);
-            clientRepository.addClient(client);
+            clientRepository.addClient(client);}catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
-        System.out.println(dataList.size());
     }
 
     private Store createStore(LegacySystemData data){

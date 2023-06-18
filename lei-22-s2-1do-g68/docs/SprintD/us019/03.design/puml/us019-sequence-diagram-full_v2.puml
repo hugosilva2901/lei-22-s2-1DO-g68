@@ -1,0 +1,64 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Manager" as Manager
+participant ":CalculatePartionUI" as UI
+participant ":CalculatePartionController" as controller
+participant ":SubsetPartition" as loader
+
+participant ":Repositories" as repository
+participant ":StoreRepository" as storeRepo
+
+activate Manager
+
+Manager ->UI : request to perform analyses on store
+    activate UI
+    UI -->Manager: request to input value N
+    deactivate UI
+Manager -> UI : input requested data
+    activate UI
+    UI -> controller** :  calculateWithNstores(n)
+        activate controller
+        controller -> repository : getInstance()
+            activate repository
+            repository->storeRepo : getStoreRepository()
+                activate storeRepo
+                storeRepo --> repository : store repository
+                deactivate storeRepo
+            repository --> controller : store repository
+            deactivate repository
+        controller -> storeRepo : getNstoreFromRepository(n)
+            activate storeRepo
+            storeRepo --> controller : store list
+            deactivate storeRepo
+        controller -> loader** : calculateWithNstores(store list)
+            activate loader
+            loop [ for each store on the list ]
+            loader -> Tuplet** : load Tuplet
+                activate Tuplet
+                Tuplet --> loader : tuplet
+                deactivate Tuplet
+            end loop
+            loader -->loader : list of tuplet
+            loader -> loader : calculatePartitions(list tuplet)
+            loader -> loader : findMinPartition()
+            loader -> loader : calculateSum(list tuplet)
+            loader --> controller : subset partion
+            deactivate loader
+        controller --> UI : subset partion
+        deactivate controller
+        UI --> Manager : display result and inform operation successful
+
+
+
+
+
+
+
+deactivate Manager
+@enduml

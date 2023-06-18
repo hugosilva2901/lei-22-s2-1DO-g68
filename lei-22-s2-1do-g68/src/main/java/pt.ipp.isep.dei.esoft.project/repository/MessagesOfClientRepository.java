@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MessagesOfClientRepository {
     Map<Client, List<String>> messages=new HashMap<>();
-    Map<EmployeeProject,List<MessageVisit>> messagesOfEmployee=new HashMap<>();
+    Map<String,List<MessageVisit>> messagesOfEmployee=new HashMap<>();
    private Map<String,List<MessageVisit>> MessageOfVisitByEmail=new HashMap<>();
     public void  addMessage(Client client, String message) {
         List<String> messagesOfClient = new ArrayList<>();
@@ -21,9 +21,22 @@ public class MessagesOfClientRepository {
         messagesOfClient.add(message);
         messages.put(client,messagesOfClient);
     }
+    public void  addMessageOfEmployee(String email, MessageVisit message) {
+
+        List<MessageVisit> messagesOfClient = new ArrayList<>();
+        if (messagesOfEmployee.get(email) != null) {
+            messagesOfClient = messagesOfEmployee.get(email);
+        }
+        messagesOfClient.add(message);
+        messagesOfEmployee.put(email,messagesOfClient);
+    }
 
     public Map<String, List<MessageVisit>> getMessageOfVisitByEmail() {
         return MessageOfVisitByEmail;
+    }
+
+    public List<MessageVisit> MessageOfVisitByEmail(String email) {
+        return MessageOfVisitByEmail.get(email);
     }
 
     public void setMessageOfVisitByEmail(Map<String, List<MessageVisit>> messageOfVisitByEmail) {

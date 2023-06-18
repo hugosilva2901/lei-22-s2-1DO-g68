@@ -34,11 +34,23 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-### Alternative 1 - Full Diagram
+### Interaction with UI - Full Diagram
 
-This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
+This diagram shows the full sequence of interactions between the actor involved in the realization of this user story and UI
+
+![Sequence Diagram - Full](svg/us019-sequence-diagram-selection.svg)
+
+### Option: Select calculate All - Full Diagram
+
+This diagram shows the full sequence of interactions between the class involved when the manager selects option calculate all
 
 ![Sequence Diagram - Full](svg/us019-sequence-diagram-full.svg)
+
+### Option: Select calculate with N - Full Diagram
+
+This diagram shows the full sequence of interactions between the class involved when the manager selects option calculate with N
+
+![Sequence Diagram - Full](svg/us019-sequence-diagram-full_v2.svg)
 
 ## 3.3. Class Diagram (CD)
 

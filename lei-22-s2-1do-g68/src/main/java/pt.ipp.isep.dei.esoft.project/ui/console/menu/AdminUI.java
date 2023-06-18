@@ -23,6 +23,7 @@ public class AdminUI implements Runnable {
         options.add(new MenuItem("Import Legacy System Data ", new ImportLegacySystemDataUI()));
         options.add(new MenuItem("List Deals", new ListDealUI()));
         options.add(new MenuItem("Show Employee", new ShowEmployeeUI()));
+        options.add(new MenuItem("Perform Subset Analysis", new CalculatePartionUI()));
 
         int option = 0;
 

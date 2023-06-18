@@ -11,6 +11,7 @@ class CalculatePartionUI{
 class CalculatePartionController{
  + calculateWithNstores(int n)
  + calculateAll()
+ + getNstoreFromRepository(int n)
 
 }
 
@@ -36,7 +37,10 @@ class SubsetPartition{
 +getSumSubset1()
 +getSumSubset2()
 }
-
+class Tuplet{
+    getPropertyCount()
+    getStoreId()
+}
 interface StoreRepository{
     +getStoreList()
 }
@@ -48,6 +52,6 @@ CalculatePartionController --> SubsetPartition : uses
 EmployeeProject --> SubsetPartition : uses
 SubsetPartition --> Store : perform analysis
 EmployeeProject -|> User : is >
-
+SubsetPartition *-- Tuplet : < owned
 
 @enduml
