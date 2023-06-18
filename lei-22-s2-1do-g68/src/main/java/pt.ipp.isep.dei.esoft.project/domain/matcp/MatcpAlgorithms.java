@@ -28,7 +28,7 @@ public class MatcpAlgorithms {
         int n = (int) regression.getN();
         int k = 1;
         double adjustedRSquare = 1 - ((1 - rSquare) * (n - 1) / (n - k - 1));
-        System.out.println("R-"+r);
+        System.out.println("R: "+r);
         System.out.println("Slope: " + slope);
         System.out.println("Intercept: " + intercept);
         System.out.println("R-Square: " + rSquare);
