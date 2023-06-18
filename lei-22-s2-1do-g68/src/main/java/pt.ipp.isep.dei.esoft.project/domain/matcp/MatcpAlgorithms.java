@@ -15,7 +15,6 @@ public class MatcpAlgorithms {
 
     PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
 
-
     private void SimpleRegression(SimpleRegression regression) {
 
 // Estimate the slope and intercept of the regression line
@@ -62,9 +61,22 @@ public class MatcpAlgorithms {
     private void MultipleLinearRegression(OLSMultipleLinearRegression regression, int n, int p) {
         double rSquared = regression.calculateRSquared();
         double adjustedRSquared = regression.calculateAdjustedRSquared();
+        double sse = regression.calculateResidualSumOfSquares();
+        double sst = regression.calculateTotalSumOfSquares();
+        double ssr = sst - sse;
+        double mse = sse / (n - p - 1);
+        double msr = ssr / p;
+        System.out.println("Multiple Linear Regression");
         System.out.println("R-squared: " + rSquared);
         System.out.println("Adjusted R-squared: " + adjustedRSquared);
-
+        System.out.println("degres of liberty of the model: " + (p ));
+        System.out.println("degres of liberty of the residuals: " + (n - p));
+        System.out.println("Sum of Squares Total: " + sst);
+        System.out.println("Sum of Squares Error: " + sse);
+        System.out.println("Sum of Total: " + (sst+sse));
+        System.out.println("Sum of Squares Regression: " + ssr);
+        System.out.println("Mean Square Regression: " + msr);
+        System.out.println("Mean Square Error: " + mse);
         double criticalValue = 1.96; // for 95% confidence interval
 
         double[] beta = regression.estimateRegressionParameters();
@@ -86,23 +98,27 @@ public class MatcpAlgorithms {
         }
 
         // Perform a hypothesis test for the regression coefficients
+        // Calculate the F-statistic
+         // n number of observations
+         // p number of independent variables
 
-        double fStatistic = (rSquared / (p - 1)) / ((1 - rSquared) / (n - p));
+        double fStatistic = msr / mse;
 
         System.out.println("F-statistic: " + fStatistic);
 
-        criticalValue=1.64;// significant levels of 5%
+        criticalValue=2.23215118;// Critical F-value for significance level of 5%
         if (fStatistic > criticalValue) {
             System.out.println("Reject the null hypothesis at a significance level of 5%");
         } else {
             System.out.println("Do not reject the null hypothesis at a significance level of 5%");
         }
-        criticalValue=2.58;//  significant levels of 1%
+        criticalValue=3.05419133;//  Critical F-value for significant levels of 1%
         if (fStatistic > criticalValue) {
             System.out.println("Reject the null hypothesis at a significance level of 1%");
         } else {
             System.out.println("Do not reject the null hypothesis at a significance level of   1%");
         }
+
     }
 
     public void PropertyArea() {
@@ -219,51 +235,28 @@ public class MatcpAlgorithms {
         SimpleRegression(regression);
 
     }
-
-    public void AreaAndDistance() {
-        MultipleRegression();
-    }
-
-
-    private void MultipleRegression() {
-        //MultipleLinearRegression regression = new MultipleLinearRegression();
+    public void mult(){
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-
         double[] y = new double[orderRepository.getOrders().size()];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             y[i] = orderRepository.getOrders().get(i).getValue();
         }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
+        double[][] x = new double[orderRepository.getOrders().size()][5];
         for (int i = 0; i < orderRepository.getOrders().size(); i++) {
             x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
 
             x[i][1] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
-
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void AreaAndNumberOfBedroomsP() {
-        AreaAndNumberOfBedrooms();
-    }
-
-    private void AreaAndNumberOfBedrooms() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
             House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
             if (house != null) {
-                x[i][1] = house.getNumberOfRooms();
+                x[i][2] = house.getNumberOfRooms();
+                x[i][3] = house.getNumberOfBathrooms();
+                x[i][4] = house.getNumberOfGarages();
             } else {
                 Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
                 if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfRooms();
+                    x[i][2] = apartment.getNumberOfRooms();
+                    x[i][3] = apartment.getNumberOfBathrooms();
+                    x[i][4] = apartment.getNumberOfGarages();
                 }
             }
         }
@@ -271,223 +264,6 @@ public class MatcpAlgorithms {
         MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
-    public void AreaAndNumberOfBathroomsP() {
-        AreaAndNumberOfBathrooms();
-    }
 
-    private void AreaAndNumberOfBathrooms() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][1] = house.getNumberOfBathrooms();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfBathrooms();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void AreaAndNumberOfGaragesP() {
-        AreaAndNumberOfGarages();
-    }
-
-    private void AreaAndNumberOfGarages() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getProperty_area();
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][1] = house.getNumberOfGarages();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfGarages();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void DistanceAndNumberOfRoomsP() {
-        DistanceAndNumberOfRooms();
-    }
-
-    private void DistanceAndNumberOfRooms() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][1] = house.getNumberOfRooms();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfRooms();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void DistanceAndNumberOfBathroomsP() {
-        DistanceAndNumberOfBathrooms();
-    }
-
-    private void DistanceAndNumberOfBathrooms() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][1] = house.getNumberOfBathrooms();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfBathrooms();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void DistanceAndNumberOfGaragesP() {
-        DistanceAndNumberOfGarages();
-    }
-
-    private void DistanceAndNumberOfGarages() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            x[i][0] = orderRepository.getOrders().get(i).getAnnouncement().getProperty().getDistanceFromCenter();
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][1] = house.getNumberOfGarages();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][1] = apartment.getNumberOfGarages();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void NumberOfRoomsAndNumberOfBathroomsP() {
-        NumberOfRoomsAndNumberOfBathrooms();
-    }
-
-    private void NumberOfRoomsAndNumberOfBathrooms() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][0] = house.getNumberOfRooms();
-                x[i][1] = house.getNumberOfBathrooms();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][0] = apartment.getNumberOfRooms();
-                    x[i][1] = apartment.getNumberOfBathrooms();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void NumberOfRoomsAndNumberOfGaragesP() {
-        NumberOfRoomsAndNumberOfGarages();
-    }
-
-    private void NumberOfRoomsAndNumberOfGarages() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][0] = house.getNumberOfRooms();
-                x[i][1] = house.getNumberOfGarages();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][0] = apartment.getNumberOfRooms();
-                    x[i][1] = apartment.getNumberOfGarages();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
-
-    public void NumberOfBathroomsAndNumberOfGaragesP() {
-        NumberOfBathroomsAndNumberOfGarages();
-    }
-
-    private void NumberOfBathroomsAndNumberOfGarages() {
-        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-        double[] y = new double[orderRepository.getOrders().size()];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            y[i] = orderRepository.getOrders().get(i).getValue();
-        }
-        double[][] x = new double[orderRepository.getOrders().size()][2];
-        for (int i = 0; i < orderRepository.getOrders().size(); i++) {
-            House house = propertyRepository.getHouseByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-            if (house != null) {
-                x[i][0] = house.getNumberOfBathrooms();
-                x[i][1] = house.getNumberOfGarages();
-            } else {
-                Apartment apartment = propertyRepository.getApartmentByAddress(orderRepository.getOrders().get(i).getAnnouncement().getProperty().getAddress());
-                if (apartment != null) {
-                    x[i][0] = apartment.getNumberOfBathrooms();
-                    x[i][1] = apartment.getNumberOfGarages();
-                }
-            }
-        }
-        regression.newSampleData(y, x);
-        MultipleLinearRegression(regression, y.length, x[0].length);
-    }
 }
 
