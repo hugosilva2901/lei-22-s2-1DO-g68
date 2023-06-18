@@ -53,6 +53,8 @@ public class MatcpAlgorithms {
 
 // Perform a hypothesis test for the slope
         double pValue = regression.getSignificance();
+        double fStatistic = regression.getN() * regression.getRSquare() / (1 - regression.getRSquare());
+        System.out.println("F-Statistic: " + fStatistic);
         System.out.println("p-value: " + pValue);
 
     }
@@ -88,12 +90,7 @@ public class MatcpAlgorithms {
         double fStatistic = (rSquared / (p - 1)) / ((1 - rSquared) / (n - p));
 
         System.out.println("F-statistic: " + fStatistic);
-/*
-        FDistribution fDist = new FDistribution(p - 1, n - p);
-        double pValue = 1 - fDist.cumulativeProbability(fStatistic);
 
-
- */
         criticalValue=1.64;// significant levels of 5%
         if (fStatistic > criticalValue) {
             System.out.println("Reject the null hypothesis at a significance level of 5%");
