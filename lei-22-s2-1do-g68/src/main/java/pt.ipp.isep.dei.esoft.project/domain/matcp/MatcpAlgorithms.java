@@ -1,11 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain.matcp;
 
 import org.apache.commons.math4.legacy.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.math4.legacy.stat.regression.MultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math4.legacy.stat.regression.SimpleRegression;
-import org.apache.commons.statistics.distribution.FDistribution;
-import org.apache.commons.statistics.distribution.TDistribution;
 import pt.ipp.isep.dei.esoft.project.domain.Apartment;
 import pt.ipp.isep.dei.esoft.project.domain.House;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
@@ -17,7 +14,6 @@ public class MatcpAlgorithms {
     OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
 
     PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
-
 
 
     private void SimpleRegression(SimpleRegression regression) {
@@ -32,6 +28,7 @@ public class MatcpAlgorithms {
         int n = (int) regression.getN();
         int k = 1;
         double adjustedRSquare = 1 - ((1 - rSquare) * (n - 1) / (n - k - 1));
+        System.out.println("R-"+r);
         System.out.println("Slope: " + slope);
         System.out.println("Intercept: " + intercept);
         System.out.println("R-Square: " + rSquare);
@@ -39,9 +36,20 @@ public class MatcpAlgorithms {
 
 // Get a confidence interval for the slope
         double alpha = 0.95; // significance level
-        double lowerBound = regression.getSlopeConfidenceInterval(alpha);
-        double upperBound = regression.getSlopeConfidenceInterval(alpha);
-        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound);
+        double b1 = regression.getSlope(); // estimated slope
+        double se = regression.getSlopeStdErr(); // standard error
+        double criticalValue = 1.96; // for 95% confidence interval
+        double marginOfError = se * criticalValue;
+        double lowerBound = b1-marginOfError;
+        double upperBound = b1+marginOfError;
+        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound + " for " + alpha + "%");
+
+        alpha = 0.90; // significance level
+        criticalValue = 1.645; // for 90% confidence interval
+        marginOfError = se * criticalValue;
+        lowerBound =  b1-marginOfError;
+        upperBound =  b1+marginOfError;
+        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound + " for " + alpha + "%");
 
 // Perform a hypothesis test for the slope
         double pValue = regression.getSignificance();
@@ -49,35 +57,32 @@ public class MatcpAlgorithms {
 
     }
 
-    private void MultipleLinearRegression(OLSMultipleLinearRegression regression,int n,int p) {
+    private void MultipleLinearRegression(OLSMultipleLinearRegression regression, int n, int p) {
         double rSquared = regression.calculateRSquared();
         double adjustedRSquared = regression.calculateAdjustedRSquared();
         System.out.println("R-squared: " + rSquared);
         System.out.println("Adjusted R-squared: " + adjustedRSquared);
 
-        // Get the regression coefficients, their standard errors, and t-statistics
-/*
-        double pointEstimate = stats.getMean();
-        double standardDeviation = stats.getStandardDeviation();
-
- */
         double criticalValue = 1.96; // for 95% confidence interval
-        /*
-        long sampleSize = stats.getN();
-        double standardError = standardDeviation / Math.sqrt(sampleSize);
-        double marginOfError = criticalValue * standardError;
-        double lowerBound = pointEstimate - marginOfError;
-        double upperBound = pointEstimate + marginOfError;
-        System.out.println("Confidence Interval: " + lowerBound + " - " + upperBound);
 
-         */
         double[] beta = regression.estimateRegressionParameters();
         double[] standardErrors = regression.estimateRegressionParametersStandardErrors();
         for (int i = 0; i < beta.length; i++) {
+            System.out.println("confidence levels of 95%");
             double lowerBound = beta[i] - criticalValue * standardErrors[i];
             double upperBound = beta[i] + criticalValue * standardErrors[i];
             System.out.println("Coefficient " + i + ": " + beta[i] + " +/- " + criticalValue * standardErrors[i] + " [" + lowerBound + ", " + upperBound + "]");
         }
+        criticalValue = 1.645; // for 90% confidence interval
+        beta = regression.estimateRegressionParameters();
+        standardErrors = regression.estimateRegressionParametersStandardErrors();
+        for (int i = 0; i < beta.length; i++) {
+            System.out.println("confidence levels of 90%");
+            double lowerBound = beta[i] - criticalValue * standardErrors[i];
+            double upperBound = beta[i] + criticalValue * standardErrors[i];
+            System.out.println("Coefficient " + i + ": " + beta[i] + " +/- " + criticalValue * standardErrors[i] + " [" + lowerBound + ", " + upperBound + "]");
+        }
+
         // Perform a hypothesis test for the regression coefficients
 
         double fStatistic = (rSquared / (p - 1)) / ((1 - rSquared) / (n - p));
@@ -89,11 +94,17 @@ public class MatcpAlgorithms {
 
 
  */
-        
+        criticalValue=1.64;// significant levels of 5%
         if (fStatistic > criticalValue) {
-            System.out.println("Reject the null hypothesis at a significance level of 0.95");
+            System.out.println("Reject the null hypothesis at a significance level of 5%");
         } else {
-            System.out.println("Do not reject the null hypothesis at a significance level of  0.95");
+            System.out.println("Do not reject the null hypothesis at a significance level of 5%");
+        }
+        criticalValue=2.58;//  significant levels of 1%
+        if (fStatistic > criticalValue) {
+            System.out.println("Reject the null hypothesis at a significance level of 1%");
+        } else {
+            System.out.println("Do not reject the null hypothesis at a significance level of   1%");
         }
     }
 
@@ -233,7 +244,7 @@ public class MatcpAlgorithms {
 
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void AreaAndNumberOfBedroomsP() {
@@ -260,7 +271,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void AreaAndNumberOfBathroomsP() {
@@ -287,7 +298,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void AreaAndNumberOfGaragesP() {
@@ -314,7 +325,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void DistanceAndNumberOfRoomsP() {
@@ -341,7 +352,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void DistanceAndNumberOfBathroomsP() {
@@ -368,7 +379,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void DistanceAndNumberOfGaragesP() {
@@ -395,7 +406,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void NumberOfRoomsAndNumberOfBathroomsP() {
@@ -423,7 +434,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void NumberOfRoomsAndNumberOfGaragesP() {
@@ -451,7 +462,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 
     public void NumberOfBathroomsAndNumberOfGaragesP() {
@@ -479,7 +490,7 @@ public class MatcpAlgorithms {
             }
         }
         regression.newSampleData(y, x);
-        MultipleLinearRegression(regression,y.length,x[0].length);
+        MultipleLinearRegression(regression, y.length, x[0].length);
     }
 }
 
