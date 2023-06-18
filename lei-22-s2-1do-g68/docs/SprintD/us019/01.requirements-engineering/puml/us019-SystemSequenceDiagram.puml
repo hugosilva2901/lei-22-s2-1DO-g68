@@ -14,9 +14,25 @@ activate Employee
 
     Employee -> System : ask to perform subset partition calculation
     activate System
-
-    System --> Employee : show result and displays\n operation success
+    loop
+    System --> Employee : Show options (calculate all / calculate with N) and request to select one
     deactivate System
+    alt [Employee select calculate all]
+    Employee -> System : select calculate All
+    activate System
+    System --> Employee : display result and inform operation successful
+    deactivate System
+    else [Employee select calculate with N]
+    Employee -> System : select calculate with N
+    activate System
+    System --> Employee : request to input value N
+    deactivate System
+    Employee -> System : input requested data
+    activate System
+    System -->Employee : diplay result and inform operation successful
+    deactivate System
+    end
+    end
 deactivate Employee
 
 

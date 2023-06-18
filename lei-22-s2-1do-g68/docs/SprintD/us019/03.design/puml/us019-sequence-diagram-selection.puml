@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Manager" as Manager
+participant ":CalculatePartionUI" as UI
+
+
+activate Manager
+
+Manager ->UI : request to perform analyses on store
+    activate UI
+    loop
+    UI --> Manager : show options (calculate all / calculate with N)\n and request to select one
+    deactivate UI
+alt [select calculate All]
+Manager ->UI :select calculate All
+    activate UI
+    note right : the rest part of sequence diagram is\n demonstrated on file SD_Full
+    UI --> Manager : display results and inform operation successful
+    deactivate UI
+else [Select calculate with N]
+Manager -> UI : select calculate with N value
+    activate UI
+    UI --> Manager : request to input value N
+    deactivate UI
+UI -> Manager : input requested data
+    activate UI
+    note right : the rest part of sequence diagram is\n demonstrated on file SD_Full_v2
+UI --> Manager : display results and inform operation successful
+    deactivate UI
+    end
+deactivate Manager
+
+
+
+
+
+    end
+
+
+
+
+
+
+
+deactivate Manager
+@enduml
