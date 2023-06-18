@@ -20,11 +20,17 @@ public class MatcpAlgorithms {
 // Estimate the slope and intercept of the regression line
         double slope = regression.getSlope();
         double intercept = regression.getIntercept();
-
+// Calculate the mean square regression (MSR)
+        int n = (int) regression.getN();
+        double sse = regression.getSumSquaredErrors();
+        double sst = regression.getTotalSumSquares();
+        double ssr = sst - sse;
+        double msr = ssr;
+        // Calculate the mean square error (MSE)
+        double mse = sse / (n - 2);
 // Get other statistics
         double r = regression.getR();
         double rSquare = regression.getRSquare();
-        int n = (int) regression.getN();
         int k = 1;
         double adjustedRSquare = 1 - ((1 - rSquare) * (n - 1) / (n - k - 1));
         System.out.println("R: "+r);
@@ -32,6 +38,12 @@ public class MatcpAlgorithms {
         System.out.println("Intercept: " + intercept);
         System.out.println("R-Square: " + rSquare);
         System.out.println("Adjusted R-Square: " + adjustedRSquare);
+        System.out.println("Sum of Squares Total: " + sst);
+        System.out.println("Sum of Squares Error: " + sse);
+        System.out.println("Sum of Total: " + (sst+sse));
+        System.out.println("Sum of Squares Regression: " + ssr);
+        System.out.println("Mean Square Regression: " + msr);
+        System.out.println("Mean Square Error: " + mse);
 
 // Get a confidence interval for the slope
         double alpha = 0.95; // significance level
@@ -52,7 +64,7 @@ public class MatcpAlgorithms {
 
 // Perform a hypothesis test for the slope
         double pValue = regression.getSignificance();
-        double fStatistic = regression.getN() * regression.getRSquare() / (1 - regression.getRSquare());
+        double fStatistic =msr / mse;
         System.out.println("F-Statistic: " + fStatistic);
         System.out.println("p-value: " + pValue);
 
